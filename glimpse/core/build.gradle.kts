@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("io.gitlab.arturbosch.detekt") version "1.14.2"
+    `maven-publish`
 }
 
 repositories {
@@ -60,5 +61,51 @@ android {
     defaultConfig {
         minSdkVersion(24)
         targetSdkVersion(30)
+    }
+}
+
+publishing {
+    publications.filterIsInstance<MavenPublication>().forEach { publication ->
+        publication.artifactId = "${project.parent?.name}-${publication.artifactId}"
+        publication.pom {
+            name.set("Glimpse ${project.name.capitalize()}")
+            description.set("OpenGL made simple")
+            url.set("https://glimpse.graphics/")
+            scm {
+                connection.set("scm:git:https://github.com/glimpse-graphics/glimpse.git")
+                developerConnection.set("scm:git:https://github.com/glimpse-graphics/glimpse.git")
+                url.set("https://github.com/glimpse-graphics/glimpse")
+            }
+            licenses {
+                license {
+                    name.set("The Apache Software License, Version 2.0")
+                    url.set("http://www.apache.org/licenses/LICENSE-2.0")
+                }
+            }
+            developers {
+                developer {
+                    id.set("sczerwinski")
+                    name.set("Slawomir Czerwinski")
+                    email.set("slawomir@czerwinski.it")
+                    url.set("https://czerwinski.it/")
+                }
+            }
+            issueManagement {
+                system.set("GitHub Issues")
+                url.set("https://github.com/glimpse-graphics/glimpse/issues")
+            }
+            ciManagement {
+                system.set("GitHub Actions")
+                url.set("https://github.com/glimpse-graphics/glimpse/actions")
+            }
+        }
+    }
+
+    publications {
+        repositories {
+            maven {
+                url = uri("$buildDir/maven")
+            }
+        }
     }
 }
