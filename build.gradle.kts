@@ -11,10 +11,14 @@ buildscript {
     }
 }
 
-group = "graphics.glimpse"
-version = "1.0.0"
-
 allprojects {
+
+    val glimpseGroupId: String by project
+    val glimpseVersion: String by project
+
+    group = glimpseGroupId
+    version = glimpseVersion
+
     repositories {
         jcenter()
         mavenCentral()

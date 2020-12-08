@@ -7,6 +7,6 @@ pluginManagement {
     }
 }
 
-rootProject.name = "glimpse"
+rootProject.name = "glimpse-graphics"
 
 include(":glimpse:core")

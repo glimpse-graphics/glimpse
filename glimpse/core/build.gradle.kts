@@ -4,9 +4,6 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version "1.14.2"
 }
 
-group = "graphics.glimpse"
-version = "1.0.0"
-
 repositories {
     google()
 }
