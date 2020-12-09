@@ -1,0 +1,5 @@
+# Allow bigger complexity in utility classes:
+complexity:
+  TooManyFunctions:
+    thresholdInFiles: 30
+    thresholdInClasses: 30
