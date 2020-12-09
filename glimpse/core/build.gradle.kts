@@ -45,7 +45,7 @@ kotlin {
 
 detekt {
     input = files(kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories })
-    config = files(".config/detekt.yml")
+    config = files("$rootDir/.config/detekt.yml")
     buildUponDefaultConfig = true
     reports {
         xml {
