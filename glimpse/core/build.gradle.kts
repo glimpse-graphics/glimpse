@@ -1,8 +1,12 @@
+import org.jetbrains.dokka.gradle.DokkaTask
+
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
     id("io.gitlab.arturbosch.detekt") version "1.14.2"
+    id("org.jetbrains.dokka") version "1.4.20"
     `maven-publish`
+    signing
 }
 
 repositories {
@@ -68,11 +72,43 @@ android {
     }
 }
 
-publishing {
-    publications {
-        afterEvaluate {
+tasks {
+
+    val dokkaJavadocAll by creating(DokkaTask::class.java) {
+        outputDirectory.set(buildDir.resolve("javadoc"))
+        dokkaSourceSets {
+            named("commonMain") {
+                moduleName.set("Glimpse Core")
+                includes.from(files("packages.md"))
+            }
+            named("desktopMain") {
+                moduleName.set("Glimpse Core")
+                includes.from(files("packages.md"))
+            }
+            named("androidMain") {
+                moduleName.set("Glimpse Core")
+                includes.from(files("packages.md"))
+            }
+        }
+    }
+
+    val javadocJarAll = create<Jar>("javadocJarAll") {
+        dependsOn.add(dokkaJavadocAll)
+        archiveClassifier.set("javadoc")
+        from(dokkaJavadocAll)
+    }
+
+    artifacts {
+        archives(javadocJarAll)
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
             filterIsInstance<MavenPublication>().forEach { publication ->
                 publication.artifactId = "${project.parent?.name}-${publication.artifactId}"
+                publication.artifact(tasks["javadocJarAll"])
                 publication.pom {
                     name.set("Glimpse ${project.name.capitalize()}")
                     description.set("OpenGL made simple")
@@ -112,6 +148,16 @@ publishing {
             maven {
                 url = uri("$buildDir/maven")
             }
+        }
+    }
+
+    if (project.hasProperty("signing.keyId")) {
+        signing {
+            sign(
+                *publishing.publications
+                    .filterIsInstance<MavenPublication>()
+                    .toTypedArray()
+            )
         }
     }
 }
