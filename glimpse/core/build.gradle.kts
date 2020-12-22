@@ -6,6 +6,7 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version "1.14.2"
     id("org.jetbrains.dokka") version "1.4.20"
     `maven-publish`
+    signing
 }
 
 repositories {
@@ -102,9 +103,9 @@ tasks {
     }
 }
 
-publishing {
-    publications {
-        afterEvaluate {
+afterEvaluate {
+    publishing {
+        publications {
             filterIsInstance<MavenPublication>().forEach { publication ->
                 publication.artifactId = "${project.parent?.name}-${publication.artifactId}"
                 publication.artifact(tasks["javadocJarAll"])
@@ -147,6 +148,16 @@ publishing {
             maven {
                 url = uri("$buildDir/maven")
             }
+        }
+    }
+
+    if (project.hasProperty("signing.keyId")) {
+        signing {
+            sign(
+                *publishing.publications
+                    .filterIsInstance<MavenPublication>()
+                    .toTypedArray()
+            )
         }
     }
 }
