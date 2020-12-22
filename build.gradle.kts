@@ -15,9 +15,12 @@ allprojects {
 
     val glimpseGroupId: String by project
     val glimpseVersion: String by project
+    val glimpseVersionSuffix: String by project
 
     group = glimpseGroupId
-    version = glimpseVersion
+    version =
+        if (glimpseVersionSuffix.isBlank()) glimpseVersion
+        else "$glimpseVersion-$glimpseVersionSuffix"
 
     repositories {
         jcenter()
