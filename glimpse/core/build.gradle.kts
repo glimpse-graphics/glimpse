@@ -146,6 +146,19 @@ afterEvaluate {
 
         repositories {
             maven {
+                if (System.getenv("SONATYPE_USERNAME") != null) {
+                    val isSnapshot = project.version.toString().endsWith("SNAPSHOT")
+                    url = project.uri(
+                        if (isSnapshot) "https://oss.sonatype.org/content/repositories/snapshots/"
+                        else "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                    )
+                    credentials {
+                        username = System.getenv("SONATYPE_USERNAME")
+                        password = System.getenv("SONATYPE_PASSWORD")
+                    }
+                } else {
+                    url = project.uri("${buildDir}/maven")
+                }
                 url = uri("$buildDir/maven")
             }
         }
