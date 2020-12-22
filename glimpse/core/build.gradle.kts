@@ -159,7 +159,6 @@ afterEvaluate {
                 } else {
                     url = project.uri("${buildDir}/maven")
                 }
-                url = uri("$buildDir/maven")
             }
         }
     }
