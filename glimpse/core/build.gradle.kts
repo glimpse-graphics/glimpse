@@ -20,10 +20,11 @@ kotlin {
 
     jvm(name = "desktop") {
         compilations.all {
-            kotlinOptions.jvmTarget = "11"
+            kotlinOptions.jvmTarget = "1.8"
         }
     }
 
+    @Suppress("UNUSED_VARIABLE")
     sourceSets {
         val commonMain by getting
         val commonTest by getting {
@@ -35,7 +36,7 @@ kotlin {
         val androidMain by getting
         val androidTest by getting {
             dependencies {
-                implementation("junit:junit:4.13.1")
+                implementation(kotlin("test-junit"))
             }
         }
         val desktopMain by getting
@@ -73,6 +74,12 @@ android {
 }
 
 tasks {
+
+    withType(Test::class.java) {
+        testLogging {
+            events("passed", "skipped", "failed")
+        }
+    }
 
     val dokkaJavadocAll by creating(DokkaTask::class.java) {
         outputDirectory.set(buildDir.resolve("javadoc"))
