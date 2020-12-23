@@ -6,6 +6,10 @@ Glimpse Core
 
 Glimpse Core API
 
+# Package graphics.glimpse.types
+
+Glimpse data types
+
 # Package graphics.glimpse.desktop
 
 Glimpse Core Desktop Implementation
