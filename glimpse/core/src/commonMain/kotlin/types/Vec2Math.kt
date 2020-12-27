@@ -17,17 +17,15 @@
 
 package graphics.glimpse.types
 
-/**
- * Computes the sine of the specified [angle].
- */
-fun sin(angle: Angle): Float = kotlin.math.sin(angle.rad)
+import kotlin.math.sqrt
 
 /**
- * Computes the cosine of the specified [angle].
+ * Returns the magnitude of the given [vector].
  */
-fun cos(angle: Angle): Float = kotlin.math.cos(angle.rad)
+fun magnitude(vector: Vec2): Float =
+    sqrt((vector.x * vector.x + vector.y * vector.y))
 
 /**
- * Computes the tangent of the specified [angle].
+ * Returns a unit vector in the direction of the given [vector].
  */
-fun tan(angle: Angle): Float = kotlin.math.tan(angle.rad)
+fun normalize(vector: Vec2): Vec2 = vector / magnitude(vector)

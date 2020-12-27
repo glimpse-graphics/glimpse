@@ -2,13 +2,6 @@
 
 ## [Unreleased]
 ### Added
-
-### Changed
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
+- Core types:
+  - Angles
+  - Vectors
