@@ -5,4 +5,4 @@
 - Core types:
   - Angles
   - Vectors
-  - Matrices
+  - Matrices, including transformation, view and projection matrices
