@@ -212,7 +212,10 @@ class Vec3Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_spherical_coordinates_WHEN_fromSphericalCoordinates_THEN_return_vector_from_spherical_coordinates")
+    @JsName(
+        name = "GIVEN_spherical_coordinates_WHEN_fromSphericalCoordinates_" +
+            "THEN_return_vector_from_spherical_coordinates"
+    )
     fun `GIVEN spherical coordinates, WHEN fromSphericalCoordinates, THEN return vector from spherical coordinates`() {
         val distance = 5f
         val longitude = Angle.fromDeg(deg = 135f)
