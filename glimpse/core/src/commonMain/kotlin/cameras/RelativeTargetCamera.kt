@@ -20,7 +20,7 @@ package graphics.glimpse.cameras
 import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Mat4
 import graphics.glimpse.types.Vec3
-import graphics.glimpse.types.ViewMat4
+import graphics.glimpse.types.lookAt
 
 /**
  * A camera pointed at the given [target], and located at the given [distance] from it,
@@ -62,6 +62,5 @@ data class RelativeTargetCamera(
     /**
      * View matrix defined by the camera.
      */
-    override val viewMatrix: Mat4 =
-        ViewMat4.lookAt(eye, target, upVector)
+    override val viewMatrix: Mat4 = lookAt(eye, target, upVector)
 }

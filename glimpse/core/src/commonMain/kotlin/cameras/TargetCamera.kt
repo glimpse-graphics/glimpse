@@ -19,7 +19,7 @@ package graphics.glimpse.cameras
 
 import graphics.glimpse.types.Mat4
 import graphics.glimpse.types.Vec3
-import graphics.glimpse.types.ViewMat4
+import graphics.glimpse.types.lookAt
 
 /**
  * A camera located in the [eye] position and pointed at the given [target],
@@ -46,6 +46,5 @@ data class TargetCamera(
     /**
      * View matrix defined by the camera.
      */
-    override val viewMatrix: Mat4 =
-        ViewMat4.lookAt(eye, target, upVector)
+    override val viewMatrix: Mat4 = lookAt(eye, target, upVector)
 }

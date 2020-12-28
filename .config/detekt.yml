@@ -1,5 +1,7 @@
 # Allow bigger complexity in utility classes:
 complexity:
+  LongParameterList:
+    functionThreshold: 7
   TooManyFunctions:
     thresholdInFiles: 30
     thresholdInClasses: 30

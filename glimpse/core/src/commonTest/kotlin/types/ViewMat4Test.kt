@@ -30,7 +30,7 @@ class ViewMat4Test {
         val target = Vec3(x = 0f, y = 0f, z = 0f)
         val upVector = Vec3(x = 0f, y = 0f, z = 1f)
 
-        val result = ViewMat4.lookAt(eye, target, upVector)
+        val result = lookAt(eye, target, upVector)
 
         assertEqualsWithDelta(
             Mat4(
