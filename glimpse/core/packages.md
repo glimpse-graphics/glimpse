@@ -10,6 +10,10 @@ Cameras, defining view matrix.
 
 Lenses, defining projection matrix.
 
+# Package graphics.glimpse.logging
+
+Glimpse loggers.
+
 # Package graphics.glimpse.types
 
 Core data types.
