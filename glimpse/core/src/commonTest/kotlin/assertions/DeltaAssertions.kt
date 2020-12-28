@@ -19,6 +19,7 @@ package graphics.glimpse.assertions
 
 import graphics.glimpse.types.Mat3
 import graphics.glimpse.types.Mat4
+import graphics.glimpse.types.Vec3
 import kotlin.math.abs
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -64,6 +65,25 @@ fun assertEqualsWithDelta(
             message = "${messagePrefix}Different values at index <$index>"
         )
     }
+}
+
+/**
+ * Asserts that the [actual] vector is equal to the [expected] vector plus/minus [delta]
+ * (compared per coordinate), with an optional [message].
+ */
+fun assertEqualsWithDelta(
+    expected: Vec3,
+    actual: Vec3,
+    delta: Delta = Delta.FINE,
+    message: String? = null
+) {
+    val messagePrefix = messagePrefix(message)
+    assertEqualsWithDelta(
+        expected = expected.toFloatArray().toList(),
+        actual = actual.toFloatArray().toList(),
+        delta = delta,
+        message = "${messagePrefix}Vectors are different"
+    )
 }
 
 /**
