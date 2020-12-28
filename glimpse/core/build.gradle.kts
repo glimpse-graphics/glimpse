@@ -86,15 +86,15 @@ tasks {
         dokkaSourceSets {
             named("commonMain") {
                 moduleName.set("Glimpse Core")
-                includes.from(files("packages.md"))
+                includes.from(files("module.md", "packages.md"))
             }
             named("desktopMain") {
                 moduleName.set("Glimpse Core")
-                includes.from(files("packages.md"))
+                includes.from(files("module.md", "packages.md"))
             }
             named("androidMain") {
                 moduleName.set("Glimpse Core")
-                includes.from(files("packages.md"))
+                includes.from(files("module.md", "packages.md"))
             }
         }
     }
