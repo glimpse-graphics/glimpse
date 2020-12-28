@@ -1,5 +1,3 @@
-import org.jetbrains.dokka.gradle.DokkaTask
-
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
@@ -81,7 +79,7 @@ tasks {
         }
     }
 
-    val dokkaJavadocAll by creating(DokkaTask::class.java) {
+    dokkaHtml {
         outputDirectory.set(buildDir.resolve("javadoc"))
         dokkaSourceSets {
             named("commonMain") {
@@ -100,9 +98,9 @@ tasks {
     }
 
     val javadocJarAll = create<Jar>("javadocJarAll") {
-        dependsOn.add(dokkaJavadocAll)
+        dependsOn.add(dokkaHtml)
         archiveClassifier.set("javadoc")
-        from(dokkaJavadocAll)
+        from(dokkaHtml)
     }
 
     artifacts {
