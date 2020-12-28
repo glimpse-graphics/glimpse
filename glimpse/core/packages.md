@@ -1,7 +1,3 @@
-# Module core
-
-Glimpse Core
-
 # Package graphics.glimpse
 
 Glimpse Core API.

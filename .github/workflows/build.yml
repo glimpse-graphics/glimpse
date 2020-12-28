@@ -63,6 +63,7 @@ jobs:
 
   dokka:
     name: Generate Dokka Documentation
+    if: (github.event_name == 'pull_request') || (github.ref != 'refs/heads/main')
     needs: gradleValidation
     runs-on: ubuntu-latest
     steps:
@@ -73,7 +74,54 @@ jobs:
         with:
           java-version: 1.8
       - name: Generate Documentation
-        run: ./gradlew dokkaJavadocAll --stacktrace
+        run: ./gradlew dokkaHtml --stacktrace
+
+  publishDokka:
+    name: Publish Dokka Documentation
+    if: (github.event_name != 'pull_request') && (github.ref == 'refs/heads/main')
+    needs: properties
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch Sources
+        uses: actions/checkout@v2
+        with:
+          path: glimpse
+      - name: Fetch Documentation
+        uses: actions/checkout@v2
+        with:
+          repository: glimpse-graphics/docs
+          path: docs
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Generate Documentation
+        run: |
+          cd glimpse
+          ./gradlew dokkaHtmlMultiModule --stacktrace
+      - name: Update Documentation
+        env:
+          VERSION: v${{ needs.properties.outputs.version }}
+        run: |
+          cd docs
+          rm -rf $VERSION
+          mkdir $VERSION
+          cp ../glimpse/build/dokka/htmlMultiModule/* ./$VERSION/
+      - name: Commit Documentation Changes
+        env:
+          VERSION: v${{ needs.properties.outputs.version }}
+        run: |
+          cd docs
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Update docs $VERSION" -a
+      - name: Push Changes
+        uses: ad-m/github-push-action@master
+        with:
+          repository: glimpse-graphics/docs
+          branch: main
+          directory: docs
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
   build:
     name: Build Library

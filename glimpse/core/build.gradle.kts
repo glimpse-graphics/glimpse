@@ -1,10 +1,8 @@
-import org.jetbrains.dokka.gradle.DokkaTask
-
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
     id("io.gitlab.arturbosch.detekt") version "1.15.0"
-    id("org.jetbrains.dokka") version "1.4.20"
+    id("org.jetbrains.dokka")
     `maven-publish`
     signing
 }
@@ -81,28 +79,28 @@ tasks {
         }
     }
 
-    val dokkaJavadocAll by creating(DokkaTask::class.java) {
+    dokkaHtml {
         outputDirectory.set(buildDir.resolve("javadoc"))
         dokkaSourceSets {
             named("commonMain") {
                 moduleName.set("Glimpse Core")
-                includes.from(files("packages.md"))
+                includes.from(files("module.md", "packages.md"))
             }
             named("desktopMain") {
                 moduleName.set("Glimpse Core")
-                includes.from(files("packages.md"))
+                includes.from(files("module.md", "packages.md"))
             }
             named("androidMain") {
                 moduleName.set("Glimpse Core")
-                includes.from(files("packages.md"))
+                includes.from(files("module.md", "packages.md"))
             }
         }
     }
 
     val javadocJarAll = create<Jar>("javadocJarAll") {
-        dependsOn.add(dokkaJavadocAll)
+        dependsOn.add(dokkaHtml)
         archiveClassifier.set("javadoc")
-        from(dokkaJavadocAll)
+        from(dokkaHtml)
     }
 
     artifacts {
