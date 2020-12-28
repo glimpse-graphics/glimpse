@@ -2,7 +2,7 @@ plugins {
     id("com.android.library")
     kotlin("multiplatform")
     id("io.gitlab.arturbosch.detekt") version "1.15.0"
-    id("org.jetbrains.dokka") version "1.4.20"
+    id("org.jetbrains.dokka")
     `maven-publish`
     signing
 }

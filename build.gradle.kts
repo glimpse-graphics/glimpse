@@ -30,4 +30,5 @@ allprojects {
 
 plugins {
     id("org.jetbrains.changelog") version "0.6.2"
+    id("org.jetbrains.dokka") version "1.4.20"
 }
