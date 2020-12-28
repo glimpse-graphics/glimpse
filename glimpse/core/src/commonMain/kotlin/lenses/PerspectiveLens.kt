@@ -15,36 +15,28 @@
  *
  */
 
-package graphics.glimpse.cameras
+package graphics.glimpse.lenses
 
+import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Mat4
-import graphics.glimpse.types.Vec3
-import graphics.glimpse.types.lookAt
+import graphics.glimpse.types.perspective
 
 /**
- * A camera located in the [eye] position and pointed at the given [target],
- * while preserving the defined [upVector].
+ * A lens for a perspective projection defined by a given frustum.
+ *
+ * The frustum is defined by its [near] and [far] depth clipping planes,
+ * and its [field of view angle in the Y direction][fovY] and [aspect] ratio between X and Y
+ * field of view.
  */
-data class TargetCamera(
+data class PerspectiveLens(
+    val fovY: Angle,
+    val aspect: Float,
+    val near: Float,
+    val far: Float
+) : Lens {
 
     /**
-     * Position of the camera eye.
+     * Projection matrix defined by the lens.
      */
-    override val eye: Vec3,
-
-    /**
-     * Position of the camera target.
-     */
-    val target: Vec3,
-
-    /**
-     * Up-vector preserved for the camera.
-     */
-    val upVector: Vec3 = Vec3.unitZ
-) : Camera {
-
-    /**
-     * View matrix defined by the camera.
-     */
-    override val viewMatrix: Mat4 = lookAt(eye, target, upVector)
+    override val projectionMatrix: Mat4 = perspective(fovY, aspect, near, far)
 }

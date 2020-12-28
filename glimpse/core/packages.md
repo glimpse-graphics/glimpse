@@ -4,16 +4,24 @@ Glimpse Core
 
 # Package graphics.glimpse
 
-Glimpse Core API
+Glimpse Core API.
+
+# Package graphics.glimpse.cameras
+
+Cameras, defining view matrix.
+
+# Package graphics.glimpse.lenses
+
+Lenses, defining projection matrix.
 
 # Package graphics.glimpse.types
 
-Glimpse data types
+Core data types.
 
 # Package graphics.glimpse.desktop
 
-Glimpse Core Desktop Implementation
+Glimpse Core Desktop Implementation.
 
 # Package graphics.glimpse.android
 
-Glimpse Core Android Implementation
+Glimpse Core Android Implementation.

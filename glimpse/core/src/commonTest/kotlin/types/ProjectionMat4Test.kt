@@ -33,7 +33,7 @@ class ProjectionMat4Test {
         val near = 1f
         val far = 10f
 
-        val result = ProjectionMat4.frustum(
+        val result = frustum(
             left = left,
             right = right,
             bottom = bottom,
@@ -65,7 +65,7 @@ class ProjectionMat4Test {
         val near = 1f
         val far = 10f
 
-        val result = ProjectionMat4.perspective(angle, aspect, near, far)
+        val result = perspective(angle, aspect, near, far)
 
         assertEqualsWithDelta(
             Mat4(
@@ -90,7 +90,7 @@ class ProjectionMat4Test {
         val near = 1f
         val far = -1f
 
-        val result = ProjectionMat4.orthographic(
+        val result = orthographic(
             left = left,
             right = right,
             bottom = bottom,

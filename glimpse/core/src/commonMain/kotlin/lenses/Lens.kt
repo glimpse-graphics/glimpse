@@ -15,36 +15,17 @@
  *
  */
 
-package graphics.glimpse.cameras
+package graphics.glimpse.lenses
 
 import graphics.glimpse.types.Mat4
-import graphics.glimpse.types.Vec3
-import graphics.glimpse.types.lookAt
 
 /**
- * A camera located in the [eye] position and pointed at the given [target],
- * while preserving the defined [upVector].
+ * An interface for a lens.
  */
-data class TargetCamera(
+interface Lens {
 
     /**
-     * Position of the camera eye.
+     * Projection matrix defined by the lens.
      */
-    override val eye: Vec3,
-
-    /**
-     * Position of the camera target.
-     */
-    val target: Vec3,
-
-    /**
-     * Up-vector preserved for the camera.
-     */
-    val upVector: Vec3 = Vec3.unitZ
-) : Camera {
-
-    /**
-     * View matrix defined by the camera.
-     */
-    override val viewMatrix: Mat4 = lookAt(eye, target, upVector)
+    val projectionMatrix: Mat4
 }

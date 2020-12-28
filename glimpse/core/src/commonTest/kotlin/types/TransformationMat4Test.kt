@@ -29,7 +29,7 @@ class TransformationMat4Test {
     fun `GIVEN a vector, WHEN translation, THEN should generate translation matrix`() {
         val vector = Vec3(x = 7f, y = 11f, z = 13f)
 
-        val result = TransformationMat4.translation(vector)
+        val result = translation(vector)
 
         assertEquals(
             Mat4(
@@ -50,7 +50,7 @@ class TransformationMat4Test {
         val vector = Vec3(x = 1f, y = 1f, z = 1f)
         val angle = Angle.fromDeg(deg = 120f)
 
-        val result = TransformationMat4.rotation(vector, angle)
+        val result = rotation(vector, angle)
 
         assertEqualsWithDelta(
             Mat4(
@@ -70,7 +70,7 @@ class TransformationMat4Test {
     fun `GIVEN a an angle, WHEN rotationX, THEN should generate rotation matrix around X axis`() {
         val angle = Angle.fromDeg(deg = 30f)
 
-        val result = TransformationMat4.rotationX(angle)
+        val result = rotationX(angle)
 
         assertEqualsWithDelta(
             Mat4(
@@ -90,7 +90,7 @@ class TransformationMat4Test {
     fun `GIVEN a an angle, WHEN rotationY, THEN should generate rotation matrix around Y axis`() {
         val angle = Angle.fromDeg(deg = 30f)
 
-        val result = TransformationMat4.rotationY(angle)
+        val result = rotationY(angle)
 
         assertEqualsWithDelta(
             Mat4(
@@ -110,7 +110,7 @@ class TransformationMat4Test {
     fun `GIVEN a an angle, WHEN rotationZ, THEN should generate rotation matrix around Z axis`() {
         val angle = Angle.fromDeg(deg = 30f)
 
-        val result = TransformationMat4.rotationZ(angle)
+        val result = rotationZ(angle)
 
         assertEqualsWithDelta(
             Mat4(
@@ -130,7 +130,7 @@ class TransformationMat4Test {
     fun `GIVEN a number, WHEN scale, THEN should generate scale matrix`() {
         val number = 7f
 
-        val result = TransformationMat4.scale(number)
+        val result = scale(number)
 
         assertEquals(
             Mat4(
@@ -152,7 +152,7 @@ class TransformationMat4Test {
         val y = 5f
         val z = 7f
 
-        val result = TransformationMat4.scale(x, y, z)
+        val result = scale(x, y, z)
 
         assertEquals(
             Mat4(
@@ -173,7 +173,7 @@ class TransformationMat4Test {
         val normalVector = Vec3(x = 1f, y = 1f, z = 1f)
         val location = Vec3(x = 0f, y = 0f, z = 0f)
 
-        val result = TransformationMat4.mirror(normalVector, location)
+        val result = mirror(normalVector, location)
 
         assertEqualsWithDelta(
             Mat4(

@@ -17,19 +17,19 @@
 
 package graphics.glimpse.types
 
-object ViewMat4 {
-
-    fun lookAt(eye: Vec3, target: Vec3, upVector: Vec3): Mat4 {
-        val forward = normalize(vector = target - eye)
-        val right = normalize(forward cross upVector)
-        val up = right cross forward
-        return Mat4(
-            listOf(
-                right.x, up.x, -forward.x, 0f,
-                right.y, up.y, -forward.y, 0f,
-                right.z, up.z, -forward.z, 0f,
-                0f, 0f, 0f, 1f
-            )
-        ) * TransformationMat4.translation(-eye)
-    }
+/**
+ * Creates a view matrix defined by an [eye] position, a [target] point, and an [upVector].
+ */
+fun lookAt(eye: Vec3, target: Vec3, upVector: Vec3): Mat4 {
+    val forward = normalize(vector = target - eye)
+    val right = normalize(forward cross upVector)
+    val up = right cross forward
+    return Mat4(
+        listOf(
+            right.x, up.x, -forward.x, 0f,
+            right.y, up.y, -forward.y, 0f,
+            right.z, up.z, -forward.z, 0f,
+            0f, 0f, 0f, 1f
+        )
+    ) * translation(-eye)
 }

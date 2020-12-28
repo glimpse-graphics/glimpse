@@ -19,8 +19,11 @@ package graphics.glimpse.cameras
 
 import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Mat4
-import graphics.glimpse.types.TransformationMat4
 import graphics.glimpse.types.Vec3
+import graphics.glimpse.types.rotationX
+import graphics.glimpse.types.rotationY
+import graphics.glimpse.types.rotationZ
+import graphics.glimpse.types.translation
 
 /**
  * A freely transformed camera, defined by its [eye] position, and its rotations:
@@ -54,10 +57,10 @@ data class FreeCamera(
      */
     override val viewMatrix: Mat4 = listOf(
         initialMatrix,
-        TransformationMat4.rotationX(-roll),
-        TransformationMat4.rotationY(pitch),
-        TransformationMat4.rotationZ(-yaw),
-        TransformationMat4.translation(-eye),
+        rotationX(-roll),
+        rotationY(pitch),
+        rotationZ(-yaw),
+        translation(-eye),
     ).reduce { mat, transformation -> mat * transformation }
 
     companion object {

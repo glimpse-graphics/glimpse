@@ -7,3 +7,4 @@
   - Vectors
   - Matrices, including transformation, view and projection matrices
 - Cameras
+- Lenses

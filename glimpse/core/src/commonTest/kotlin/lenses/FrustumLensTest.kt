@@ -15,30 +15,35 @@
  *
  */
 
-package graphics.glimpse.types
+package graphics.glimpse.lenses
 
 import graphics.glimpse.assertions.assertEqualsWithDelta
+import graphics.glimpse.types.Mat4
 import kotlin.js.JsName
 import kotlin.test.Test
 
-class ViewMat4Test {
+class FrustumLensTest {
 
     @Test
-    @JsName(name = "GIVEN_eye_location_target_location_and_up_vector_WHEN_lookAt_THEN_should_generate_look_at_matrix")
-    fun `GIVEN eye location, target location and up vector, WHEN lookAt, THEN should generate look-at matrix`() {
-        val eye = Vec3(x = 0.5f, y = 0.5f, z = 0.7071067812f)
-        val target = Vec3(x = 0f, y = 0f, z = 0f)
-        val upVector = Vec3(x = 0f, y = 0f, z = 1f)
+    @JsName(name = "GIVEN_a_FrustumLens_WHEN_projectionMatrix_THEN_return_correct_matrix")
+    fun `GIVEN a FrustumLens, WHEN projectionMatrix, THEN return correct matrix`() {
+        val left = -2f
+        val right = 2f
+        val bottom = -1f
+        val top = 1f
+        val near = 1f
+        val far = 10f
+        val lens = FrustumLens(left, right, bottom, top, near, far)
 
-        val result = lookAt(eye, target, upVector)
+        val result = lens.projectionMatrix
 
         assertEqualsWithDelta(
             Mat4(
                 listOf(
-                    -0.7071067812f, -0.5f, 0.5f, 0f,
-                    0.7071067812f, -0.5f, 0.5f, 0f,
-                    0f, 0.7071067812f, 0.7071067812f, 0f,
-                    0f, 0f, -1f, 1f
+                    0.5f, 0f, 0f, 0f,
+                    0f, 1f, 0f, 0f,
+                    0f, 0f, -1.22222222f, -1f,
+                    0f, 0f, -2.22222222f, 0f
                 )
             ),
             result

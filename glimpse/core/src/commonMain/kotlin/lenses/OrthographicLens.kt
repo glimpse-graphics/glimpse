@@ -15,36 +15,26 @@
  *
  */
 
-package graphics.glimpse.cameras
+package graphics.glimpse.lenses
 
 import graphics.glimpse.types.Mat4
-import graphics.glimpse.types.Vec3
-import graphics.glimpse.types.lookAt
+import graphics.glimpse.types.orthographic
 
 /**
- * A camera located in the [eye] position and pointed at the given [target],
- * while preserving the defined [upVector].
+ * A lens for an orthographic (parallel) projection defined by a given set
+ * of clipping planes: [left], [right], [bottom], [top], [near] and [far].
  */
-data class TargetCamera(
+data class OrthographicLens(
+    val left: Float,
+    val right: Float = -left,
+    val bottom: Float,
+    val top: Float = -bottom,
+    val near: Float,
+    val far: Float
+) : Lens {
 
     /**
-     * Position of the camera eye.
+     * Projection matrix defined by the lens.
      */
-    override val eye: Vec3,
-
-    /**
-     * Position of the camera target.
-     */
-    val target: Vec3,
-
-    /**
-     * Up-vector preserved for the camera.
-     */
-    val upVector: Vec3 = Vec3.unitZ
-) : Camera {
-
-    /**
-     * View matrix defined by the camera.
-     */
-    override val viewMatrix: Mat4 = lookAt(eye, target, upVector)
+    override val projectionMatrix: Mat4 = orthographic(left, right, bottom, top, near, far)
 }
