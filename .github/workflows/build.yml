@@ -130,6 +130,7 @@ jobs:
 
   build:
     name: Build Library
+    if: (github.event_name == 'pull_request') || (github.ref != 'refs/heads/main')
     needs: gradleValidation
     runs-on: ubuntu-latest
     steps:
