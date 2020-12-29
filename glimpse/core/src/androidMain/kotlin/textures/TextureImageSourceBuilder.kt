@@ -26,37 +26,8 @@ import graphics.glimpse.GlimpseAdapter
  */
 actual class TextureImageSourceBuilder {
 
-    private var textureType: TextureType = TextureType.TEXTURE_2D
-    private var target: Int = 0
     private var filename: String = ""
     private var bitmapProvider: BitmapProvider = BitmapProvider { null }
-
-    /**
-     * Will build a source of a [2D texture][TextureType.TEXTURE_2D].
-     */
-    actual fun forTexture2D(): TextureImageSourceBuilder {
-        textureType = TextureType.TEXTURE_2D
-        target = GLES20.GL_TEXTURE_2D
-        return this
-    }
-
-    /**
-     * Will build a source of a given [side] of a [cubemap texture][TextureType.TEXTURE_CUBE_MAP].
-     */
-    actual fun forCubmap(side: CubemapSide): TextureImageSourceBuilder {
-        textureType = TextureType.TEXTURE_CUBE_MAP
-        target = side.toInt()
-        return this
-    }
-
-    private fun CubemapSide.toInt(): Int = when (this) {
-        CubemapSide.RIGHT -> GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_X
-        CubemapSide.LEFT -> GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_X
-        CubemapSide.TOP -> GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_Y
-        CubemapSide.BOTTOM -> GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
-        CubemapSide.FAR -> GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_Z
-        CubemapSide.NEAR -> GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
-    }
 
     /**
      * Will build a texture source with a given [filename].
@@ -80,21 +51,37 @@ actual class TextureImageSourceBuilder {
     /**
      * Builds a [TextureImageSource] with the provided parameters.
      */
-    actual fun build(): TextureImageSource {
-        check(value = target != 0) {
-            "Texture type not set. Must call forTexture2D() or forCubmap()"
-        }
-        return TextureImageSourceImpl(textureType, target, filename, bitmapProvider)
-    }
+    actual fun build(): TextureImageSource =
+        TextureImageSourceImpl(filename, bitmapProvider)
 
     private class TextureImageSourceImpl(
-        private val textureType: TextureType,
-        private val target: Int,
         override val filename: String,
         private val bitmapProvider: BitmapProvider
     ) : TextureImageSource {
 
         override fun glTexImage2D(gl: GlimpseAdapter, withMipmaps: Boolean) {
+            glTexImage2D(gl, TextureType.TEXTURE_2D, GLES20.GL_TEXTURE_2D, withMipmaps)
+        }
+
+        override fun glTexImage2D(gl: GlimpseAdapter, side: CubemapSide, withMipmaps: Boolean) {
+            glTexImage2D(gl, TextureType.TEXTURE_CUBE_MAP, side.toInt(), withMipmaps)
+        }
+
+        private fun CubemapSide.toInt(): Int = when (this) {
+            CubemapSide.RIGHT -> GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_X
+            CubemapSide.LEFT -> GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_X
+            CubemapSide.TOP -> GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_Y
+            CubemapSide.BOTTOM -> GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
+            CubemapSide.FAR -> GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_Z
+            CubemapSide.NEAR -> GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
+        }
+
+        private fun glTexImage2D(
+            gl: GlimpseAdapter,
+            textureType: TextureType,
+            target: Int,
+            withMipmaps: Boolean
+        ) {
             val bitmap = checkNotNull(bitmapProvider.createBitmap()) {
                 "Texture bitmap cannot be null"
             }

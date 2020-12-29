@@ -23,16 +23,6 @@ package graphics.glimpse.textures
 expect class TextureImageSourceBuilder {
 
     /**
-     * Will build a source of a [2D texture][TextureType.TEXTURE_2D].
-     */
-    fun forTexture2D(): TextureImageSourceBuilder
-
-    /**
-     * Will build a source of a given [side] of a [cubemap texture][TextureType.TEXTURE_CUBE_MAP].
-     */
-    fun forCubmap(side: CubemapSide): TextureImageSourceBuilder
-
-    /**
      * Will build a texture source with a given [filename].
      *
      * Required by some implementations to determine image file type.

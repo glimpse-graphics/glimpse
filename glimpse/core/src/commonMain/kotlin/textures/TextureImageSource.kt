@@ -36,6 +36,11 @@ interface TextureImageSource {
      */
     fun glTexImage2D(gl: GlimpseAdapter, withMipmaps: Boolean)
 
+    /**
+     * Sets a Cubemap side texture image.
+     */
+    fun glTexImage2D(gl: GlimpseAdapter, side: CubemapSide, withMipmaps: Boolean)
+
     companion object {
 
         /**
