@@ -6,6 +6,8 @@
   - Angles
   - Vectors
   - Matrices, including transformation, view and projection matrices
+- Glimpse OpenGL adapter
+- Glimpse logger
+- Textures
 - Cameras
 - Lenses
-- Glimpse logger
