@@ -17,48 +17,66 @@
 
 package graphics.glimpse.logging
 
+import org.slf4j.Logger
+
 /**
- * A common interface for a logger.
+ * Default implementation of a [GlimpseLogger].
  */
-interface GlimpseLogger {
+actual class DefaultLogger(private val logger: Logger) : GlimpseLogger {
 
     /**
      * Logs a given [message] at a debug level.
      */
-    fun debug(message: String)
+    override fun debug(message: String) {
+        logger.debug(message)
+    }
 
     /**
      * Logs a given [message] at a info level.
      */
-    fun info(message: String)
+    override fun info(message: String) {
+        logger.info(message)
+    }
 
     /**
      * Logs a given [message] at a warning level.
      */
-    fun warn(message: String)
+    override fun warn(message: String) {
+        logger.warn(message)
+    }
 
     /**
      * Logs a given [message] at an error level.
      */
-    fun error(message: String)
+    override fun error(message: String) {
+        logger.error(message)
+    }
 
     /**
      * Logs a given [message] with a given [exception] at a debug level.
      */
-    fun debug(message: String, exception: Throwable)
+    override fun debug(message: String, exception: Throwable) {
+        logger.debug(message, exception)
+    }
 
     /**
      * Logs a given [message] with a given [exception] at a info level.
      */
-    fun info(message: String, exception: Throwable)
+    override fun info(message: String, exception: Throwable) {
+        logger.info(message, exception)
+    }
 
     /**
      * Logs a given [message] with a given [exception] at a warning level.
      */
-    fun warn(message: String, exception: Throwable)
+    override fun warn(message: String, exception: Throwable) {
+        logger.warn(message, exception)
+    }
 
     /**
      * Logs a given [message] with a given [exception] at an error level.
      */
-    fun error(message: String, exception: Throwable)
+    override fun error(message: String, exception: Throwable) {
+        logger.error(message, exception)
+    }
 }
