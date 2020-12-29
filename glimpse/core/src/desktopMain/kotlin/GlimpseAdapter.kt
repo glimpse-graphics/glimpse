@@ -29,7 +29,7 @@ import graphics.glimpse.types.Vec4
 /**
  * Glimpse OpenGL adapter for the given [GL ES 2.0][gles].
  */
-actual class GlimpseAdapter(private val gles: GLES2) {
+actual class GlimpseAdapter(internal val gles: GLES2) {
 
     /**
      * Glimpse logger.
