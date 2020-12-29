@@ -17,48 +17,66 @@
 
 package graphics.glimpse.logging
 
+import android.util.Log
+
 /**
- * A common interface for a logger.
+ * Default implementation of a [GlimpseLogger].
  */
-interface GlimpseLogger {
+actual class DefaultLogger(private val tag: String) : GlimpseLogger {
 
     /**
      * Logs a given [message] at a debug level.
      */
-    fun debug(message: String)
+    override fun debug(message: String) {
+        Log.d(tag, message)
+    }
 
     /**
      * Logs a given [message] at a info level.
      */
-    fun info(message: String)
+    override fun info(message: String) {
+        Log.i(tag, message)
+    }
 
     /**
      * Logs a given [message] at a warning level.
      */
-    fun warn(message: String)
+    override fun warn(message: String) {
+        Log.w(tag, message)
+    }
 
     /**
      * Logs a given [message] at an error level.
      */
-    fun error(message: String)
+    override fun error(message: String) {
+        Log.e(tag, message)
+    }
 
     /**
      * Logs a given [message] with a given [exception] at a debug level.
      */
-    fun debug(message: String, exception: Throwable)
+    override fun debug(message: String, exception: Throwable) {
+        Log.d(tag, message, exception)
+    }
 
     /**
      * Logs a given [message] with a given [exception] at a info level.
      */
-    fun info(message: String, exception: Throwable)
+    override fun info(message: String, exception: Throwable) {
+        Log.i(tag, message, exception)
+    }
 
     /**
      * Logs a given [message] with a given [exception] at a warning level.
      */
-    fun warn(message: String, exception: Throwable)
+    override fun warn(message: String, exception: Throwable) {
+        Log.w(tag, message, exception)
+    }
 
     /**
      * Logs a given [message] with a given [exception] at an error level.
      */
-    fun error(message: String, exception: Throwable)
+    override fun error(message: String, exception: Throwable) {
+        Log.e(tag, message, exception)
+    }
 }
