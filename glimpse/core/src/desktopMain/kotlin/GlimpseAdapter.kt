@@ -31,7 +31,7 @@ actual class GlimpseAdapter(private val gles: GLES2) {
     /**
      * Glimpse logger.
      */
-    actual val logger: GlimpseLogger = GlimpseLoggerFactory.getLogger(this)
+    actual val logger: GlimpseLogger = GlimpseLogger.create(this)
 
     /**
      * Returns a boolean value for the given integer [value].

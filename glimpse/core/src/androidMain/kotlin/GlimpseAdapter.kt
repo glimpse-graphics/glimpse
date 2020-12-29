@@ -19,7 +19,6 @@ package graphics.glimpse
 
 import android.opengl.GLES20
 import graphics.glimpse.logging.GlimpseLogger
-import graphics.glimpse.logging.GlimpseLoggerFactory
 import graphics.glimpse.types.Vec3
 import graphics.glimpse.types.Vec4
 
@@ -31,7 +30,7 @@ actual class GlimpseAdapter {
     /**
      * Glimpse logger.
      */
-    actual val logger: GlimpseLogger = GlimpseLoggerFactory.getLogger(this)
+    actual val logger: GlimpseLogger = GlimpseLogger.create(this)
 
     /**
      * Returns a boolean value for the given integer [value].
