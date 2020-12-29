@@ -14,6 +14,10 @@ Lenses, defining projection matrix.
 
 Glimpse loggers.
 
+# Package graphics.glimpse.textures
+
+Textures and texture-related enums.
+
 # Package graphics.glimpse.types
 
 Core data types.

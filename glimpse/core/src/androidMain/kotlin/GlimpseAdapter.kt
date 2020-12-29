@@ -19,7 +19,10 @@ package graphics.glimpse
 
 import android.opengl.GLES20
 import graphics.glimpse.logging.GlimpseLogger
-import graphics.glimpse.logging.GlimpseLoggerFactory
+import graphics.glimpse.textures.TextureMagFilter
+import graphics.glimpse.textures.TextureMinFilter
+import graphics.glimpse.textures.TextureType
+import graphics.glimpse.textures.TextureWrap
 import graphics.glimpse.types.Vec3
 import graphics.glimpse.types.Vec4
 
@@ -31,7 +34,7 @@ actual class GlimpseAdapter {
     /**
      * Glimpse logger.
      */
-    actual val logger: GlimpseLogger = GlimpseLoggerFactory.getLogger(this)
+    actual val logger: GlimpseLogger = GlimpseLogger.create(this)
 
     /**
      * Returns a boolean value for the given integer [value].
@@ -126,4 +129,112 @@ actual class GlimpseAdapter {
         ClearableBufferType.DEPTH_BUFFER -> GLES20.GL_DEPTH_BUFFER_BIT
         ClearableBufferType.STENCIL_BUFFER -> GLES20.GL_STENCIL_BUFFER_BIT
     }
+
+    /**
+     * Generates texture handles and writes them to a given [textureHandles] array.
+     *
+     * The number of generated texture handles is equal to the given [textureHandles] array.
+     */
+    actual fun glGenTextures(textureHandles: IntArray) {
+        GLES20.glGenTextures(textureHandles.size, textureHandles, 0)
+    }
+
+    /**
+     * Binds a given [textureHandle] to a given texture [type].
+     */
+    actual fun glBindTexture(type: TextureType, textureHandle: Int) {
+        GLES20.glBindTexture(type.toInt(), textureHandle)
+    }
+
+    private fun TextureType.toInt(): Int = when (this) {
+        TextureType.TEXTURE_2D -> GLES20.GL_TEXTURE_2D
+        TextureType.TEXTURE_CUBE_MAP -> GLES20.GL_TEXTURE_CUBE_MAP
+    }
+
+    /**
+     * Gets maximum size of a texture of a given [type].
+     */
+    actual fun glMaxTextureSize(type: TextureType): Int = when (type) {
+        TextureType.TEXTURE_2D -> glGetInteger(GLES20.GL_MAX_TEXTURE_SIZE)
+        TextureType.TEXTURE_CUBE_MAP -> glGetInteger(GLES20.GL_MAX_CUBE_MAP_TEXTURE_SIZE)
+    }
+
+    private fun glGetInteger(parameter: Int): Int {
+        val result = IntArray(size = 1)
+        GLES20.glGetIntegerv(parameter, result, 0)
+        return result.first()
+    }
+
+    /**
+     * Generates mipmaps for the currently selected texture of a given [type].
+     */
+    actual fun glGenerateMipmap(type: TextureType) {
+        GLES20.glGenerateMipmap(type.toInt())
+    }
+
+    /**
+     * Sets texture [minifying][minFilter] and [magnifying][magFilter] filters for the currently
+     * selected texture of a given [type].
+     */
+    actual fun glTexParameterFilter(
+        type: TextureType,
+        minFilter: TextureMinFilter,
+        magFilter: TextureMagFilter
+    ) {
+        GLES20.glTexParameteri(type.toInt(), GLES20.GL_TEXTURE_MIN_FILTER, minFilter.toInt())
+        GLES20.glTexParameteri(type.toInt(), GLES20.GL_TEXTURE_MAG_FILTER, magFilter.toInt())
+    }
+
+    private fun TextureMinFilter.toInt(): Int = when (this) {
+        TextureMinFilter.NEAREST -> GLES20.GL_NEAREST
+        TextureMinFilter.LINEAR -> GLES20.GL_LINEAR
+        TextureMinFilter.NEAREST_MIPMAP_NEAREST -> GLES20.GL_NEAREST_MIPMAP_NEAREST
+        TextureMinFilter.LINEAR_MIPMAP_NEAREST -> GLES20.GL_LINEAR_MIPMAP_NEAREST
+        TextureMinFilter.NEAREST_MIPMAP_LINEAR -> GLES20.GL_NEAREST_MIPMAP_LINEAR
+        TextureMinFilter.LINEAR_MIPMAP_LINEAR -> GLES20.GL_LINEAR_MIPMAP_LINEAR
+    }
+
+    private fun TextureMagFilter.toInt(): Int = when (this) {
+        TextureMagFilter.NEAREST -> GLES20.GL_NEAREST
+        TextureMagFilter.LINEAR -> GLES20.GL_LINEAR
+    }
+
+    /**
+     * Sets wrap parameter for texture coordinates [S][wrapS] and [T][wrapT] for the currently
+     * selected texture of a given [type].
+     */
+    actual fun glTexParameterWrap(
+        type: TextureType,
+        wrapS: TextureWrap,
+        wrapT: TextureWrap
+    ) {
+        GLES20.glTexParameteri(type.toInt(), GLES20.GL_TEXTURE_WRAP_S, wrapS.toInt())
+        GLES20.glTexParameteri(type.toInt(), GLES20.GL_TEXTURE_WRAP_T, wrapT.toInt())
+    }
+
+    private fun TextureWrap.toInt(): Int = when (this) {
+        TextureWrap.CLAMP_TO_EDGE -> GLES20.GL_CLAMP_TO_EDGE
+        TextureWrap.REPEAT -> GLES20.GL_REPEAT
+        TextureWrap.MIRRORED_REPEAT -> GLES20.GL_MIRRORED_REPEAT
+    }
+
+    /**
+     * Deletes textures represented by given [textureHandles].
+     */
+    actual fun glDeleteTextures(textureHandles: IntArray) {
+        GLES20.glDeleteTextures(textureHandles.size, textureHandles, 0)
+    }
+
+    /**
+     * Selects active [textureIndex] starting with 0.
+     */
+    actual fun glActiveTexture(textureIndex: Int) {
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0 + textureIndex)
+    }
+
+    /**
+     * Returns a range of indices supported by [glActiveTexture].
+     */
+    actual fun glTextureIndices(): IntRange =
+        0 until glGetInteger(GLES20.GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS)
 }

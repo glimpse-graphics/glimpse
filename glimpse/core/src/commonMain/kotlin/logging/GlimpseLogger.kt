@@ -61,4 +61,12 @@ interface GlimpseLogger {
      * Logs a given [message] with a given [exception] at an error level.
      */
     fun error(message: String, exception: Throwable)
+
+    companion object {
+
+        /**
+         * Creates a logger for a given [object][obj].
+         */
+        fun create(obj: Any): GlimpseLogger = GlimpseLoggerFactory.getLogger(obj)
+    }
 }
