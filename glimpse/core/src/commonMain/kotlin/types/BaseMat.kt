@@ -27,7 +27,7 @@ abstract class BaseMat<T : Mat<T>>(
     /**
      * Implement this property to provide elements of the matrix.
      */
-    protected abstract val elements: List<Float>
+    internal abstract val elements: List<Float>
 
     /**
      * Indices of a row or a column of the matrix.

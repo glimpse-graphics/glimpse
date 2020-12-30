@@ -27,6 +27,10 @@ import graphics.glimpse.textures.TextureMagFilter
 import graphics.glimpse.textures.TextureMinFilter
 import graphics.glimpse.textures.TextureType
 import graphics.glimpse.textures.TextureWrap
+import graphics.glimpse.types.Mat2
+import graphics.glimpse.types.Mat3
+import graphics.glimpse.types.Mat4
+import graphics.glimpse.types.Vec2
 import graphics.glimpse.types.Vec3
 import graphics.glimpse.types.Vec4
 
@@ -266,4 +270,75 @@ expect class GlimpseAdapter {
      * from program identified by a given [programHandle].
      */
     fun glGetAttributeLocation(programHandle: Int, name: String): Int
+
+    /**
+     * Sets [value] of integer uniform variable at a given [location] for current program.
+     */
+    fun glUniform(location: Int, value: Int)
+
+    /**
+     * Sets [value] of floating point uniform variable at a given [location] for current program.
+     */
+    fun glUniform(location: Int, value: Float)
+
+    /**
+     * Sets [value] of 2D vector uniform variable at a given [location] for current program.
+     */
+    fun glUniform(location: Int, value: Vec2)
+
+    /**
+     * Sets [value] of 3D vector uniform variable at a given [location] for current program.
+     */
+    fun glUniform(location: Int, value: Vec3)
+
+    /**
+     * Sets [value] of 4D vector uniform variable at a given [location] for current program.
+     */
+    fun glUniform(location: Int, value: Vec4)
+
+    /**
+     * Sets [values] of integer array uniform variable at a given [location] for current program.
+     */
+    fun glUniform(location: Int, vararg values: Int)
+
+    /**
+     * Sets [values] of floating point array uniform variable at a given [location] for current program.
+     */
+    fun glUniform(location: Int, vararg values: Float)
+
+    /**
+     * Sets [values] of 2D vector array uniform variable at a given [location] for current program.
+     */
+    fun glUniform(location: Int, vararg values: Vec2)
+
+    /**
+     * Sets [values] of 3D vector array uniform variable at a given [location] for current program.
+     */
+    fun glUniform(location: Int, vararg values: Vec3)
+
+    /**
+     * Sets [values] of 4D vector array uniform variable at a given [location] for current program.
+     */
+    fun glUniform(location: Int, vararg values: Vec4)
+
+    /**
+     * Sets [values] of 2×2 matrix array uniform variable at a given [location] for current program.
+     *
+     * Optionally, if the [transpose] flag is set to `true`, transpose matrices will be set instead.
+     */
+    fun glUniform(location: Int, vararg values: Mat2, transpose: Boolean = false)
+
+    /**
+     * Sets [values] of 3×3 matrix array uniform variable at a given [location] for current program.
+     *
+     * Optionally, if the [transpose] flag is set to `true`, transpose matrices will be set instead.
+     */
+    fun glUniform(location: Int, vararg values: Mat3, transpose: Boolean = false)
+
+    /**
+     * Sets [values] of 4×4 matrix array uniform variable at a given [location] for current program.
+     *
+     * Optionally, if the [transpose] flag is set to `true`, transpose matrices will be set instead.
+     */
+    fun glUniform(location: Int, vararg values: Mat4, transpose: Boolean = false)
 }
