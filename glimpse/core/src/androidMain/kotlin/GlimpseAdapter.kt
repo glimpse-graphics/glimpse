@@ -23,12 +23,14 @@ import graphics.glimpse.buffers.BufferUsage
 import graphics.glimpse.buffers.FloatBufferData
 import graphics.glimpse.buffers.IntBufferData
 import graphics.glimpse.logging.GlimpseLogger
+import graphics.glimpse.shaders.ShaderType
 import graphics.glimpse.textures.TextureMagFilter
 import graphics.glimpse.textures.TextureMinFilter
 import graphics.glimpse.textures.TextureType
 import graphics.glimpse.textures.TextureWrap
 import graphics.glimpse.types.Vec3
 import graphics.glimpse.types.Vec4
+import java.nio.IntBuffer
 
 /**
  * Glimpse OpenGL adapter.
@@ -302,4 +304,62 @@ actual class GlimpseAdapter {
      */
     actual fun glTextureIndices(): IntRange =
         0 until glGetInteger(GLES20.GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS)
+
+    /**
+     * Creates a shader of a given [shaderType] and returns its handle.
+     */
+    actual fun glCreateShader(shaderType: ShaderType): Int =
+        GLES20.glCreateShader(shaderType.toInt())
+
+    private fun ShaderType.toInt(): Int = when (this) {
+        ShaderType.VERTEX_SHADER -> GLES20.GL_VERTEX_SHADER
+        ShaderType.FRAGMENT_SHADER -> GLES20.GL_FRAGMENT_SHADER
+    }
+
+    /**
+     * Sets [source] of the shader identified by a given [shaderHandle].
+     */
+    actual fun glShaderSource(shaderHandle: Int, source: String) {
+        GLES20.glShaderSource(shaderHandle, source)
+    }
+
+    /**
+     * Compiles a shader identified by a given [shaderHandle].
+     */
+    actual fun glCompileShader(shaderHandle: Int) {
+        GLES20.glCompileShader(shaderHandle)
+    }
+
+    /**
+     * Returns `true` if the shader identified by a given [shaderHandle] has been successfully
+     * compiled.
+     */
+    actual fun glGetShaderCompileStatus(shaderHandle: Int): Boolean {
+        val output = IntArray(size = 1)
+        GLES20.glGetShaderiv(shaderHandle, GLES20.GL_COMPILE_STATUS, output, 0)
+        return booleanOf(output.first())
+    }
+
+    /**
+     * Returns information log for the shader identified by a given [shaderHandle].
+     */
+    actual fun glGetShaderInfoLog(shaderHandle: Int): String =
+        GLES20.glGetShaderInfoLog(shaderHandle)
+
+    /**
+     * Deletes a shader identified by a given [shaderHandle].
+     */
+    actual fun glDeleteShader(shaderHandle: Int) {
+        GLES20.glDeleteShader(shaderHandle)
+    }
+
+    /**
+     * Returns `true` if the shader identified by a given [shaderHandle] has been marked
+     * for deletion.
+     */
+    actual fun glGetShaderDeleteStatus(shaderHandle: Int): Boolean {
+        val output = IntArray(size = 1)
+        GLES20.glGetShaderiv(shaderHandle, GLES20.GL_DELETE_STATUS, output, 0)
+        return booleanOf(output.first())
+    }
 }

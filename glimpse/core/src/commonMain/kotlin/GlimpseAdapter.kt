@@ -22,6 +22,7 @@ import graphics.glimpse.buffers.BufferType
 import graphics.glimpse.buffers.BufferUsage
 import graphics.glimpse.buffers.FloatBufferData
 import graphics.glimpse.buffers.IntBufferData
+import graphics.glimpse.shaders.ShaderType
 import graphics.glimpse.textures.TextureMagFilter
 import graphics.glimpse.textures.TextureMinFilter
 import graphics.glimpse.textures.TextureType
@@ -166,4 +167,41 @@ expect class GlimpseAdapter {
      * Returns a range of indices supported by [glActiveTexture].
      */
     fun glTextureIndices(): IntRange
+
+    /**
+     * Creates a shader of a given [shaderType] and returns its handle.
+     */
+    fun glCreateShader(shaderType: ShaderType): Int
+
+    /**
+     * Sets [source] of the shader identified by a given [shaderHandle].
+     */
+    fun glShaderSource(shaderHandle: Int, source: String)
+
+    /**
+     * Compiles a shader identified by a given [shaderHandle].
+     */
+    fun glCompileShader(shaderHandle: Int)
+
+    /**
+     * Returns `true` if the shader identified by a given [shaderHandle] has been successfully
+     * compiled.
+     */
+    fun glGetShaderCompileStatus(shaderHandle: Int): Boolean
+
+    /**
+     * Returns information log for the shader identified by a given [shaderHandle].
+     */
+    fun glGetShaderInfoLog(shaderHandle: Int): String
+
+    /**
+     * Deletes a shader identified by a given [shaderHandle].
+     */
+    fun glDeleteShader(shaderHandle: Int)
+
+    /**
+     * Returns `true` if the shader identified by a given [shaderHandle] has been marked
+     * for deletion.
+     */
+    fun glGetShaderDeleteStatus(shaderHandle: Int): Boolean
 }
