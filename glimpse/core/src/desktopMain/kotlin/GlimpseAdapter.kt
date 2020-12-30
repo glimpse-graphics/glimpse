@@ -613,4 +613,30 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
             offset.toLong()
         )
     }
+
+    /**
+     * Draws a given [number][count] of primitives of type specified by [mode],
+     * starting with [offset].
+     */
+    actual fun glDrawArrays(mode: DrawingMode, count: Int, offset: Int) {
+        gles.glDrawArrays(mode.toInt(), offset, count)
+    }
+
+    private fun DrawingMode.toInt(): Int = when (this) {
+        DrawingMode.POINTS -> GL2ES2.GL_POINTS
+        DrawingMode.LINES -> GL2ES2.GL_LINES
+        DrawingMode.LINE_LOOP -> GL2ES2.GL_LINE_LOOP
+        DrawingMode.LINE_STRIP -> GL2ES2.GL_LINE_STRIP
+        DrawingMode.TRIANGLES -> GL2ES2.GL_TRIANGLES
+        DrawingMode.TRIANGLE_STRIP -> GL2ES2.GL_TRIANGLE_STRIP
+        DrawingMode.TRIANGLE_FAN -> GL2ES2.GL_TRIANGLE_FAN
+    }
+
+    /**
+     * Draws a given [number][count] of primitives of type specified by [mode],
+     * using a buffer of vertex array indices, starting with [offset].
+     */
+    actual fun glDrawElements(mode: DrawingMode, count: Int, offset: Int) {
+        gles.glDrawElements(mode.toInt(), count, GL2ES2.GL_UNSIGNED_INT, offset.toLong())
+    }
 }

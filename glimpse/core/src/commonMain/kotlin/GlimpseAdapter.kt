@@ -362,4 +362,16 @@ expect class GlimpseAdapter {
         stride: Int = 0,
         offset: Int = 0
     )
+
+    /**
+     * Draws a given [number][count] of primitives of type specified by [mode],
+     * starting with [offset].
+     */
+    fun glDrawArrays(mode: DrawingMode, count: Int, offset: Int = 0)
+
+    /**
+     * Draws a given [number][count] of primitives of type specified by [mode],
+     * using a buffer of vertex array indices, starting with [offset].
+     */
+    fun glDrawElements(mode: DrawingMode, count: Int, offset: Int = 0)
 }

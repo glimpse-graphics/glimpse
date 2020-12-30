@@ -602,4 +602,30 @@ actual class GlimpseAdapter {
             offset
         )
     }
+
+    /**
+     * Draws a given [number][count] of primitives of type specified by [mode],
+     * starting with [offset].
+     */
+    actual fun glDrawArrays(mode: DrawingMode, count: Int, offset: Int) {
+        GLES20.glDrawArrays(mode.toInt(), offset, count)
+    }
+
+    private fun DrawingMode.toInt(): Int = when (this) {
+        DrawingMode.POINTS -> GLES20.GL_POINTS
+        DrawingMode.LINES -> GLES20.GL_LINES
+        DrawingMode.LINE_LOOP -> GLES20.GL_LINE_LOOP
+        DrawingMode.LINE_STRIP -> GLES20.GL_LINE_STRIP
+        DrawingMode.TRIANGLES -> GLES20.GL_TRIANGLES
+        DrawingMode.TRIANGLE_STRIP -> GLES20.GL_TRIANGLE_STRIP
+        DrawingMode.TRIANGLE_FAN -> GLES20.GL_TRIANGLE_FAN
+    }
+
+    /**
+     * Draws a given [number][count] of primitives of type specified by [mode],
+     * using a buffer of vertex array indices, starting with [offset].
+     */
+    actual fun glDrawElements(mode: DrawingMode, count: Int, offset: Int) {
+        GLES20.glDrawElements(mode.toInt(), count, GLES20.GL_UNSIGNED_INT, offset)
+    }
 }
