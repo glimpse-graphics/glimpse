@@ -22,6 +22,10 @@ Glimpse loggers.
 
 Meshes and mesh data.
 
+# Package graphics.glimpse.models
+
+Models (meshes with transformations).
+
 # Package graphics.glimpse.textures
 
 Textures and texture-related enums.
