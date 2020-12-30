@@ -184,8 +184,7 @@ expect class GlimpseAdapter {
     fun glCompileShader(shaderHandle: Int)
 
     /**
-     * Returns `true` if the shader identified by a given [shaderHandle] has been successfully
-     * compiled.
+     * Returns `true` if shader identified by a given [shaderHandle] has been successfully compiled.
      */
     fun glGetShaderCompileStatus(shaderHandle: Int): Boolean
 
@@ -200,8 +199,7 @@ expect class GlimpseAdapter {
     fun glDeleteShader(shaderHandle: Int)
 
     /**
-     * Returns `true` if the shader identified by a given [shaderHandle] has been marked
-     * for deletion.
+     * Returns `true` if shader identified by a given [shaderHandle] has been marked for deletion.
      */
     fun glGetShaderDeleteStatus(shaderHandle: Int): Boolean
 }

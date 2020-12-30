@@ -332,8 +332,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     }
 
     /**
-     * Returns `true` if the shader identified by a given [shaderHandle] has been successfully
-     * compiled.
+     * Returns `true` if shader identified by a given [shaderHandle] has been successfully compiled.
      */
     actual fun glGetShaderCompileStatus(shaderHandle: Int): Boolean {
         val output = IntArray(size = 1)
@@ -360,8 +359,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     }
 
     /**
-     * Returns `true` if the shader identified by a given [shaderHandle] has been marked
-     * for deletion.
+     * Returns `true` if shader identified by a given [shaderHandle] has been marked for deletion.
      */
     actual fun glGetShaderDeleteStatus(shaderHandle: Int): Boolean {
         val output = IntArray(size = 1)
