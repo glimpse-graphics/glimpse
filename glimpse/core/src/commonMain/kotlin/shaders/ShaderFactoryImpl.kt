@@ -26,11 +26,16 @@ internal class ShaderFactoryImpl(private val gl: GlimpseAdapter) : Shader.Factor
 
         val handle = gl.glCreateShader(type)
         gl.glShaderSource(handle, source)
+
+        compileShader(handle, type)
+
+        return ShaderImpl(handle)
+    }
+
+    private fun compileShader(handle: Int, type: ShaderType) {
         gl.glCompileShader(handle)
 
-        if (gl.glGetShaderCompileStatus(handle)) {
-            return ShaderImpl(handle)
-        } else {
+        if (!gl.glGetShaderCompileStatus(handle)) {
             val shaderInfoLog = gl.glGetShaderInfoLog(handle)
             gl.logger.error(message = "$type compilation failed:\n$shaderInfoLog\nCleaning up")
 
