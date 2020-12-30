@@ -79,7 +79,8 @@ expect class GlimpseAdapter {
     /**
      * Generates texture handles and writes them to a given [textureHandles] array.
      *
-     * The number of generated texture handles is equal to the given [textureHandles] array.
+     * The number of generated texture handles is equal to the the size of the given
+     * [textureHandles] array.
      */
     fun glGenTextures(textureHandles: IntArray)
 

@@ -133,7 +133,8 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     /**
      * Generates texture handles and writes them to a given [textureHandles] array.
      *
-     * The number of generated texture handles is equal to the given [textureHandles] array.
+     * The number of generated texture handles is equal to the the size of the given
+     * [textureHandles] array.
      */
     actual fun glGenTextures(textureHandles: IntArray) {
         gles.glGenTextures(textureHandles.size, textureHandles, 0)
