@@ -18,6 +18,10 @@ Lenses, defining projection matrix.
 
 Glimpse loggers.
 
+# Package graphics.glimpse.meshes
+
+Meshes and mesh data.
+
 # Package graphics.glimpse.textures
 
 Textures and texture-related enums.
