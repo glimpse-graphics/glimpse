@@ -17,7 +17,7 @@
 
 package graphics.glimpse.textures
 
-import com.jogamp.opengl.GLES2
+import com.jogamp.opengl.GL2ES2
 import com.jogamp.opengl.util.texture.TextureIO
 import graphics.glimpse.GlimpseAdapter
 import java.util.*
@@ -62,7 +62,7 @@ actual class TextureImageSourceBuilder {
     ) : TextureImageSource {
 
         override fun glTexImage2D(gl: GlimpseAdapter, withMipmaps: Boolean) {
-            glTexImage2D(gl, GLES2.GL_TEXTURE_2D, withMipmaps)
+            glTexImage2D(gl, GL2ES2.GL_TEXTURE_2D, withMipmaps)
         }
 
         override fun glTexImage2D(gl: GlimpseAdapter, side: CubemapSide, withMipmaps: Boolean) {
@@ -70,12 +70,12 @@ actual class TextureImageSourceBuilder {
         }
 
         private fun CubemapSide.toInt(): Int = when (this) {
-            CubemapSide.RIGHT -> GLES2.GL_TEXTURE_CUBE_MAP_POSITIVE_X
-            CubemapSide.LEFT -> GLES2.GL_TEXTURE_CUBE_MAP_NEGATIVE_X
-            CubemapSide.TOP -> GLES2.GL_TEXTURE_CUBE_MAP_POSITIVE_Y
-            CubemapSide.BOTTOM -> GLES2.GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
-            CubemapSide.FAR -> GLES2.GL_TEXTURE_CUBE_MAP_POSITIVE_Z
-            CubemapSide.NEAR -> GLES2.GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
+            CubemapSide.RIGHT -> GL2ES2.GL_TEXTURE_CUBE_MAP_POSITIVE_X
+            CubemapSide.LEFT -> GL2ES2.GL_TEXTURE_CUBE_MAP_NEGATIVE_X
+            CubemapSide.TOP -> GL2ES2.GL_TEXTURE_CUBE_MAP_POSITIVE_Y
+            CubemapSide.BOTTOM -> GL2ES2.GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
+            CubemapSide.FAR -> GL2ES2.GL_TEXTURE_CUBE_MAP_POSITIVE_Z
+            CubemapSide.NEAR -> GL2ES2.GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
         }
 
         private fun glTexImage2D(gl: GlimpseAdapter, target: Int, withMipmaps: Boolean) {
@@ -87,9 +87,9 @@ actual class TextureImageSourceBuilder {
                 gl.gles.glProfile, inputStream, withMipmaps, fileType
             )
             gl.gles.glTexImage2D(
-                target, 0, GLES2.GL_RGBA,
+                target, 0, GL2ES2.GL_RGBA,
                 textureData.width, textureData.height, 0,
-                GLES2.GL_RGBA, GLES2.GL_UNSIGNED_BYTE, textureData.buffer
+                GL2ES2.GL_RGBA, GL2ES2.GL_UNSIGNED_BYTE, textureData.buffer
             )
         }
     }

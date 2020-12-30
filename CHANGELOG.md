@@ -8,6 +8,8 @@
   - Matrices, including transformation, view and projection matrices
 - Glimpse OpenGL adapter
 - Glimpse logger
+- Buffers
+- Meshes
 - Textures
 - Cameras
 - Lenses

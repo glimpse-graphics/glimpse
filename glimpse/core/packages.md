@@ -2,6 +2,10 @@
 
 Glimpse Core API.
 
+# Package graphics.glimpse.buffers
+
+Buffers of vertex attributes and vertex array indices.
+
 # Package graphics.glimpse.cameras
 
 Cameras, defining view matrix.
@@ -13,6 +17,10 @@ Lenses, defining projection matrix.
 # Package graphics.glimpse.logging
 
 Glimpse loggers.
+
+# Package graphics.glimpse.meshes
+
+Meshes and mesh data.
 
 # Package graphics.glimpse.textures
 
