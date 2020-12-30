@@ -579,4 +579,38 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
             0
         )
     }
+
+    /**
+     * Enables vertex attributes array at a given [location] for current program.
+     */
+    actual fun glEnableVertexAttribArray(location: Int) {
+        gles.glEnableVertexAttribArray(location)
+    }
+
+    /**
+     * Disables vertex attributes array at a given [location] for current program.
+     */
+    actual fun glDisableVertexAttribArray(location: Int) {
+        gles.glDisableVertexAttribArray(location)
+    }
+
+    /**
+     * Sets vertex attributes array at a given [location] for current program.
+     */
+    actual fun glVertexAttribPointer(
+        location: Int,
+        vectorSize: Int,
+        normalized: Boolean,
+        stride: Int,
+        offset: Int
+    ) {
+        gles.glVertexAttribPointer(
+            location,
+            vectorSize,
+            GL2ES2.GL_FLOAT,
+            normalized,
+            stride,
+            offset.toLong()
+        )
+    }
 }

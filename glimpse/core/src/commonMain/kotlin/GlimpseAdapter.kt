@@ -341,4 +341,25 @@ expect class GlimpseAdapter {
      * Optionally, if the [transpose] flag is set to `true`, transpose matrices will be set instead.
      */
     fun glUniform(location: Int, vararg values: Mat4, transpose: Boolean = false)
+
+    /**
+     * Enables vertex attributes array at a given [location] for current program.
+     */
+    fun glEnableVertexAttribArray(location: Int)
+
+    /**
+     * Disables vertex attributes array at a given [location] for current program.
+     */
+    fun glDisableVertexAttribArray(location: Int)
+
+    /**
+     * Sets vertex attributes array at a given [location] for current program.
+     */
+    fun glVertexAttribPointer(
+        location: Int,
+        vectorSize: Int,
+        normalized: Boolean = false,
+        stride: Int = 0,
+        offset: Int = 0
+    )
 }

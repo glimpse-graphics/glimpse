@@ -568,4 +568,38 @@ actual class GlimpseAdapter {
             0
         )
     }
+
+    /**
+     * Enables vertex attributes array at a given [location] for current program.
+     */
+    actual fun glEnableVertexAttribArray(location: Int) {
+        GLES20.glEnableVertexAttribArray(location)
+    }
+
+    /**
+     * Disables vertex attributes array at a given [location] for current program.
+     */
+    actual fun glDisableVertexAttribArray(location: Int) {
+        GLES20.glDisableVertexAttribArray(location)
+    }
+
+    /**
+     * Sets vertex attributes array at a given [location] for current program.
+     */
+    actual fun glVertexAttribPointer(
+        location: Int,
+        vectorSize: Int,
+        normalized: Boolean,
+        stride: Int,
+        offset: Int
+    ) {
+        GLES20.glVertexAttribPointer(
+            location,
+            vectorSize,
+            GLES20.GL_FLOAT,
+            normalized,
+            stride,
+            offset
+        )
+    }
 }
