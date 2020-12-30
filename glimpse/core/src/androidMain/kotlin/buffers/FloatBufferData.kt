@@ -40,6 +40,11 @@ actual class FloatBufferData(
     actual fun contentEquals(other: FloatBufferData): Boolean =
         this.nioBuffer == other.nioBuffer
 
+    /**
+     * Returns a hash code based on the contents of this buffer data.
+     */
+    actual fun contentHashCode(): Int = nioBuffer.hashCode()
+
     actual companion object {
 
         private const val ELEMENT_SIZE = Float.SIZE_BYTES

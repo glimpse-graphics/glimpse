@@ -33,6 +33,11 @@ expect class IntBufferData {
      */
     fun contentEquals(other: IntBufferData): Boolean
 
+    /**
+     * Returns a hash code based on the contents of this buffer data.
+     */
+    fun contentHashCode(): Int
+
     companion object {
 
         /**

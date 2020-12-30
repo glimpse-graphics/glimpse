@@ -40,6 +40,11 @@ actual class IntBufferData(
     actual fun contentEquals(other: IntBufferData): Boolean =
         this.nioBuffer == other.nioBuffer
 
+    /**
+     * Returns a hash code based on the contents of this buffer data.
+     */
+    actual fun contentHashCode(): Int = nioBuffer.hashCode()
+
     actual companion object {
 
         private const val ELEMENT_SIZE = Int.SIZE_BYTES
