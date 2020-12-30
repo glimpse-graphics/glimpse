@@ -18,6 +18,10 @@
 package graphics.glimpse
 
 import android.opengl.GLES20
+import graphics.glimpse.buffers.BufferType
+import graphics.glimpse.buffers.BufferUsage
+import graphics.glimpse.buffers.FloatBufferData
+import graphics.glimpse.buffers.IntBufferData
 import graphics.glimpse.logging.GlimpseLogger
 import graphics.glimpse.textures.TextureMagFilter
 import graphics.glimpse.textures.TextureMinFilter
@@ -29,6 +33,7 @@ import graphics.glimpse.types.Vec4
 /**
  * Glimpse OpenGL adapter.
  */
+@Suppress("TooManyFunctions")
 actual class GlimpseAdapter {
 
     /**
@@ -128,6 +133,65 @@ actual class GlimpseAdapter {
         ClearableBufferType.COLOR_BUFFER -> GLES20.GL_COLOR_BUFFER_BIT
         ClearableBufferType.DEPTH_BUFFER -> GLES20.GL_DEPTH_BUFFER_BIT
         ClearableBufferType.STENCIL_BUFFER -> GLES20.GL_STENCIL_BUFFER_BIT
+    }
+
+    /**
+     * Generates buffer handles and writes them to a given [bufferHandles] array.
+     *
+     * The number of generated buffer handles is equal to the size of the given
+     * [bufferHandles] array.
+     */
+    actual fun glGenBuffers(bufferHandles: IntArray) {
+        GLES20.glGenBuffers(bufferHandles.size, bufferHandles, 0)
+    }
+
+    /**
+     * Binds a given [bufferHandle] to a given buffer [type].
+     */
+    actual fun glBindBuffer(type: BufferType, bufferHandle: Int) {
+        GLES20.glBindBuffer(type.toInt(), bufferHandle)
+    }
+
+    private fun BufferType.toInt(): Int = when (this) {
+        BufferType.ARRAY_BUFFER -> GLES20.GL_ARRAY_BUFFER
+        BufferType.ELEMENT_ARRAY_BUFFER -> GLES20.GL_ELEMENT_ARRAY_BUFFER
+    }
+
+    /**
+     * Creates a buffer of integer values and fills it with data.
+     */
+    actual fun glBufferData(type: BufferType, data: IntBufferData, usage: BufferUsage) {
+        GLES20.glBufferData(
+            type.toInt(),
+            data.sizeInBytes,
+            data.nioBuffer,
+            usage.toInt()
+        )
+    }
+
+    private fun BufferUsage.toInt(): Int = when (this) {
+        BufferUsage.STREAM_DRAW -> GLES20.GL_STREAM_DRAW
+        BufferUsage.STATIC_DRAW -> GLES20.GL_STATIC_DRAW
+        BufferUsage.DYNAMIC_DRAW -> GLES20.GL_DYNAMIC_DRAW
+    }
+
+    /**
+     * Creates a buffer of floating point values and fills it with data.
+     */
+    actual fun glBufferData(type: BufferType, data: FloatBufferData, usage: BufferUsage) {
+        GLES20.glBufferData(
+            type.toInt(),
+            data.sizeInBytes,
+            data.nioBuffer,
+            usage.toInt()
+        )
+    }
+
+    /**
+     * Deletes buffers represented by given [bufferHandles].
+     */
+    actual fun glDeleteBuffers(bufferHandles: IntArray) {
+        GLES20.glDeleteBuffers(bufferHandles.size, bufferHandles, 0)
     }
 
     /**

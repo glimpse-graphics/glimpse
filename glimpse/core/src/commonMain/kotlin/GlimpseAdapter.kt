@@ -18,6 +18,10 @@
 package graphics.glimpse
 
 import graphics.glimpse.logging.GlimpseLogger
+import graphics.glimpse.buffers.BufferType
+import graphics.glimpse.buffers.BufferUsage
+import graphics.glimpse.buffers.FloatBufferData
+import graphics.glimpse.buffers.IntBufferData
 import graphics.glimpse.textures.TextureMagFilter
 import graphics.glimpse.textures.TextureMinFilter
 import graphics.glimpse.textures.TextureType
@@ -28,6 +32,7 @@ import graphics.glimpse.types.Vec4
 /**
  * Glimpse OpenGL adapter.
  */
+@Suppress("TooManyFunctions")
 expect class GlimpseAdapter {
 
     /**
@@ -75,6 +80,34 @@ expect class GlimpseAdapter {
      * Clears given buffers to the predefined clear values.
      */
     fun glClear(vararg buffers: ClearableBufferType)
+
+    /**
+     * Generates buffer handles and writes them to a given [bufferHandles] array.
+     *
+     * The number of generated buffer handles is equal to the size of the given
+     * [bufferHandles] array.
+     */
+    fun glGenBuffers(bufferHandles: IntArray)
+
+    /**
+     * Binds a given [bufferHandle] to a given buffer [type].
+     */
+    fun glBindBuffer(type: BufferType, bufferHandle: Int)
+
+    /**
+     * Creates a buffer of integer values and fills it with data.
+     */
+    fun glBufferData(type: BufferType, data: IntBufferData, usage: BufferUsage)
+
+    /**
+     * Creates a buffer of floating point values and fills it with data.
+     */
+    fun glBufferData(type: BufferType, data: FloatBufferData, usage: BufferUsage)
+
+    /**
+     * Deletes buffers represented by given [bufferHandles].
+     */
+    fun glDeleteBuffers(bufferHandles: IntArray)
 
     /**
      * Generates texture handles and writes them to a given [textureHandles] array.
