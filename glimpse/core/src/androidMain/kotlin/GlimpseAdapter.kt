@@ -23,10 +23,15 @@ import graphics.glimpse.buffers.BufferUsage
 import graphics.glimpse.buffers.FloatBufferData
 import graphics.glimpse.buffers.IntBufferData
 import graphics.glimpse.logging.GlimpseLogger
+import graphics.glimpse.shaders.ShaderType
 import graphics.glimpse.textures.TextureMagFilter
 import graphics.glimpse.textures.TextureMinFilter
 import graphics.glimpse.textures.TextureType
 import graphics.glimpse.textures.TextureWrap
+import graphics.glimpse.types.Mat2
+import graphics.glimpse.types.Mat3
+import graphics.glimpse.types.Mat4
+import graphics.glimpse.types.Vec2
 import graphics.glimpse.types.Vec3
 import graphics.glimpse.types.Vec4
 
@@ -302,4 +307,325 @@ actual class GlimpseAdapter {
      */
     actual fun glTextureIndices(): IntRange =
         0 until glGetInteger(GLES20.GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS)
+
+    /**
+     * Creates a shader of a given [shaderType] and returns its handle.
+     */
+    actual fun glCreateShader(shaderType: ShaderType): Int =
+        GLES20.glCreateShader(shaderType.toInt())
+
+    private fun ShaderType.toInt(): Int = when (this) {
+        ShaderType.VERTEX_SHADER -> GLES20.GL_VERTEX_SHADER
+        ShaderType.FRAGMENT_SHADER -> GLES20.GL_FRAGMENT_SHADER
+    }
+
+    /**
+     * Sets [source] of the shader identified by a given [shaderHandle].
+     */
+    actual fun glShaderSource(shaderHandle: Int, source: String) {
+        GLES20.glShaderSource(shaderHandle, source)
+    }
+
+    /**
+     * Compiles a shader identified by a given [shaderHandle].
+     */
+    actual fun glCompileShader(shaderHandle: Int) {
+        GLES20.glCompileShader(shaderHandle)
+    }
+
+    /**
+     * Returns `true` if shader identified by a given [shaderHandle] has been successfully compiled.
+     */
+    actual fun glGetShaderCompileStatus(shaderHandle: Int): Boolean {
+        val output = IntArray(size = 1)
+        GLES20.glGetShaderiv(shaderHandle, GLES20.GL_COMPILE_STATUS, output, 0)
+        return booleanOf(output.first())
+    }
+
+    /**
+     * Returns information log for the shader identified by a given [shaderHandle].
+     */
+    actual fun glGetShaderInfoLog(shaderHandle: Int): String =
+        GLES20.glGetShaderInfoLog(shaderHandle)
+
+    /**
+     * Deletes a shader identified by a given [shaderHandle].
+     */
+    actual fun glDeleteShader(shaderHandle: Int) {
+        GLES20.glDeleteShader(shaderHandle)
+    }
+
+    /**
+     * Returns `true` if shader identified by a given [shaderHandle] has been marked for deletion.
+     */
+    actual fun glGetShaderDeleteStatus(shaderHandle: Int): Boolean {
+        val output = IntArray(size = 1)
+        GLES20.glGetShaderiv(shaderHandle, GLES20.GL_DELETE_STATUS, output, 0)
+        return booleanOf(output.first())
+    }
+
+    /**
+     * Creates a program and returns its handle.
+     */
+    actual fun glCreateProgram(): Int =
+        GLES20.glCreateProgram()
+
+    /**
+     * Attaches shader identified by a given [shaderHandle] to program identified by
+     * a given [programHandle].
+     */
+    actual fun glAttachShader(programHandle: Int, shaderHandle: Int) {
+        GLES20.glAttachShader(programHandle, shaderHandle)
+    }
+
+    /**
+     * Links program identified by a given [programHandle].
+     */
+    actual fun glLinkProgram(programHandle: Int) {
+        GLES20.glLinkProgram(programHandle)
+    }
+
+    /**
+     * Returns `true` if program identified by a given [programHandle] has been successfully linked.
+     */
+    actual fun glGetProgramLinkStatus(programHandle: Int): Boolean {
+        val output = IntArray(size = 1)
+        GLES20.glGetProgramiv(programHandle, GLES20.GL_LINK_STATUS, output, 0)
+        return booleanOf(output.first())
+    }
+
+    /**
+     * Returns information log for the program identified by a given [programHandle].
+     */
+    actual fun glGetProgramInfoLog(programHandle: Int): String =
+        GLES20.glGetProgramInfoLog(programHandle)
+
+    /**
+     * Validates program identified by a given [programHandle].
+     */
+    actual fun glValidateProgram(programHandle: Int) {
+        GLES20.glValidateProgram(programHandle)
+    }
+
+    /**
+     * Returns `true` if program identified by a given [programHandle] has been successfully
+     * validated.
+     */
+    actual fun glGetProgramValidateStatus(programHandle: Int): Boolean {
+        val output = IntArray(size = 1)
+        GLES20.glGetProgramiv(programHandle, GLES20.GL_VALIDATE_STATUS, output, 0)
+        return booleanOf(output.first())
+    }
+
+    /**
+     * Uses a program identified by a given [programHandle].
+     */
+    actual fun glUseProgram(programHandle: Int) {
+        GLES20.glUseProgram(programHandle)
+    }
+
+    /**
+     * Deletes a program identified by a given [programHandle].
+     */
+    actual fun glDeleteProgram(programHandle: Int) {
+        GLES20.glDeleteProgram(programHandle)
+    }
+
+    /**
+     * Returns `true` if program identified by a given [programHandle] has been marked for deletion.
+     */
+    actual fun glGetProgramDeleteStatus(programHandle: Int): Boolean {
+        val output = IntArray(size = 1)
+        GLES20.glGetProgramiv(programHandle, GLES20.GL_DELETE_STATUS, output, 0)
+        return booleanOf(output.first())
+    }
+
+    /**
+     * Returns location of uniform variable with a given [name]
+     * from program identified by a given [programHandle].
+     */
+    actual fun glGetUniformLocation(programHandle: Int, name: String): Int =
+        GLES20.glGetUniformLocation(programHandle, name)
+
+    /**
+     * Returns location of attribute variable with a given [name]
+     * from program identified by a given [programHandle].
+     */
+    actual fun glGetAttributeLocation(programHandle: Int, name: String): Int =
+        GLES20.glGetAttribLocation(programHandle, name)
+
+    /**
+     * Sets [value] of integer uniform variable at a given [location] for current program.
+     */
+    actual fun glUniform(location: Int, value: Int) {
+        GLES20.glUniform1i(location, value)
+    }
+
+    /**
+     * Sets [value] of floating point uniform variable at a given [location] for current program.
+     */
+    actual fun glUniform(location: Int, value: Float) {
+        GLES20.glUniform1f(location, value)
+    }
+
+    /**
+     * Sets [value] of 2D vector uniform variable at a given [location] for current program.
+     */
+    actual fun glUniform(location: Int, value: Vec2) {
+        GLES20.glUniform2f(location, value.x, value.y)
+    }
+
+    /**
+     * Sets [value] of 3D vector uniform variable at a given [location] for current program.
+     */
+    actual fun glUniform(location: Int, value: Vec3) {
+        GLES20.glUniform3f(location, value.x, value.y, value.z)
+    }
+
+    /**
+     * Sets [value] of 4D vector uniform variable at a given [location] for current program.
+     */
+    actual fun glUniform(location: Int, value: Vec4) {
+        GLES20.glUniform4f(location, value.x, value.y, value.z, value.w)
+    }
+
+    /**
+     * Sets [values] of integer array uniform variable at a given [location] for current program.
+     */
+    actual fun glUniform(location: Int, vararg values: Int) {
+        GLES20.glUniform1iv(location, values.size, values, 0)
+    }
+
+    /**
+     * Sets [values] of floating point array uniform variable at a given [location] for current program.
+     */
+    actual fun glUniform(location: Int, vararg values: Float) {
+        GLES20.glUniform1fv(location, values.size, values, 0)
+    }
+
+    /**
+     * Sets [values] of 2D vector array uniform variable at a given [location] for current program.
+     */
+    actual fun glUniform(location: Int, vararg values: Vec2) {
+        GLES20.glUniform2fv(location, values.size, values.flatMap { it.toList() }.toFloatArray(), 0)
+    }
+
+    /**
+     * Sets [values] of 3D vector array uniform variable at a given [location] for current program.
+     */
+    actual fun glUniform(location: Int, vararg values: Vec3) {
+        GLES20.glUniform3fv(location, values.size, values.flatMap { it.toList() }.toFloatArray(), 0)
+    }
+
+    /**
+     * Sets [values] of 4D vector array uniform variable at a given [location] for current program.
+     */
+    actual fun glUniform(location: Int, vararg values: Vec4) {
+        GLES20.glUniform4fv(location, values.size, values.flatMap { it.toList() }.toFloatArray(), 0)
+    }
+
+    /**
+     * Sets [values] of 2×2 matrix array uniform variable at a given [location] for current program.
+     *
+     * Optionally, if the [transpose] flag is set to `true`, transpose matrices will be set instead.
+     */
+    actual fun glUniform(location: Int, vararg values: Mat2, transpose: Boolean) {
+        GLES20.glUniformMatrix2fv(
+            location,
+            values.size,
+            transpose,
+            values.flatMap { it.elements }.toFloatArray(),
+            0
+        )
+    }
+
+    /**
+     * Sets [values] of 3×3 matrix array uniform variable at a given [location] for current program.
+     *
+     * Optionally, if the [transpose] flag is set to `true`, transpose matrices will be set instead.
+     */
+    actual fun glUniform(location: Int, vararg values: Mat3, transpose: Boolean) {
+        GLES20.glUniformMatrix3fv(
+            location,
+            values.size,
+            transpose,
+            values.flatMap { it.elements }.toFloatArray(),
+            0
+        )
+    }
+
+    /**
+     * Sets [values] of 4×4 matrix array uniform variable at a given [location] for current program.
+     *
+     * Optionally, if the [transpose] flag is set to `true`, transpose matrices will be set instead.
+     */
+    actual fun glUniform(location: Int, vararg values: Mat4, transpose: Boolean) {
+        GLES20.glUniformMatrix4fv(
+            location,
+            values.size,
+            transpose,
+            values.flatMap { it.elements }.toFloatArray(),
+            0
+        )
+    }
+
+    /**
+     * Enables vertex attributes array at a given [location] for current program.
+     */
+    actual fun glEnableVertexAttribArray(location: Int) {
+        GLES20.glEnableVertexAttribArray(location)
+    }
+
+    /**
+     * Disables vertex attributes array at a given [location] for current program.
+     */
+    actual fun glDisableVertexAttribArray(location: Int) {
+        GLES20.glDisableVertexAttribArray(location)
+    }
+
+    /**
+     * Sets vertex attributes array at a given [location] for current program.
+     */
+    actual fun glVertexAttribPointer(
+        location: Int,
+        vectorSize: Int,
+        normalized: Boolean,
+        stride: Int,
+        offset: Int
+    ) {
+        GLES20.glVertexAttribPointer(
+            location,
+            vectorSize,
+            GLES20.GL_FLOAT,
+            normalized,
+            stride,
+            offset
+        )
+    }
+
+    /**
+     * Draws a given [number][count] of primitives of type specified by [mode],
+     * starting with [offset].
+     */
+    actual fun glDrawArrays(mode: DrawingMode, count: Int, offset: Int) {
+        GLES20.glDrawArrays(mode.toInt(), offset, count)
+    }
+
+    private fun DrawingMode.toInt(): Int = when (this) {
+        DrawingMode.POINTS -> GLES20.GL_POINTS
+        DrawingMode.LINES -> GLES20.GL_LINES
+        DrawingMode.LINE_LOOP -> GLES20.GL_LINE_LOOP
+        DrawingMode.LINE_STRIP -> GLES20.GL_LINE_STRIP
+        DrawingMode.TRIANGLES -> GLES20.GL_TRIANGLES
+        DrawingMode.TRIANGLE_STRIP -> GLES20.GL_TRIANGLE_STRIP
+        DrawingMode.TRIANGLE_FAN -> GLES20.GL_TRIANGLE_FAN
+    }
+
+    /**
+     * Draws a given [number][count] of primitives of type specified by [mode],
+     * using a buffer of vertex array indices, starting with [offset].
+     */
+    actual fun glDrawElements(mode: DrawingMode, count: Int, offset: Int) {
+        GLES20.glDrawElements(mode.toInt(), count, GLES20.GL_UNSIGNED_INT, offset)
+    }
 }

@@ -26,6 +26,10 @@ Meshes and mesh data.
 
 Models (meshes with transformations).
 
+# Package graphics.glimpse.shaders
+
+Shaders and programs.
+
 # Package graphics.glimpse.textures
 
 Textures and texture-related enums.

@@ -1,0 +1,116 @@
+/*
+ * Copyright 2020 Slawomir Czerwinski
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+package graphics.glimpse.shaders
+
+import graphics.glimpse.GlimpseAdapter
+
+internal class ProgramBuilderImpl(private val gl: GlimpseAdapter) : Program.Builder {
+
+    private var vertexShaderHandle: Int = 0
+    private var fragmentShaderHandle: Int = 0
+
+    override fun withVertexShader(vertexShader: Shader): Program.Builder {
+        vertexShaderHandle = vertexShader.handle
+        return this
+    }
+
+    override fun withFragmentShader(fragmentShader: Shader): Program.Builder {
+        fragmentShaderHandle = fragmentShader.handle
+        return this
+    }
+
+    override fun build(): Program {
+        check(value = vertexShaderHandle != 0) { "Vertex shader not set" }
+        check(value = fragmentShaderHandle != 0) { "Fragment shader not set" }
+
+        gl.logger.debug(
+            message = """
+                |Linking program with:
+                | - vertex shader $vertexShaderHandle
+                | - fragment shader $fragmentShaderHandle
+            """.trimMargin()
+        )
+
+        val handle = gl.glCreateProgram()
+
+        gl.glAttachShader(handle, vertexShaderHandle)
+        gl.glAttachShader(handle, fragmentShaderHandle)
+
+        linkProgram(handle)
+        validateProgram(handle)
+
+        return ProgramImpl(handle, vertexShaderHandle, fragmentShaderHandle)
+    }
+
+    private fun linkProgram(handle: Int) {
+        gl.glLinkProgram(handle)
+
+        if (!gl.glGetProgramLinkStatus(handle)) {
+            val programInfoLog = gl.glGetProgramInfoLog(handle)
+            gl.logger.error(message = "Program linking failed:\n$programInfoLog\nCleaning up")
+
+            cleanUpAfterError(handle)
+
+            throw IllegalStateException("Program linking failed:\n$programInfoLog")
+        }
+    }
+
+    private fun validateProgram(handle: Int) {
+        gl.glValidateProgram(handle)
+
+        if (!gl.glGetProgramValidateStatus(handle)) {
+            val programInfoLog = gl.glGetProgramInfoLog(handle)
+            gl.logger.error(message = "Program validation failed:\n$programInfoLog\nCleaning up")
+
+            cleanUpAfterError(handle)
+
+            throw IllegalStateException("Program validation failed:\n$programInfoLog")
+        }
+    }
+
+    private fun cleanUpAfterError(handle: Int) {
+        gl.glDeleteProgram(handle)
+        gl.glDeleteShader(vertexShaderHandle)
+        gl.glDeleteShader(fragmentShaderHandle)
+    }
+
+    private data class ProgramImpl(
+        override val handle: Int,
+        private val vertexShaderHandle: Int,
+        private val fragmentShaderHandle: Int
+    ) : Program {
+
+        override fun use(gl: GlimpseAdapter) {
+            gl.glUseProgram(handle)
+        }
+
+        override fun dispose(gl: GlimpseAdapter) {
+            gl.glDeleteProgram(handle)
+
+            gl.glDeleteShader(vertexShaderHandle)
+            gl.glDeleteShader(fragmentShaderHandle)
+
+            if (!gl.glGetProgramDeleteStatus(handle)) {
+                val shaderInfoLog = gl.glGetProgramInfoLog(handle)
+                gl.logger.error(message = "Program deletion failed:\n$shaderInfoLog")
+
+                throw IllegalStateException("Program deletion failed:\n$shaderInfoLog")
+            }
+        }
+    }
+}
