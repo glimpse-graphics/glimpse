@@ -17,7 +17,7 @@
 
 package graphics.glimpse
 
-import com.jogamp.opengl.GLES2
+import com.jogamp.opengl.GL2ES2
 import graphics.glimpse.logging.GlimpseLogger
 import graphics.glimpse.textures.TextureMagFilter
 import graphics.glimpse.textures.TextureMinFilter
@@ -29,7 +29,7 @@ import graphics.glimpse.types.Vec4
 /**
  * Glimpse OpenGL adapter for the given [GL ES 2.0][gles].
  */
-actual class GlimpseAdapter(internal val gles: GLES2) {
+actual class GlimpseAdapter(internal val gles: GL2ES2) {
 
     /**
      * Glimpse logger.
@@ -39,7 +39,7 @@ actual class GlimpseAdapter(internal val gles: GLES2) {
     /**
      * Returns a boolean value for the given integer [value].
      */
-    actual fun booleanOf(value: Int): Boolean = value != GLES2.GL_FALSE
+    actual fun booleanOf(value: Int): Boolean = value != GL2ES2.GL_FALSE
 
     /**
      * Sets clear values for color buffers to [color] with alpha channel set to fully opaque.
@@ -67,23 +67,23 @@ actual class GlimpseAdapter(internal val gles: GLES2) {
      */
     actual fun glDepthTest(depthTestFunction: DepthTestFunction) {
         if (depthTestFunction.isDepthTestEnabled) {
-            gles.glEnable(GLES2.GL_DEPTH_TEST)
+            gles.glEnable(GL2ES2.GL_DEPTH_TEST)
         } else {
-            gles.glDisable(GLES2.GL_DEPTH_TEST)
+            gles.glDisable(GL2ES2.GL_DEPTH_TEST)
         }
         depthTestFunction.toInt()?.let { depthFunc -> gles.glDepthFunc(depthFunc) }
     }
 
     private fun DepthTestFunction.toInt(): Int? = when (this) {
         DepthTestFunction.DISABLED -> null
-        DepthTestFunction.NEVER -> GLES2.GL_NEVER
-        DepthTestFunction.LESS -> GLES2.GL_LESS
-        DepthTestFunction.EQUAL -> GLES2.GL_EQUAL
-        DepthTestFunction.LESS_OR_EQUAL -> GLES2.GL_LEQUAL
-        DepthTestFunction.GREATER -> GLES2.GL_GREATER
-        DepthTestFunction.NOT_EQUAL -> GLES2.GL_NOTEQUAL
-        DepthTestFunction.GREATER_OR_EQUAL -> GLES2.GL_GEQUAL
-        DepthTestFunction.ALWAYS -> GLES2.GL_ALWAYS
+        DepthTestFunction.NEVER -> GL2ES2.GL_NEVER
+        DepthTestFunction.LESS -> GL2ES2.GL_LESS
+        DepthTestFunction.EQUAL -> GL2ES2.GL_EQUAL
+        DepthTestFunction.LESS_OR_EQUAL -> GL2ES2.GL_LEQUAL
+        DepthTestFunction.GREATER -> GL2ES2.GL_GREATER
+        DepthTestFunction.NOT_EQUAL -> GL2ES2.GL_NOTEQUAL
+        DepthTestFunction.GREATER_OR_EQUAL -> GL2ES2.GL_GEQUAL
+        DepthTestFunction.ALWAYS -> GL2ES2.GL_ALWAYS
     }
 
     /**
@@ -91,18 +91,18 @@ actual class GlimpseAdapter(internal val gles: GLES2) {
      */
     actual fun glCullFace(faceCullingMode: FaceCullingMode) {
         if (faceCullingMode.isFaceCullingEnabled) {
-            gles.glEnable(GLES2.GL_CULL_FACE)
+            gles.glEnable(GL2ES2.GL_CULL_FACE)
         } else {
-            gles.glDisable(GLES2.GL_CULL_FACE)
+            gles.glDisable(GL2ES2.GL_CULL_FACE)
         }
         faceCullingMode.toInt()?.let { depthFunc -> gles.glDepthFunc(depthFunc) }
     }
 
     private fun FaceCullingMode.toInt(): Int? = when (this) {
         FaceCullingMode.DISABLED -> null
-        FaceCullingMode.FRONT -> GLES2.GL_FRONT
-        FaceCullingMode.BACK -> GLES2.GL_BACK
-        FaceCullingMode.FRONT_AND_BACK -> GLES2.GL_FRONT_AND_BACK
+        FaceCullingMode.FRONT -> GL2ES2.GL_FRONT
+        FaceCullingMode.BACK -> GL2ES2.GL_BACK
+        FaceCullingMode.FRONT_AND_BACK -> GL2ES2.GL_FRONT_AND_BACK
     }
 
     /**
@@ -125,9 +125,9 @@ actual class GlimpseAdapter(internal val gles: GLES2) {
     }
 
     private fun ClearableBufferType.toInt(): Int = when (this) {
-        ClearableBufferType.COLOR_BUFFER -> GLES2.GL_COLOR_BUFFER_BIT
-        ClearableBufferType.DEPTH_BUFFER -> GLES2.GL_DEPTH_BUFFER_BIT
-        ClearableBufferType.STENCIL_BUFFER -> GLES2.GL_STENCIL_BUFFER_BIT
+        ClearableBufferType.COLOR_BUFFER -> GL2ES2.GL_COLOR_BUFFER_BIT
+        ClearableBufferType.DEPTH_BUFFER -> GL2ES2.GL_DEPTH_BUFFER_BIT
+        ClearableBufferType.STENCIL_BUFFER -> GL2ES2.GL_STENCIL_BUFFER_BIT
     }
 
     /**
@@ -147,16 +147,16 @@ actual class GlimpseAdapter(internal val gles: GLES2) {
     }
 
     private fun TextureType.toInt(): Int = when (this) {
-        TextureType.TEXTURE_2D -> GLES2.GL_TEXTURE_2D
-        TextureType.TEXTURE_CUBE_MAP -> GLES2.GL_TEXTURE_CUBE_MAP
+        TextureType.TEXTURE_2D -> GL2ES2.GL_TEXTURE_2D
+        TextureType.TEXTURE_CUBE_MAP -> GL2ES2.GL_TEXTURE_CUBE_MAP
     }
 
     /**
      * Gets maximum size of a texture of a given [type].
      */
     actual fun glMaxTextureSize(type: TextureType): Int = when (type) {
-        TextureType.TEXTURE_2D -> glGetInteger(GLES2.GL_MAX_TEXTURE_SIZE)
-        TextureType.TEXTURE_CUBE_MAP -> glGetInteger(GLES2.GL_MAX_CUBE_MAP_TEXTURE_SIZE)
+        TextureType.TEXTURE_2D -> glGetInteger(GL2ES2.GL_MAX_TEXTURE_SIZE)
+        TextureType.TEXTURE_CUBE_MAP -> glGetInteger(GL2ES2.GL_MAX_CUBE_MAP_TEXTURE_SIZE)
     }
 
     private fun glGetInteger(parameter: Int): Int {
@@ -181,22 +181,22 @@ actual class GlimpseAdapter(internal val gles: GLES2) {
         minFilter: TextureMinFilter,
         magFilter: TextureMagFilter
     ) {
-        gles.glTexParameteri(type.toInt(), GLES2.GL_TEXTURE_MIN_FILTER, minFilter.toInt())
-        gles.glTexParameteri(type.toInt(), GLES2.GL_TEXTURE_MAG_FILTER, magFilter.toInt())
+        gles.glTexParameteri(type.toInt(), GL2ES2.GL_TEXTURE_MIN_FILTER, minFilter.toInt())
+        gles.glTexParameteri(type.toInt(), GL2ES2.GL_TEXTURE_MAG_FILTER, magFilter.toInt())
     }
 
     private fun TextureMinFilter.toInt(): Int = when (this) {
-        TextureMinFilter.NEAREST -> GLES2.GL_NEAREST
-        TextureMinFilter.LINEAR -> GLES2.GL_LINEAR
-        TextureMinFilter.NEAREST_MIPMAP_NEAREST -> GLES2.GL_NEAREST_MIPMAP_NEAREST
-        TextureMinFilter.LINEAR_MIPMAP_NEAREST -> GLES2.GL_LINEAR_MIPMAP_NEAREST
-        TextureMinFilter.NEAREST_MIPMAP_LINEAR -> GLES2.GL_NEAREST_MIPMAP_LINEAR
-        TextureMinFilter.LINEAR_MIPMAP_LINEAR -> GLES2.GL_LINEAR_MIPMAP_LINEAR
+        TextureMinFilter.NEAREST -> GL2ES2.GL_NEAREST
+        TextureMinFilter.LINEAR -> GL2ES2.GL_LINEAR
+        TextureMinFilter.NEAREST_MIPMAP_NEAREST -> GL2ES2.GL_NEAREST_MIPMAP_NEAREST
+        TextureMinFilter.LINEAR_MIPMAP_NEAREST -> GL2ES2.GL_LINEAR_MIPMAP_NEAREST
+        TextureMinFilter.NEAREST_MIPMAP_LINEAR -> GL2ES2.GL_NEAREST_MIPMAP_LINEAR
+        TextureMinFilter.LINEAR_MIPMAP_LINEAR -> GL2ES2.GL_LINEAR_MIPMAP_LINEAR
     }
 
     private fun TextureMagFilter.toInt(): Int = when (this) {
-        TextureMagFilter.NEAREST -> GLES2.GL_NEAREST
-        TextureMagFilter.LINEAR -> GLES2.GL_LINEAR
+        TextureMagFilter.NEAREST -> GL2ES2.GL_NEAREST
+        TextureMagFilter.LINEAR -> GL2ES2.GL_LINEAR
     }
 
     /**
@@ -208,14 +208,14 @@ actual class GlimpseAdapter(internal val gles: GLES2) {
         wrapS: TextureWrap,
         wrapT: TextureWrap
     ) {
-        gles.glTexParameteri(type.toInt(), GLES2.GL_TEXTURE_WRAP_S, wrapS.toInt())
-        gles.glTexParameteri(type.toInt(), GLES2.GL_TEXTURE_WRAP_T, wrapT.toInt())
+        gles.glTexParameteri(type.toInt(), GL2ES2.GL_TEXTURE_WRAP_S, wrapS.toInt())
+        gles.glTexParameteri(type.toInt(), GL2ES2.GL_TEXTURE_WRAP_T, wrapT.toInt())
     }
 
     private fun TextureWrap.toInt(): Int = when (this) {
-        TextureWrap.CLAMP_TO_EDGE -> GLES2.GL_CLAMP_TO_EDGE
-        TextureWrap.REPEAT -> GLES2.GL_REPEAT
-        TextureWrap.MIRRORED_REPEAT -> GLES2.GL_MIRRORED_REPEAT
+        TextureWrap.CLAMP_TO_EDGE -> GL2ES2.GL_CLAMP_TO_EDGE
+        TextureWrap.REPEAT -> GL2ES2.GL_REPEAT
+        TextureWrap.MIRRORED_REPEAT -> GL2ES2.GL_MIRRORED_REPEAT
     }
 
     /**
@@ -229,12 +229,12 @@ actual class GlimpseAdapter(internal val gles: GLES2) {
      * Selects active [textureIndex] starting with 0.
      */
     actual fun glActiveTexture(textureIndex: Int) {
-        gles.glActiveTexture(GLES2.GL_TEXTURE0 + textureIndex)
+        gles.glActiveTexture(GL2ES2.GL_TEXTURE0 + textureIndex)
     }
 
     /**
      * Returns a range of indices supported by [glActiveTexture].
      */
     actual fun glTextureIndices(): IntRange =
-        0 until glGetInteger(GLES2.GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS)
+        0 until glGetInteger(GL2ES2.GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS)
 }
