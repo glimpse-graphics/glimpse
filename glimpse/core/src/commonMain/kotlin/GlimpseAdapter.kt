@@ -17,11 +17,11 @@
 
 package graphics.glimpse
 
-import graphics.glimpse.logging.GlimpseLogger
 import graphics.glimpse.buffers.BufferType
 import graphics.glimpse.buffers.BufferUsage
 import graphics.glimpse.buffers.FloatBufferData
 import graphics.glimpse.buffers.IntBufferData
+import graphics.glimpse.logging.GlimpseLogger
 import graphics.glimpse.shaders.ShaderType
 import graphics.glimpse.textures.TextureMagFilter
 import graphics.glimpse.textures.TextureMinFilter
@@ -202,4 +202,56 @@ expect class GlimpseAdapter {
      * Returns `true` if shader identified by a given [shaderHandle] has been marked for deletion.
      */
     fun glGetShaderDeleteStatus(shaderHandle: Int): Boolean
+
+    /**
+     * Creates a program and returns its handle.
+     */
+    fun glCreateProgram(): Int
+
+    /**
+     * Attaches shader identified by a given [shaderHandle] to program identified by
+     * a given [programHandle].
+     */
+    fun glAttachShader(programHandle: Int, shaderHandle: Int)
+
+    /**
+     * Links program identified by a given [programHandle].
+     */
+    fun glLinkProgram(programHandle: Int)
+
+    /**
+     * Returns `true` if program identified by a given [programHandle] has been successfully linked.
+     */
+    fun glGetProgramLinkStatus(programHandle: Int): Boolean
+
+    /**
+     * Returns information log for the program identified by a given [programHandle].
+     */
+    fun glGetProgramInfoLog(programHandle: Int): String
+
+    /**
+     * Validates program identified by a given [programHandle].
+     */
+    fun glValidateProgram(programHandle: Int)
+
+    /**
+     * Returns `true` if program identified by a given [programHandle] has been successfully
+     * validated.
+     */
+    fun glGetProgramValidateStatus(programHandle: Int): Boolean
+
+    /**
+     * Uses a program identified by a given [programHandle].
+     */
+    fun glUseProgram(programHandle: Int)
+
+    /**
+     * Deletes a program identified by a given [programHandle].
+     */
+    fun glDeleteProgram(programHandle: Int)
+
+    /**
+     * Returns `true` if program identified by a given [programHandle] has been marked for deletion.
+     */
+    fun glGetProgramDeleteStatus(programHandle: Int): Boolean
 }

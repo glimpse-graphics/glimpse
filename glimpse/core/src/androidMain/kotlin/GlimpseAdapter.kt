@@ -30,7 +30,6 @@ import graphics.glimpse.textures.TextureType
 import graphics.glimpse.textures.TextureWrap
 import graphics.glimpse.types.Vec3
 import graphics.glimpse.types.Vec4
-import java.nio.IntBuffer
 
 /**
  * Glimpse OpenGL adapter.
@@ -358,6 +357,82 @@ actual class GlimpseAdapter {
     actual fun glGetShaderDeleteStatus(shaderHandle: Int): Boolean {
         val output = IntArray(size = 1)
         GLES20.glGetShaderiv(shaderHandle, GLES20.GL_DELETE_STATUS, output, 0)
+        return booleanOf(output.first())
+    }
+
+    /**
+     * Creates a program and returns its handle.
+     */
+    actual fun glCreateProgram(): Int =
+        GLES20.glCreateProgram()
+
+    /**
+     * Attaches shader identified by a given [shaderHandle] to program identified by
+     * a given [programHandle].
+     */
+    actual fun glAttachShader(programHandle: Int, shaderHandle: Int) {
+        GLES20.glAttachShader(programHandle, shaderHandle)
+    }
+
+    /**
+     * Links program identified by a given [programHandle].
+     */
+    actual fun glLinkProgram(programHandle: Int) {
+        GLES20.glLinkProgram(programHandle)
+    }
+
+    /**
+     * Returns `true` if program identified by a given [programHandle] has been successfully linked.
+     */
+    actual fun glGetProgramLinkStatus(programHandle: Int): Boolean {
+        val output = IntArray(size = 1)
+        GLES20.glGetProgramiv(programHandle, GLES20.GL_LINK_STATUS, output, 0)
+        return booleanOf(output.first())
+    }
+
+    /**
+     * Returns information log for the program identified by a given [programHandle].
+     */
+    actual fun glGetProgramInfoLog(programHandle: Int): String =
+        GLES20.glGetProgramInfoLog(programHandle)
+
+    /**
+     * Validates program identified by a given [programHandle].
+     */
+    actual fun glValidateProgram(programHandle: Int) {
+        GLES20.glValidateProgram(programHandle)
+    }
+
+    /**
+     * Returns `true` if program identified by a given [programHandle] has been successfully
+     * validated.
+     */
+    actual fun glGetProgramValidateStatus(programHandle: Int): Boolean {
+        val output = IntArray(size = 1)
+        GLES20.glGetProgramiv(programHandle, GLES20.GL_VALIDATE_STATUS, output, 0)
+        return booleanOf(output.first())
+    }
+
+    /**
+     * Uses a program identified by a given [programHandle].
+     */
+    actual fun glUseProgram(programHandle: Int) {
+        GLES20.glUseProgram(programHandle)
+    }
+
+    /**
+     * Deletes a program identified by a given [programHandle].
+     */
+    actual fun glDeleteProgram(programHandle: Int) {
+        GLES20.glDeleteProgram(programHandle)
+    }
+
+    /**
+     * Returns `true` if program identified by a given [programHandle] has been marked for deletion.
+     */
+    actual fun glGetProgramDeleteStatus(programHandle: Int): Boolean {
+        val output = IntArray(size = 1)
+        GLES20.glGetProgramiv(programHandle, GLES20.GL_DELETE_STATUS, output, 0)
         return booleanOf(output.first())
     }
 }
