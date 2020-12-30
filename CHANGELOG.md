@@ -10,6 +10,7 @@
 - Glimpse logger
 - Buffers
 - Meshes
+- Models
 - Textures
 - Cameras
 - Lenses
