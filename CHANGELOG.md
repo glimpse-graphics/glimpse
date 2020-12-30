@@ -12,5 +12,6 @@
 - Meshes
 - Models
 - Textures
+- Shaders
 - Cameras
 - Lenses
