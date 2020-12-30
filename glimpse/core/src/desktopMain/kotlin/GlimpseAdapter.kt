@@ -446,4 +446,18 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
         gles.glGetProgramiv(programHandle, GL2ES2.GL_DELETE_STATUS, output, 0)
         return booleanOf(output.first())
     }
+
+    /**
+     * Returns location of uniform variable with a given [name]
+     * from program identified by a given [programHandle].
+     */
+    actual fun glGetUniformLocation(programHandle: Int, name: String): Int =
+        gles.glGetUniformLocation(programHandle, name)
+
+    /**
+     * Returns location of attribute variable with a given [name]
+     * from program identified by a given [programHandle].
+     */
+    actual fun glGetAttributeLocation(programHandle: Int, name: String): Int =
+        gles.glGetAttribLocation(programHandle, name)
 }

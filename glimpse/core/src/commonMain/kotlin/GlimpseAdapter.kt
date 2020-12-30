@@ -254,4 +254,16 @@ expect class GlimpseAdapter {
      * Returns `true` if program identified by a given [programHandle] has been marked for deletion.
      */
     fun glGetProgramDeleteStatus(programHandle: Int): Boolean
+
+    /**
+     * Returns location of uniform variable with a given [name]
+     * from program identified by a given [programHandle].
+     */
+    fun glGetUniformLocation(programHandle: Int, name: String): Int
+
+    /**
+     * Returns location of attribute variable with a given [name]
+     * from program identified by a given [programHandle].
+     */
+    fun glGetAttributeLocation(programHandle: Int, name: String): Int
 }
