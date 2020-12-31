@@ -90,7 +90,7 @@ open class GlimpseSurfaceView(
     /**
      * An implementation of renderer using a given [callback] for rendering.
      */
-    private inner class GlimpseRenderer(
+    inner class GlimpseRenderer(
         private val callback: GlimpseCallback
     ) : Renderer,
         GlimpseCallback by callback {
