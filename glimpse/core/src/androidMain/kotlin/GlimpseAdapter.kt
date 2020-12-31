@@ -52,6 +52,7 @@ actual class GlimpseAdapter {
      * Sets clear values for color buffers to [color] with alpha channel set to fully opaque.
      */
     actual fun glClearColor(color: Vec3) {
+        logger.debug(message = "Setting clear color: $color")
         GLES20.glClearColor(color.r, color.g, color.b, 1f)
     }
 
@@ -59,6 +60,7 @@ actual class GlimpseAdapter {
      * Sets clear values for color buffers to [color].
      */
     actual fun glClearColor(color: Vec4) {
+        logger.debug(message = "Setting clear color: $color")
         GLES20.glClearColor(color.r, color.g, color.b, color.a)
     }
 
@@ -66,6 +68,7 @@ actual class GlimpseAdapter {
      * Sets clear value for the depth buffer to [depth].
      */
     actual fun glClearDepth(depth: Float) {
+        logger.debug(message = "Setting clear depth: $depth")
         GLES20.glClearDepthf(depth)
     }
 
@@ -73,6 +76,7 @@ actual class GlimpseAdapter {
      * Sets the given [depthTestFunction].
      */
     actual fun glDepthTest(depthTestFunction: DepthTestFunction) {
+        logger.debug(message = "Setting depth test function: $depthTestFunction")
         if (depthTestFunction.isDepthTestEnabled) {
             GLES20.glEnable(GLES20.GL_DEPTH_TEST)
         } else {
@@ -97,6 +101,7 @@ actual class GlimpseAdapter {
      * Sets facets to be culled to [faceCullingMode].
      */
     actual fun glCullFace(faceCullingMode: FaceCullingMode) {
+        logger.debug(message = "Setting face culling mode: $faceCullingMode")
         if (faceCullingMode.isFaceCullingEnabled) {
             GLES20.glEnable(GLES20.GL_CULL_FACE)
         } else {
@@ -117,6 +122,7 @@ actual class GlimpseAdapter {
      * and a given [width] and [height].
      */
     actual fun glViewport(x: Int, y: Int, width: Int, height: Int) {
+        logger.debug(message = "Setting viewport: x=$x, y=$y, width=$width, height=$height")
         GLES20.glViewport(x, y, width, height)
     }
 

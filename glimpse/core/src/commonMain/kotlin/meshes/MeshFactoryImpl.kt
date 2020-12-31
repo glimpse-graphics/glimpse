@@ -19,22 +19,28 @@ package graphics.glimpse.meshes
 
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.buffers.Buffer
+import graphics.glimpse.logging.GlimpseLogger
 
 internal class MeshFactoryImpl(gl: GlimpseAdapter) : Mesh.Factory {
 
+    private val logger: GlimpseLogger = GlimpseLogger.create(this)
+
     private val bufferFactory = Buffer.Factory.newInstance(gl)
 
-    override fun createMesh(arrayMeshData: ArrayMeshData): Mesh = ArrayMesh(
-        vertexCount = arrayMeshData.vertexCount,
-        buffers = with(arrayMeshData) {
-            bufferFactory.createArrayBuffers(
-                positionsData,
-                texCoordsData,
-                normalsData,
-                tangentsData
-            )
-        }
-    )
+    override fun createMesh(arrayMeshData: ArrayMeshData): Mesh {
+        logger.debug(message = "Creating array mesh with ${arrayMeshData.vertexCount} vertices")
+        return ArrayMesh(
+            vertexCount = arrayMeshData.vertexCount,
+            buffers = with(arrayMeshData) {
+                bufferFactory.createArrayBuffers(
+                    positionsData,
+                    texCoordsData,
+                    normalsData,
+                    tangentsData
+                )
+            }
+        )
+    }
 
     private data class ArrayMesh(
         override val vertexCount: Int,
