@@ -33,7 +33,7 @@ import javax.microedition.khronos.opengles.GL10
 open class GlimpseSurfaceView(
     context: Context,
     attrs: AttributeSet?
-) : GLSurfaceView(context, attrs) {
+) : GLSurfaceView(context, attrs), GlimpseComponent {
 
     constructor(context: Context) : this(context, null)
 
@@ -62,7 +62,7 @@ open class GlimpseSurfaceView(
     /**
      * Sets [callback] to be used for rendering.
      */
-    fun setCallback(callback: GlimpseCallback) {
+    override fun setCallback(callback: GlimpseCallback) {
         setGlimpseRenderer(GlimpseRenderer(callback))
     }
 
@@ -90,7 +90,7 @@ open class GlimpseSurfaceView(
     /**
      * An implementation of renderer using a given [callback] for rendering.
      */
-    inner class GlimpseRenderer(
+    private inner class GlimpseRenderer(
         private val callback: GlimpseCallback
     ) : Renderer,
         GlimpseCallback by callback {

@@ -24,7 +24,11 @@ kotlin {
 
     @Suppress("UNUSED_VARIABLE")
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation(project(":glimpse:core"))
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
@@ -50,10 +54,6 @@ kotlin {
             }
         }
     }
-}
-
-dependencies {
-    implementation(project(":glimpse:core"))
 }
 
 detekt {
