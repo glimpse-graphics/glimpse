@@ -67,7 +67,7 @@ fun perspective(
     require(value = near > 0f) { "Near depth clipping plane must be at a positive distance" }
     require(value = far > 0f) { "Far depth clipping plane must be at a positive distance" }
 
-    val top = tan(fovY / 2f) * near
+    val top = tan(fovY / 2f)
     val right = aspect * top
     val depth = near - far
 
