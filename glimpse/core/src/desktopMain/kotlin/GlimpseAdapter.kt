@@ -41,10 +41,7 @@ import graphics.glimpse.types.Vec4
 @Suppress("TooManyFunctions")
 actual class GlimpseAdapter(internal val gles: GL2ES2) {
 
-    /**
-     * Glimpse logger.
-     */
-    actual val logger: GlimpseLogger = GlimpseLogger.create(this)
+    private val logger: GlimpseLogger = GlimpseLogger.create(this)
 
     /**
      * Returns a boolean value for the given integer [value].

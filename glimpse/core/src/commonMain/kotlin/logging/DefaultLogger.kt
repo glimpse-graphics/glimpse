@@ -20,4 +20,4 @@ package graphics.glimpse.logging
 /**
  * Default implementation of a [GlimpseLogger].
  */
-expect class DefaultLogger : GlimpseLogger
+internal expect class DefaultLogger : GlimpseLogger

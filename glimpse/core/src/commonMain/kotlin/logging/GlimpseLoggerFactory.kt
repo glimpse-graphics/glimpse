@@ -20,7 +20,7 @@ package graphics.glimpse.logging
 /**
  * A factory for [GlimpseLogger].
  */
-expect object GlimpseLoggerFactory {
+internal expect object GlimpseLoggerFactory {
 
     /**
      * Gets a new logger for a given [object][obj].

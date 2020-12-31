@@ -21,7 +21,6 @@ import graphics.glimpse.buffers.BufferType
 import graphics.glimpse.buffers.BufferUsage
 import graphics.glimpse.buffers.FloatBufferData
 import graphics.glimpse.buffers.IntBufferData
-import graphics.glimpse.logging.GlimpseLogger
 import graphics.glimpse.shaders.ShaderType
 import graphics.glimpse.textures.TextureMagFilter
 import graphics.glimpse.textures.TextureMinFilter
@@ -39,11 +38,6 @@ import graphics.glimpse.types.Vec4
  */
 @Suppress("TooManyFunctions")
 expect class GlimpseAdapter {
-
-    /**
-     * Glimpse logger.
-     */
-    val logger: GlimpseLogger
 
     /**
      * Returns a boolean value for the given integer [value].

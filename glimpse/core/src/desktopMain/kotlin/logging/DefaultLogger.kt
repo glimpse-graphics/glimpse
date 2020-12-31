@@ -22,7 +22,7 @@ import org.slf4j.Logger
 /**
  * Default implementation of a [GlimpseLogger].
  */
-actual class DefaultLogger(private val logger: Logger) : GlimpseLogger {
+internal actual class DefaultLogger(private val logger: Logger) : GlimpseLogger {
 
     /**
      * Logs a given [message] at a debug level.

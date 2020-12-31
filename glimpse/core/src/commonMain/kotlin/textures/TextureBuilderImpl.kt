@@ -18,8 +18,11 @@
 package graphics.glimpse.textures
 
 import graphics.glimpse.GlimpseAdapter
+import graphics.glimpse.logging.GlimpseLogger
 
 internal class TextureBuilderImpl(private val gl: GlimpseAdapter) : Texture.Builder {
+
+    private val logger: GlimpseLogger = GlimpseLogger.create(this)
 
     private val params = mutableListOf<TextureParams>()
     private var generateMipmaps = false
@@ -45,7 +48,7 @@ internal class TextureBuilderImpl(private val gl: GlimpseAdapter) : Texture.Buil
     override fun build(): List<Texture> {
         check(params.isNotEmpty()) { "No textures to generate" }
         val texturesCount = params.size
-        gl.logger.debug(message = "Generating $texturesCount textures")
+        logger.debug(message = "Generating $texturesCount textures")
         val handles = IntArray(size = texturesCount)
         gl.glGenTextures(handles)
         for ((index, textureParams) in params.withIndex()) {
