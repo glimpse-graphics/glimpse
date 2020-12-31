@@ -33,11 +33,11 @@ import javax.microedition.khronos.opengles.GL10
 open class GlimpseSurfaceView(
     context: Context,
     attrs: AttributeSet?
-) : GLSurfaceView(context, attrs) {
+) : GLSurfaceView(context, attrs), GlimpseComponent {
 
     constructor(context: Context) : this(context, null)
 
-    private val glimpseLogger by lazy { GlimpseLogger.create(this) }
+    private val logger by lazy { GlimpseLogger.create(this) }
 
     private val glimpseAdapter by lazy { GlimpseAdapter() }
 
@@ -62,7 +62,7 @@ open class GlimpseSurfaceView(
     /**
      * Sets [callback] to be used for rendering.
      */
-    fun setCallback(callback: GlimpseCallback) {
+    override fun setCallback(callback: GlimpseCallback) {
         setGlimpseRenderer(GlimpseRenderer(callback))
     }
 
@@ -74,7 +74,7 @@ open class GlimpseSurfaceView(
     @Deprecated(message = "Use setCallback() instead")
     override fun setRenderer(renderer: Renderer?) {
         if (renderer != null && renderer !is GlimpseRenderer) {
-            glimpseLogger.warn(message = "Not a GlimpseRenderer. Setting renderer to null.")
+            logger.warn(message = "Not a GlimpseRenderer. Setting renderer to null.")
         }
         setGlimpseRenderer(renderer as? GlimpseRenderer)
     }

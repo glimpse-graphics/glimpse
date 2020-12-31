@@ -22,7 +22,7 @@ import android.util.Log
 /**
  * Default implementation of a [GlimpseLogger].
  */
-actual class DefaultLogger(private val tag: String) : GlimpseLogger {
+internal actual class DefaultLogger(private val tag: String) : GlimpseLogger {
 
     /**
      * Logs a given [message] at a debug level.

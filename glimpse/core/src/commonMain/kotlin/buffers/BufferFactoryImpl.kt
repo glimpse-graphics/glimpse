@@ -18,11 +18,19 @@
 package graphics.glimpse.buffers
 
 import graphics.glimpse.GlimpseAdapter
+import graphics.glimpse.logging.GlimpseLogger
 
 internal class BufferFactoryImpl(private val gl: GlimpseAdapter) : Buffer.Factory {
 
+    private val logger: GlimpseLogger = GlimpseLogger.create(this)
+
     override fun createArrayBuffers(vararg buffersData: FloatBufferData): List<Buffer> {
         val buffersCount = buffersData.size
+
+        logger.debug(
+            message = "Creating $buffersCount array buffers with sizes: " +
+                    "${buffersData.map { it.sizeInBytes }} bytes"
+        )
 
         val handles = IntArray(size = buffersCount)
         gl.glGenBuffers(handles)
@@ -46,6 +54,11 @@ internal class BufferFactoryImpl(private val gl: GlimpseAdapter) : Buffer.Factor
 
     override fun createElementArrayBuffers(vararg buffersData: IntBufferData): List<Buffer> {
         val buffersCount = buffersData.size
+
+        logger.debug(
+            message = "Creating $buffersCount element array buffers with sizes: " +
+                    "${buffersData.map { it.sizeInBytes }} bytes"
+        )
 
         val handles = IntArray(size = buffersCount)
         gl.glGenBuffers(handles)

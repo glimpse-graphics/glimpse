@@ -18,11 +18,14 @@
 package graphics.glimpse.shaders
 
 import graphics.glimpse.GlimpseAdapter
+import graphics.glimpse.logging.GlimpseLogger
 
 internal class ShaderFactoryImpl(private val gl: GlimpseAdapter) : Shader.Factory {
 
+    private val logger: GlimpseLogger = GlimpseLogger.create(this)
+
     override fun createShader(type: ShaderType, source: String): Shader {
-        gl.logger.debug(message = "Compiling shader from sources:\n$source")
+        logger.debug(message = "Compiling shader from sources:\n$source")
 
         val handle = gl.glCreateShader(type)
         gl.glShaderSource(handle, source)
@@ -37,7 +40,7 @@ internal class ShaderFactoryImpl(private val gl: GlimpseAdapter) : Shader.Factor
 
         if (!gl.glGetShaderCompileStatus(handle)) {
             val shaderInfoLog = gl.glGetShaderInfoLog(handle)
-            gl.logger.error(message = "$type compilation failed:\n$shaderInfoLog\nCleaning up")
+            logger.error(message = "$type compilation failed:\n$shaderInfoLog\nCleaning up")
 
             gl.glDeleteShader(handle)
 
@@ -47,12 +50,14 @@ internal class ShaderFactoryImpl(private val gl: GlimpseAdapter) : Shader.Factor
 
     private data class ShaderImpl(override val handle: Int) : Shader {
 
+        private val logger: GlimpseLogger = GlimpseLogger.create(this)
+
         override fun dispose(gl: GlimpseAdapter) {
             gl.glDeleteShader(handle)
 
             if (!gl.glGetShaderDeleteStatus(handle)) {
                 val shaderInfoLog = gl.glGetShaderInfoLog(handle)
-                gl.logger.error(message = "Shader deletion failed:\n$shaderInfoLog")
+                logger.error(message = "Shader deletion failed:\n$shaderInfoLog")
 
                 throw IllegalStateException("Shader deletion failed:\n$shaderInfoLog")
             }

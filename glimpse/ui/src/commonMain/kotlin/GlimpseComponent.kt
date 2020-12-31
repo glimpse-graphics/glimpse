@@ -15,15 +15,17 @@
  *
  */
 
-package graphics.glimpse.logging
+package graphics.glimpse.ui
+
+import graphics.glimpse.GlimpseCallback
 
 /**
- * A factory for [GlimpseLogger].
+ * An interface implemented by Glimpse UI components.
  */
-internal expect object GlimpseLoggerFactory {
+interface GlimpseComponent {
 
     /**
-     * Gets a new logger for a given [object][obj].
+     * Sets [callback] to be used for rendering.
      */
-    fun getLogger(obj: Any): GlimpseLogger
+    fun setCallback(callback: GlimpseCallback)
 }

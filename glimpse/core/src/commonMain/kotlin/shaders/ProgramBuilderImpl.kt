@@ -18,8 +18,11 @@
 package graphics.glimpse.shaders
 
 import graphics.glimpse.GlimpseAdapter
+import graphics.glimpse.logging.GlimpseLogger
 
 internal class ProgramBuilderImpl(private val gl: GlimpseAdapter) : Program.Builder {
+
+    private val logger: GlimpseLogger = GlimpseLogger.create(this)
 
     private var vertexShaderHandle: Int = 0
     private var fragmentShaderHandle: Int = 0
@@ -38,7 +41,7 @@ internal class ProgramBuilderImpl(private val gl: GlimpseAdapter) : Program.Buil
         check(value = vertexShaderHandle != 0) { "Vertex shader not set" }
         check(value = fragmentShaderHandle != 0) { "Fragment shader not set" }
 
-        gl.logger.debug(
+        logger.debug(
             message = """
                 |Linking program with:
                 | - vertex shader $vertexShaderHandle
@@ -62,7 +65,7 @@ internal class ProgramBuilderImpl(private val gl: GlimpseAdapter) : Program.Buil
 
         if (!gl.glGetProgramLinkStatus(handle)) {
             val programInfoLog = gl.glGetProgramInfoLog(handle)
-            gl.logger.error(message = "Program linking failed:\n$programInfoLog\nCleaning up")
+            logger.error(message = "Program linking failed:\n$programInfoLog\nCleaning up")
 
             cleanUpAfterError(handle)
 
@@ -75,7 +78,7 @@ internal class ProgramBuilderImpl(private val gl: GlimpseAdapter) : Program.Buil
 
         if (!gl.glGetProgramValidateStatus(handle)) {
             val programInfoLog = gl.glGetProgramInfoLog(handle)
-            gl.logger.error(message = "Program validation failed:\n$programInfoLog\nCleaning up")
+            logger.error(message = "Program validation failed:\n$programInfoLog\nCleaning up")
 
             cleanUpAfterError(handle)
 
@@ -95,6 +98,8 @@ internal class ProgramBuilderImpl(private val gl: GlimpseAdapter) : Program.Buil
         private val fragmentShaderHandle: Int
     ) : Program {
 
+        private val logger: GlimpseLogger = GlimpseLogger.create(this)
+
         override fun use(gl: GlimpseAdapter) {
             gl.glUseProgram(handle)
         }
@@ -107,7 +112,7 @@ internal class ProgramBuilderImpl(private val gl: GlimpseAdapter) : Program.Buil
 
             if (!gl.glGetProgramDeleteStatus(handle)) {
                 val shaderInfoLog = gl.glGetProgramInfoLog(handle)
-                gl.logger.error(message = "Program deletion failed:\n$shaderInfoLog")
+                logger.error(message = "Program deletion failed:\n$shaderInfoLog")
 
                 throw IllegalStateException("Program deletion failed:\n$shaderInfoLog")
             }
