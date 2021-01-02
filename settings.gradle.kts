@@ -14,3 +14,6 @@ rootProject.name = "glimpse-graphics"
 include(":glimpse:core")
 include(":glimpse:ui")
 include(":glimpse:ui-compose")
+
+include(":examples:triangle")
+include(":examples:triangle-desktop")

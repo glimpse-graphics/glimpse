@@ -29,7 +29,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
-          java-version: 1.8
+          java-version: 11
       - name: Decrypt Key Ring File
         env:
           FILE_PASSPHRASE: ${{ secrets.FILE_PASSPHRASE }}
@@ -54,7 +54,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
-          java-version: 1.8
+          java-version: 11
       - name: Patch Changelog
         run: ./gradlew patchChangelog
       - name: Commit files

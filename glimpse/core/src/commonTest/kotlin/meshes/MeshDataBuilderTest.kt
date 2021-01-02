@@ -18,6 +18,8 @@
 package graphics.glimpse.meshes
 
 import graphics.glimpse.buffers.floatBufferDataOf
+import graphics.glimpse.types.Vec2
+import graphics.glimpse.types.Vec3
 import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -30,15 +32,15 @@ class MeshDataBuilderTest {
     )
     fun `GIVEN MeshDataBuilder, WHEN build triangle array mesh data, THEN return mesh data with single triangle`() {
         val result = MeshDataBuilder()
-            .addVertex(listOf(-1f, -1f, 0f))
-            .addVertex(listOf(1f, 1f, 0f))
-            .addVertex(listOf(0f, 0f, 1f))
-            .addTextureCoordinates(listOf(0f, 0f))
-            .addTextureCoordinates(listOf(2f, 0f))
-            .addTextureCoordinates(listOf(1f, 1f))
-            .addNormal(listOf(0f, -1f, 0f))
-            .addNormal(listOf(1f, 0f, 0f))
-            .addNormal(listOf(0.7f, -0.7f, 0f))
+            .addVertex(Vec3(x = -1f, y = -1f, z = 0f))
+            .addVertex(Vec3(x = 1f, y = 1f, z = 0f))
+            .addVertex(Vec3(x = 0f, y = 0f, z = 1f))
+            .addTextureCoordinates(Vec2(x = 0f, y = 0f))
+            .addTextureCoordinates(Vec2(x = 2f, y = 0f))
+            .addTextureCoordinates(Vec2(x = 1f, y = 1f))
+            .addNormal(Vec3(x = 0f, y = -1f, z = 0f))
+            .addNormal(Vec3(x = 1f, y = 0f, z = 0f))
+            .addNormal(Vec3(x = 0.7f, y = -0.7f, z = 0f))
             .addFace(
                 listOf(
                     MeshDataBuilder.FaceVertex(positionIndex = 0, texCoordIndex = 0, normalIndex = 0),

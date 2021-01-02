@@ -32,28 +32,46 @@ class MeshDataBuilder {
     private val triangles = mutableListOf<Triangle>()
 
     /**
+     * Adds another [vertex position][vertexPos] to the mesh.
+     */
+    fun addVertex(vertexPos: Vec3): MeshDataBuilder {
+        positions.add(vertexPos)
+        return this
+    }
+
+    /**
      * Adds another vertex position to the mesh.
      */
-    fun addVertex(coordinates: List<Float>): MeshDataBuilder {
-        positions.add(Vec3.fromList(coordinates))
+    fun addVertex(coordinates: List<Float>): MeshDataBuilder =
+        addVertex(Vec3.fromList(coordinates))
+
+    /**
+     * Adds another texture [coordinates] to the mesh.
+     */
+    fun addTextureCoordinates(coordinates: Vec2): MeshDataBuilder {
+        texCoords.add(coordinates)
         return this
     }
 
     /**
      * Adds another texture coordinates to the mesh.
      */
-    fun addTextureCoordinates(coordinates: List<Float>): MeshDataBuilder {
-        texCoords.add(Vec2.fromList(coordinates))
+    fun addTextureCoordinates(coordinates: List<Float>): MeshDataBuilder =
+        addTextureCoordinates(Vec2.fromList(coordinates))
+
+    /**
+     * Adds another [normal] vector to the mesh.
+     */
+    fun addNormal(normal: Vec3): MeshDataBuilder {
+        normals.add(normal)
         return this
     }
 
     /**
      * Adds another normal vector to the mesh.
      */
-    fun addNormal(coordinates: List<Float>): MeshDataBuilder {
-        normals.add(Vec3.fromList(coordinates))
-        return this
-    }
+    fun addNormal(coordinates: List<Float>): MeshDataBuilder =
+        addNormal(Vec3.fromList(coordinates))
 
     /**
      * Adds another face to the mesh.
