@@ -25,27 +25,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
-import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import graphics.glimpse.ui.compose.GlimpseView
 
 /**
  * Composable application layout.
  */
 @Composable
-fun App() {
-    MaterialTheme(
-        colors = lightColors(
-            primary = Color(color = 0xFF558B2F),
-            primaryVariant = Color(color = 0xFF33691E),
-            secondary = Color(color = 0xFFFF5722),
-            secondaryVariant = Color(color = 0xFFE64A19)
-        )
-    ) {
+fun App(resources: AppResources) {
+    MaterialTheme(colors = resources.getThemeColors()) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            TopAppBar(title = { Text(text = "Glimpse Triangle Example") })
+            TopAppBar(title = { Text(text = resources.getAppName()) })
             Box(modifier = Modifier.weight(weight = 1f)) {
                 Row(modifier = Modifier.fillMaxSize()) {
                     GlimpseView(

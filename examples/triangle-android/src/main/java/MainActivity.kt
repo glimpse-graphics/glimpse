@@ -21,6 +21,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.platform.setContent
 import graphics.glimpse.examples.triangle.App
+import graphics.glimpse.examples.triangle.AppResources
 
 /**
  * Main _Triangle_ example Activity.
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            App()
+            App(AppResources(context = this))
         }
     }
 }

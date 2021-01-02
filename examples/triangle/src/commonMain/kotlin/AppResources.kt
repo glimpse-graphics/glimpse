@@ -17,17 +17,20 @@
 
 package graphics.glimpse.examples.triangle
 
-import androidx.compose.desktop.Window
-import javax.imageio.ImageIO
-
-val resources = AppResources()
+import androidx.compose.material.Colors
 
 /**
- * Runs _Triangle_ example desktop application.
+ * Application resources provider.
  */
-fun main() = Window(
-    title = resources.getAppName(),
-    icon = ImageIO.read(object {}.javaClass.getResource("/icon.png"))
-) {
-    App(resources)
+expect class AppResources {
+
+    /**
+     * Returns application name.
+     */
+    fun getAppName(): String
+
+    /**
+     * Returns application theme colors.
+     */
+    fun getThemeColors(): Colors
 }
