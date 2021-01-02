@@ -17,3 +17,7 @@
 - Lenses
 - UI components:
   - `GlimpseSurfaceView` (Android)
+  - `GlimpseFrame` (Desktop)
+  - `GlimpsePanel` (Desktop)
+- Composable UI components:
+  - `GlimpseView`
