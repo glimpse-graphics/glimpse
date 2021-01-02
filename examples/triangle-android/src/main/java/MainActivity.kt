@@ -15,19 +15,26 @@
  *
  */
 
-package graphics.glimpse.examples.triangle
+package graphics.glimpse.examples.triangle.android
 
-import androidx.compose.desktop.Window
-import javax.imageio.ImageIO
-
-val resources = AppResources()
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.ui.platform.setContent
+import graphics.glimpse.examples.triangle.App
+import graphics.glimpse.examples.triangle.AppResources
 
 /**
- * Runs _Triangle_ example desktop application.
+ * Main _Triangle_ example Activity.
  */
-fun main() = Window(
-    title = resources.getAppName(),
-    icon = ImageIO.read(object {}.javaClass.getResource("/icon.png"))
-) {
-    App(resources)
+class MainActivity : AppCompatActivity() {
+
+    /**
+     * Sets content view from [App] composable.
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            App(AppResources(context = this))
+        }
+    }
 }
