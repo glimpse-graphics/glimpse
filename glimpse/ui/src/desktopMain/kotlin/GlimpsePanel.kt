@@ -33,6 +33,11 @@ class GlimpsePanel : GLJPanel(GLCapabilities(GLProfile.getGL2ES2())), GlimpseCom
 
     private lateinit var eventListener: GlimpseEventListener
 
+    init {
+        // Workaround for a bug on macOS, where surface scale is set to 2:
+        setSurfaceScale(floatArrayOf(1f, 1f))
+    }
+
     /**
      * Sets [callback] to be used for rendering.
      */
