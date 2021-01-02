@@ -98,15 +98,15 @@ tasks {
         outputDirectory.set(buildDir.resolve("javadoc"))
         dokkaSourceSets {
             named("commonMain") {
-                moduleName.set("Glimpse UI Components")
+                moduleName.set("Glimpse Composable UI Components")
                 includes.from(files("module.md", "packages.md"))
             }
             named("desktopMain") {
-                moduleName.set("Glimpse UI Components")
+                moduleName.set("Glimpse Composable UI Components")
                 includes.from(files("module.md", "packages.md"))
             }
             named("androidMain") {
-                moduleName.set("Glimpse UI Components")
+                moduleName.set("Glimpse Composable UI Components")
                 includes.from(files("module.md", "packages.md"))
             }
         }
