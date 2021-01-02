@@ -42,7 +42,7 @@ fun App(resources: AppResources) {
                     GlimpseView(
                         callback = TriangleCallback(
                             TriangleMeshFactory(),
-                            TriangleProgramFactory()
+                            TriangleProgramFactory(resources)
                         ),
                         zOrderOnTop = true
                     )

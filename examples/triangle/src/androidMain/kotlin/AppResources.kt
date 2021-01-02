@@ -21,7 +21,9 @@ import android.content.Context
 import androidx.compose.material.Colors
 import androidx.compose.material.lightColors
 import androidx.compose.ui.graphics.Color
+import graphics.glimpse.shaders.ShaderType
 import java.lang.ref.WeakReference
+import java.util.*
 
 /**
  * Application resources provider.
@@ -34,7 +36,7 @@ actual class AppResources(context: Context) {
     /**
      * Returns application name.
      */
-    actual fun getAppName(): String = context.getString(R.string.app_name).orEmpty()
+    actual fun getAppName(): String = context.getString(R.string.app_name)
 
     /**
      * Returns application theme colors.
@@ -45,4 +47,14 @@ actual class AppResources(context: Context) {
         secondary = Color(color = context.getColor(R.color.secondaryColor)),
         secondaryVariant = Color(color = context.getColor(R.color.secondaryColorVariant))
     )
+
+    /**
+     * Returns source of a shader of a given [type].
+     */
+    actual fun getShaderSource(type: ShaderType): String =
+        context.assets.open(getShaderAssetPath(type))
+            .use { it.bufferedReader().readText() }
+
+    private fun getShaderAssetPath(type: ShaderType): String =
+        "${type.name.toLowerCase(Locale.ENGLISH)}.glsl"
 }

@@ -20,6 +20,7 @@ package graphics.glimpse.examples.triangle
 import androidx.compose.material.Colors
 import androidx.compose.material.lightColors
 import androidx.compose.ui.graphics.Color
+import graphics.glimpse.shaders.ShaderType
 import java.util.*
 
 /**
@@ -28,6 +29,7 @@ import java.util.*
 actual class AppResources {
 
     private val bundle = ResourceBundle.getBundle(javaClass.simpleName, Locale.getDefault());
+
     /**
      * Returns application name.
      */
@@ -45,4 +47,14 @@ actual class AppResources {
 
     private fun ResourceBundle.getHexLong(key: String): Long =
         getString(key).toLong(radix = 16)
+
+    /**
+     * Returns source of a shader of a given [type].
+     */
+    actual fun getShaderSource(type: ShaderType): String =
+        javaClass.getResourceAsStream(getShaderResourceName(type))
+            .use { it.bufferedReader().readText() }
+
+    private fun getShaderResourceName(type: ShaderType): String =
+        "/${type.name.toLowerCase(Locale.ENGLISH)}.glsl"
 }
