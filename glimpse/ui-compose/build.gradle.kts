@@ -95,20 +95,11 @@ tasks {
     }
 
     dokkaHtml {
+        moduleName.set("${project.parent?.name}-${project.name}")
         outputDirectory.set(buildDir.resolve("javadoc"))
         dokkaSourceSets {
-            named("commonMain") {
-                moduleName.set("Glimpse Composable UI Components")
-                includes.from(files("module.md", "packages.md"))
-            }
-            named("desktopMain") {
-                moduleName.set("Glimpse Composable UI Components")
-                includes.from(files("module.md", "packages.md"))
-            }
-            named("androidMain") {
-                moduleName.set("Glimpse Composable UI Components")
-                includes.from(files("module.md", "packages.md"))
-            }
+            removeAll { it.displayName.get() == "androidJvm" }
+            forEach { it.includes.from(files("module.md", "packages.md")) }
         }
     }
 

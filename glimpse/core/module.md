@@ -1,3 +1,3 @@
-# Module core
+# Module glimpse-core
 
-Glimpse Core
+Glimpse core API.

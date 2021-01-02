@@ -1,3 +1,3 @@
-# Module ui-compose
+# Module glimpse-ui-compose
 
-Glimpse Composable UI Components
+Glimpse composable UI components for Android and desktop Compose applications.

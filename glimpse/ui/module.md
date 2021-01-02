@@ -1,3 +1,3 @@
-# Module ui
+# Module glimpse-ui
 
-Glimpse UI Components
+Glimpse UI components for Android and desktop.
