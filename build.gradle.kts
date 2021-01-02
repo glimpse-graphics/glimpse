@@ -6,7 +6,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21-2")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21") // JB Composable requires 1.4.21
         classpath("com.android.tools.build:gradle:4.0.2")
     }
 }
@@ -25,6 +25,8 @@ allprojects {
     repositories {
         jcenter()
         mavenCentral()
+        // JB Composable dev versions:
+        maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
     }
 }
 
