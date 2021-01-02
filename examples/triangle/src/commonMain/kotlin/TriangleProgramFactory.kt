@@ -25,7 +25,7 @@ import graphics.glimpse.shaders.ShaderType
 /**
  * A factory for a _Triangle_ example program.
  */
-class TriangleProgramFactory {
+class TriangleProgramFactory(private val resources: AppResources) {
 
     /**
      * Creates a _Triangle_ example program.
@@ -34,56 +34,16 @@ class TriangleProgramFactory {
         val shaderFactory = Shader.Factory.newInstance(gl)
         val vertexShader = shaderFactory.createShader(
             type = ShaderType.VERTEX_SHADER,
-            source = VERTEX_SHADER_SOURCE.trimIndent()
+            source = resources.getShaderSource(ShaderType.VERTEX_SHADER)
         )
         val fragmentShader = shaderFactory.createShader(
             type = ShaderType.FRAGMENT_SHADER,
-            source = FRAGMENT_SHADER_SOURCE.trimIndent()
+            source = resources.getShaderSource(ShaderType.FRAGMENT_SHADER)
         )
 
         return Program.Builder.newInstance(gl)
             .withVertexShader(vertexShader)
             .withFragmentShader(fragmentShader)
             .build()
-    }
-
-    companion object {
-
-        private const val VERTEX_SHADER_SOURCE = """
-            #version 100
-
-            precision mediump float;
-
-            uniform mat4 uProjMatrix;
-            uniform mat4 uViewMatrix;
-            uniform mat4 uModelMatrix;
-
-            attribute vec3 aPos;
-            attribute vec2 aTexCoords;
-
-            varying vec2 vTexCoords;
-
-            void main() {
-                vec4 position = vec4(aPos, 1.0);
-                vTexCoords = aTexCoords;
-                gl_Position = uProjMatrix * uViewMatrix * uModelMatrix * position;
-            }
-        """
-
-        private const val FRAGMENT_SHADER_SOURCE = """
-            #version 100
-
-            precision mediump float;
-
-            varying vec2 vTexCoords;
-
-            void main() {
-                float yellow = 1.0 - vTexCoords.y;
-                float blue = vTexCoords.y;
-                float red = yellow * (1.0 - vTexCoords.x);
-                float green = yellow * vTexCoords.x;
-                gl_FragColor = vec4(red, green, blue, 1.0);
-            }
-        """
     }
 }

@@ -46,6 +46,7 @@ kotlin {
             }
         }
         val desktopMain by getting {
+            resources.srcDir("src/commonAssets")
             dependencies {
                 implementation("org.jogamp.jogl:jogl-all-main:2.3.2")
                 implementation("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
@@ -78,8 +79,11 @@ detekt {
 
 android {
     compileSdkVersion(apiLevel = 30)
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDir("src/androidMain/res")
+    sourceSets["main"].apply {
+        manifest.srcFile("src/androidMain/AndroidManifest.xml")
+        res.srcDir("src/androidMain/res")
+        assets.srcDir("src/commonAssets")
+    }
     defaultConfig {
         minSdkVersion(21)
         targetSdkVersion(30)
