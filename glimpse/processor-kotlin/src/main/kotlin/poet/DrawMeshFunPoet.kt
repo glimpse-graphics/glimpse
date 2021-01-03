@@ -29,7 +29,6 @@ object DrawMeshFunPoet {
     private const val FUNCTION_NAME_DRAW_MESH = "drawMesh"
     private const val PARAM_NAME_GL_ADAPTER = "gl"
     private const val PARAM_NAME_MESH = "mesh"
-    private const val PROPERTY_NAME_MESH_VERTEX_COUNT = "vertexCount"
 
     private const val STATEMENT_FORMAT_GET_ATTRIBUTE_LOCATION =
         "val %L = getAttributeLocation(gl, %S)"
@@ -50,7 +49,7 @@ object DrawMeshFunPoet {
         "gl.glDisableVertexAttribArray(%L)"
 
     private const val STATEMENT_FORMAT_DRAW_ARRAYS =
-        "gl.glDrawArrays(%T.TRIANGLES, %N.%N)"
+        "%N.draw(gl)"
 
     private const val COMMENT_DRAWING = "Drawing vertices:"
     private const val COMMENT_CLEANUP = "Disabling arrays:"
@@ -59,8 +58,6 @@ object DrawMeshFunPoet {
         ClassName("graphics.glimpse", "GlimpseAdapter")
     private val meshClassName =
         ClassName("graphics.glimpse.meshes", "Mesh")
-    private val drawingModeClassName =
-        ClassName("graphics.glimpse", "DrawingMode")
 
     fun generateFun(model: ShaderParamsModel): FunSpec =
         FunSpec.builder(FUNCTION_NAME_DRAW_MESH)
@@ -81,8 +78,7 @@ object DrawMeshFunPoet {
         addComment(COMMENT_DRAWING)
         addStatement(
             STATEMENT_FORMAT_DRAW_ARRAYS,
-            drawingModeClassName,
-            PARAM_NAME_MESH, PROPERTY_NAME_MESH_VERTEX_COUNT
+            PARAM_NAME_MESH
         )
         addEmptyLine()
         addComment(COMMENT_CLEANUP)

@@ -17,6 +17,7 @@
 
 package graphics.glimpse.meshes
 
+import graphics.glimpse.DrawingMode
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.buffers.Buffer
 import graphics.glimpse.logging.GlimpseLogger
@@ -49,6 +50,10 @@ internal class MeshFactoryImpl(gl: GlimpseAdapter) : Mesh.Factory {
 
         override fun useBuffer(gl: GlimpseAdapter, bufferIndex: Int) {
             buffers[bufferIndex].use(gl)
+        }
+
+        override fun draw(gl: GlimpseAdapter) {
+            gl.glDrawArrays(DrawingMode.TRIANGLES, vertexCount)
         }
 
         override fun dispose(gl: GlimpseAdapter) {

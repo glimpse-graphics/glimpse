@@ -41,6 +41,11 @@ interface Mesh {
     fun useBuffer(gl: GlimpseAdapter, bufferIndex: Int)
 
     /**
+     * Tells the given [OpenGL adapter][gl] to draw this mesh.
+     */
+    fun draw(gl: GlimpseAdapter)
+
+    /**
      * Tells the given [OpenGL adapter][gl] to dispose all buffers defined for this mesh.
      */
     fun dispose(gl: GlimpseAdapter)
