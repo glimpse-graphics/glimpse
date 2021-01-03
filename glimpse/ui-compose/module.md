@@ -1,3 +1,6 @@
-# Module ui-compose
+# Module glimpse-ui-compose
 
-Glimpse Composable UI Components
+**ALPHA FEATURE:**
+Glimpse composable UI components for Android
+[Jetpack Compose](https://developer.android.com/jetpack/compose)
+and [Compose for Desktop](https://www.jetbrains.com/lp/compose/).

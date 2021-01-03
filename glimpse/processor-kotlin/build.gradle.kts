@@ -1,6 +1,5 @@
 plugins {
-    id("com.android.library")
-    kotlin("multiplatform")
+    kotlin("jvm")
     id("io.gitlab.arturbosch.detekt") version "1.15.0"
     id("org.jetbrains.dokka")
     `maven-publish`
@@ -11,49 +10,9 @@ repositories {
     google()
 }
 
-kotlin {
-    android {
-        publishLibraryVariants("release")
-    }
-
-    jvm(name = "desktop") {
-        compilations.all {
-            kotlinOptions.jvmTarget = "1.8"
-        }
-    }
-
-    @Suppress("UNUSED_VARIABLE")
-    sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(project(":glimpse:core"))
-            }
-        }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
-            }
-        }
-        val androidMain by getting
-        val androidTest by getting {
-            dependencies {
-                implementation(kotlin("test-junit"))
-            }
-        }
-        val desktopMain by getting {
-            dependencies {
-                implementation("org.jogamp.jogl:jogl-all-main:2.3.2")
-                implementation("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
-                implementation("org.slf4j:slf4j-api:1.7.30")
-            }
-        }
-        val desktopTest by getting {
-            dependencies {
-                implementation(kotlin("test-junit"))
-            }
-        }
-    }
+dependencies {
+    api(project(":glimpse:processor"))
+    implementation("com.squareup:kotlinpoet:1.7.2")
 }
 
 detekt {
@@ -69,15 +28,6 @@ detekt {
             enabled = true
             destination = file("$buildDir/reports/detekt.html")
         }
-    }
-}
-
-android {
-    compileSdkVersion(apiLevel = 30)
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    defaultConfig {
-        minSdkVersion(14)
-        targetSdkVersion(30)
     }
 }
 

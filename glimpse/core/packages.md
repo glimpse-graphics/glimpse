@@ -30,6 +30,10 @@ Models (meshes with transformations).
 
 Shaders and programs.
 
+# Package graphics.glimpse.shaders.annotations
+
+Annotations defining shaders parameters.
+
 # Package graphics.glimpse.textures
 
 Textures and texture-related enums.

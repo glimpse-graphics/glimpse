@@ -19,7 +19,6 @@ package graphics.glimpse.examples.triangle
 
 import graphics.glimpse.ClearableBufferType
 import graphics.glimpse.DepthTestFunction
-import graphics.glimpse.DrawingMode
 import graphics.glimpse.FaceCullingMode
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.GlimpseCallback
@@ -30,6 +29,7 @@ import graphics.glimpse.lenses.PerspectiveLens
 import graphics.glimpse.logging.GlimpseLogger
 import graphics.glimpse.meshes.Mesh
 import graphics.glimpse.shaders.Program
+import graphics.glimpse.shaders.ProgramExecutor
 import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Vec3
 import graphics.glimpse.types.rotationY
@@ -46,6 +46,7 @@ class TriangleCallback(
 
     private lateinit var mesh: Mesh
     private lateinit var program: Program
+    private lateinit var programExecutor: ProgramExecutor<TriangleShader>
 
     private var lens: Lens = PerspectiveLens(fovY, aspect = 1f, NEAR, FAR)
 
@@ -69,6 +70,7 @@ class TriangleCallback(
 
         mesh = meshFactory.createTriangleMesh(gl)
         program = programFactory.createProgram(gl)
+        programExecutor = TriangleShaderProgramExecutor(program)
     }
 
     /**
@@ -88,31 +90,18 @@ class TriangleCallback(
         gl.glClear(ClearableBufferType.COLOR_BUFFER, ClearableBufferType.DEPTH_BUFFER)
 
         if (!::program.isInitialized) return
+        if (!::programExecutor.isInitialized) return
 
         program.use(gl)
 
-        val modelMatrixLocation = gl.glGetUniformLocation(program.handle, UNIFORM_MODEL_MATRIX)
-        val viewMatrixLocation = gl.glGetUniformLocation(program.handle, UNIFORM_VIEW_MATRIX)
-        val projMatrixLocation = gl.glGetUniformLocation(program.handle, UNIFORM_PROJECTION_MATRIX)
-        val aPosLocation = gl.glGetAttributeLocation(program.handle, ATTRIBUTE_POSITION)
-        val aTexCoordsLocation = gl.glGetAttributeLocation(program.handle, ATTRIBUTE_TEX_COORDS)
+        val params = TriangleShader(
+            projectionMatrix = lens.projectionMatrix,
+            viewMatrix = camera.viewMatrix,
+            modelMatrix = rotationY(calculateRotationAngle())
+        )
 
-        gl.glUniform(modelMatrixLocation, rotationY(calculateRotationAngle()))
-        gl.glUniform(viewMatrixLocation, camera.viewMatrix)
-        gl.glUniform(projMatrixLocation, lens.projectionMatrix)
-
-        mesh.useBuffer(gl = gl, bufferIndex = 0)
-        gl.glEnableVertexAttribArray(aPosLocation)
-        gl.glVertexAttribPointer(aPosLocation, vectorSize = 3)
-
-        mesh.useBuffer(gl = gl, bufferIndex = 1)
-        gl.glEnableVertexAttribArray(aTexCoordsLocation)
-        gl.glVertexAttribPointer(aTexCoordsLocation, vectorSize = 2)
-
-        gl.glDrawArrays(mode = DrawingMode.TRIANGLES, count = mesh.vertexCount)
-
-        gl.glDisableVertexAttribArray(location = aPosLocation)
-        gl.glDisableVertexAttribArray(location = aTexCoordsLocation)
+        programExecutor.applyParams(gl, params)
+        programExecutor.drawMesh(gl, mesh)
     }
 
     private fun calculateRotationAngle() =
@@ -127,6 +116,7 @@ class TriangleCallback(
         try {
             if (::mesh.isInitialized) mesh.dispose(gl)
             if (::program.isInitialized) program.dispose(gl)
+            if (::programExecutor.isInitialized) programExecutor.dispose()
         } catch (expected: Exception) {
             logger.error(message = "Error disposing Glimpse", exception = expected)
         }
@@ -139,12 +129,5 @@ class TriangleCallback(
 
         private const val FULL_ANGLE_DEG = 360L
         private const val ROTATION_SPEED_FACTOR = 5L
-
-        private const val UNIFORM_MODEL_MATRIX = "uModelMatrix"
-        private const val UNIFORM_VIEW_MATRIX = "uViewMatrix"
-        private const val UNIFORM_PROJECTION_MATRIX = "uProjMatrix"
-
-        private const val ATTRIBUTE_POSITION = "aPos"
-        private const val ATTRIBUTE_TEX_COORDS = "aTexCoords"
     }
 }
