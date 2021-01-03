@@ -25,6 +25,9 @@ import javax.lang.model.SourceVersion
 import javax.lang.model.element.Element
 import javax.tools.Diagnostic
 
+/**
+ * Annotation processor generating concrete implementations of ProgramExecutor in Kotlin.
+ */
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 class ShaderParamsProcessor : AbstractShaderParamsProcessor() {
 

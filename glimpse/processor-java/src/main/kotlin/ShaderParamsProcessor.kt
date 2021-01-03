@@ -24,6 +24,9 @@ import javax.annotation.processing.SupportedSourceVersion
 import javax.lang.model.SourceVersion
 import javax.lang.model.element.Element
 
+/**
+ * Annotation processor generating concrete implementations of ProgramExecutor in Java.
+ */
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 class ShaderParamsProcessor : AbstractShaderParamsProcessor() {
 
