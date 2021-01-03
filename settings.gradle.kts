@@ -13,6 +13,8 @@ rootProject.name = "glimpse-graphics"
 
 include(":glimpse:core")
 include(":glimpse:processor")
+include(":glimpse:processor-java")
+include(":glimpse:processor-kotlin")
 include(":glimpse:ui")
 include(":glimpse:ui-compose")
 

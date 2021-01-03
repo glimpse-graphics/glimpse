@@ -10,6 +10,11 @@ repositories {
     google()
 }
 
+dependencies {
+    api(project(":glimpse:processor"))
+    implementation("com.squareup:javapoet:1.13.0")
+}
+
 detekt {
     input = files(kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories })
     config = files("$rootDir/.config/detekt.yml")
