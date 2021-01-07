@@ -55,6 +55,7 @@ class ObjMeshDataParserTest {
 
         assertSame(meshData, result)
 
+        @Suppress("MagicNumber")
         verifySequence {
             builder.addVertex(listOf(-1f, -1f, 0f))
             builder.addVertex(listOf(1f, 1f, 0f))
