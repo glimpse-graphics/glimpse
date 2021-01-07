@@ -18,6 +18,7 @@
 package graphics.glimpse.examples.triangle
 
 import androidx.compose.material.Colors
+import graphics.glimpse.meshes.ArrayMeshData
 import graphics.glimpse.shaders.ShaderType
 
 /**
@@ -34,6 +35,11 @@ expect class AppResources {
      * Returns application theme colors.
      */
     fun getThemeColors(): Colors
+
+    /**
+     * Returns mesh data.
+     */
+    fun getMeshData(): ArrayMeshData
 
     /**
      * Returns source of a shader of a given [type].

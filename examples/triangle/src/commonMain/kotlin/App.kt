@@ -40,10 +40,7 @@ fun App(resources: AppResources) {
             Box(modifier = Modifier.weight(weight = 1f)) {
                 Row(modifier = Modifier.fillMaxSize()) {
                     GlimpseView(
-                        callback = TriangleCallback(
-                            TriangleMeshFactory(),
-                            TriangleProgramFactory(resources)
-                        ),
+                        callback = TriangleCallback(resources),
                         zOrderOnTop = true
                     )
                 }

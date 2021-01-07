@@ -20,6 +20,9 @@ package graphics.glimpse.examples.triangle
 import androidx.compose.material.Colors
 import androidx.compose.material.lightColors
 import androidx.compose.ui.graphics.Color
+import graphics.glimpse.meshes.ArrayMeshData
+import graphics.glimpse.meshes.obj.ObjMeshDataParser
+import graphics.glimpse.meshes.obj.parseArrayMeshData
 import graphics.glimpse.shaders.ShaderType
 import java.util.*
 
@@ -28,7 +31,7 @@ import java.util.*
  */
 actual class AppResources {
 
-    private val bundle = ResourceBundle.getBundle(javaClass.simpleName, Locale.getDefault());
+    private val bundle = ResourceBundle.getBundle(javaClass.simpleName, Locale.getDefault())
 
     /**
      * Returns application name.
@@ -49,6 +52,12 @@ actual class AppResources {
         getString(key).toLong(radix = 16)
 
     /**
+     * Returns mesh data.
+     */
+    actual fun getMeshData(): ArrayMeshData =
+        ObjMeshDataParser().parseArrayMeshData(javaClass.getResourceAsStream(MESH_FILE_NAME))
+
+    /**
      * Returns source of a shader of a given [type].
      */
     actual fun getShaderSource(type: ShaderType): String =
@@ -57,4 +66,8 @@ actual class AppResources {
 
     private fun getShaderResourceName(type: ShaderType): String =
         "/${type.name.toLowerCase(Locale.ENGLISH)}.glsl"
+
+    companion object {
+        private const val MESH_FILE_NAME = "/triangle.obj"
+    }
 }
