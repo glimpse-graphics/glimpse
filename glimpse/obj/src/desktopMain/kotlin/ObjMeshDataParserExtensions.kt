@@ -15,34 +15,24 @@
  *
  */
 
-package graphics.glimpse.examples.triangle
+package graphics.glimpse.meshes.obj
 
-import androidx.compose.material.Colors
 import graphics.glimpse.meshes.ArrayMeshData
-import graphics.glimpse.shaders.ShaderType
+import java.io.File
+import java.io.InputStream
 
 /**
- * Application resources provider.
+ * Returns a container for the array buffers data related to a single mesh loaded from a
+ * Wavefront OBJ input.
  */
-expect class AppResources {
+fun ObjMeshDataParser.parseArrayMeshData(inputStream: InputStream): ArrayMeshData =
+    inputStream
+        .use { input -> input.bufferedReader().readLines() }
+        .let { lines -> parseArrayMeshData(lines) }
 
-    /**
-     * Returns application name.
-     */
-    fun getAppName(): String
-
-    /**
-     * Returns application theme colors.
-     */
-    fun getThemeColors(): Colors
-
-    /**
-     * Returns mesh data.
-     */
-    fun getMeshData(): ArrayMeshData
-
-    /**
-     * Returns source of a shader of a given [type].
-     */
-    fun getShaderSource(type: ShaderType): String
-}
+/**
+ * Returns a container for the array buffers data related to a single mesh loaded from a
+ * Wavefront OBJ file.
+ */
+fun ObjMeshDataParser.parseArrayMeshData(file: File): ArrayMeshData =
+    parseArrayMeshData(file.inputStream())

@@ -38,8 +38,7 @@ import graphics.glimpse.types.rotationY
  * A [callback][GlimpseCallback] rendering rotating triangle.
  */
 class TriangleCallback(
-    private val meshFactory: TriangleMeshFactory,
-    private val programFactory: TriangleProgramFactory
+    private val resources: AppResources
 ) : GlimpseCallback {
 
     private val logger = GlimpseLogger.create(this)
@@ -68,8 +67,8 @@ class TriangleCallback(
         gl.glDepthTest(DepthTestFunction.LESS_OR_EQUAL)
         gl.glCullFace(FaceCullingMode.DISABLED)
 
-        mesh = meshFactory.createTriangleMesh(gl)
-        program = programFactory.createProgram(gl)
+        mesh = Mesh.Factory.newInstance(gl).createMesh(resources.getMeshData())
+        program = TriangleProgramFactory(resources).createProgram(gl)
         programExecutor = TriangleShaderProgramExecutor(program)
     }
 

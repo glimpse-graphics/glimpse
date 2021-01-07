@@ -21,6 +21,9 @@ import android.content.Context
 import androidx.compose.material.Colors
 import androidx.compose.material.lightColors
 import androidx.compose.ui.graphics.Color
+import graphics.glimpse.meshes.ArrayMeshData
+import graphics.glimpse.meshes.obj.ObjMeshDataParser
+import graphics.glimpse.meshes.obj.parseArrayMeshData
 import graphics.glimpse.shaders.ShaderType
 import java.lang.ref.WeakReference
 import java.util.*
@@ -49,6 +52,12 @@ actual class AppResources(context: Context) {
     )
 
     /**
+     * Returns mesh data.
+     */
+    actual fun getMeshData(): ArrayMeshData =
+        ObjMeshDataParser().parseArrayMeshData(context, MESH_FILE_NAME)
+
+    /**
      * Returns source of a shader of a given [type].
      */
     actual fun getShaderSource(type: ShaderType): String =
@@ -57,4 +66,8 @@ actual class AppResources(context: Context) {
 
     private fun getShaderAssetPath(type: ShaderType): String =
         "${type.name.toLowerCase(Locale.ENGLISH)}.glsl"
+
+    companion object {
+        private const val MESH_FILE_NAME = "triangle.obj"
+    }
 }

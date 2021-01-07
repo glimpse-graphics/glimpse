@@ -38,6 +38,7 @@ kotlin {
 
             dependencies {
                 api(project(":glimpse:core"))
+                api(project(":glimpse:obj"))
                 api(project(":glimpse:ui-compose"))
                 api(compose.runtime)
                 api(compose.foundation)
