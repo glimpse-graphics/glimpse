@@ -2,32 +2,14 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("org.jetbrains.compose") version "0.0.0-unmerged-build21"
-    id("io.gitlab.arturbosch.detekt") version "1.15.0"
-}
-
-repositories {
-    google()
+    id("io.gitlab.arturbosch.detekt")
 }
 
 dependencies {
     implementation(project(":examples:triangle"))
 }
 
-detekt {
-    input = files(kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories })
-    config = files("$rootDir/.config/detekt.yml")
-    buildUponDefaultConfig = true
-    reports {
-        xml {
-            enabled = true
-            destination = file("$buildDir/reports/detekt.xml")
-        }
-        html {
-            enabled = true
-            destination = file("$buildDir/reports/detekt.html")
-        }
-    }
-}
+detekt { setUpDetekt(project, kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories }) }
 
 android {
     compileSdkVersion(apiLevel = 30)

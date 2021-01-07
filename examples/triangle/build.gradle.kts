@@ -3,11 +3,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("kapt")
     id("org.jetbrains.compose") version "0.0.0-unmerged-build21"
-    id("io.gitlab.arturbosch.detekt") version "1.15.0"
-}
-
-repositories {
-    google()
+    id("io.gitlab.arturbosch.detekt")
 }
 
 val generatedKotlinSources: String = "$projectDir/src/gen/kotlin"
@@ -82,21 +78,7 @@ afterEvaluate {
     tasks["compileCommonMainKotlinMetadata"].dependsOn(tasks["kaptKotlinDesktop"])
 }
 
-detekt {
-    input = files(kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories })
-    config = files("$rootDir/.config/detekt.yml")
-    buildUponDefaultConfig = true
-    reports {
-        xml {
-            enabled = true
-            destination = file("$buildDir/reports/detekt.xml")
-        }
-        html {
-            enabled = true
-            destination = file("$buildDir/reports/detekt.html")
-        }
-    }
-}
+detekt { setUpDetekt(project, kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories }) }
 
 android {
     compileSdkVersion(apiLevel = 30)
