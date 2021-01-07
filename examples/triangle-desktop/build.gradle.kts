@@ -4,11 +4,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose") version "0.0.0-unmerged-build21"
-    id("io.gitlab.arturbosch.detekt") version "1.15.0"
-}
-
-repositories {
-    google()
+    id("io.gitlab.arturbosch.detekt")
 }
 
 kotlin {
@@ -49,21 +45,7 @@ kotlin {
     }
 }
 
-detekt {
-    input = files(kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories })
-    config = files("$rootDir/.config/detekt.yml")
-    buildUponDefaultConfig = true
-    reports {
-        xml {
-            enabled = true
-            destination = file("$buildDir/reports/detekt.xml")
-        }
-        html {
-            enabled = true
-            destination = file("$buildDir/reports/detekt.html")
-        }
-    }
-}
+detekt { setUpDetekt(project, kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories }) }
 
 compose.desktop {
     application {
