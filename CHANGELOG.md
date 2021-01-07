@@ -21,3 +21,5 @@
   - `GlimpsePanel` (Desktop)
 - Composable UI components:
   - `GlimpseView`
+- Generating program executors from annotated shader parameters class
+- Support for Wavefront OBJ files
