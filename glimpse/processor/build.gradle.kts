@@ -43,24 +43,32 @@ tasks {
         }
     }
 
-    val javadocJarAll = create<Jar>("javadocJarAll") {
+    val javadocJar = create<Jar>("javadocJar") {
         dependsOn.add(dokkaHtml)
         archiveClassifier.set("javadoc")
         from(dokkaHtml)
     }
 
+    val sourcesJar = create<Jar>("sourcesJar") {
+        archiveClassifier.set("sources")
+        from(sourceSets.named("main").get().allJava.srcDirs)
+    }
+
     artifacts {
-        archives(javadocJarAll)
+        archives(javadocJar)
+        archives(sourcesJar)
     }
 }
 
 afterEvaluate {
     publishing {
         publications {
-            filterIsInstance<MavenPublication>().forEach { publication ->
-                publication.artifactId = "${project.parent?.name}-${publication.artifactId}"
-                publication.artifact(tasks["javadocJarAll"])
-                publication.pom {
+            register("libJar", MavenPublication::class) {
+                from(project.components["kotlin"])
+                artifactId = "${project.parent?.name}-${artifactId}"
+                artifact(tasks["javadocJar"])
+                artifact(tasks["sourcesJar"])
+                pom {
                     name.set("Glimpse ${project.name.capitalize()}")
                     description.set("OpenGL made simple")
                     url.set("https://glimpse.graphics/")
