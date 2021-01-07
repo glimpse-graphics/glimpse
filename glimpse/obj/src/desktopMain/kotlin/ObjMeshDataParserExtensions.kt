@@ -17,7 +17,7 @@
 
 package graphics.glimpse.meshes.obj
 
-import graphics.glimpse.meshes.MeshData
+import graphics.glimpse.meshes.ArrayMeshData
 import java.io.File
 import java.io.InputStream
 
@@ -25,7 +25,7 @@ import java.io.InputStream
  * Returns a container for the array buffers data related to a single mesh loaded from a
  * Wavefront OBJ input.
  */
-fun ObjMeshDataParser.parseArrayMeshData(inputStream: InputStream): MeshData =
+fun ObjMeshDataParser.parseArrayMeshData(inputStream: InputStream): ArrayMeshData =
     inputStream
         .use { input -> input.bufferedReader().readLines() }
         .let { lines -> parseArrayMeshData(lines) }
@@ -34,5 +34,5 @@ fun ObjMeshDataParser.parseArrayMeshData(inputStream: InputStream): MeshData =
  * Returns a container for the array buffers data related to a single mesh loaded from a
  * Wavefront OBJ file.
  */
-fun ObjMeshDataParser.parseArrayMeshData(file: File): MeshData =
+fun ObjMeshDataParser.parseArrayMeshData(file: File): ArrayMeshData =
     parseArrayMeshData(file.inputStream())

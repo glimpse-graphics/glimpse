@@ -17,20 +17,21 @@
 
 package graphics.glimpse.meshes.obj
 
+import graphics.glimpse.meshes.ArrayMeshData
 import graphics.glimpse.meshes.MeshData
 import graphics.glimpse.meshes.MeshDataBuilder
 
 /**
  * A parser of [MeshData] from Wavefront OBJ format.
  */
-class ObjMeshDataParser(private val meshBuilder: MeshDataBuilder = MeshDataBuilder()) {
+class ObjMeshDataParser(private val builder: MeshDataBuilder = MeshDataBuilder()) {
 
     /**
      * Returns a container for the array buffers data related to a single mesh loaded from a
      * Wavefront OBJ format.
      */
-    fun parseArrayMeshData(lines: List<String>): MeshData =
-        meshBuilder
+    fun parseArrayMeshData(lines: List<String>): ArrayMeshData =
+        builder
             .addParsedLines(lines)
             .buildArrayMeshData()
 
