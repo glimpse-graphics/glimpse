@@ -9,7 +9,7 @@ plugins {
 
 kotlin {
     android {
-        publishLibraryVariants("release")
+        publishLibraryVariants("debug", "release")
     }
 
     jvm(name = "desktop") {

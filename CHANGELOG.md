@@ -1,17 +1,9 @@
 # Changelog
 
 ## [Unreleased]
-### Added
-
-### Changed
-
-### Deprecated
-
-### Removed
-
 ### Fixed
+- Publish Android artifacts for `debug` variant
 
-### Security
 ## [1.0.0-ALPHA1]
 ### Added
 - Core types:
