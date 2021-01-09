@@ -368,4 +368,15 @@ expect class GlimpseAdapter {
      * using a buffer of vertex array indices, starting with [offset].
      */
     fun glDrawElements(mode: DrawingMode, count: Int, offset: Int = 0)
+
+    /**
+     * Reads pixels from frame buffer.
+     */
+    fun glReadPixels(
+        x: Int = 0,
+        y: Int = 0,
+        width: Int,
+        height: Int,
+        format: PixelFormat = PixelFormat.RGBA
+    ): ByteArray
 }

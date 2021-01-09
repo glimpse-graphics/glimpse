@@ -34,6 +34,7 @@ import graphics.glimpse.types.Mat4
 import graphics.glimpse.types.Vec2
 import graphics.glimpse.types.Vec3
 import graphics.glimpse.types.Vec4
+import java.nio.ByteBuffer
 
 /**
  * Glimpse OpenGL adapter for the given [GL ES 2.0][gles].
@@ -641,5 +642,30 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
      */
     actual fun glDrawElements(mode: DrawingMode, count: Int, offset: Int) {
         gles.glDrawElements(mode.toInt(), count, GL2ES2.GL_UNSIGNED_INT, offset.toLong())
+    }
+
+    /**
+     * Reads pixels from frame buffer.
+     */
+    actual fun glReadPixels(
+        x: Int,
+        y: Int,
+        width: Int,
+        height: Int,
+        format: PixelFormat
+    ): ByteArray {
+        val bytesCount = width * height * format.bytesPerPixel
+        val buffer = ByteBuffer.allocateDirect(bytesCount)
+        gles.glReadPixels(x, y, width, height, format.toInt(), GL2ES2.GL_UNSIGNED_BYTE, buffer)
+        val output = ByteArray(size = bytesCount)
+        buffer.rewind()
+        buffer.get(output)
+        return output
+    }
+
+    private fun PixelFormat.toInt(): Int = when (this) {
+        PixelFormat.ALPHA -> GL2ES2.GL_ALPHA
+        PixelFormat.RGB -> GL2ES2.GL_RGB
+        PixelFormat.RGBA -> GL2ES2.GL_RGBA
     }
 }
