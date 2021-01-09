@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Java resource texture image source (desktop)
+
 ### Fixed
 - Publish Android artifacts for `debug` variant
 - Fix IndexOutOfBoundsException in texture builder
