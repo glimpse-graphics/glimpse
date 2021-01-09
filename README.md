@@ -12,6 +12,11 @@
 [![Maven Central](https://img.shields.io/maven-central/v/graphics.glimpse/glimpse-obj)][obj-release]
 [![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/graphics.glimpse/glimpse-obj?server=https%3A%2F%2Foss.sonatype.org)][obj-snapshot]
 
+## Glimpse Offscreen Rendering
+
+[![Maven Central](https://img.shields.io/maven-central/v/graphics.glimpse/glimpse-offscreen)][offscreen-release]
+[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/graphics.glimpse/glimpse-offscreen?server=https%3A%2F%2Foss.sonatype.org)][offscreen-snapshot]
+
 ## Glimpse Annotation Processor
 
 [![Maven Central](https://img.shields.io/maven-central/v/graphics.glimpse/glimpse-processor)][processor-release]
@@ -33,6 +38,8 @@
 [core-snapshot]: https://oss.sonatype.org/content/repositories/snapshots/graphics/glimpse/glimpse-core/
 [obj-release]: https://repo1.maven.org/maven2/graphics/glimpse/glimpse-obj/
 [obj-snapshot]: https://oss.sonatype.org/content/repositories/snapshots/graphics/glimpse/glimpse-obj/
+[offscreen-release]: https://repo1.maven.org/maven2/graphics/glimpse/glimpse-offscreen/
+[offscreen-snapshot]: https://oss.sonatype.org/content/repositories/snapshots/graphics/glimpse/glimpse-offscreen/
 [processor-release]: https://repo1.maven.org/maven2/graphics/glimpse/glimpse-processor/
 [processor-snapshot]: https://oss.sonatype.org/content/repositories/snapshots/graphics/glimpse/glimpse-processor/
 [ui-release]: https://repo1.maven.org/maven2/graphics/glimpse/glimpse-ui/
