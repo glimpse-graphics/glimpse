@@ -21,7 +21,7 @@ import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.PixelFormat
 
 /**
- * Offscreen multi-renderer. Implement this class to render multiplse images without displaying
+ * Offscreen multi-renderer. Implement this class to render multiple images without displaying
  * them on screen.
  */
 actual abstract class OffscreenMultiRenderer(gl: GlimpseAdapter) : OffscreenRenderer(gl) {

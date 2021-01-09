@@ -20,7 +20,7 @@ package graphics.glimpse.offscreen
 import graphics.glimpse.GlimpseAdapter
 
 /**
- * Offscreen multi-renderer. Implement this class to render multiplse images without displaying
+ * Offscreen multi-renderer. Implement this class to render multiple images without displaying
  * them on screen.
  */
 expect abstract class OffscreenMultiRenderer : OffscreenRenderer {
