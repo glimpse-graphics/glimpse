@@ -23,3 +23,4 @@
   - `GlimpseView`
 - Generating program executors from annotated shader parameters class
 - Support for Wavefront OBJ files
+- Offscreen rendering (Android)
