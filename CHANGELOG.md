@@ -4,6 +4,7 @@
 ### Fixed
 - Publish Android artifacts for `debug` variant
 - Fix IndexOutOfBoundsException in texture builder
+- Fix loading texture image (desktop)
 
 ## [1.0.0-ALPHA1]
 ### Added

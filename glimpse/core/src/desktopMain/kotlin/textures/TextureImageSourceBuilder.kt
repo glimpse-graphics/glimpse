@@ -62,11 +62,11 @@ actual class TextureImageSourceBuilder {
     ) : TextureImageSource {
 
         override fun glTexImage2D(gl: GlimpseAdapter, withMipmaps: Boolean) {
-            glTexImage2D(gl, GL2ES2.GL_TEXTURE_2D, withMipmaps)
+            glTexImage2D(gl, TextureType.TEXTURE_2D, GL2ES2.GL_TEXTURE_2D, withMipmaps)
         }
 
         override fun glTexImage2D(gl: GlimpseAdapter, side: CubemapSide, withMipmaps: Boolean) {
-            glTexImage2D(gl, side.toInt(), withMipmaps)
+            glTexImage2D(gl, TextureType.TEXTURE_CUBE_MAP, side.toInt(), withMipmaps)
         }
 
         private fun CubemapSide.toInt(): Int = when (this) {
@@ -78,19 +78,27 @@ actual class TextureImageSourceBuilder {
             CubemapSide.NEAR -> GL2ES2.GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
         }
 
-        private fun glTexImage2D(gl: GlimpseAdapter, target: Int, withMipmaps: Boolean) {
+        private fun glTexImage2D(
+            gl: GlimpseAdapter,
+            textureType: TextureType,
+            target: Int,
+            withMipmaps: Boolean
+        ) {
             val inputStream = checkNotNull(inputStreamProvider.createInputStream()) {
                 "Texture input stream cannot be null"
             }
-            val fileType = "." + filename.split('.').last().toLowerCase(Locale.ENGLISH)
+            val fileType = filename.split('.').last().toLowerCase(Locale.ENGLISH)
             val textureData = TextureIO.newTextureData(
-                gl.gles.glProfile, inputStream, withMipmaps, fileType
+                gl.gles.glProfile, inputStream, false, fileType
             )
             gl.gles.glTexImage2D(
                 target, 0, GL2ES2.GL_RGBA,
                 textureData.width, textureData.height, 0,
                 GL2ES2.GL_RGBA, GL2ES2.GL_UNSIGNED_BYTE, textureData.buffer
             )
+            if (withMipmaps) {
+                gl.glGenerateMipmap(textureType)
+            }
         }
     }
 
