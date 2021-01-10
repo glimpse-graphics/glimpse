@@ -2,12 +2,21 @@
 
 precision mediump float;
 
+uniform sampler2D uTexture;
+uniform sampler2D uNormalMap;
+
+varying vec3 vCameraPosTan;
+varying vec3 vPosTan;
 varying vec2 vTexCoords;
 
 void main() {
-    float yellow = 1.0 - vTexCoords.y;
-    float blue = vTexCoords.y;
-    float green = yellow * vTexCoords.x;
-    float red = yellow * (1.0 - vTexCoords.x);
-    gl_FragColor = vec4(red, green, blue, 1.0);
+    vec3 cameraDirection = normalize(vCameraPosTan - vPosTan);
+
+    vec4 color = texture2D(uTexture, vTexCoords);
+    vec3 normal = texture2D(uNormalMap, vTexCoords).rgb;
+    normal = normalize(normal * 2.0 - 1.0);
+
+    float exposure = max(dot(cameraDirection, normal), 0.0) * 0.6 + 0.4;
+
+    gl_FragColor = vec4(color.rgb * exposure, 1.0);
 }

@@ -25,3 +25,10 @@ import java.io.File
 fun TextureImageSourceBuilder.fromFile(file: File): TextureImageSourceBuilder = this
     .withFilename(file.name)
     .fromInputStream { file.inputStream() }
+
+/**
+ * Will build a texture source from a resource with a given [name], associated with a given [owner].
+ */
+fun TextureImageSourceBuilder.fromResource(owner: Any, name: String): TextureImageSourceBuilder = this
+    .withFilename(name)
+    .fromInputStream { owner.javaClass.getResourceAsStream(name) }

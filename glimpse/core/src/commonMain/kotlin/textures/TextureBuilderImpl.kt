@@ -67,9 +67,12 @@ internal class TextureBuilderImpl(private val gl: GlimpseAdapter) : Texture.Buil
             }
 
         }
+        val textures = handles.mapIndexed { index, handle ->
+            TextureImpl(handle, params[index].type)
+        }
         params.clear()
         generateMipmaps = false
-        return handles.mapIndexed { index, handle -> TextureImpl(handle, params[index].type) }
+        return textures
     }
 
     private data class TextureParams(

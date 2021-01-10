@@ -21,12 +21,16 @@ import graphics.glimpse.shaders.annotations.Attribute
 import graphics.glimpse.shaders.annotations.AttributeRole
 import graphics.glimpse.shaders.annotations.ShaderParams
 import graphics.glimpse.shaders.annotations.Uniform
+import graphics.glimpse.textures.Texture
+import graphics.glimpse.types.Mat3
 import graphics.glimpse.types.Mat4
 
 @ShaderParams(
     attributes = [
         Attribute(name = "aPos", role = AttributeRole.POSITIONS, vectorSize = 3),
         Attribute(name = "aTexCoords", role = AttributeRole.TEX_COORDS, vectorSize = 2),
+        Attribute(name = "aNormal", role = AttributeRole.NORMALS, vectorSize = 3),
+        Attribute(name = "aTangent", role = AttributeRole.TANGENTS, vectorSize = 3),
     ]
 )
 data class TriangleShader(
@@ -39,4 +43,13 @@ data class TriangleShader(
 
     @Uniform(name = "uModelMatrix")
     val modelMatrix: Mat4,
+
+    @Uniform(name = "uNormalMatrix")
+    val normalMatrix: Mat3,
+
+    @Uniform(name = "uTexture")
+    val texture: Texture,
+
+    @Uniform(name = "uNormalMap")
+    val normalMap: Texture,
 )

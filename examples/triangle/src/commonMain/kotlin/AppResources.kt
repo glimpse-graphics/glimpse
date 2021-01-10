@@ -20,6 +20,7 @@ package graphics.glimpse.examples.triangle
 import androidx.compose.material.Colors
 import graphics.glimpse.meshes.ArrayMeshData
 import graphics.glimpse.shaders.ShaderType
+import graphics.glimpse.textures.TextureImageSource
 
 /**
  * Application resources provider.
@@ -45,4 +46,14 @@ expect class AppResources {
      * Returns source of a shader of a given [type].
      */
     fun getShaderSource(type: ShaderType): String
+
+    /**
+     * Returns texture image source.
+     */
+    fun getTextureSource(): TextureImageSource
+
+    /**
+     * Returns normal map image source.
+     */
+    fun getNormalMapSource(): TextureImageSource
 }

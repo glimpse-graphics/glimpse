@@ -55,5 +55,6 @@ compose.desktop {
             packageName = "desktop"
         }
         jvmArgs.add("--add-exports=jogl.all/com.jogamp.opengl.util=ALL-UNNAMED")
+        jvmArgs.add("--add-exports=jogl.all/com.jogamp.opengl.util.texture=ALL-UNNAMED")
     }
 }
