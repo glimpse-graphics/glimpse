@@ -30,6 +30,11 @@ import graphics.glimpse.logging.GlimpseLogger
 import graphics.glimpse.meshes.Mesh
 import graphics.glimpse.shaders.Program
 import graphics.glimpse.shaders.ProgramExecutor
+import graphics.glimpse.textures.Texture
+import graphics.glimpse.textures.TextureMagFilter
+import graphics.glimpse.textures.TextureMinFilter
+import graphics.glimpse.textures.TextureType
+import graphics.glimpse.textures.TextureWrap
 import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Vec3
 import graphics.glimpse.types.rotationY
@@ -44,6 +49,8 @@ class TriangleCallback(
     private val logger = GlimpseLogger.create(this)
 
     private lateinit var mesh: Mesh
+    private lateinit var texture: Texture
+    private lateinit var normalMap: Texture
     private lateinit var program: Program
     private lateinit var programExecutor: ProgramExecutor<TriangleShader>
 
@@ -67,7 +74,21 @@ class TriangleCallback(
         gl.glDepthTest(DepthTestFunction.LESS_OR_EQUAL)
         gl.glCullFace(FaceCullingMode.DISABLED)
 
+        gl.glTexParameterWrap(TextureType.TEXTURE_2D, TextureWrap.REPEAT, TextureWrap.REPEAT)
+        gl.glTexParameterFilter(
+            TextureType.TEXTURE_2D,
+            TextureMinFilter.LINEAR_MIPMAP_LINEAR,
+            TextureMagFilter.LINEAR
+        )
+
         mesh = Mesh.Factory.newInstance(gl).createMesh(resources.getMeshData())
+        val textures = Texture.Builder.getInstance(gl)
+            .addTexture(resources.getTextureSource())
+            .addTexture(resources.getNormalMapSource())
+            .generateMipmaps()
+            .build()
+        texture = textures[0]
+        normalMap = textures[1]
         program = TriangleProgramFactory(resources).createProgram(gl)
         programExecutor = TriangleShaderProgramExecutor(program)
     }
@@ -93,10 +114,14 @@ class TriangleCallback(
 
         program.use(gl)
 
+        val modelMatrix = rotationY(calculateRotationAngle())
         val params = TriangleShader(
             projectionMatrix = lens.projectionMatrix,
             viewMatrix = camera.viewMatrix,
-            modelMatrix = rotationY(calculateRotationAngle())
+            modelMatrix = modelMatrix,
+            normalMatrix = modelMatrix.toMat3().inverse().transpose(),
+            texture = texture,
+            normalMap = normalMap
         )
 
         programExecutor.applyParams(gl, params)
@@ -127,6 +152,6 @@ class TriangleCallback(
         private const val FAR = 10f
 
         private const val FULL_ANGLE_DEG = 360L
-        private const val ROTATION_SPEED_FACTOR = 5L
+        private const val ROTATION_SPEED_FACTOR = 20L
     }
 }

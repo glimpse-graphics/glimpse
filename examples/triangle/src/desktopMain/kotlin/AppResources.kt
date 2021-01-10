@@ -24,6 +24,8 @@ import graphics.glimpse.meshes.ArrayMeshData
 import graphics.glimpse.meshes.obj.ObjMeshDataParser
 import graphics.glimpse.meshes.obj.parseArrayMeshData
 import graphics.glimpse.shaders.ShaderType
+import graphics.glimpse.textures.TextureImageSource
+import graphics.glimpse.textures.fromResource
 import java.util.*
 
 /**
@@ -67,7 +69,25 @@ actual class AppResources {
     private fun getShaderResourceName(type: ShaderType): String =
         "/${type.name.toLowerCase(Locale.ENGLISH)}.glsl"
 
+    /**
+     * Returns texture image source.
+     */
+    actual fun getTextureSource(): TextureImageSource =
+        TextureImageSource.builder()
+            .fromResource(this, TEXTURE_FILE_NAME)
+            .build()
+
+    /**
+     * Returns normal map image source.
+     */
+    actual fun getNormalMapSource(): TextureImageSource =
+        TextureImageSource.builder()
+            .fromResource(this, NORMAL_MAP_FILE_NAME)
+            .build()
+
     companion object {
         private const val MESH_FILE_NAME = "/triangle.obj"
+        private const val TEXTURE_FILE_NAME = "/bricks_texture.png"
+        private const val NORMAL_MAP_FILE_NAME = "/bricks_normalmap.png"
     }
 }
