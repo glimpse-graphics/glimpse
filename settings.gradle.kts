@@ -20,7 +20,7 @@ include(":glimpse:processor-kotlin")
 include(":glimpse:ui")
 include(":glimpse:ui-compose")
 
-include(":examples:triangle")
+include(":examples:triangle-common")
 include(":examples:triangle-android")
 include(":examples:triangle-desktop")
 include(":examples:offscreen-common")

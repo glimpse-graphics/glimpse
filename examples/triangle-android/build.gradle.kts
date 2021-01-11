@@ -6,7 +6,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":examples:triangle"))
+    implementation(project(":examples:triangle-common"))
 }
 
 detekt { setUpDetekt(project, kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories }) }
