@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+## [1.0.0-ALPHA2]
+### Added
 - Java resource texture image source (Desktop)
 - Offscreen rendering (Desktop)
 
