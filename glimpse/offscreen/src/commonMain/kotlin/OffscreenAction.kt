@@ -17,16 +17,15 @@
 
 package graphics.glimpse.offscreen
 
-import android.graphics.Bitmap
-import graphics.glimpse.PixelFormat
-import java.nio.ByteBuffer
+import graphics.glimpse.GlimpseAdapter
 
 /**
- * Creates a new [Bitmap] from the rendered image.
+ * An interface for actions executed on [OpenGL adapter][GlimpseAdapter] offscreen.
  */
-fun OffscreenRenderer.createBitmap(): Bitmap {
-    val pixels = readPixels(format = PixelFormat.RGBA)
-    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-    bitmap.copyPixelsFromBuffer(ByteBuffer.wrap(pixels))
-    return bitmap
+fun interface OffscreenAction {
+
+    /**
+     * Implement this method for offscreen rendering using a given [OpenGL adapter][gl].
+     */
+    fun execute(gl: GlimpseAdapter)
 }

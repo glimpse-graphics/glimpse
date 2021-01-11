@@ -12,12 +12,11 @@ kotlin {
         publishLibraryVariants("debug", "release")
     }
 
-//    TODO: JOGL implementation
-//    jvm(name = "desktop") {
-//        compilations.all {
-//            kotlinOptions.jvmTarget = "1.8"
-//        }
-//    }
+    jvm(name = "desktop") {
+        compilations.all {
+            kotlinOptions.jvmTarget = "1.8"
+        }
+    }
 
     @Suppress("UNUSED_VARIABLE")
     sourceSets {
@@ -42,19 +41,19 @@ kotlin {
                 implementation(kotlin("test-junit"))
             }
         }
-//        val desktopMain by getting {
-//            dependencies {
-//                implementation("org.jogamp.jogl:jogl-all-main:2.3.2")
-//                implementation("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
-//                implementation("org.slf4j:slf4j-api:1.7.30")
-//            }
-//        }
-//        val desktopTest by getting {
-//            dependencies {
-//                implementation(kotlin("test-junit"))
-//                implementation("io.mockk:mockk:1.10.4")
-//            }
-//        }
+        val desktopMain by getting {
+            dependencies {
+                implementation("org.jogamp.jogl:jogl-all-main:2.3.2")
+                implementation("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
+                implementation("org.slf4j:slf4j-api:1.7.30")
+            }
+        }
+        val desktopTest by getting {
+            dependencies {
+                implementation(kotlin("test-junit"))
+                implementation("io.mockk:mockk:1.10.4")
+            }
+        }
     }
 }
 

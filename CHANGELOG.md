@@ -2,12 +2,13 @@
 
 ## [Unreleased]
 ### Added
-- Java resource texture image source (desktop)
+- Java resource texture image source (Desktop)
+- Offscreen rendering (Desktop)
 
 ### Fixed
 - Publish Android artifacts for `debug` variant
 - Fix IndexOutOfBoundsException in texture builder
-- Fix loading texture image (desktop)
+- Fix loading texture image (Desktop)
 
 ## [1.0.0-ALPHA1]
 ### Added

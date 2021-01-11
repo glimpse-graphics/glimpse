@@ -18,37 +18,27 @@
 package graphics.glimpse.offscreen
 
 import graphics.glimpse.GlimpseAdapter
-import graphics.glimpse.PixelFormat
 import graphics.glimpse.logging.GlimpseLogger
 import graphics.glimpse.offscreen.egl.EGLConfigSpec
 import graphics.glimpse.offscreen.egl.EGLContextWrapper
 import graphics.glimpse.offscreen.egl.EGLWrapper
 
 /**
- * Offscreen renderer. Implement this class to render an image without displaying it on screen.
+ * Executor of offscreen rendering actions.
  */
-actual abstract class OffscreenRenderer(private val gl: GlimpseAdapter) {
+actual class OffscreenActionExecutor(private val width: Int, private val height: Int) {
 
     private val logger: GlimpseLogger = GlimpseLogger.create(this)
 
     /**
-     * Implement this property to define width of the rendered image.
+     * Executes a given [action] offscreen.
      */
-    actual abstract val width: Int
-
-    /**
-     * Implement this property to define height of the rendered image.
-     */
-    actual abstract val height: Int
-
-    /**
-     * Renders the image offscreen.
-     */
-    actual fun render() {
+    actual fun execute(action: OffscreenAction) {
         try {
             createContext().use { context ->
                 context.createOffscreenSurface(width, height).use {
-                    doRender(gl)
+                    val gl = GlimpseAdapter()
+                    action.execute(gl)
                 }
             }
         } catch (expected: RuntimeException) {
@@ -63,18 +53,8 @@ actual abstract class OffscreenRenderer(private val gl: GlimpseAdapter) {
         return config.createContext()
     }
 
-    /**
-     * Implement this method to render an image.
-     */
-    protected actual abstract fun doRender(gl: GlimpseAdapter)
+    actual companion object {
 
-    /**
-     * Returns pixels for rendered image.
-     */
-    actual fun readPixels(format: PixelFormat): ByteArray =
-        gl.glReadPixels(x = 0, y = 0, width, height, format)
-
-    companion object {
         private const val COLOR_CHANNEL_BITS = 8
         private const val DEPTH_BITS = 16
         private const val STENCIL_BITS = 8
@@ -84,5 +64,12 @@ actual abstract class OffscreenRenderer(private val gl: GlimpseAdapter) {
             depthBits = DEPTH_BITS,
             stencilBits = STENCIL_BITS
         )
+
+        /**
+         * Returns a new instance of [OffscreenActionExecutor] using frame buffer with a given
+         * [width] and [height].
+         */
+        actual fun getInstance(width: Int, height: Int): OffscreenActionExecutor =
+            OffscreenActionExecutor(width, height)
     }
 }
