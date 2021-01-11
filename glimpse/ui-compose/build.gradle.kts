@@ -1,7 +1,7 @@
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
-    id("org.jetbrains.compose") version "0.0.0-unmerged-build21" // This version contains SwingPanel
+    id("org.jetbrains.compose") version "0.1.0-build113" // This version contains SwingPanel
     id("io.gitlab.arturbosch.detekt")
     id("org.jetbrains.dokka")
     `maven-publish`
