@@ -23,7 +23,7 @@ import graphics.glimpse.PixelFormat
 /**
  * Offscreen renderer. Implement this class to render an image without displaying it on screen.
  */
-expect abstract class OffscreenRenderer {
+abstract class OffscreenRenderer {
 
     /**
      * Implement this property to define width of the rendered image.
@@ -38,7 +38,10 @@ expect abstract class OffscreenRenderer {
     /**
      * Renders the image offscreen.
      */
-    fun render()
+    fun render() {
+        OffscreenActionExecutor.getInstance(width, height)
+            .execute(this::doRender)
+    }
 
     /**
      * Implement this method to render an image.
@@ -48,5 +51,9 @@ expect abstract class OffscreenRenderer {
     /**
      * Returns pixels for rendered image.
      */
-    fun readPixels(format: PixelFormat = PixelFormat.RGBA): ByteArray
+    protected fun readPixels(
+        gl: GlimpseAdapter,
+        format: PixelFormat = PixelFormat.RGBA
+    ): ByteArray =
+        gl.glReadPixels(x = 0, y = 0, width, height, format)
 }

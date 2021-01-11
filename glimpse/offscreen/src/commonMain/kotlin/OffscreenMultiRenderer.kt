@@ -23,7 +23,7 @@ import graphics.glimpse.GlimpseAdapter
  * Offscreen multi-renderer. Implement this class to render multiple images without displaying
  * them on screen.
  */
-expect abstract class OffscreenMultiRenderer : OffscreenRenderer {
+abstract class OffscreenMultiRenderer : OffscreenRenderer() {
 
     /**
      * Implement this property to define number of images to render.
@@ -33,7 +33,19 @@ expect abstract class OffscreenMultiRenderer : OffscreenRenderer {
     /**
      * Render all images in a loop.
      */
-    final override fun doRender(gl: GlimpseAdapter)
+    final override fun doRender(gl: GlimpseAdapter) {
+        onCreate(gl)
+        gl.glViewport(x = 0, y = 0, width = width, height = height)
+        renderImages(gl)
+        onDestroy(gl)
+    }
+
+    private fun renderImages(gl: GlimpseAdapter) {
+        for (index in 0 until imagesCount) {
+            onRender(gl, index)
+            onImage(readPixels(gl), index)
+        }
+    }
 
     /**
      * Implement this method to initialize [OpenGL adapter][gl] before rendering first image.

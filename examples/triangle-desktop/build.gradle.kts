@@ -18,7 +18,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":examples:triangle"))
+                implementation(project(":examples:triangle-common"))
             }
         }
         val commonTest by getting {
