@@ -108,18 +108,18 @@ jobs:
           VERSION: v${{ needs.properties.outputs.version }}
         run: |
           cd docs
-          rm -rf $VERSION
-          mkdir $VERSION
-          cp -R ../glimpse/build/dokka/htmlMultiModule/* ./$VERSION/
+          rm -rf ${VERSION%%-*}
+          mkdir ${VERSION%%-*}
+          cp -R ../glimpse/build/dokka/htmlMultiModule/* ./${VERSION%%-*}/
       - name: Commit Documentation Changes
         env:
           VERSION: v${{ needs.properties.outputs.version }}
         run: |
           cd docs
-          git add $VERSION
+          git add ${VERSION%%-*}
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git commit -m "Update docs $VERSION" -a
+          git commit -m "Update docs ${VERSION%%-*}" -a
       - name: Push Changes
         uses: ad-m/github-push-action@master
         with:
