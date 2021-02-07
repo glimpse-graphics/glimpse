@@ -1,17 +1,10 @@
 # Changelog
 
 ## [Unreleased]
-### Added
-
 ### Changed
+- Create `GlimpsePanel` with `GLCapabilities` for any existing `GLProfile`
+  supporting OpenGL ES 2.0 and GLSL 1.00
 
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
 ## [1.0.0-ALPHA2]
 ### Added
 - Java resource texture image source (Desktop)

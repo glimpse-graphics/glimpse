@@ -18,9 +18,7 @@
 package graphics.glimpse.ui
 
 import com.jogamp.opengl.GLAutoDrawable
-import com.jogamp.opengl.GLCapabilities
 import com.jogamp.opengl.GLEventListener
-import com.jogamp.opengl.GLProfile
 import com.jogamp.opengl.awt.GLJPanel
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.GlimpseCallback
@@ -29,7 +27,7 @@ import graphics.glimpse.GlimpseCallback
  * An implementation of [GLJPanel] that uses [Glimpse OpenGL adapter][GlimpseAdapter]
  * and [callback interface][GlimpseCallback] for rendering.
  */
-class GlimpsePanel : GLJPanel(GLCapabilities(GLProfile.getGL2ES2())), GlimpseComponent {
+class GlimpsePanel : GLJPanel(GLCapabilitiesFactory.create()), GlimpseComponent {
 
     private lateinit var eventListener: GlimpseEventListener
 
