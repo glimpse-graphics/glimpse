@@ -14,6 +14,7 @@
 ### Changed
 - Make `GLCapabilitiesFactory` internal in `glimpse-ui`
 - Setting fixed surface scale in `GlimpsePanel` with parameter `fixedScale`
+- Convert JogAmp and slf4j dependencies to `compileOnly`
 
 ## [1.0.0-ALPHA3]
 ### Changed
