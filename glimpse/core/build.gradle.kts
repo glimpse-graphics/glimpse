@@ -39,9 +39,9 @@ kotlin {
         }
         val desktopMain by getting {
             dependencies {
-                implementation("org.jogamp.jogl:jogl-all-main:2.3.2")
-                implementation("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
-                implementation("org.slf4j:slf4j-api:1.7.30")
+                compileOnly("org.jogamp.jogl:jogl-all-main:2.3.2")
+                compileOnly("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
+                compileOnly("org.slf4j:slf4j-api:1.7.30")
             }
         }
         val desktopTest by getting {
