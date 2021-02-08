@@ -26,14 +26,17 @@ import graphics.glimpse.GlimpseCallback
 /**
  * An implementation of [GLJPanel] that uses [Glimpse OpenGL adapter][GlimpseAdapter]
  * and [callback interface][GlimpseCallback] for rendering.
+ *
+ * @param fixedScale If `true`, sets surface scale fixed at 1.
  */
-class GlimpsePanel : GLJPanel(GLCapabilitiesFactory.create()), GlimpseComponent {
+class GlimpsePanel(fixedScale: Boolean = false) : GLJPanel(GLCapabilitiesFactory.create()), GlimpseComponent {
 
     private lateinit var eventListener: GlimpseEventListener
 
     init {
-        // Workaround for a bug on macOS, where surface scale is set to 2:
-        setSurfaceScale(floatArrayOf(1f, 1f))
+        if (fixedScale) {
+            setSurfaceScale(floatArrayOf(1f, 1f))
+        }
     }
 
     /**
