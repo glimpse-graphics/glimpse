@@ -1,17 +1,10 @@
 # Changelog
 
 ## [Unreleased]
-### Added
-
 ### Changed
+- Make `GLCapabilitiesFactory` internal in `glimpse-ui`
+- Setting fixed surface scale in `GlimpsePanel` with parameter `fixedScale`
 
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
 ## [1.0.0-ALPHA3]
 ### Changed
 - Create `GlimpsePanel` with `GLCapabilities` for any existing `GLProfile`
