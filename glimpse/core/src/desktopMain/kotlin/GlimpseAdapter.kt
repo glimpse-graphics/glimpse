@@ -119,6 +119,57 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     }
 
     /**
+     * Enables blending.
+     */
+    actual fun glEnableBlending() {
+        gles.glEnable(GL2ES2.GL_BLEND)
+    }
+
+    /**
+     * Disables blending.
+     */
+    actual fun glDisableBlending() {
+        gles.glDisable(GL2ES2.GL_BLEND)
+    }
+
+    /**
+     * Sets functions for computing [source][sourceFactor] and [destination][destinationFactor] factors.
+     */
+    actual fun glBlendingFunction(
+        sourceFactor: BlendingFactorFunction,
+        destinationFactor: BlendingFactorFunction
+    ) {
+        gles.glBlendFunc(sourceFactor.toInt(), destinationFactor.toInt())
+    }
+
+    @Suppress("ComplexMethod")
+    private fun BlendingFactorFunction.toInt(): Int = when (this) {
+        BlendingFactorFunction.ZERO -> GL2ES2.GL_ZERO
+        BlendingFactorFunction.ONE -> GL2ES2.GL_ONE
+        BlendingFactorFunction.SOURCE_COLOR -> GL2ES2.GL_SRC_COLOR
+        BlendingFactorFunction.ONE_MINUS_SOURCE_COLOR -> GL2ES2.GL_ONE_MINUS_SRC_COLOR
+        BlendingFactorFunction.DESTINATION_COLOR -> GL2ES2.GL_DST_COLOR
+        BlendingFactorFunction.ONE_MINUS_DESTINATION_COLOR -> GL2ES2.GL_ONE_MINUS_DST_COLOR
+        BlendingFactorFunction.SOURCE_ALPHA -> GL2ES2.GL_SRC_ALPHA
+        BlendingFactorFunction.ONE_MINUS_SOURCE_ALPHA -> GL2ES2.GL_ONE_MINUS_SRC_ALPHA
+        BlendingFactorFunction.DESTINATION_ALPHA -> GL2ES2.GL_DST_ALPHA
+        BlendingFactorFunction.ONE_MINUS_DESTINATION_ALPHA -> GL2ES2.GL_ONE_MINUS_DST_ALPHA
+        BlendingFactorFunction.CONSTANT_COLOR -> GL2ES2.GL_CONSTANT_COLOR
+        BlendingFactorFunction.ONE_MINUS_CONSTANT_COLOR -> GL2ES2.GL_ONE_MINUS_CONSTANT_COLOR
+        BlendingFactorFunction.CONSTANT_ALPHA -> GL2ES2.GL_CONSTANT_ALPHA
+        BlendingFactorFunction.ONE_MINUS_CONSTANT_ALPHA -> GL2ES2.GL_ONE_MINUS_CONSTANT_ALPHA
+    }
+
+    /**
+     * Sets blending constant [color] for [BlendingFactorFunction.CONSTANT_COLOR],
+     * [BlendingFactorFunction.ONE_MINUS_CONSTANT_COLOR], [BlendingFactorFunction.CONSTANT_ALPHA]
+     * and [BlendingFactorFunction.ONE_MINUS_CONSTANT_ALPHA].
+     */
+    actual fun glBlendingColor(color: Vec4) {
+        gles.glBlendColor(color.r, color.g, color.b, color.a)
+    }
+
+    /**
      * Sets width of lines to a given [lineWidth].
      */
     actual fun glLineWidth(lineWidth: Float) {
