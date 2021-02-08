@@ -1,6 +1,18 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+## [1.0.0-ALPHA3]
 ### Changed
 - Create `GlimpsePanel` with `GLCapabilities` for any existing `GLProfile`
   supporting OpenGL ES 2.0 and GLSL 1.00
