@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+## [1.0.0-ALPHA4]
+### Added
 - `GlimpseAdapter.glLineWidth(float)` to set line width
 - Blending-related methods in `GlimpseAdapter`:
   - `glEnableBlending`
