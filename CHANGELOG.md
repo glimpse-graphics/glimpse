@@ -1,6 +1,14 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- `GlimpseAdapter.glLineWidth(float)` to set line width
+- Blending-related methods in `GlimpseAdapter`:
+  - `glEnableBlending`
+  - `glDisableBlending`
+  - `glBlendingFunction`
+  - `glBlendingColor`
+
 ### Changed
 - Make `GLCapabilitiesFactory` internal in `glimpse-ui`
 - Setting fixed surface scale in `GlimpsePanel` with parameter `fixedScale`

@@ -65,9 +65,36 @@ expect class GlimpseAdapter {
     fun glDepthTest(depthTestFunction: DepthTestFunction)
 
     /**
+     * Enables blending.
+     */
+    fun glEnableBlending()
+
+    /**
+     * Disables blending.
+     */
+    fun glDisableBlending()
+
+    /**
+     * Sets functions for computing [source][sourceFactor] and [destination][destinationFactor] factors.
+     */
+    fun glBlendingFunction(sourceFactor: BlendingFactorFunction, destinationFactor: BlendingFactorFunction)
+
+    /**
+     * Sets blending constant [color] for [BlendingFactorFunction.CONSTANT_COLOR],
+     * [BlendingFactorFunction.ONE_MINUS_CONSTANT_COLOR], [BlendingFactorFunction.CONSTANT_ALPHA]
+     * and [BlendingFactorFunction.ONE_MINUS_CONSTANT_ALPHA].
+     */
+    fun glBlendingColor(color: Vec4)
+
+    /**
      * Sets facets to be culled to [faceCullingMode].
      */
     fun glCullFace(faceCullingMode: FaceCullingMode)
+
+    /**
+     * Sets width of lines to a given [lineWidth].
+     */
+    fun glLineWidth(lineWidth: Float)
 
     /**
      * Sets the viewport to have its bottom-left corner at ([x], [y]),
