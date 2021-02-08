@@ -8,6 +8,7 @@
   - `glDisableBlending`
   - `glBlendingFunction`
   - `glBlendingColor`
+- Color conversion tools for AWT Color (Desktop) and Android
 
 ### Changed
 - Make `GLCapabilitiesFactory` internal in `glimpse-ui`
