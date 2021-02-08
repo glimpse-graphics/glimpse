@@ -9,6 +9,7 @@
   - `glBlendingFunction`
   - `glBlendingColor`
 - Color conversion tools for AWT Color (Desktop) and Android
+- Functions `Angle.atan()` and `Angle.atan2()`, returning `Angle`
 
 ### Changed
 - Make `GLCapabilitiesFactory` internal in `glimpse-ui`

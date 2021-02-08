@@ -137,5 +137,15 @@ class Angle private constructor(
          * Creates a new angle measure from the given measure in [radians][rad].
          */
         fun fromRad(rad: Float): Angle = Angle((rad * STRAIGHT_ANGLE_DEG / PI), rad)
+
+        /**
+         * Returns the arc tangent of a given [value].
+         */
+        fun atan(value: Float): Angle = fromRad(kotlin.math.atan(value))
+
+        /**
+         * Returns the arc tangent of a given value [y]/[x].
+         */
+        fun atan2(y: Float, x: Float): Angle = fromRad(kotlin.math.atan2(y, x))
     }
 }
