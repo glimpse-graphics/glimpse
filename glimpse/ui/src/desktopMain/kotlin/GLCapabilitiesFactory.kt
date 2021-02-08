@@ -5,7 +5,7 @@ import com.jogamp.opengl.GLException
 import com.jogamp.opengl.GLProfile
 import graphics.glimpse.logging.GlimpseLogger
 
-object GLCapabilitiesFactory {
+internal object GLCapabilitiesFactory {
 
     private val logger: GlimpseLogger = GlimpseLogger.create(this)
 
