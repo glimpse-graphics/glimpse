@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- `GlimpseAdapter.glLineWidth(float)` to set line width
+
 ### Changed
 - Make `GLCapabilitiesFactory` internal in `glimpse-ui`
 - Setting fixed surface scale in `GlimpsePanel` with parameter `fixedScale`

@@ -119,6 +119,13 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     }
 
     /**
+     * Sets width of lines to a given [lineWidth].
+     */
+    actual fun glLineWidth(lineWidth: Float) {
+        gles.glLineWidth(lineWidth)
+    }
+
+    /**
      * Sets the viewport to have its bottom-left corner at ([x], [y]),
      * and a given [width] and [height].
      */

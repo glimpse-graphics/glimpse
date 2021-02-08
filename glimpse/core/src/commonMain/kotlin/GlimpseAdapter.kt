@@ -70,6 +70,11 @@ expect class GlimpseAdapter {
     fun glCullFace(faceCullingMode: FaceCullingMode)
 
     /**
+     * Sets width of lines to a given [lineWidth].
+     */
+    fun glLineWidth(lineWidth: Float)
+
+    /**
      * Sets the viewport to have its bottom-left corner at ([x], [y]),
      * and a given [width] and [height].
      */
