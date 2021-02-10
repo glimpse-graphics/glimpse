@@ -32,7 +32,7 @@ allprojects {
 }
 
 plugins {
-    id("org.jetbrains.changelog") version "1.0.1"
+    id("org.jetbrains.changelog") version "1.1.1"
     id("org.jetbrains.dokka")
 }
 
