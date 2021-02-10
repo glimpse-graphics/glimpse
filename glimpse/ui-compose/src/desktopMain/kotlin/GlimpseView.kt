@@ -30,8 +30,10 @@ import graphics.glimpse.ui.GlimpsePanel
  */
 @Composable
 actual fun GlimpseView(callback: GlimpseCallback, zOrderOnTop: Boolean) {
-    val glimpsePanel = GlimpsePanel()
-    SwingPanel(component = glimpsePanel)
-    glimpsePanel.setCallback(callback)
-    Animator(glimpsePanel).start()
+    SwingPanel(componentBlock = {
+        GlimpsePanel().also { glimpsePanel ->
+            glimpsePanel.setCallback(callback)
+            Animator(glimpsePanel).start()
+        }
+    })
 }

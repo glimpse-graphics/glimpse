@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    id("org.jetbrains.compose") version "0.0.0-unmerged-build21"
+    id("org.jetbrains.compose")
     id("io.gitlab.arturbosch.detekt")
 }
 
