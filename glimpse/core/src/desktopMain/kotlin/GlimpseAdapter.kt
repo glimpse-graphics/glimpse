@@ -18,6 +18,7 @@
 package graphics.glimpse
 
 import com.jogamp.opengl.GL2ES2
+import com.jogamp.opengl.GL2GL3
 import graphics.glimpse.buffers.BufferType
 import graphics.glimpse.buffers.BufferUsage
 import graphics.glimpse.buffers.FloatBufferData
@@ -170,10 +171,38 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     }
 
     /**
-     * Sets width of lines to a given [lineWidth].
+     * Enables rasterized line anti-aliasing.
+     */
+    actual fun glEnableLineSmooth() {
+        gles.glEnable(GL2ES2.GL_LINE_SMOOTH)
+    }
+
+    /**
+     * Disables rasterized line anti-aliasing.
+     */
+    actual fun glDisableLineSmooth() {
+        gles.glDisable(GL2ES2.GL_LINE_SMOOTH)
+    }
+
+    /**
+     * Sets width of rasterized lines to a given [lineWidth].
      */
     actual fun glLineWidth(lineWidth: Float) {
         gles.glLineWidth(lineWidth)
+    }
+
+    /**
+     * Enables setting size of rasterized points in vertex shader.
+     */
+    actual fun glEnableProgramPointSize() {
+        gles.glEnable(GL2GL3.GL_VERTEX_PROGRAM_POINT_SIZE)
+    }
+
+    /**
+     * Disables setting size of rasterized points in vertex shader.
+     */
+    actual fun glDisableProgramPointSize() {
+        gles.glDisable(GL2GL3.GL_VERTEX_PROGRAM_POINT_SIZE)
     }
 
     /**

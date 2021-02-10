@@ -35,6 +35,7 @@ import graphics.glimpse.types.Vec2
 import graphics.glimpse.types.Vec3
 import graphics.glimpse.types.Vec4
 import java.nio.ByteBuffer
+import javax.microedition.khronos.opengles.GL10
 
 /**
  * Glimpse OpenGL adapter.
@@ -170,10 +171,38 @@ actual class GlimpseAdapter {
     }
 
     /**
-     * Sets width of lines to a given [lineWidth].
+     * Enables rasterized line anti-aliasing.
+     */
+    actual fun glEnableLineSmooth() {
+        GLES20.glEnable(GL10.GL_LINE_SMOOTH)
+    }
+
+    /**
+     * Disables rasterized line anti-aliasing.
+     */
+    actual fun glDisableLineSmooth() {
+        GLES20.glDisable(GL10.GL_LINE_SMOOTH)
+    }
+
+    /**
+     * Sets width of rasterized lines to a given [lineWidth].
      */
     actual fun glLineWidth(lineWidth: Float) {
         GLES20.glLineWidth(lineWidth)
+    }
+
+    /**
+     * Enables setting size of rasterized points in vertex shader.
+     */
+    actual fun glEnableProgramPointSize() {
+        GLES20.glEnable(GL_VERTEX_PROGRAM_POINT_SIZE)
+    }
+
+    /**
+     * Disables setting size of rasterized points in vertex shader.
+     */
+    actual fun glDisableProgramPointSize() {
+        GLES20.glDisable(GL_VERTEX_PROGRAM_POINT_SIZE)
     }
 
     /**
@@ -714,5 +743,9 @@ actual class GlimpseAdapter {
         PixelFormat.ALPHA -> GLES20.GL_ALPHA
         PixelFormat.RGB -> GLES20.GL_RGB
         PixelFormat.RGBA -> GLES20.GL_RGBA
+    }
+
+    companion object {
+        private const val GL_VERTEX_PROGRAM_POINT_SIZE = 34370
     }
 }
