@@ -2,16 +2,12 @@
 
 ## [Unreleased]
 ### Added
+- `GlimpseAdapter` methods:
+  - `glEnableLineSmooth()`
+  - `glDisableLineSmooth()`
+  - `glEnableProgramPointSize()`
+  - `glDisableProgramPointSize()`
 
-### Changed
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
 ## [1.0.0-ALPHA4]
 ### Added
 - `GlimpseAdapter.glLineWidth(float)` to set line width

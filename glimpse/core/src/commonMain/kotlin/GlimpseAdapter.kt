@@ -65,6 +65,11 @@ expect class GlimpseAdapter {
     fun glDepthTest(depthTestFunction: DepthTestFunction)
 
     /**
+     * Sets facets to be culled to [faceCullingMode].
+     */
+    fun glCullFace(faceCullingMode: FaceCullingMode)
+
+    /**
      * Enables blending.
      */
     fun glEnableBlending()
@@ -87,14 +92,29 @@ expect class GlimpseAdapter {
     fun glBlendingColor(color: Vec4)
 
     /**
-     * Sets facets to be culled to [faceCullingMode].
+     * Enables rasterized line anti-aliasing.
      */
-    fun glCullFace(faceCullingMode: FaceCullingMode)
+    fun glEnableLineSmooth()
 
     /**
-     * Sets width of lines to a given [lineWidth].
+     * Disables rasterized line anti-aliasing.
+     */
+    fun glDisableLineSmooth()
+
+    /**
+     * Sets width of rasterized lines to a given [lineWidth].
      */
     fun glLineWidth(lineWidth: Float)
+
+    /**
+     * Enables setting size of rasterized points in vertex shader.
+     */
+    fun glEnableProgramPointSize()
+
+    /**
+     * Disables setting size of rasterized points in vertex shader.
+     */
+    fun glDisableProgramPointSize()
 
     /**
      * Sets the viewport to have its bottom-left corner at ([x], [y]),
