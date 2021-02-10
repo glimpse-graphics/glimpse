@@ -18,8 +18,11 @@
 package graphics.glimpse.examples.triangle.android
 
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.ui.platform.setContent
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionContext
+import androidx.compose.ui.platform.ComposeView
 import graphics.glimpse.examples.triangle.App
 import graphics.glimpse.examples.triangle.AppResources
 
@@ -36,5 +39,35 @@ class MainActivity : AppCompatActivity() {
         setContent {
             App(AppResources(context = this))
         }
+    }
+
+    /*
+     * Temporary workaround. Function implemented in `androidx.activity:activity-compose:1.3.0-alpha01`.
+     */
+    private fun setContent(
+        parent: CompositionContext? = null,
+        content: @Composable () -> Unit
+    ) {
+        val existingComposeView = window.decorView
+            .findViewById<ViewGroup>(android.R.id.content)
+            .getChildAt(0) as? ComposeView
+
+        if (existingComposeView != null) with(existingComposeView) {
+            setParentCompositionContext(parent)
+            setContent(content)
+        } else ComposeView(this).apply {
+            // Set content and parent **before** setContentView
+            // to have ComposeView create the composition on attach
+            setParentCompositionContext(parent)
+            setContent(content)
+            setContentView(this, DefaultLayoutParams)
+        }
+    }
+
+    companion object {
+        private val DefaultLayoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
     }
 }

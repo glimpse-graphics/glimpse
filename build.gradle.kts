@@ -6,7 +6,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21") // JB Composable requires 1.4.21
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.30")
+        classpath("org.jetbrains.compose:compose-gradle-plugin:0.3.0-build152")
         classpath("com.android.tools.build:gradle:4.0.2")
     }
 }
@@ -32,7 +33,7 @@ allprojects {
 }
 
 plugins {
-    id("org.jetbrains.changelog") version "1.0.1"
+    id("org.jetbrains.changelog") version "1.1.1"
     id("org.jetbrains.dokka")
 }
 

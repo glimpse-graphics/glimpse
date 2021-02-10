@@ -8,6 +8,14 @@
   - `glEnableProgramPointSize()`
   - `glDisableProgramPointSize()`
 
+### Changed
+- Dependencies:
+  - Upgrade Kotlin to `1.4.30`
+  - Upgrade JetBrains Compose for Desktop to `0.3.0-build152`
+  - Upgrade `org.jetbrains.changelog` to `1.1.1`
+- Use a temporary workaround for the missing
+  `ComponentActivity.setContent(...)` extension function
+
 ## [1.0.0-ALPHA4]
 ### Added
 - `GlimpseAdapter.glLineWidth(float)` to set line width

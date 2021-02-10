@@ -2,7 +2,7 @@ plugins {
     id("com.android.library")
     kotlin("multiplatform")
     kotlin("kapt")
-    id("org.jetbrains.compose") version "0.0.0-unmerged-build21"
+    id("org.jetbrains.compose")
     id("io.gitlab.arturbosch.detekt")
 }
 
