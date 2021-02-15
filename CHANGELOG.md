@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+## [1.0.0-BETA2]
+### Added
 - Support for non-32-bpp texture images (Desktop)
 - Matrix times vector multiplication
 
