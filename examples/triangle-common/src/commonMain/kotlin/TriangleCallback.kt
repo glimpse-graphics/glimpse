@@ -17,6 +17,7 @@
 
 package graphics.glimpse.examples.triangle
 
+import graphics.glimpse.BlendingFactorFunction
 import graphics.glimpse.ClearableBufferType
 import graphics.glimpse.DepthTestFunction
 import graphics.glimpse.FaceCullingMode
@@ -73,6 +74,8 @@ class TriangleCallback(
         gl.glClearDepth(depth = 1f)
         gl.glDepthTest(DepthTestFunction.LESS_OR_EQUAL)
         gl.glCullFace(FaceCullingMode.DISABLED)
+        gl.glEnableBlending()
+        gl.glBlendingFunction(BlendingFactorFunction.SOURCE_ALPHA, BlendingFactorFunction.ONE_MINUS_SOURCE_ALPHA)
 
         gl.glTexParameterWrap(TextureType.TEXTURE_2D, TextureWrap.REPEAT, TextureWrap.REPEAT)
         gl.glTexParameterFilter(

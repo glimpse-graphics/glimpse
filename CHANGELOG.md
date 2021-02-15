@@ -2,16 +2,11 @@
 
 ## [Unreleased]
 ### Added
-
-### Changed
-
-### Deprecated
-
-### Removed
+- Support for non-32-bpp texture images (Desktop)
 
 ### Fixed
+- Flip texture image vertically on Android to match Desktop behaviour
 
-### Security
 ## [1.0.0-BETA1]
 ### Added
 - `GlimpseAdapter` methods:

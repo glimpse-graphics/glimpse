@@ -17,6 +17,8 @@
 
 package graphics.glimpse.textures
 
+import android.graphics.Bitmap
+import android.graphics.Matrix
 import android.opengl.GLES20
 import android.opengl.GLUtils
 import graphics.glimpse.GlimpseAdapter
@@ -84,10 +86,18 @@ actual class TextureImageSourceBuilder {
         ) {
             val bitmap = checkNotNull(bitmapProvider.createBitmap()) {
                 "Texture bitmap cannot be null"
-            }
+            }.flipVertically()
             GLUtils.texImage2D(target, 0, GLES20.GL_RGBA, bitmap, 0)
             bitmap.recycle()
             if (withMipmaps) gl.glGenerateMipmap(textureType)
+        }
+
+        private fun Bitmap.flipVertically(): Bitmap {
+            val matrix = Matrix()
+            matrix.postScale(1f, -1f, width / 2f, width / 2f)
+            val result = Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
+            recycle()
+            return result
         }
     }
 

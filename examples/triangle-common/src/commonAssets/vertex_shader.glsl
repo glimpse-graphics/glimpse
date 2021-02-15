@@ -12,7 +12,7 @@ attribute vec2 aTexCoords;
 attribute vec3 aNormal;
 attribute vec3 aTangent;
 
-varying vec3 vCameraPosTan;
+varying vec3 vLightPosTan;
 varying vec3 vPosTan;
 varying vec2 vTexCoords;
 
@@ -30,7 +30,7 @@ void main() {
         vec3(tangent.z, bitangent.z, normal.z)
     );
 
-    vCameraPosTan = tbnMatrix * vec3(0.0, 0.0, 2.0);
+    vLightPosTan = tbnMatrix * vec3(-10.0, -10.0, 10.0);
     vPosTan = tbnMatrix * vec3(uModelMatrix * position);
     vTexCoords = aTexCoords;
 

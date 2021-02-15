@@ -20,12 +20,15 @@ package graphics.glimpse.textures
 import com.jogamp.opengl.GL2ES2
 import com.jogamp.opengl.util.texture.TextureIO
 import graphics.glimpse.GlimpseAdapter
+import graphics.glimpse.logging.GlimpseLogger
 import java.util.*
 
 /**
  * A builder for a [TextureImageSource].
  */
 actual class TextureImageSourceBuilder {
+
+    private val logger: GlimpseLogger = GlimpseLogger.create(this)
 
     private var filename: String = ""
     private var inputStreamProvider: InputStreamProvider = InputStreamProvider { null }
@@ -53,6 +56,7 @@ actual class TextureImageSourceBuilder {
         check(value = filename.isNotBlank()) {
             "Filename cannot be blank. Must call withFilename()."
         }
+        logger.debug(message = "Building image source from: '$filename'")
         return TextureImageSourceImpl(filename, inputStreamProvider)
     }
 
@@ -60,6 +64,8 @@ actual class TextureImageSourceBuilder {
         override val filename: String,
         private val inputStreamProvider: InputStreamProvider
     ) : TextureImageSource {
+
+        private val logger: GlimpseLogger = GlimpseLogger.create(this)
 
         override fun glTexImage2D(gl: GlimpseAdapter, withMipmaps: Boolean) {
             glTexImage2D(gl, TextureType.TEXTURE_2D, GL2ES2.GL_TEXTURE_2D, withMipmaps)
@@ -87,14 +93,16 @@ actual class TextureImageSourceBuilder {
             val inputStream = checkNotNull(inputStreamProvider.createInputStream()) {
                 "Texture input stream cannot be null"
             }
+            logger.debug(message = "Creating texture: '$filename'")
             val fileType = filename.split('.').last().toLowerCase(Locale.ENGLISH)
             val textureData = TextureIO.newTextureData(
                 gl.gles.glProfile, inputStream, false, fileType
             )
+            logger.debug(message = "Decoded texture data: $textureData")
             gl.gles.glTexImage2D(
-                target, 0, GL2ES2.GL_RGBA,
+                target, 0, textureData.internalFormat,
                 textureData.width, textureData.height, 0,
-                GL2ES2.GL_RGBA, GL2ES2.GL_UNSIGNED_BYTE, textureData.buffer
+                textureData.pixelFormat, textureData.pixelType, textureData.buffer
             )
             if (withMipmaps) {
                 gl.glGenerateMipmap(textureType)
