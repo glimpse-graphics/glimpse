@@ -20,7 +20,7 @@ package graphics.glimpse.types
 /**
  * A common interface for square matrix implementations.
  */
-interface Mat<T : Mat<T>> {
+interface Mat<M : Mat<M, V>, V : Vec> {
 
     /**
      * Returns element of this matrix at a given [row] and a given [column][col].
@@ -30,17 +30,22 @@ interface Mat<T : Mat<T>> {
     /**
      * Multiplies this matrix by the [other] matrix of the same size.
      */
-    operator fun times(other: T): T
+    operator fun times(other: M): M
+
+    /**
+     * Multiplies this matrix by a given [vector].
+     */
+    operator fun times(vector: V): V
 
     /**
      * Multiplies this matrix by a given [number].
      */
-    operator fun times(number: Float): T
+    operator fun times(number: Float): M
 
     /**
      * Returns a transpose of this matrix.
      */
-    fun transpose(): T
+    fun transpose(): M
 
     /**
      * Returns a determinant of this matrix.
@@ -50,12 +55,12 @@ interface Mat<T : Mat<T>> {
     /**
      * Returns an adjugate of this matrix.
      */
-    fun adj(): T
+    fun adj(): M
 
     /**
      * Returns an inverse of this matrix.
      */
-    fun inverse(): T
+    fun inverse(): M
 
     /**
      * Returns an array of elements of this matrix.

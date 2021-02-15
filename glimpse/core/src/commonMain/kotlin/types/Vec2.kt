@@ -22,7 +22,7 @@ package graphics.glimpse.types
  *
  * Can be used to specify texture coordinates in UV mapping.
  */
-data class Vec2(val x: Float, val y: Float) {
+data class Vec2(val x: Float, val y: Float) : Vec {
 
     /**
      * U coordinate for UV mapping.
@@ -78,12 +78,12 @@ data class Vec2(val x: Float, val y: Float) {
     /**
      * Returns a list of coordinates of this vector.
      */
-    fun toList(): List<Float> = listOf(x, y)
+    override fun toList(): List<Float> = listOf(x, y)
 
     /**
      * Returns an array of coordinates of this vector.
      */
-    fun toFloatArray(): FloatArray = floatArrayOf(x, y)
+    override fun toFloatArray(): FloatArray = floatArrayOf(x, y)
 
     companion object {
 

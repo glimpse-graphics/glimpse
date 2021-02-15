@@ -20,7 +20,7 @@ package graphics.glimpse.types
 /**
  * A 4×4 matrix.
  */
-data class Mat4(override val elements: List<Float>) : BaseMat<Mat4>(MATRIX_DIMENSION) {
+data class Mat4(override val elements: List<Float>) : BaseMat<Mat4, Vec4>(MATRIX_DIMENSION) {
 
     private val comatrix: Mat4 by lazy {
         Mat4(transform { row, col -> cofactor(row, col) })
@@ -32,6 +32,11 @@ data class Mat4(override val elements: List<Float>) : BaseMat<Mat4>(MATRIX_DIMEN
      * Returns a new 4×4 matrix with the given [elements].
      */
     override fun create(elements: List<Float>): Mat4 = Mat4(elements)
+
+    /**
+     * Returns a new 4D vector with the given [elements].
+     */
+    override fun createVector(elements: List<Float>): Vec4 = Vec4.fromList(elements)
 
     /**
      * Returns a determinant of this matrix.

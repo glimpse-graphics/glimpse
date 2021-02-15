@@ -22,7 +22,7 @@ package graphics.glimpse.types
  *
  * Can be used to specify RGBA color values.
  */
-data class Vec4(val x: Float, val y: Float, val z: Float, val w: Float) {
+data class Vec4(val x: Float, val y: Float, val z: Float, val w: Float) : Vec {
 
     /**
      * Red channel of RGBA color.
@@ -57,12 +57,12 @@ data class Vec4(val x: Float, val y: Float, val z: Float, val w: Float) {
     /**
      * Returns a list of coordinates of this vector.
      */
-    fun toList(): List<Float> = listOf(x, y, z, w)
+    override fun toList(): List<Float> = listOf(x, y, z, w)
 
     /**
      * Returns an array of coordinates of this vector.
      */
-    fun toFloatArray(): FloatArray = floatArrayOf(x, y, z, w)
+    override fun toFloatArray(): FloatArray = floatArrayOf(x, y, z, w)
 
     companion object {
 

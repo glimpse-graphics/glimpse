@@ -60,6 +60,24 @@ class Mat4Test {
     }
 
     @Test
+    @JsName(name = "GIVEN_a_matrix_and_a_vector_WHEN_times_THEN_return_product_of_the_matrix_and_the_vector")
+    fun `GIVEN a matrix and a vector, WHEN times, THEN return product of the matrix and the vector`() {
+        val matrix = Mat4(
+            listOf(
+                1f, 5f, 9f, 13f,
+                2f, 6f, 10f, 14f,
+                3f, 7f, 11f, 15f,
+                4f, 8f, 12f, 16f
+            )
+        )
+        val vector = Vec4(x = 17f, y = 18f, z = 19f, w = 20f)
+
+        val result = matrix * vector
+
+        assertEquals(Vec4(x = 190f, y = 486f, z = 782f, w = 1078f), result)
+    }
+
+    @Test
     @JsName(name = "GIVEN_a_matrix_and_a_number_WHEN_times_THEN_return_product_of_the_matrix_and_the_number")
     fun `GIVEN a matrix and a number, WHEN times, THEN return product of the matrix and the number`() {
         val matrix = Mat4(

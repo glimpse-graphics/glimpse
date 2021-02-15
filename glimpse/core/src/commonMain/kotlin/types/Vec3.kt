@@ -22,7 +22,7 @@ package graphics.glimpse.types
  *
  * Can be used to specify RGB color values.
  */
-data class Vec3(val x: Float, val y: Float, val z: Float) {
+data class Vec3(val x: Float, val y: Float, val z: Float) : Vec {
 
     /**
      * Red channel of RGB color.
@@ -114,12 +114,12 @@ data class Vec3(val x: Float, val y: Float, val z: Float) {
     /**
      * Returns a list of coordinates of this vector.
      */
-    fun toList(): List<Float> = listOf(x, y, z)
+    override fun toList(): List<Float> = listOf(x, y, z)
 
     /**
      * Returns an array of coordinates of this vector.
      */
-    fun toFloatArray(): FloatArray = floatArrayOf(x, y, z)
+    override fun toFloatArray(): FloatArray = floatArrayOf(x, y, z)
 
     companion object {
 

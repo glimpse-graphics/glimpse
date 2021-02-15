@@ -57,6 +57,23 @@ class Mat3Test {
     }
 
     @Test
+    @JsName(name = "GIVEN_a_matrix_and_a_vector_WHEN_times_THEN_return_product_of_the_matrix_and_the_vector")
+    fun `GIVEN a matrix and a vector, WHEN times, THEN return product of the matrix and the vector`() {
+        val matrix = Mat3(
+            listOf(
+                1f, 4f, 7f,
+                2f, 5f, 8f,
+                3f, 6f, 9f
+            )
+        )
+        val vector = Vec3(x = 10f, y = 11f, z = 12f)
+
+        val result = matrix * vector
+
+        assertEquals(Vec3(x = 68f, y = 167f, z = 266f), result)
+    }
+
+    @Test
     @JsName(name = "GIVEN_a_matrix_and_a_number_WHEN_times_THEN_return_product_of_the_matrix_and_the_number")
     fun `GIVEN a matrix and a number, WHEN times, THEN return product of the matrix and the number`() {
         val matrix = Mat3(
