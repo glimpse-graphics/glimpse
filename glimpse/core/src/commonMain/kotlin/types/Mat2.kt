@@ -20,7 +20,7 @@ package graphics.glimpse.types
 /**
  * A 2×2 matrix.
  */
-data class Mat2(override val elements: List<Float>) : BaseMat<Mat2>(MATRIX_DIMENSION) {
+data class Mat2(override val elements: List<Float>) : BaseMat<Mat2, Vec2>(MATRIX_DIMENSION) {
 
     init { validate() }
 
@@ -28,6 +28,11 @@ data class Mat2(override val elements: List<Float>) : BaseMat<Mat2>(MATRIX_DIMEN
      * Returns a new 2×2 matrix with the given [elements].
      */
     override fun create(elements: List<Float>): Mat2 = Mat2(elements)
+
+    /**
+     * Returns a new 2D vector with the given [elements].
+     */
+    override fun createVector(elements: List<Float>): Vec2 = Vec2.fromList(elements)
 
     /**
      * Returns a determinant of this matrix.

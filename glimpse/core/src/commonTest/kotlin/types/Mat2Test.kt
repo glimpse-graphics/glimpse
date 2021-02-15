@@ -35,6 +35,17 @@ class Mat2Test {
     }
 
     @Test
+    @JsName(name = "GIVEN_a_matrix_and_a_vector_WHEN_times_THEN_return_product_of_the_matrix_and_the_vector")
+    fun `GIVEN a matrix and a vector, WHEN times, THEN return product of the matrix and the vector`() {
+        val matrix = Mat2(listOf(1f, 3f, 2f, 4f))
+        val vector = Vec2(x = 5f, y = 6f)
+
+        val result = matrix * vector
+
+        assertEquals(Vec2(x = 17f, y = 39f), result)
+    }
+
+    @Test
     @JsName(name = "GIVEN_a_matrix_and_a_number_WHEN_times_THEN_return_product_of_the_matrix_and_the_number")
     fun `GIVEN a matrix and a number, WHEN times, THEN return product of the matrix and the number`() {
         val matrix = Mat2(listOf(1f, 3f, 2f, 4f))

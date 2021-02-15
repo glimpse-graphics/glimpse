@@ -3,6 +3,7 @@
 ## [Unreleased]
 ### Added
 - Support for non-32-bpp texture images (Desktop)
+- Matrix times vector multiplication
 
 ### Changed
 - Use `ComponentActivity.setContent(...)` from `activity-compose`

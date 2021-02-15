@@ -20,9 +20,9 @@ package graphics.glimpse.types
 /**
  * Base implementation of a square matrix with a given [dimension].
  */
-abstract class BaseMat<T : Mat<T>>(
+abstract class BaseMat<M : Mat<M, V>, V : Vec>(
     private val dimension: Int
-) : Mat<T> {
+) : Mat<M, V> {
 
     /**
      * Implement this property to provide elements of the matrix.
@@ -55,7 +55,7 @@ abstract class BaseMat<T : Mat<T>>(
     /**
      * Multiplies this matrix by the [other] matrix of the same size.
      */
-    override operator fun times(other: T): T = create(
+    override operator fun times(other: M): M = create(
         transform { row, col ->
             indices.map { this[row, it] * other[it, col] }.sum()
         }
@@ -65,7 +65,7 @@ abstract class BaseMat<T : Mat<T>>(
      * Implement this function to provide a way to create a new matrix of the same size
      * from a list of its [elements].
      */
-    protected abstract fun create(elements: List<Float>): T
+    protected abstract fun create(elements: List<Float>): M
 
     /**
      * Transforms the matrix using a given [function].
@@ -78,21 +78,41 @@ abstract class BaseMat<T : Mat<T>>(
         }
 
     /**
+     * Multiplies this matrix by a given [vector].
+     */
+    override fun times(vector: V): V {
+        val vectorValues = vector.toList()
+        return createVector(
+            indices.map { row ->
+                indices.map { col ->
+                    vectorValues[col] * get(row, col)
+                }.sum()
+            }
+        )
+    }
+
+    /**
+     * Implement this function to provide a way to create a new vector of the same size
+     * from a list of its [elements].
+     */
+    protected abstract fun createVector(elements: List<Float>): V
+
+    /**
      * Multiplies this matrix by a given [number].
      */
-    override operator fun times(number: Float): T = create(map { it * number })
+    override operator fun times(number: Float): M = create(map { it * number })
 
     private fun map(function: (Float) -> Float): List<Float> = elements.map(function)
 
     /**
      * Returns a transpose of this matrix.
      */
-    override fun transpose(): T = create(transform { row, col -> this[col, row] })
+    override fun transpose(): M = create(transform { row, col -> this[col, row] })
 
     /**
      * Returns an inverse of this matrix.
      */
-    override fun inverse(): T = adj() * (1f / det())
+    override fun inverse(): M = adj() * (1f / det())
 
     /**
      * Returns an array of elements of this matrix.

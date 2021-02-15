@@ -20,7 +20,7 @@ package graphics.glimpse.types
 /**
  * A 3×3 matrix.
  */
-data class Mat3(override val elements: List<Float>) : BaseMat<Mat3>(MATRIX_DIMENSION) {
+data class Mat3(override val elements: List<Float>) : BaseMat<Mat3, Vec3>(MATRIX_DIMENSION) {
 
     private val comatrix: Mat3 by lazy {
         Mat3(transform { row, col -> cofactor(row, col) })
@@ -32,6 +32,11 @@ data class Mat3(override val elements: List<Float>) : BaseMat<Mat3>(MATRIX_DIMEN
      * Returns a new 3×3 matrix with the given [elements].
      */
     override fun create(elements: List<Float>): Mat3 = Mat3(elements)
+
+    /**
+     * Returns a new 3D vector with the given [elements].
+     */
+    override fun createVector(elements: List<Float>): Vec3 = Vec3.fromList(elements)
 
     /**
      * Returns a determinant of this matrix.
