@@ -26,10 +26,10 @@ internal object GLCapabilitiesFactory {
 
     fun create(): GLCapabilities {
         for (profileName in supportedProfiles) {
-            logger.debug("Obtaining GLProfile '$profileName'")
+            logger.debug(message = "Obtaining GLProfile '$profileName'")
             val profile: GLProfile? = findGLProfile(profileName)
             if (profile != null) {
-                logger.debug("Obtaining GLCapabilities for $profile")
+                logger.debug(message = "Obtaining GLCapabilities for $profile")
                 val capabilities: GLCapabilities? = createGLCapabilities(profile)
                 if (capabilities != null) return capabilities
             } else {
