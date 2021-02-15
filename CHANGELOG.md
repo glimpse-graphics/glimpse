@@ -2,16 +2,8 @@
 
 ## [Unreleased]
 ### Added
+- Support for non-32-bpp texture images (Desktop)
 
-### Changed
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
 ## [1.0.0-BETA1]
 ### Added
 - `GlimpseAdapter` methods:
