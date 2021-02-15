@@ -87,7 +87,7 @@ actual class AppResources {
 
     companion object {
         private const val MESH_FILE_NAME = "/triangle.obj"
-        private const val TEXTURE_FILE_NAME = "/bricks_texture.png"
-        private const val NORMAL_MAP_FILE_NAME = "/bricks_normalmap.png"
+        private const val TEXTURE_FILE_NAME = "/triangle_texture.png"
+        private const val NORMAL_MAP_FILE_NAME = "/triangle_normalmap.png"
     }
 }
