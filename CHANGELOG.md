@@ -4,6 +4,9 @@
 ### Added
 - Support for non-32-bpp texture images (Desktop)
 
+### Changed
+- Use `ComponentActivity.setContent(...)` from `activity-compose`
+
 ### Fixed
 - Flip texture image vertically on Android to match Desktop behaviour
 
