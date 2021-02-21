@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- `TextureImageSourceBuilder.buildPrepared()`
+
 ### Removed
 - **BREAKING CHANGE:** Remove `filename` from `TextureImageSource`
 - **BREAKING CHANGE:** Remove `withFilename` from Android implementation

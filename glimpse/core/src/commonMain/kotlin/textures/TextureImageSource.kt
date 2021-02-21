@@ -34,6 +34,15 @@ interface TextureImageSource {
      */
     fun glTexImage2D(gl: GlimpseAdapter, side: CubemapSide, withMipmaps: Boolean)
 
+    /**
+     * Disposes this texture image source.
+     *
+     * Disposes any prepared or cached texture image data.
+     *
+     * _Note: This method does not dispose the texture itself, but only the image source._
+     */
+    fun dispose()
+
     companion object {
 
         /**

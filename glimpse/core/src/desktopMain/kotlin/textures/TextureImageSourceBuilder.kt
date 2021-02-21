@@ -18,6 +18,8 @@
 package graphics.glimpse.textures
 
 import com.jogamp.opengl.GL2ES2
+import com.jogamp.opengl.GLProfile
+import com.jogamp.opengl.util.texture.TextureData
 import com.jogamp.opengl.util.texture.TextureIO
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.logging.GlimpseLogger
@@ -60,18 +62,35 @@ actual class TextureImageSourceBuilder {
         return TextureImageSourceImpl(filename, inputStreamProvider)
     }
 
-    private class TextureImageSourceImpl(
-        private val filename: String,
-        private val inputStreamProvider: InputStreamProvider
-    ) : TextureImageSource {
+    /**
+     * Builds a prepared [TextureImageSource] with the provided parameters and
+     * a given OpenGL [profile].
+     *
+     * _Note: The resulting [TextureImageSource] will be quicker in setting
+     * a texture image, but it will also consume more memory._
+     */
+    fun buildPrepared(profile: GLProfile): TextureImageSource {
+        check(value = filename.isNotBlank()) {
+            "Filename cannot be blank. Must call withFilename()."
+        }
+        logger.debug(message = "Building image source from: '$filename'")
+        val inputStream = checkNotNull(inputStreamProvider.createInputStream()) {
+            "Texture input stream cannot be null"
+        }
+        logger.debug(message = "Decoding texture data: '$filename'")
+        val fileType = filename.split('.').last().toLowerCase(Locale.ENGLISH)
+        val textureData = TextureIO.newTextureData(profile, inputStream, false, fileType)
+        logger.debug(message = "Decoded texture data: $textureData")
+        return PreparedTextureImageSourceImpl(textureData)
+    }
 
-        private val logger: GlimpseLogger = GlimpseLogger.create(this)
+    private abstract class BaseTextureImageSourceImpl : TextureImageSource {
 
-        override fun glTexImage2D(gl: GlimpseAdapter, withMipmaps: Boolean) {
+        final override fun glTexImage2D(gl: GlimpseAdapter, withMipmaps: Boolean) {
             glTexImage2D(gl, TextureType.TEXTURE_2D, GL2ES2.GL_TEXTURE_2D, withMipmaps)
         }
 
-        override fun glTexImage2D(gl: GlimpseAdapter, side: CubemapSide, withMipmaps: Boolean) {
+        final override fun glTexImage2D(gl: GlimpseAdapter, side: CubemapSide, withMipmaps: Boolean) {
             glTexImage2D(gl, TextureType.TEXTURE_CUBE_MAP, side.toInt(), withMipmaps)
         }
 
@@ -84,7 +103,22 @@ actual class TextureImageSourceBuilder {
             CubemapSide.NEAR -> GL2ES2.GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
         }
 
-        private fun glTexImage2D(
+        protected abstract fun glTexImage2D(
+            gl: GlimpseAdapter,
+            textureType: TextureType,
+            target: Int,
+            withMipmaps: Boolean
+        )
+    }
+
+    private class TextureImageSourceImpl(
+        private val filename: String,
+        private val inputStreamProvider: InputStreamProvider
+    ) : BaseTextureImageSourceImpl() {
+
+        private val logger: GlimpseLogger = GlimpseLogger.create(this)
+
+        override fun glTexImage2D(
             gl: GlimpseAdapter,
             textureType: TextureType,
             target: Int,
@@ -104,9 +138,37 @@ actual class TextureImageSourceBuilder {
                 textureData.width, textureData.height, 0,
                 textureData.pixelFormat, textureData.pixelType, textureData.buffer
             )
+            textureData.destroy()
             if (withMipmaps) {
                 gl.glGenerateMipmap(textureType)
             }
+        }
+
+        override fun dispose() = Unit
+    }
+
+    private class PreparedTextureImageSourceImpl(
+        private val textureData: TextureData
+    ) : BaseTextureImageSourceImpl() {
+
+        override fun glTexImage2D(
+            gl: GlimpseAdapter,
+            textureType: TextureType,
+            target: Int,
+            withMipmaps: Boolean
+        ) {
+            gl.gles.glTexImage2D(
+                target, 0, textureData.internalFormat,
+                textureData.width, textureData.height, 0,
+                textureData.pixelFormat, textureData.pixelType, textureData.buffer
+            )
+            if (withMipmaps) {
+                gl.glGenerateMipmap(textureType)
+            }
+        }
+
+        override fun dispose() {
+            textureData.destroy()
         }
     }
 

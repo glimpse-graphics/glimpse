@@ -47,15 +47,26 @@ actual class TextureImageSourceBuilder {
     actual fun build(): TextureImageSource =
         TextureImageSourceImpl(bitmapProvider)
 
-    private class TextureImageSourceImpl(
-        private val bitmapProvider: BitmapProvider
-    ) : TextureImageSource {
+    /**
+     * Builds a prepared [TextureImageSource] with the provided parameters.
+     *
+     * _Note: The resulting [TextureImageSource] will be quicker in setting
+     * a texture image, but it will also consume more memory._
+     */
+    fun buildPrepared(): TextureImageSource {
+        val bitmap = checkNotNull(bitmapProvider.createBitmap()) {
+            "Texture bitmap cannot be null"
+        }.flipVertically()
+        return PreparedTextureImageSourceImpl(bitmap)
+    }
 
-        override fun glTexImage2D(gl: GlimpseAdapter, withMipmaps: Boolean) {
+    private abstract class BaseTextureImageSourceImpl : TextureImageSource {
+
+        final override fun glTexImage2D(gl: GlimpseAdapter, withMipmaps: Boolean) {
             glTexImage2D(gl, TextureType.TEXTURE_2D, GLES20.GL_TEXTURE_2D, withMipmaps)
         }
 
-        override fun glTexImage2D(gl: GlimpseAdapter, side: CubemapSide, withMipmaps: Boolean) {
+        final override fun glTexImage2D(gl: GlimpseAdapter, side: CubemapSide, withMipmaps: Boolean) {
             glTexImage2D(gl, TextureType.TEXTURE_CUBE_MAP, side.toInt(), withMipmaps)
         }
 
@@ -68,7 +79,19 @@ actual class TextureImageSourceBuilder {
             CubemapSide.NEAR -> GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
         }
 
-        private fun glTexImage2D(
+        protected abstract fun glTexImage2D(
+            gl: GlimpseAdapter,
+            textureType: TextureType,
+            target: Int,
+            withMipmaps: Boolean
+        )
+    }
+
+    private class TextureImageSourceImpl(
+        private val bitmapProvider: BitmapProvider
+    ) : BaseTextureImageSourceImpl() {
+
+        override fun glTexImage2D(
             gl: GlimpseAdapter,
             textureType: TextureType,
             target: Int,
@@ -82,12 +105,25 @@ actual class TextureImageSourceBuilder {
             if (withMipmaps) gl.glGenerateMipmap(textureType)
         }
 
-        private fun Bitmap.flipVertically(): Bitmap {
-            val matrix = Matrix()
-            matrix.postScale(1f, -1f, width / 2f, width / 2f)
-            val result = Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
-            recycle()
-            return result
+        override fun dispose() = Unit
+    }
+
+    private class PreparedTextureImageSourceImpl(
+        private val bitmap: Bitmap
+    ) : BaseTextureImageSourceImpl() {
+
+        override fun glTexImage2D(
+            gl: GlimpseAdapter,
+            textureType: TextureType,
+            target: Int,
+            withMipmaps: Boolean
+        ) {
+            GLUtils.texImage2D(target, 0, GLES20.GL_RGBA, bitmap, 0)
+            if (withMipmaps) gl.glGenerateMipmap(textureType)
+        }
+
+        override fun dispose() {
+            bitmap.recycle()
         }
     }
 
@@ -97,5 +133,13 @@ actual class TextureImageSourceBuilder {
          * Creates a new texture image source builder.
          */
         actual fun getInstance(): TextureImageSourceBuilder = TextureImageSourceBuilder()
+
+        private fun Bitmap.flipVertically(): Bitmap {
+            val matrix = Matrix()
+            matrix.postScale(1f, -1f, width / 2f, width / 2f)
+            val result = Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
+            recycle()
+            return result
+        }
     }
 }
