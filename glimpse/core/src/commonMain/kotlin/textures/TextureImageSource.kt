@@ -25,13 +25,6 @@ import graphics.glimpse.GlimpseAdapter
 interface TextureImageSource {
 
     /**
-     * Texture filename.
-     *
-     * Used by some implementations to determine image file type.
-     */
-    val filename: String
-
-    /**
      * Sets a 2D texture image.
      */
     fun glTexImage2D(gl: GlimpseAdapter, withMipmaps: Boolean)

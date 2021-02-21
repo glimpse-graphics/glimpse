@@ -36,7 +36,7 @@ actual class TextureImageSourceBuilder {
     /**
      * Will build a texture source with a given [filename].
      */
-    actual fun withFilename(filename: String): TextureImageSourceBuilder {
+    fun withFilename(filename: String): TextureImageSourceBuilder {
         this.filename = filename
         return this
     }
@@ -61,7 +61,7 @@ actual class TextureImageSourceBuilder {
     }
 
     private class TextureImageSourceImpl(
-        override val filename: String,
+        private val filename: String,
         private val inputStreamProvider: InputStreamProvider
     ) : TextureImageSource {
 

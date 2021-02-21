@@ -28,7 +28,6 @@ import java.lang.ref.WeakReference
  * Will build a texture source from a given [file].
  */
 fun TextureImageSourceBuilder.fromFile(file: File): TextureImageSourceBuilder = this
-    .withFilename(file.name)
     .fromBitmap {
         BitmapFactory.decodeFile(file.absolutePath)
     }
@@ -37,7 +36,6 @@ fun TextureImageSourceBuilder.fromFile(file: File): TextureImageSourceBuilder = 
  * Will build a texture source from an asset with a given [fileName].
  */
 fun TextureImageSourceBuilder.fromAsset(context: Context, fileName: String): TextureImageSourceBuilder = this
-    .withFilename(fileName.split(File.separatorChar).last())
     .fromBitmap(
         object : BitmapProvider {
 

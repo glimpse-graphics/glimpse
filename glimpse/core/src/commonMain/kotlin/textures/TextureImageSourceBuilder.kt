@@ -23,13 +23,6 @@ package graphics.glimpse.textures
 expect class TextureImageSourceBuilder {
 
     /**
-     * Will build a texture source with a given [filename].
-     *
-     * Required by some implementations to determine image file type.
-     */
-    fun withFilename(filename: String): TextureImageSourceBuilder
-
-    /**
      * Builds a [TextureImageSource] with the provided parameters.
      */
     fun build(): TextureImageSource

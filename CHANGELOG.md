@@ -1,17 +1,11 @@
 # Changelog
 
 ## [Unreleased]
-### Added
-
-### Changed
-
-### Deprecated
-
 ### Removed
+- **BREAKING CHANGE:** Remove `filename` from `TextureImageSource`
+- **BREAKING CHANGE:** Remove `withFilename` from Android implementation
+  of `TextureImageSourceBuilder`
 
-### Fixed
-
-### Security
 ## [1.0.0-BETA2]
 ### Added
 - Support for non-32-bpp texture images (Desktop)

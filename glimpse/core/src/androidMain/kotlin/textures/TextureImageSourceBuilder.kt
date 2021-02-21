@@ -28,16 +28,7 @@ import graphics.glimpse.GlimpseAdapter
  */
 actual class TextureImageSourceBuilder {
 
-    private var filename: String = ""
     private var bitmapProvider: BitmapProvider = BitmapProvider { null }
-
-    /**
-     * Will build a texture source with a given [filename].
-     */
-    actual fun withFilename(filename: String): TextureImageSourceBuilder {
-        this.filename = filename
-        return this
-    }
 
     /**
      * Will build a texture source from a bitmap provided by [bitmapProvider].
@@ -54,10 +45,9 @@ actual class TextureImageSourceBuilder {
      * Builds a [TextureImageSource] with the provided parameters.
      */
     actual fun build(): TextureImageSource =
-        TextureImageSourceImpl(filename, bitmapProvider)
+        TextureImageSourceImpl(bitmapProvider)
 
     private class TextureImageSourceImpl(
-        override val filename: String,
         private val bitmapProvider: BitmapProvider
     ) : TextureImageSource {
 
