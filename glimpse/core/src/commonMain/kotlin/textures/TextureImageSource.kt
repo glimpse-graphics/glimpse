@@ -25,13 +25,6 @@ import graphics.glimpse.GlimpseAdapter
 interface TextureImageSource {
 
     /**
-     * Texture filename.
-     *
-     * Used by some implementations to determine image file type.
-     */
-    val filename: String
-
-    /**
      * Sets a 2D texture image.
      */
     fun glTexImage2D(gl: GlimpseAdapter, withMipmaps: Boolean)
@@ -40,6 +33,15 @@ interface TextureImageSource {
      * Sets a Cubemap side texture image.
      */
     fun glTexImage2D(gl: GlimpseAdapter, side: CubemapSide, withMipmaps: Boolean)
+
+    /**
+     * Disposes this texture image source.
+     *
+     * Disposes any prepared or cached texture image data.
+     *
+     * _Note: This method does not dispose the texture itself, but only the image source._
+     */
+    fun dispose()
 
     companion object {
 
