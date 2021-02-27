@@ -53,6 +53,10 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "desktop"
+
+            // Compose apps require correct DMG and MSI version format (X.X.X):
+            val glimpseVersion: String by project
+            packageVersion = glimpseVersion
         }
         jvmArgs.add("--add-exports=jogl.all/com.jogamp.opengl.util=ALL-UNNAMED")
         jvmArgs.add("--add-exports=jogl.all/com.jogamp.opengl.util.texture=ALL-UNNAMED")
