@@ -1,6 +1,18 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+## [1.0.0]
 ### Changed
 - Dependencies:
   - Upgrade JetBrains Compose for Desktop to `0.3.1`
