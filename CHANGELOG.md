@@ -1,17 +1,10 @@
 # Changelog
 
 ## [Unreleased]
-### Added
-
 ### Changed
+- Dependencies:
+  - Upgrade JetBrains Compose for Desktop to `0.3.1`
 
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
 ## [1.0.0-RC1]
 ### Added
 - `TextureImageSourceBuilder.buildPrepared()`
