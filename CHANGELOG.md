@@ -1,17 +1,11 @@
 # Changelog
 
 ## [Unreleased]
-### Added
-
 ### Changed
+- Dependencies:
+  - Upgrade Kotlin to `1.4.31`
+  - Upgrade JetBrains Compose for Desktop to `0.3.2`
 
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
 ## [1.0.0]
 ### Changed
 - Dependencies:
