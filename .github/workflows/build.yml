@@ -132,8 +132,8 @@ jobs:
           directory: docs
           github_token: ${{ secrets.PUSH_TOKEN }}
 
-  build:
-    name: Build Library
+  assemble:
+    name: Assemble Library
     if: (github.event_name == 'pull_request') || (github.ref != 'refs/heads/main')
     needs: gradleValidation
     runs-on: ubuntu-latest
@@ -145,8 +145,8 @@ jobs:
         with:
           distribution: zulu
           java-version: 11
-      - name: Build Library
-        run: ./gradlew build --stacktrace
+      - name: Assemble Library
+        run: ./gradlew assemble --stacktrace
 
   releaseDraft:
     name: Draft New Release
