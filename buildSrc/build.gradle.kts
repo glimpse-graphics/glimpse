@@ -30,8 +30,8 @@ dependencies {
     implementation("com.android.tools.build:gradle-api:4.1.3")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.31")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.31")
-    implementation("org.jetbrains.dokka:dokka-core:1.4.20")
-    implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.4.20")
+    implementation("org.jetbrains.dokka:dokka-core:1.4.30")
+    implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.4.30")
     implementation("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.15.0")
 }
 val compileKotlin: KotlinCompile by tasks

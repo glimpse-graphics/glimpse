@@ -7,6 +7,7 @@
   - Upgrade Kotlin to `1.4.31`
   - Upgrade JetBrains Compose for Desktop to `0.3.2`
   - Upgrade Android Gradle Plugin to `4.1.3`
+  - Upgrade `org.jetbrains.dokka` to `1.4.30`
   - Upgrade `androidx.annotation:annotation` to `1.2.0`
   - Upgrade `mockk` to `1.11.0`
 
