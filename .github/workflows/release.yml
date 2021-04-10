@@ -18,7 +18,7 @@ jobs:
         uses: gradle/wrapper-validation-action@v1
 
   release:
-    name: Publish To OSSRH Snapshot Repository
+    name: Publish To Maven Central
     needs: gradleValidation
     runs-on: ubuntu-latest
     steps:
@@ -27,14 +27,15 @@ jobs:
         with:
           ref: ${{ github.event.release.tag_name }}
       - name: Setup Java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
+          distribution: zulu
           java-version: 11
       - name: Decrypt Key Ring File
         env:
           FILE_PASSPHRASE: ${{ secrets.FILE_PASSPHRASE }}
         run: gpg --quiet --batch --yes --decrypt --passphrase="${FILE_PASSPHRASE}" --output secring.gpg secring.gpg.gpg
-      - name: Publish To OSSRH Repository
+      - name: Publish To Maven Central
         env:
           SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
           SIGNING_PASS: ${{ secrets.SIGNING_PASS }}
@@ -52,8 +53,9 @@ jobs:
         with:
           ref: ${{ github.event.release.tag_name }}
       - name: Setup Java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
+          distribution: zulu
           java-version: 11
       - name: Patch Changelog
         run: ./gradlew patchChangelog

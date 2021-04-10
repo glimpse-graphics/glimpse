@@ -27,8 +27,9 @@ jobs:
       - name: Fetch Sources
         uses: actions/checkout@v2
       - name: Setup Java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
+          distribution: zulu
           java-version: 11
       - name: Export Properties
         id: properties
@@ -51,8 +52,9 @@ jobs:
       - name: Fetch Sources
         uses: actions/checkout@v2
       - name: Setup Java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
+          distribution: zulu
           java-version: 11
       - name: Run Unit Tests
         run: ./gradlew allTests testDebugUnitTest --stacktrace
@@ -70,8 +72,9 @@ jobs:
       - name: Fetch Sources
         uses: actions/checkout@v2
       - name: Setup Java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
+          distribution: zulu
           java-version: 11
       - name: Generate Documentation
         run: ./gradlew dokkaHtml --stacktrace
@@ -96,8 +99,9 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
       - name: Setup Java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
+          distribution: zulu
           java-version: 11
       - name: Generate Documentation
         run: |
@@ -128,8 +132,8 @@ jobs:
           directory: docs
           github_token: ${{ secrets.PUSH_TOKEN }}
 
-  build:
-    name: Build Library
+  assemble:
+    name: Assemble Library
     if: (github.event_name == 'pull_request') || (github.ref != 'refs/heads/main')
     needs: gradleValidation
     runs-on: ubuntu-latest
@@ -137,11 +141,12 @@ jobs:
       - name: Fetch Sources
         uses: actions/checkout@v2
       - name: Setup Java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
+          distribution: zulu
           java-version: 11
-      - name: Build Library
-        run: ./gradlew build --stacktrace
+      - name: Assemble Library
+        run: ./gradlew assemble --stacktrace
 
   releaseDraft:
     name: Draft New Release
@@ -179,8 +184,9 @@ jobs:
       - name: Fetch Sources
         uses: actions/checkout@v2
       - name: Setup Java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
+          distribution: zulu
           java-version: 11
       - name: Decrypt Key Ring File
         env:

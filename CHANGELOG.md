@@ -1,17 +1,16 @@
 # Changelog
 
 ## [Unreleased]
-### Added
-
 ### Changed
+- Upgrade Gradle Wrapper to `6.8.3`
+- Dependencies:
+  - Upgrade Kotlin to `1.4.31`
+  - Upgrade JetBrains Compose for Desktop to `0.3.2`
+  - Upgrade Android Gradle Plugin to `4.1.3`
+  - Upgrade `org.jetbrains.dokka` to `1.4.30`
+  - Upgrade `androidx.annotation:annotation` to `1.2.0`
+  - Upgrade `mockk` to `1.11.0`
 
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
 ## [1.0.0]
 ### Changed
 - Dependencies:
