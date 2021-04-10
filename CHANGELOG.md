@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Changed
+- Upgrade Gradle Wrapper to `6.8.3`
 - Dependencies:
   - Upgrade Kotlin to `1.4.31`
   - Upgrade JetBrains Compose for Desktop to `0.3.2`
