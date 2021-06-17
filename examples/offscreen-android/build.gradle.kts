@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3-native-mt")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0-native-mt")
     implementation(project(":examples:offscreen-common"))
 }
 
@@ -27,5 +27,12 @@ android {
     }
     packagingOptions {
         exclude("META-INF/*.kotlin_module")
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 }
