@@ -4,13 +4,15 @@
 ### Changed
 - Upgrade Gradle Wrapper to `7.0`
 - Dependencies:
-  - Upgrade Kotlin to `1.4.32`
-  - Upgrade JetBrains Compose for Desktop to `0.4.0-build182`
+  - Upgrade Kotlin to `1.5.10`
+  - Upgrade JetBrains Compose for Desktop to `0.5.0-build225`
   - Upgrade Android Gradle Plugin to `4.1.3`
-  - Upgrade `org.jetbrains.dokka` to `1.4.30`
+  - Upgrade `org.jetbrains.dokka` to `1.4.32`
   - Upgrade `kotlinpoet` to `1.8.0`
   - Upgrade `androidx.annotation:annotation` to `1.2.0`
   - Upgrade `mockk` to `1.11.0`
+  - Upgrade `activity-compose` to `1.3.0-beta02`
+  - Upgrade `kotlin-coroutines-android` to `1.5.0-native-mt`
 
 ## [1.0.0]
 ### Changed
