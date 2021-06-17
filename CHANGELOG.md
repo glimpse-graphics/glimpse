@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 ### Changed
-- Upgrade Gradle Wrapper to `7.0`
+- Upgrade Gradle Wrapper to `6.9`
 - Dependencies:
   - Upgrade Kotlin to `1.5.10`
   - Upgrade JetBrains Compose for Desktop to `0.5.0-build225`
