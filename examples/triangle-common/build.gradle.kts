@@ -70,7 +70,7 @@ kotlin {
             dependencies {
                 implementation("org.jogamp.jogl:jogl-all-main:2.3.2")
                 implementation("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
-                implementation("org.slf4j:slf4j-api:1.7.30")
+                implementation("org.slf4j:slf4j-api:1.7.31")
             }
         }
         val desktopTest by getting {
