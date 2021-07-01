@@ -50,7 +50,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 api("com.google.android.material:material:1.3.0")
-                api("androidx.appcompat:appcompat:1.3.0-rc01")
+                api("androidx.appcompat:appcompat:1.4.0-alpha03")
                 api("androidx.activity:activity-compose:1.3.0-beta02") {
                     exclude(group = "androidx.compose.animation")
                     exclude(group = "androidx.compose.foundation")
