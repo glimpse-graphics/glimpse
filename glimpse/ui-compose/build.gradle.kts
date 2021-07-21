@@ -46,7 +46,7 @@ kotlin {
             dependencies {
                 compileOnly("org.jogamp.jogl:jogl-all-main:2.3.2")
                 compileOnly("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
-                compileOnly("org.slf4j:slf4j-api:1.7.30")
+                compileOnly("org.slf4j:slf4j-api:1.7.32")
             }
         }
         val desktopTest by getting {
