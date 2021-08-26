@@ -41,13 +41,13 @@ kotlin {
             dependencies {
                 compileOnly("org.jogamp.jogl:jogl-all-main:2.3.2")
                 compileOnly("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
-                compileOnly("org.slf4j:slf4j-api:1.7.30")
+                compileOnly("org.slf4j:slf4j-api:1.7.32")
             }
         }
         val desktopTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
-                implementation("io.mockk:mockk:1.11.0")
+                implementation("io.mockk:mockk:1.12.0")
             }
         }
     }
@@ -56,11 +56,11 @@ kotlin {
 detekt { setUpDetekt(project, kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories }) }
 
 android {
-    compileSdkVersion(apiLevel = 30)
+    compileSdkVersion(apiLevel = 31)
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdkVersion(14)
-        targetSdkVersion(30)
+        targetSdkVersion(31)
     }
 }
 
