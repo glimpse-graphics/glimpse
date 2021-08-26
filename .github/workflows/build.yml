@@ -83,7 +83,7 @@ jobs:
         if: always() && (github.event_name == 'pull_request')
         uses: yutailang0119/action-android-lint@v1.1.0
         with:
-          xml_path: '**/build/reports/lint-results*.xml'
+          xml_path: '**/build/reports/lint*.xml'
 
   dokka:
     name: Generate Dokka Documentation
