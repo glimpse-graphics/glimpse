@@ -12,11 +12,11 @@ dependencies {
 detekt { setUpDetekt(project, kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories }) }
 
 android {
-    compileSdkVersion(apiLevel = 30)
+    compileSdkVersion(apiLevel = 31)
     defaultConfig {
         applicationId = "graphics.glimpse.examples.triangle.android"
         minSdkVersion(21)
-        targetSdkVersion(30)
+        targetSdkVersion(31)
         versionCode = 1
         versionName = project.version.toString()
     }

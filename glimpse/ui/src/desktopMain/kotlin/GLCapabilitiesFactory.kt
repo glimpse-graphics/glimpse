@@ -57,14 +57,14 @@ internal object GLCapabilitiesFactory {
 
     private fun findGLProfile(profileName: String) = try {
         GLProfile.get(profileName)
-    } catch (exception: GLException) {
+    } catch (ignored: GLException) {
         logger.error("Could not get GLProfile '$profileName'")
         null
     }
 
     private fun createGLCapabilities(profile: GLProfile?) = try {
         GLCapabilities(profile)
-    } catch (exception: GLException) {
+    } catch (ignored: GLException) {
         logger.error("Could not get GLCapabilities for $profile")
         null
     }

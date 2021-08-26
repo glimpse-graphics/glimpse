@@ -45,7 +45,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                api("com.google.android.material:material:1.3.0")
+                api("com.google.android.material:material:1.4.0")
             }
         }
         val androidTest by getting {
@@ -58,7 +58,7 @@ kotlin {
             dependencies {
                 implementation("org.jogamp.jogl:jogl-all-main:2.3.2")
                 implementation("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
-                implementation("org.slf4j:slf4j-api:1.7.30")
+                implementation("org.slf4j:slf4j-api:1.7.32")
             }
         }
         val desktopTest by getting {
@@ -77,7 +77,7 @@ afterEvaluate {
 detekt { setUpDetekt(project, kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories }) }
 
 android {
-    compileSdkVersion(apiLevel = 30)
+    compileSdkVersion(apiLevel = 31)
     sourceSets["main"].apply {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
         res.srcDir("src/androidMain/res")
@@ -85,6 +85,6 @@ android {
     }
     defaultConfig {
         minSdkVersion(19)
-        targetSdkVersion(30)
+        targetSdkVersion(31)
     }
 }
