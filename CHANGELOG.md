@@ -10,10 +10,12 @@
   - Upgrade `org.jetbrains.dokka` to `1.5.0`
   - Upgrade `kotlinpoet` to `1.9.0`
   - Upgrade `androidx.annotation:annotation` to `1.2.0`
-  - Upgrade `mockk` to `1.11.0`
+  - Upgrade `mockk` to `1.12.0`
   - Upgrade `activity-compose` to `1.3.1`
-  - Upgrade `kotlin-coroutines-android` to `1.5.0-native-mt`
+  - Upgrade `kotlin-coroutines-android` to `1.5.1-native-mt`
   - Upgrade `slf4j-api` to `1.7.32`
+  - Upgrade `logback-core` to `1.2.5`
+  - Upgrade `logback-classic` to `1.2.5`
   - Upgrade `androidx.appcompat:appcompat` to `1.3.1`
   - Upgrade `com.google.android.material:material` to `1.4.0`
   - Upgrade `detekt-gradle-plugin` to `1.18.0`
