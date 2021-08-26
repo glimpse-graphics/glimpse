@@ -49,9 +49,9 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                api("com.google.android.material:material:1.3.0")
-                api("androidx.appcompat:appcompat:1.3.0-rc01")
-                api("androidx.activity:activity-compose:1.3.0-beta02") {
+                api("com.google.android.material:material:1.4.0")
+                api("androidx.appcompat:appcompat:1.3.1")
+                api("androidx.activity:activity-compose:1.3.1") {
                     exclude(group = "androidx.compose.animation")
                     exclude(group = "androidx.compose.foundation")
                     exclude(group = "androidx.compose.material")
@@ -70,7 +70,7 @@ kotlin {
             dependencies {
                 implementation("org.jogamp.jogl:jogl-all-main:2.3.2")
                 implementation("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
-                implementation("org.slf4j:slf4j-api:1.7.30")
+                implementation("org.slf4j:slf4j-api:1.7.32")
             }
         }
         val desktopTest by getting {
@@ -89,7 +89,7 @@ afterEvaluate {
 detekt { setUpDetekt(project, kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories }) }
 
 android {
-    compileSdkVersion(apiLevel = 30)
+    compileSdkVersion(apiLevel = 31)
     sourceSets["main"].apply {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
         res.srcDir("src/androidMain/res")
@@ -97,6 +97,6 @@ android {
     }
     defaultConfig {
         minSdkVersion(21)
-        targetSdkVersion(30)
+        targetSdkVersion(31)
     }
 }

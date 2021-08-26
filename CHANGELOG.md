@@ -2,17 +2,21 @@
 
 ## [Unreleased]
 ### Changed
-- Upgrade Gradle Wrapper to `6.9`
+- Upgrade Gradle Wrapper to `7.2`
 - Dependencies:
-  - Upgrade Kotlin to `1.5.10`
-  - Upgrade JetBrains Compose for Desktop to `0.5.0-build225`
-  - Upgrade Android Gradle Plugin to `4.1.3`
-  - Upgrade `org.jetbrains.dokka` to `1.4.32`
-  - Upgrade `kotlinpoet` to `1.8.0`
+  - Upgrade Kotlin to `1.5.21`
+  - Upgrade JetBrains Compose for Desktop to `1.0.0-alpha4-build321`
+  - Upgrade Android Gradle Plugin to `4.2.0`
+  - Upgrade `org.jetbrains.dokka` to `1.5.0`
+  - Upgrade `kotlinpoet` to `1.9.0`
   - Upgrade `androidx.annotation:annotation` to `1.2.0`
   - Upgrade `mockk` to `1.11.0`
-  - Upgrade `activity-compose` to `1.3.0-beta02`
+  - Upgrade `activity-compose` to `1.3.1`
   - Upgrade `kotlin-coroutines-android` to `1.5.0-native-mt`
+  - Upgrade `slf4j-api` to `1.7.32`
+  - Upgrade `androidx.appcompat:appcompat` to `1.3.1`
+  - Upgrade `com.google.android.material:material` to `1.4.0`
+  - Upgrade `detekt-gradle-plugin` to `1.18.0`
 
 ## [1.0.0]
 ### Changed

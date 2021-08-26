@@ -8,7 +8,7 @@ plugins {
 
 dependencies {
     api(project(":glimpse:processor"))
-    implementation("com.squareup:kotlinpoet:1.8.0")
+    implementation("com.squareup:kotlinpoet:1.9.0")
 }
 
 detekt { setUpDetekt(project, kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories }) }
