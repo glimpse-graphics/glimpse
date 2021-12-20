@@ -17,13 +17,24 @@
 
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.invoke
+import org.jetbrains.dokka.gradle.AbstractDokkaLeafTask
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.dokka.gradle.DokkaTaskPartial
+
+private fun AbstractDokkaLeafTask.setUpDokkaLeafTask(project: Project) {
+    moduleName.set("${project.parent?.name}-${project.name}")
+    dokkaSourceSets {
+        configureEach {
+            includes.from(project.files("module.md", "packages.md"))
+        }
+    }
+}
 
 fun DokkaTask.setUpDokkaTask(project: Project) {
-    moduleName.set("${project.parent?.name}-${project.name}")
+    setUpDokkaLeafTask(project)
     outputDirectory.set(project.buildDir.resolve("javadoc"))
-    dokkaSourceSets {
-        removeAll { it.displayName.get() == "androidJvm" }
-        forEach { it.includes.from(project.files("module.md", "packages.md")) }
-    }
+}
+
+fun DokkaTaskPartial.setUpDokkaTask(project: Project) {
+    setUpDokkaLeafTask(project)
 }

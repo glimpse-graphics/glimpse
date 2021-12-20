@@ -77,6 +77,7 @@ tasks {
     }
 
     dokkaHtml { setUpDokkaTask(project) }
+    dokkaHtmlPartial { setUpDokkaTask(project) }
 
     artifacts {
         archives(createJavadocJar(dokkaHtml))
