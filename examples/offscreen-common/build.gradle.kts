@@ -77,14 +77,14 @@ afterEvaluate {
 detekt { setUpDetekt(project, kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories }) }
 
 android {
-    compileSdkVersion(apiLevel = 31)
+    compileSdk = 31
     sourceSets["main"].apply {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
         res.srcDir("src/androidMain/res")
         assets.srcDir("src/commonAssets")
     }
     defaultConfig {
-        minSdkVersion(19)
-        targetSdkVersion(31)
+        minSdk = 19
+        targetSdk = 31
     }
 }

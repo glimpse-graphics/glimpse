@@ -6,7 +6,7 @@
 - Dependencies:
   - Upgrade Kotlin to `1.6.10`
   - Upgrade JetBrains Compose for Desktop to `1.0.1-rc2`
-  - Upgrade Android Gradle Plugin to `4.2.2`
+  - Upgrade Android Gradle Plugin to `7.0.4`
   - Upgrade `org.jetbrains.dokka` to `1.6.0`
   - Upgrade `kotlinpoet` to `1.10.2`
   - Upgrade `androidx.annotation:annotation` to `1.3.0`
