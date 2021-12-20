@@ -33,6 +33,7 @@ import graphics.glimpse.ui.compose.GlimpseView
  * Composable application layout.
  */
 @Composable
+@Suppress("FunctionNaming")
 fun App(resources: AppResources) {
     MaterialTheme(colors = resources.getThemeColors()) {
         Column(modifier = Modifier.fillMaxWidth()) {

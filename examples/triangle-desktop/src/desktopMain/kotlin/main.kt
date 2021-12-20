@@ -17,17 +17,21 @@
 
 package graphics.glimpse.examples.triangle
 
-import androidx.compose.desktop.Window
-import javax.imageio.ImageIO
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.application
 
 val resources = AppResources()
 
 /**
  * Runs _Triangle_ example desktop application.
  */
-fun main() = Window(
-    title = resources.getAppName(),
-    icon = ImageIO.read(object {}.javaClass.getResource("/icon.png"))
-) {
-    App(resources)
+fun main() = application {
+    Window(
+        onCloseRequest = this::exitApplication,
+        title = resources.getAppName(),
+        icon = painterResource("icon.png")
+    ) {
+        App(resources)
+    }
 }

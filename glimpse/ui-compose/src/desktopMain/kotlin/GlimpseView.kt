@@ -17,8 +17,8 @@
 
 package graphics.glimpse.ui.compose
 
-import androidx.compose.desktop.SwingPanel
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.awt.SwingPanel
 import com.jogamp.opengl.util.Animator
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.GlimpseCallback
@@ -29,6 +29,7 @@ import graphics.glimpse.ui.GlimpsePanel
  * and [callback interface][GlimpseCallback].
  */
 @Composable
+@Suppress("FunctionNaming")
 actual fun GlimpseView(callback: GlimpseCallback, zOrderOnTop: Boolean) {
     SwingPanel(factory = {
         GlimpsePanel().also { glimpsePanel ->
