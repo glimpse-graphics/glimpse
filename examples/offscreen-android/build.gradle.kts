@@ -12,11 +12,11 @@ dependencies {
 detekt { setUpDetekt(project, kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories }) }
 
 android {
-    compileSdkVersion(apiLevel = 31)
+    compileSdk = 31
     defaultConfig {
         applicationId = "graphics.glimpse.examples.offscreen.android"
-        minSdkVersion(19)
-        targetSdkVersion(31)
+        minSdk = 19
+        targetSdk = 31
         versionCode = 1
         versionName = project.version.toString()
     }
@@ -26,7 +26,7 @@ android {
         }
     }
     packagingOptions {
-        exclude("META-INF/*.kotlin_module")
+        resources.excludes.add("META-INF/*.kotlin_module")
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8

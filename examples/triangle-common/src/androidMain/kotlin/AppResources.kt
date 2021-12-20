@@ -21,6 +21,7 @@ import android.content.Context
 import androidx.compose.material.Colors
 import androidx.compose.material.lightColors
 import androidx.compose.ui.graphics.Color
+import androidx.core.content.ContextCompat
 import graphics.glimpse.meshes.ArrayMeshData
 import graphics.glimpse.meshes.obj.ObjMeshDataParser
 import graphics.glimpse.meshes.obj.parseArrayMeshData
@@ -47,10 +48,10 @@ actual class AppResources(context: Context) {
      * Returns application theme colors.
      */
     actual fun getThemeColors(): Colors = lightColors(
-        primary = Color(color = context.getColor(R.color.primaryColor)),
-        primaryVariant = Color(color = context.getColor(R.color.primaryColorVariant)),
-        secondary = Color(color = context.getColor(R.color.secondaryColor)),
-        secondaryVariant = Color(color = context.getColor(R.color.secondaryColorVariant))
+        primary = Color(color = ContextCompat.getColor(context, R.color.primaryColor)),
+        primaryVariant = Color(color = ContextCompat.getColor(context, R.color.primaryColorVariant)),
+        secondary = Color(color = ContextCompat.getColor(context, R.color.secondaryColor)),
+        secondaryVariant = Color(color = ContextCompat.getColor(context, R.color.secondaryColorVariant))
     )
 
     /**
