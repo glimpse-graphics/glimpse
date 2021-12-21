@@ -557,6 +557,17 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
         gles.glGetAttribLocation(programHandle, name)
 
     /**
+     * Sets [value] of boolean uniform variable at a given [location] for current program.
+     *
+     * A boolean uniform is converted to an integer value of `GL_TRUE` or `GL_FALSE`.
+     *
+     * @since v1.1.0
+     */
+    actual fun glUniform(location: Int, value: Boolean) {
+        gles.glUniform1i(location, if (value) GL2ES2.GL_TRUE else GL2ES2.GL_FALSE)
+    }
+
+    /**
      * Sets [value] of integer uniform variable at a given [location] for current program.
      */
     actual fun glUniform(location: Int, value: Int) {
