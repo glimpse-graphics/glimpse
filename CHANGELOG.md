@@ -1,6 +1,12 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Support for `Boolean` uniform shader parameters
+  (uniform value in shader is still an `Int`, with a value of `GL_TRUE` or `GL_FALSE`):
+  - Method `GlimpseAdapter.glUniform(Int, Boolean)`
+  - Method `BaseProgramExecutor.glUniform(GlimpseAdapter, String, Boolean)`
+
 ### Changed
 - Upgrade Gradle Wrapper to `7.3.2`
 - Dependencies:

@@ -61,6 +61,18 @@ abstract class BaseProgramExecutor<T>(
         }
 
     /**
+     * Sets [value] of boolean uniform variable with a given [name] for the [program]
+     * contained in the executor.
+     *
+     * A boolean uniform is converted to an integer value of `GL_TRUE` or `GL_FALSE`.
+     *
+     * @since v1.1.0
+     */
+    protected fun glUniform(gl: GlimpseAdapter, name: String, value: Boolean) {
+        gl.glUniform(getUniformLocation(gl, name), value)
+    }
+
+    /**
      * Sets [value] of integer uniform variable with a given [name] for the [program]
      * contained in the executor.
      */

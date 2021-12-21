@@ -313,6 +313,15 @@ expect class GlimpseAdapter {
     fun glGetAttributeLocation(programHandle: Int, name: String): Int
 
     /**
+     * Sets [value] of boolean uniform variable at a given [location] for current program.
+     *
+     * A boolean uniform is converted to an integer value of `GL_TRUE` or `GL_FALSE`.
+     *
+     * @since v1.1.0
+     */
+    fun glUniform(location: Int, value: Boolean)
+
+    /**
      * Sets [value] of integer uniform variable at a given [location] for current program.
      */
     fun glUniform(location: Int, value: Int)
