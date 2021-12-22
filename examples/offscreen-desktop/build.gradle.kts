@@ -1,7 +1,7 @@
 plugins {
     application
     kotlin("jvm")
-    id("io.gitlab.arturbosch.detekt")
+    id("graphics.glimpse.detekt")
 }
 
 dependencies {
@@ -12,8 +12,6 @@ dependencies {
     implementation("ch.qos.logback:logback-core:1.2.9")
     implementation("ch.qos.logback:logback-classic:1.2.9")
 }
-
-detekt { setUpDetekt(project, kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories }) }
 
 application {
     mainClass.set("graphics.glimpse.examples.offscreen.MainKt")

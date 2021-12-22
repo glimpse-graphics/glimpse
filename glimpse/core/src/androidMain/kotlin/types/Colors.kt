@@ -24,7 +24,6 @@ private const val COLOR_CHANNEL_MAX = 255f
 /**
  * Returns a [Vec3] representation of a given [color].
  */
-@Suppress("FunctionNaming")
 fun Vec3(@ColorInt color: Int): Vec3 = Vec3(
     x = Color.red(color) / COLOR_CHANNEL_MAX,
     y = Color.green(color) / COLOR_CHANNEL_MAX,
@@ -34,7 +33,6 @@ fun Vec3(@ColorInt color: Int): Vec3 = Vec3(
 /**
  * Returns a [Vec4] representation of a given [color].
  */
-@Suppress("FunctionNaming")
 fun Vec4(@ColorInt color: Int): Vec4 = Vec4(
     x = Color.red(color) / COLOR_CHANNEL_MAX,
     y = Color.green(color) / COLOR_CHANNEL_MAX,

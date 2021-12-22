@@ -1,24 +1,9 @@
 plugins {
-    id("com.android.library")
-    kotlin("multiplatform")
+    id("graphics.glimpse.multiplatform")
     id("org.jetbrains.compose")
-    id("io.gitlab.arturbosch.detekt")
-    id("org.jetbrains.dokka")
-    `maven-publish`
-    signing
 }
 
 kotlin {
-    android {
-        publishLibraryVariants("debug", "release")
-    }
-
-    jvm(name = "desktop") {
-        compilations.all {
-            kotlinOptions.jvmTarget = "11"
-        }
-    }
-
     @Suppress("UNUSED_VARIABLE")
     sourceSets {
         val commonMain by getting {
@@ -57,37 +42,9 @@ kotlin {
     }
 }
 
-detekt { setUpDetekt(project, kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories }) }
-
 android {
-    compileSdk = 31
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = 21
-        targetSdk = 31
+        targetSdk = compileSdk
     }
-}
-
-tasks {
-
-    withType(Test::class.java) {
-        testLogging {
-            events("passed", "skipped", "failed")
-        }
-    }
-
-    dokkaHtml { setUpDokkaTask(project) }
-    dokkaHtmlPartial { setUpDokkaTask(project) }
-
-    artifacts {
-        archives(createJavadocJar(dokkaHtml))
-    }
-}
-
-afterEvaluate {
-    publishing {
-        publications { multiplatformPublications(project)}
-        repositories { sonatype(project) }
-    }
-    signing { signAllMavenPublications(project, publishing) }
 }

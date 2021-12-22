@@ -12,21 +12,17 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
-import org.gradle.api.Project
-import org.gradle.api.publish.PublishingExtension
-import org.gradle.api.publish.maven.MavenPublication
-import org.gradle.plugins.signing.SigningExtension
+package graphics.glimpse.test
 
-fun SigningExtension.signAllMavenPublications(project: Project, publishingExtension: PublishingExtension) {
-    val isWithSigning = project.hasProperty("signing.keyId")
-    if (isWithSigning) {
-        sign(
-            *publishingExtension.publications
-                .filterIsInstance<MavenPublication>()
-                .toTypedArray()
-        )
+import org.gradle.api.tasks.testing.Test
+import org.gradle.kotlin.dsl.invoke
+
+tasks {
+    withType(Test::class.java) {
+        testLogging {
+            events("passed", "skipped", "failed")
+        }
     }
 }

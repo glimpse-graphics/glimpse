@@ -4,7 +4,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
-    id("io.gitlab.arturbosch.detekt")
+    id("graphics.glimpse.detekt")
 }
 
 kotlin {
@@ -44,8 +44,6 @@ kotlin {
         }
     }
 }
-
-detekt { setUpDetekt(project, kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories }) }
 
 compose.desktop {
     application {

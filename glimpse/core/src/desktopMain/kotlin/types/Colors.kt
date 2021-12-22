@@ -24,7 +24,6 @@ private const val VEC4_SIZE = 4
 /**
  * Returns a [Vec3] representation of a given [color].
  */
-@Suppress("FunctionNaming")
 fun Vec3(color: Color): Vec3 {
     val output = FloatArray(size = VEC3_SIZE)
     color.getRGBColorComponents(output)
@@ -34,7 +33,6 @@ fun Vec3(color: Color): Vec3 {
 /**
  * Returns a [Vec4] representation of a given [color].
  */
-@Suppress("FunctionNaming")
 fun Vec4(color: Color): Vec4 {
     val output = FloatArray(size = VEC4_SIZE)
     color.getRGBComponents(output)

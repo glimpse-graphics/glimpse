@@ -2,14 +2,12 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("org.jetbrains.compose")
-    id("io.gitlab.arturbosch.detekt")
+    id("graphics.glimpse.detekt")
 }
 
 dependencies {
     implementation(project(":examples:triangle-common"))
 }
-
-detekt { setUpDetekt(project, kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories }) }
 
 android {
     compileSdk = 31
