@@ -1,15 +1,13 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    id("io.gitlab.arturbosch.detekt")
+    id("graphics.glimpse.detekt")
 }
 
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2-native-mt")
     implementation(project(":examples:offscreen-common"))
 }
-
-detekt { setUpDetekt(project, kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories }) }
 
 android {
     compileSdk = 31

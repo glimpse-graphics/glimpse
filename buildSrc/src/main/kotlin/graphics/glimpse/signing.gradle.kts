@@ -12,25 +12,21 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
-import io.gitlab.arturbosch.detekt.extensions.DetektExtension
-import org.gradle.api.Project
-import java.io.File
+package graphics.glimpse
 
-fun DetektExtension.setUpDetekt(project: Project, files: List<File>) {
-    input = project.files(files)
-    config = project.files("${project.rootDir}/.config/detekt.yml")
-    buildUponDefaultConfig = true
-    reports {
-        xml {
-            enabled = true
-            destination = project.file("${project.buildDir}/reports/detekt.xml")
-        }
-        html {
-            enabled = true
-            destination = project.file("${project.buildDir}/reports/detekt.html")
-        }
+plugins {
+    `maven-publish`
+    signing
+}
+
+val isWithSigning = project.hasProperty("signing.keyId")
+
+if (isWithSigning) {
+    val mavenPublications = publishing.publications.filterIsInstance<MavenPublication>()
+
+    afterEvaluate {
+        signing.sign(*mavenPublications.toTypedArray())
     }
 }

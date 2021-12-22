@@ -2,7 +2,7 @@ plugins {
     id("com.android.library")
     kotlin("multiplatform")
     kotlin("kapt")
-    id("io.gitlab.arturbosch.detekt")
+    id("graphics.glimpse.detekt")
 }
 
 val generatedKotlinSources: String = "$projectDir/src/gen/kotlin"
@@ -19,7 +19,7 @@ kotlin {
 
     jvm(name = "desktop") {
         compilations.all {
-            kotlinOptions.jvmTarget = "1.8"
+            kotlinOptions.jvmTarget = "11"
         }
     }
 
@@ -73,8 +73,6 @@ kotlin {
 afterEvaluate {
     tasks["compileCommonMainKotlinMetadata"].dependsOn(tasks["kaptKotlinDesktop"])
 }
-
-detekt { setUpDetekt(project, kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories }) }
 
 android {
     compileSdk = 31

@@ -1,25 +1,12 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
+    `java-gradle-plugin`
     `kotlin-dsl`
-    kotlin("jvm") version "1.6.10"
-}
-
-buildscript {
-
-    repositories {
-        google()
-        gradlePluginPortal()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
-    }
+    `kotlin-dsl-precompiled-script-plugins`
 }
 
 repositories {
     google()
+    gradlePluginPortal()
     mavenCentral()
 }
 
@@ -31,12 +18,4 @@ dependencies {
     implementation("org.jetbrains.dokka:dokka-core:1.6.0")
     implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.6.0")
     implementation("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.19.0")
-}
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    jvmTarget = "1.8"
-}
-val compileTestKotlin: KotlinCompile by tasks
-compileTestKotlin.kotlinOptions {
-    jvmTarget = "1.8"
 }

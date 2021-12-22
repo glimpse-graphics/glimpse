@@ -8,6 +8,7 @@
   - Method `BaseProgramExecutor.glUniform(GlimpseAdapter, String, Boolean)`
 
 ### Changed
+- Change target JVM to Java 11
 - Upgrade Gradle Wrapper to `7.3.2`
 - Dependencies:
   - Upgrade Kotlin to `1.6.10`
