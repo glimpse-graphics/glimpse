@@ -54,7 +54,7 @@ actual class AppResources(context: Context) {
             .use { it.bufferedReader().readText() }
 
     private fun getShaderAssetPath(type: ShaderType): String =
-        "${type.name.toLowerCase(Locale.ENGLISH)}.glsl"
+        "${type.name.lowercase(Locale.ENGLISH)}.glsl"
 
     /**
      * Returns texture image source.

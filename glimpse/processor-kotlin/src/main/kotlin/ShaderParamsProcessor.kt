@@ -28,7 +28,7 @@ import javax.tools.Diagnostic
 /**
  * Annotation processor generating concrete implementations of ProgramExecutor in Kotlin.
  */
-@SupportedSourceVersion(SourceVersion.RELEASE_8)
+@SupportedSourceVersion(SourceVersion.RELEASE_11)
 class ShaderParamsProcessor : AbstractShaderParamsProcessor() {
 
     override fun processShaderParams(element: Element) {

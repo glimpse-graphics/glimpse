@@ -28,7 +28,6 @@ import graphics.glimpse.ui.GlimpseSurfaceView
  * and [callback interface][GlimpseCallback].
  */
 @Composable
-@Suppress("FunctionNaming")
 actual fun GlimpseView(callback: GlimpseCallback, zOrderOnTop: Boolean) {
     AndroidView({ GlimpseSurfaceView(it) }) { view ->
         view.setCallback(callback)

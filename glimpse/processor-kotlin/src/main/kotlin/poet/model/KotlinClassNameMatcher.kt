@@ -23,6 +23,7 @@ import javax.lang.model.type.TypeMirror
 
 class KotlinClassNameMatcher : ClassNameMatcher {
 
+    @Suppress("EXPERIMENTAL_API_USAGE")
     override fun isEqualTo(
         typeMirror: TypeMirror,
         packageName: String,

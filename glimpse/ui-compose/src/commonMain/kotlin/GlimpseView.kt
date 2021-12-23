@@ -26,5 +26,4 @@ import graphics.glimpse.GlimpseCallback
  * and [callback interface][GlimpseCallback].
  */
 @Composable
-@Suppress("FunctionNaming")
 expect fun GlimpseView(callback: GlimpseCallback, zOrderOnTop: Boolean)

@@ -29,6 +29,7 @@ class ShaderParamsModelBuilder(
 ) : AbstractShaderParamsModelBuilder(classNameMatcher, messager) {
 
     override fun build(): ShaderParamsModel {
+        @Suppress("EXPERIMENTAL_API_USAGE")
         val annotatedClassName = element.asType().asTypeName() as ClassName
         return ShaderParamsModel(
             annotatedPackageName = annotatedClassName.packageName,

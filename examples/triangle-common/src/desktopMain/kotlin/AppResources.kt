@@ -67,7 +67,7 @@ actual class AppResources {
             .use { it.bufferedReader().readText() }
 
     private fun getShaderResourceName(type: ShaderType): String =
-        "/${type.name.toLowerCase(Locale.ENGLISH)}.glsl"
+        "/${type.name.lowercase(Locale.ENGLISH)}.glsl"
 
     /**
      * Returns texture image source.

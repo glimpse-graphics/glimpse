@@ -20,4 +20,5 @@ package graphics.glimpse.processor.poet.model
 import java.util.*
 
 val UniformModel.propertyName: String
-    get() = propertyAccessorName.removePrefix(prefix = "get").decapitalize(Locale.ENGLISH)
+    get() = propertyAccessorName.removePrefix(prefix = "get")
+        .replaceFirstChar { char -> char.lowercase(Locale.ENGLISH) }
