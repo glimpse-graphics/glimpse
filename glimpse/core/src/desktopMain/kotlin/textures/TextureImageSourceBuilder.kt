@@ -78,7 +78,7 @@ actual class TextureImageSourceBuilder {
             "Texture input stream cannot be null"
         }
         logger.debug(message = "Decoding texture data: '$filename'")
-        val fileType = filename.split('.').last().toLowerCase(Locale.ENGLISH)
+        val fileType = filename.split('.').last().lowercase(Locale.ENGLISH)
         val textureData = TextureIO.newTextureData(profile, inputStream, false, fileType)
         logger.debug(message = "Decoded texture data: $textureData")
         return PreparedTextureImageSourceImpl(textureData)
@@ -128,7 +128,7 @@ actual class TextureImageSourceBuilder {
                 "Texture input stream cannot be null"
             }
             logger.debug(message = "Creating texture: '$filename'")
-            val fileType = filename.split('.').last().toLowerCase(Locale.ENGLISH)
+            val fileType = filename.split('.').last().lowercase(Locale.ENGLISH)
             val textureData = TextureIO.newTextureData(
                 gl.gles.glProfile, inputStream, false, fileType
             )
