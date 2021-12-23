@@ -1,7 +1,12 @@
 # Allow bigger complexity in utility classes:
 complexity:
+  ComplexMethod:
+    ignoreSimpleWhenEntries: true
   LongParameterList:
     functionThreshold: 7
   TooManyFunctions:
     thresholdInFiles: 30
     thresholdInClasses: 30
+naming:
+  FunctionNaming:
+    ignoreAnnotated: [ Composable ]

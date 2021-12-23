@@ -29,7 +29,6 @@ import graphics.glimpse.ui.GlimpsePanel
  * and [callback interface][GlimpseCallback].
  */
 @Composable
-@Suppress("FunctionNaming")
 actual fun GlimpseView(callback: GlimpseCallback, zOrderOnTop: Boolean) {
     SwingPanel(factory = {
         GlimpsePanel().also { glimpsePanel ->
