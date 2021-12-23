@@ -12,14 +12,14 @@
 - Upgrade Gradle Wrapper to `7.3.2`
 - Dependencies:
   - Upgrade Kotlin to `1.6.10`
-  - Upgrade JetBrains Compose for Desktop to `1.0.1-rc2`
+  - Upgrade JetBrains Compose for Desktop to `1.0.1`
   - Upgrade Android Gradle Plugin to `7.0.4`
   - Upgrade `org.jetbrains.dokka` to `1.6.0`
   - Upgrade `kotlinpoet` to `1.10.2`
   - Upgrade `androidx.annotation:annotation` to `1.3.0`
   - Upgrade `mockk` to `1.12.1`
   - Upgrade `activity-compose` to `1.4.0`
-  - Upgrade `kotlinx-coroutines-android` to `1.5.2-native-mt`
+  - Upgrade `kotlinx-coroutines-android` to `1.6.0-native-mt`
   - Upgrade `slf4j-api` to `1.7.32`
   - Upgrade `logback-core` to `1.2.9`
   - Upgrade `logback-classic` to `1.2.9`
