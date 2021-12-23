@@ -9,6 +9,7 @@
 
 ### Changed
 - Change target JVM to Java 11
+- Dispose `Program` with `ProgramExecutor`
 - Upgrade Gradle Wrapper to `7.3.2`
 - Dependencies:
   - Upgrade Kotlin to `1.6.10`

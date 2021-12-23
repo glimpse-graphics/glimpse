@@ -219,8 +219,20 @@ abstract class BaseProgramExecutor<T>(
     /**
      * Clears cached locations of variables.
      */
+    @Deprecated(message = "Use dispose(GlimpseAdapter) instead")
     override fun dispose() {
         uniformLocations.clear()
         attributeLocations.clear()
+    }
+
+    /**
+     * Clears cached locations of variables and disposes the program.
+     *
+     * @since v1.1.0
+     */
+    override fun dispose(gl: GlimpseAdapter) {
+        uniformLocations.clear()
+        attributeLocations.clear()
+        program.dispose(gl)
     }
 }
