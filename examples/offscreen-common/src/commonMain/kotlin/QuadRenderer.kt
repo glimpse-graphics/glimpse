@@ -119,8 +119,7 @@ class QuadRenderer(
         onRenderedListener.onRendered(gl)
 
         mesh.dispose(gl)
-        program.dispose(gl)
-        programExecutor.dispose()
+        programExecutor.dispose(gl)
     }
 
     /**

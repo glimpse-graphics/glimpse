@@ -142,8 +142,8 @@ class TriangleCallback(
 
         try {
             if (::mesh.isInitialized) mesh.dispose(gl)
-            if (::program.isInitialized) program.dispose(gl)
-            if (::programExecutor.isInitialized) programExecutor.dispose()
+            if (::programExecutor.isInitialized) programExecutor.dispose(gl)
+            else if (::program.isInitialized) program.dispose(gl)
         } catch (expected: Exception) {
             logger.error(message = "Error disposing Glimpse", exception = expected)
         }
