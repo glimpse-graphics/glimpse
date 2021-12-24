@@ -17,7 +17,10 @@
 
 package graphics.glimpse.processor.poet.model
 
+import javax.lang.model.element.Element
+
 data class ShaderParamsModel(
+    val originatingElement: Element,
     val annotatedPackageName: String,
     val annotatedSimpleName: String,
     val uniforms: List<UniformModel>,

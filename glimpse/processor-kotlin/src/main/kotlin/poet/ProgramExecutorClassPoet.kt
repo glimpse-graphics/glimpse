@@ -47,6 +47,7 @@ object ProgramExecutorClassPoet {
             )
             .addFunction(ApplyParamsFunPoet.generateFun(model))
             .addFunction(DrawMeshFunPoet.generateFun(model))
+            .addOriginatingElement(model.originatingElement)
             .build()
 
     private fun generatePrimaryConstructor(): FunSpec =

@@ -31,6 +31,7 @@ class ShaderParamsModelBuilder(
     override fun build(): ShaderParamsModel {
         val annotatedClassName = TypeName.get(element.asType()) as ClassName
         return ShaderParamsModel(
+            originatingElement = element,
             annotatedPackageName = annotatedClassName.packageName(),
             annotatedSimpleName = annotatedClassName.simpleName(),
             uniforms = uniforms,
