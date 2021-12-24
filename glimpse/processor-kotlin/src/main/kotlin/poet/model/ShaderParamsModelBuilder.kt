@@ -32,6 +32,7 @@ class ShaderParamsModelBuilder(
         @Suppress("EXPERIMENTAL_API_USAGE")
         val annotatedClassName = element.asType().asTypeName() as ClassName
         return ShaderParamsModel(
+            originatingElement = element,
             annotatedPackageName = annotatedClassName.packageName,
             annotatedSimpleName = annotatedClassName.simpleName,
             uniforms = uniforms,

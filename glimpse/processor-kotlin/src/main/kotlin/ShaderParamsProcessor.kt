@@ -23,7 +23,6 @@ import graphics.glimpse.processor.poet.model.ShaderParamsModelBuilder
 import javax.annotation.processing.SupportedSourceVersion
 import javax.lang.model.SourceVersion
 import javax.lang.model.element.Element
-import javax.tools.Diagnostic
 
 /**
  * Annotation processor generating concrete implementations of ProgramExecutor in Kotlin.
@@ -32,14 +31,7 @@ import javax.tools.Diagnostic
 class ShaderParamsProcessor : AbstractShaderParamsProcessor() {
 
     override fun processShaderParams(element: Element) {
-        val outputDir = requireNotNull(processingEnv.options[OPTION_KAPT_OUTPUT_DIR]) {
-            "Output Kapt directory for Kotlin not defined"
-        }
         println(processingEnv.options)
-        processingEnv.messager.printMessage(
-            Diagnostic.Kind.NOTE,
-            "Output directory: $outputDir"
-        )
         val shaderParamsModel = buildShaderParamsModel(
             element = element,
             builder = ShaderParamsModelBuilder(
@@ -48,10 +40,6 @@ class ShaderParamsProcessor : AbstractShaderParamsProcessor() {
                 messager = processingEnv.messager
             )
         )
-        ProgramExecutorPoet.generateRenderer(shaderParamsModel, outputDir)
-    }
-
-    companion object {
-        private const val OPTION_KAPT_OUTPUT_DIR = "kapt.kotlin.generated"
+        ProgramExecutorPoet.generateRenderer(shaderParamsModel, processingEnv.filer)
     }
 }

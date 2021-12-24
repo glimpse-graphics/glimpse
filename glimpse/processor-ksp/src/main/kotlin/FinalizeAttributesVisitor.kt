@@ -12,22 +12,23 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
-package graphics.glimpse.processor.poet.model
+package graphics.glimpse.ksp
 
-import javax.lang.model.element.Element
+import com.squareup.kotlinpoet.FunSpec
 
-data class ShaderParamsModel(
-    val originatingElement: Element,
-    val annotatedPackageName: String,
-    val annotatedSimpleName: String,
-    val uniforms: List<UniformModel>,
-    val attributes: List<AttributeModel>
-) {
+/**
+ * Visitor adding finalization of `@Attribute`s to `drawMesh` method.
+ */
+class FinalizeAttributesVisitor : AttributesVisitor() {
+
+    override fun FunSpec.Builder.addAttributeStatements(attribute: Attribute): FunSpec.Builder {
+        addStatement(STATEMENT_FORMAT_DISABLE_ATTRIBUTE, attributeLocation(attribute))
+        return this
+    }
 
     companion object {
-        const val PROGRAM_EXECUTOR_CLASS_NAME_FORMAT = "%sProgramExecutor"
+        private const val STATEMENT_FORMAT_DISABLE_ATTRIBUTE = "gl.glDisableVertexAttribArray(%L)"
     }
 }

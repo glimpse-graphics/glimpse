@@ -21,13 +21,13 @@ import com.squareup.kotlinpoet.FileSpec
 import graphics.glimpse.processor.poet.model.ShaderParamsModel
 import graphics.glimpse.processor.poet.model.annotatedClassName
 import graphics.glimpse.processor.poet.model.programExecutorClassName
-import java.io.File
+import javax.annotation.processing.Filer
 
 object ProgramExecutorPoet {
 
     private const val HEADER_COMMENT_FORMAT = "Generated program executor for shader params: %L"
 
-    fun generateRenderer(model: ShaderParamsModel, outputDir: String) {
+    fun generateRenderer(model: ShaderParamsModel, filer: Filer) {
         FileSpec.builder(
             model.annotatedPackageName,
             model.programExecutorClassName.simpleName
@@ -35,6 +35,6 @@ object ProgramExecutorPoet {
             .addComment(HEADER_COMMENT_FORMAT, model.annotatedClassName.canonicalName)
             .addType(ProgramExecutorClassPoet.generateRendererClass(model))
             .build()
-            .writeTo(File(outputDir))
+            .writeTo(filer)
     }
 }

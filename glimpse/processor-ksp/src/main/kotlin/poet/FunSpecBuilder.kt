@@ -12,22 +12,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
-package graphics.glimpse.processor.poet.model
+package graphics.glimpse.ksp.poet
 
-import javax.lang.model.element.Element
+import com.squareup.kotlinpoet.FunSpec
 
-data class ShaderParamsModel(
-    val originatingElement: Element,
-    val annotatedPackageName: String,
-    val annotatedSimpleName: String,
-    val uniforms: List<UniformModel>,
-    val attributes: List<AttributeModel>
-) {
-
-    companion object {
-        const val PROGRAM_EXECUTOR_CLASS_NAME_FORMAT = "%sProgramExecutor"
-    }
-}
+/**
+ * Adds an empty line to the function body.
+ */
+fun FunSpec.Builder.addEmptyLine(): FunSpec.Builder = addCode("\n")

@@ -12,22 +12,14 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
-package graphics.glimpse.processor.poet.model
+package graphics.glimpse.examples.triangle
 
-import javax.lang.model.element.Element
+import graphics.glimpse.shaders.Program
+import graphics.glimpse.shaders.ProgramExecutor
 
-data class ShaderParamsModel(
-    val originatingElement: Element,
-    val annotatedPackageName: String,
-    val annotatedSimpleName: String,
-    val uniforms: List<UniformModel>,
-    val attributes: List<AttributeModel>
-) {
-
-    companion object {
-        const val PROGRAM_EXECUTOR_CLASS_NAME_FORMAT = "%sProgramExecutor"
-    }
-}
+/**
+ * Creates a program executor for [TriangleShader].
+ */
+expect fun Program.createTriangleShaderProgramExecutor(): ProgramExecutor<TriangleShader>

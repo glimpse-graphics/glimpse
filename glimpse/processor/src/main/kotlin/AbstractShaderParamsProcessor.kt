@@ -23,6 +23,7 @@ import javax.annotation.processing.AbstractProcessor
 import javax.annotation.processing.RoundEnvironment
 import javax.lang.model.element.Element
 import javax.lang.model.element.TypeElement
+import javax.tools.Diagnostic
 
 abstract class AbstractShaderParamsProcessor : AbstractProcessor() {
 
@@ -33,6 +34,10 @@ abstract class AbstractShaderParamsProcessor : AbstractProcessor() {
         annotations: MutableSet<out TypeElement>,
         roundEnvironment: RoundEnvironment
     ): Boolean {
+        processingEnv.messager.printMessage(
+            Diagnostic.Kind.WARNING,
+            "Use of Glimpse Kapt processor is discouraged. Consider using KSP processor instead."
+        )
         annotations.flatMap { annotation ->
             roundEnvironment.getElementsAnnotatedWith(annotation)
         }.forEach { element ->
