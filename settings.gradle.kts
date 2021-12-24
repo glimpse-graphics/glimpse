@@ -16,6 +16,7 @@ include(":glimpse:offscreen")
 include(":glimpse:processor")
 include(":glimpse:processor-java")
 include(":glimpse:processor-kotlin")
+include(":glimpse:processor-ksp")
 include(":glimpse:ui")
 include(":glimpse:ui-compose")
 

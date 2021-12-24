@@ -6,6 +6,7 @@
   (uniform value in shader is still an `Int`, with a value of `GL_TRUE` or `GL_FALSE`):
   - Method `GlimpseAdapter.glUniform(Int, Boolean)`
   - Method `BaseProgramExecutor.glUniform(GlimpseAdapter, String, Boolean)`
+- KSP processor for shader parameters
 
 ### Changed
 - Change target JVM to Java 11
