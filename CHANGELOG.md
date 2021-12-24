@@ -24,8 +24,8 @@
   - Upgrade `activity-compose` to `1.4.0`
   - Upgrade `kotlinx-coroutines-android` to `1.6.0-native-mt`
   - Upgrade `slf4j-api` to `1.7.32`
-  - Upgrade `logback-core` to `1.2.9`
-  - Upgrade `logback-classic` to `1.2.9`
+  - Upgrade `logback-core` to `1.2.10`
+  - Upgrade `logback-classic` to `1.2.10`
   - Upgrade `androidx.appcompat:appcompat` to `1.4.0`
   - Upgrade `com.google.android.material:material` to `1.4.0`
   - Upgrade `detekt-gradle-plugin` to `1.19.0`
