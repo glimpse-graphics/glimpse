@@ -93,7 +93,7 @@ class TriangleCallback(
         texture = textures[0]
         normalMap = textures[1]
         program = TriangleProgramFactory(resources).createProgram(gl)
-        programExecutor = TriangleShaderProgramExecutor(program)
+        programExecutor = program.createTriangleShaderProgramExecutor()
     }
 
     /**

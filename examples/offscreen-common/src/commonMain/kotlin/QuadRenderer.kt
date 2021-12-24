@@ -100,7 +100,7 @@ class QuadRenderer(
             .withVertexShader(vertexShader)
             .withFragmentShader(fragmentShader)
             .build()
-        val programExecutor = QuadShaderProgramExecutor(program)
+        val programExecutor = program.createQuadShaderProgramExecutor()
 
         program.use(gl)
 
