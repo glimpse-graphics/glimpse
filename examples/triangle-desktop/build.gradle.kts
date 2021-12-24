@@ -34,7 +34,7 @@ kotlin {
                 implementation("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
                 implementation("org.slf4j:slf4j-api:1.7.32")
                 implementation("ch.qos.logback:logback-core:1.2.9")
-                implementation("ch.qos.logback:logback-classic:1.2.9")
+                implementation("ch.qos.logback:logback-classic:1.2.10")
             }
         }
         val desktopTest by getting {
