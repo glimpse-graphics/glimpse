@@ -6,6 +6,7 @@
   (uniform value in shader is still an `Int`, with a value of `GL_TRUE` or `GL_FALSE`):
   - Method `GlimpseAdapter.glUniform(Int, Boolean)`
   - Method `BaseProgramExecutor.glUniform(GlimpseAdapter, String, Boolean)`
+- Utility functions for creating `Vec3` and `Vec4` from Jetpack Compose `Color`
 - KSP processor for shader parameters
 
 ### Changed
