@@ -18,6 +18,8 @@
 package graphics.glimpse.ui.compose
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.awt.SwingPanel
 import com.jogamp.opengl.util.Animator
 import graphics.glimpse.GlimpseAdapter
@@ -27,13 +29,29 @@ import graphics.glimpse.ui.GlimpsePanel
 /**
  * A `GlimpseView` displays content rendered using [Glimpse OpenGL adapter][GlimpseAdapter]
  * and [callback interface][GlimpseCallback].
+ *
+ * @param callback The rendering [callback interface][GlimpseCallback].
+ * @param modifier The modifier to be applied to the layout.
+ * @param update The callback to be invoked after the layout is inflated.
  */
 @Composable
-actual fun GlimpseView(callback: GlimpseCallback, zOrderOnTop: Boolean) {
-    SwingPanel(factory = {
-        GlimpsePanel().also { glimpsePanel ->
-            glimpsePanel.setCallback(callback)
-            Animator(glimpsePanel).start()
+actual fun GlimpseView(
+    callback: GlimpseCallback,
+    modifier: Modifier,
+    update: GlimpseViewScope.() -> Unit
+) {
+    val glimpseViewScope = remember {
+        val component = GlimpsePanel()
+        component.animator = Animator(component)
+        GlimpseViewScope(component)
+    }
+
+    SwingPanel(
+        factory = { glimpseViewScope.component },
+        modifier = modifier,
+        update = { component ->
+            component.setCallback(callback)
+            glimpseViewScope.update()
         }
-    })
+    )
 }

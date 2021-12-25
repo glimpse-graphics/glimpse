@@ -18,12 +18,21 @@
 package graphics.glimpse.ui.compose
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.GlimpseCallback
 
 /**
  * A `GlimpseView` displays content rendered using [Glimpse OpenGL adapter][GlimpseAdapter]
  * and [callback interface][GlimpseCallback].
+ *
+ * @param callback The rendering [callback interface][GlimpseCallback].
+ * @param modifier The modifier to be applied to the layout.
+ * @param update The callback to be invoked after the layout is inflated.
  */
 @Composable
-expect fun GlimpseView(callback: GlimpseCallback, zOrderOnTop: Boolean)
+expect fun GlimpseView(
+    callback: GlimpseCallback,
+    modifier: Modifier = Modifier,
+    update: GlimpseViewScope.() -> Unit = NoOpUpdate
+)

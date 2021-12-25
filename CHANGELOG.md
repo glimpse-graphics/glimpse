@@ -6,6 +6,10 @@
   (uniform value in shader is still an `Int`, with a value of `GL_TRUE` or `GL_FALSE`):
   - Method `GlimpseAdapter.glUniform(Int, Boolean)`
   - Method `BaseProgramExecutor.glUniform(GlimpseAdapter, String, Boolean)`
+- Additional parameters in composable `GlimpseView`:
+  - `modifier` – The modifier to be applied to the layout.
+  - `update` – The callback to be invoked after the layout is inflated.
+- Composable `GlimpseView` function with separate functional parameters instead of `callback`.
 - Utility functions for creating `Vec3` and `Vec4` from Jetpack Compose `Color`
 - KSP processor for shader parameters
 
@@ -31,6 +35,10 @@
   - Upgrade `com.google.android.material:material` to `1.4.0`
   - Upgrade `detekt-gradle-plugin` to `1.19.0`
   - Upgrade `org.jetbrains.changelog` to `1.3.1`
+
+### Removed
+- **BREAKING CHANGE:** Remove `zOrderOnTop` from `GlimpseView` composable function.
+  Call `zOrderOnTop = …` inside `update` block instead.
 
 ## [1.0.0]
 ### Changed
