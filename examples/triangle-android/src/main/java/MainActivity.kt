@@ -20,7 +20,13 @@ package graphics.glimpse.examples.triangle.android
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import graphics.glimpse.examples.triangle.App
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.ui.Modifier
+import graphics.glimpse.examples.triangle.AppContent
 import graphics.glimpse.examples.triangle.AppResources
 
 /**
@@ -29,12 +35,18 @@ import graphics.glimpse.examples.triangle.AppResources
 class MainActivity : AppCompatActivity() {
 
     /**
-     * Sets content view from [App] composable.
+     * Sets content view from [AppContent] composable.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val appResources = AppResources(context = this)
         setContent {
-            App(AppResources(context = this))
+            MaterialTheme(colors = appResources.getThemeColors()) {
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    TopAppBar(title = { Text(text = appResources.getAppName()) })
+                    AppContent(modifier = Modifier.weight(weight = 1f), resources = appResources)
+                }
+            }
         }
     }
 }
