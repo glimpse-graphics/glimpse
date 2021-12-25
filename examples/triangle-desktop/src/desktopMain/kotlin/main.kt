@@ -17,6 +17,17 @@
 
 package graphics.glimpse.examples.triangle
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.window.WindowDraggableArea
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
@@ -30,8 +41,24 @@ fun main() = application {
     Window(
         onCloseRequest = this::exitApplication,
         title = resources.getAppName(),
-        icon = painterResource("icon.png")
+        icon = painterResource("icon.png"),
+        undecorated = true,
+        resizable = false
     ) {
-        App(resources)
+        MaterialTheme(colors = resources.getThemeColors()) {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                WindowDraggableArea {
+                    TopAppBar(
+                        title = { Text(text = resources.getAppName()) },
+                        navigationIcon = {
+                            IconButton(onClick = ::exitApplication) {
+                                Icon(imageVector = Icons.Default.Close, contentDescription = null)
+                            }
+                        }
+                    )
+                }
+                AppContent(modifier = Modifier.weight(weight = 1f), resources = resources)
+            }
+        }
     }
 }

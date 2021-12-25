@@ -22,6 +22,8 @@ import graphics.glimpse.types.Vec4
 
 /**
  * Returns a [Vec3] representation of a given [color].
+ *
+ * @since v1.1.0
  */
 fun Vec3(color: Color): Vec3 {
     return Vec3(color.red, color.green, color.blue)
@@ -29,6 +31,8 @@ fun Vec3(color: Color): Vec3 {
 
 /**
  * Returns a [Vec4] representation of a given [color].
+ *
+ * @since v1.1.0
  */
 fun Vec4(color: Color): Vec4 {
     return Vec4(color.red, color.green, color.blue, color.alpha)
