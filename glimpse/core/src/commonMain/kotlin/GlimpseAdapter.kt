@@ -21,9 +21,14 @@ import graphics.glimpse.buffers.BufferType
 import graphics.glimpse.buffers.BufferUsage
 import graphics.glimpse.buffers.FloatBufferData
 import graphics.glimpse.buffers.IntBufferData
+import graphics.glimpse.framebuffers.FramebufferAttachmentType
+import graphics.glimpse.framebuffers.FramebufferStatus
 import graphics.glimpse.shaders.ShaderType
+import graphics.glimpse.textures.TextureInternalFormat
 import graphics.glimpse.textures.TextureMagFilter
 import graphics.glimpse.textures.TextureMinFilter
+import graphics.glimpse.textures.TexturePixelFormat
+import graphics.glimpse.textures.TexturePixelType
 import graphics.glimpse.textures.TextureType
 import graphics.glimpse.textures.TextureWrap
 import graphics.glimpse.types.Mat2
@@ -156,9 +161,89 @@ expect class GlimpseAdapter {
     fun glDeleteBuffers(bufferHandles: IntArray)
 
     /**
+     * Generates framebuffer handles and writes them to a given [framebufferHandles] array.
+     *
+     * The number of generated framebuffer handles is equal to the size of the given
+     * [framebufferHandles] array.
+     *
+     * @since v1.1.0
+     */
+    fun glGenFramebuffers(framebufferHandles: IntArray)
+
+    /**
+     * Binds a given [framebufferHandle] to a framebuffer target.
+     *
+     * @since v1.1.0
+     */
+    fun glBindFramebuffer(framebufferHandle: Int)
+
+    /**
+     * Attaches renderbuffer to a framebuffer.
+     *
+     * @since v1.1.0
+     */
+    fun glFramebufferRenderbuffer(attachmentType: FramebufferAttachmentType, renderbufferHandle: Int)
+
+    /**
+     * Attaches texture image to a framebuffer.
+     *
+     * @since v1.1.0
+     */
+    fun glFramebufferTexture2D(
+        attachmentType: FramebufferAttachmentType,
+        textureType: TextureType,
+        textureHandle: Int
+    )
+
+    /**
+     * Returns completeness status of a framebuffer.
+     *
+     * @since v1.1.0
+     */
+    fun glCheckFramebufferStatus(): FramebufferStatus
+
+    /**
+     * Deletes framebuffers represented by given [framebufferHandles].
+     *
+     * @since v1.1.0
+     */
+    fun glDeleteFramebuffers(framebufferHandles: IntArray)
+
+    /**
+     * Generates renderbuffer handles and writes them to a given [renderbufferHandles] array.
+     *
+     * The number of generated renderbuffer handles is equal to the size of the given
+     * [renderbufferHandles] array.
+     *
+     * @since v1.1.0
+     */
+    fun glGenRenderbuffers(renderbufferHandles: IntArray)
+
+    /**
+     * Binds a given [renderbufferHandle] to a renderbuffer target.
+     *
+     * @since v1.1.0
+     */
+    fun glBindRenderbuffer(renderbufferHandle: Int)
+
+    /**
+     * Specifies format and dimensions of the image in renderbuffer.
+     *
+     * @since v1.1.0
+     */
+    fun glRenderbufferStorage(internalFormat: TextureInternalFormat, width: Int, height: Int)
+
+    /**
+     * Deletes renderbuffers represented by given [renderbufferHandles].
+     *
+     * @since v1.1.0
+     */
+    fun glDeleteRenderbuffers(renderbufferHandles: IntArray)
+
+    /**
      * Generates texture handles and writes them to a given [textureHandles] array.
      *
-     * The number of generated texture handles is equal to the the size of the given
+     * The number of generated texture handles is equal to the size of the given
      * [textureHandles] array.
      */
     fun glGenTextures(textureHandles: IntArray)
@@ -167,6 +252,20 @@ expect class GlimpseAdapter {
      * Binds a given [textureHandle] to a given texture [type].
      */
     fun glBindTexture(type: TextureType, textureHandle: Int)
+
+    /**
+     * Specifies a 2D texture image.
+     *
+     * @since v1.1.0
+     */
+    fun glTexImage2D(
+        internalFormat: TextureInternalFormat,
+        width: Int,
+        height: Int,
+        pixelFormat: TexturePixelFormat,
+        pixelType: TexturePixelType,
+        pixelData: ByteArray?
+    )
 
     /**
      * Gets maximum size of a texture of a given [type].

@@ -22,10 +22,15 @@ import graphics.glimpse.buffers.BufferType
 import graphics.glimpse.buffers.BufferUsage
 import graphics.glimpse.buffers.FloatBufferData
 import graphics.glimpse.buffers.IntBufferData
+import graphics.glimpse.framebuffers.FramebufferAttachmentType
+import graphics.glimpse.framebuffers.FramebufferStatus
 import graphics.glimpse.logging.GlimpseLogger
 import graphics.glimpse.shaders.ShaderType
+import graphics.glimpse.textures.TextureInternalFormat
 import graphics.glimpse.textures.TextureMagFilter
 import graphics.glimpse.textures.TextureMinFilter
+import graphics.glimpse.textures.TexturePixelFormat
+import graphics.glimpse.textures.TexturePixelType
 import graphics.glimpse.textures.TextureType
 import graphics.glimpse.textures.TextureWrap
 import graphics.glimpse.types.Mat2
@@ -290,9 +295,133 @@ actual class GlimpseAdapter {
     }
 
     /**
+     * Generates framebuffer handles and writes them to a given [framebufferHandles] array.
+     *
+     * The number of generated framebuffer handles is equal to the size of the given
+     * [framebufferHandles] array.
+     *
+     * @since v1.1.0
+     */
+    actual fun glGenFramebuffers(framebufferHandles: IntArray) {
+        GLES20.glGenFramebuffers(framebufferHandles.size, framebufferHandles, 0)
+    }
+
+    /**
+     * Binds a given [framebufferHandle] to a framebuffer target.
+     *
+     * @since v1.1.0
+     */
+    actual fun glBindFramebuffer(framebufferHandle: Int) {
+        GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, framebufferHandle)
+    }
+
+    /**
+     * Attaches renderbuffer to a framebuffer.
+     *
+     * @since v1.1.0
+     */
+    actual fun glFramebufferRenderbuffer(attachmentType: FramebufferAttachmentType, renderbufferHandle: Int) {
+        GLES20.glFramebufferRenderbuffer(
+            GLES20.GL_FRAMEBUFFER,
+            attachmentType.toInt(),
+            GLES20.GL_RENDERBUFFER,
+            renderbufferHandle
+        )
+    }
+
+    private fun FramebufferAttachmentType.toInt(): Int = when (this) {
+        FramebufferAttachmentType.COLOR -> GLES20.GL_COLOR_ATTACHMENT0
+        FramebufferAttachmentType.DEPTH -> GLES20.GL_DEPTH_ATTACHMENT
+        FramebufferAttachmentType.STENCIL -> GLES20.GL_STENCIL_ATTACHMENT
+    }
+
+    /**
+     * Attaches texture image to a framebuffer.
+     *
+     * @since v1.1.0
+     */
+    actual fun glFramebufferTexture2D(
+        attachmentType: FramebufferAttachmentType,
+        textureType: TextureType,
+        textureHandle: Int
+    ) {
+        GLES20.glFramebufferTexture2D(
+            GLES20.GL_FRAMEBUFFER,
+            attachmentType.toInt(),
+            textureType.toInt(),
+            textureHandle,
+            0
+        )
+    }
+
+    /**
+     * Returns completeness status of a framebuffer.
+     *
+     * @since v1.1.0
+     */
+    actual fun glCheckFramebufferStatus(): FramebufferStatus =
+        framebufferStatusOf(GLES20.glCheckFramebufferStatus(GLES20.GL_FRAMEBUFFER))
+
+    private fun framebufferStatusOf(value: Int): FramebufferStatus = when (value) {
+        GLES20.GL_FRAMEBUFFER_COMPLETE -> FramebufferStatus.COMPLETE
+        GLES20.GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT -> FramebufferStatus.INCOMPLETE_ATTACHMENT
+        GLES20.GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT -> FramebufferStatus.INCOMPLETE_MISSING_ATTACHMENT
+        GLES20.GL_FRAMEBUFFER_UNSUPPORTED -> FramebufferStatus.UNSUPPORTED
+        else -> FramebufferStatus.UNKNOWN_STATUS
+    }
+
+    /**
+     * Deletes framebuffers represented by given [framebufferHandles].
+     *
+     * @since v1.1.0
+     */
+    actual fun glDeleteFramebuffers(framebufferHandles: IntArray) {
+        GLES20.glDeleteFramebuffers(framebufferHandles.size, framebufferHandles, 0)
+    }
+
+    /**
+     * Generates renderbuffer handles and writes them to a given [renderbufferHandles] array.
+     *
+     * The number of generated renderbuffer handles is equal to the size of the given
+     * [renderbufferHandles] array.
+     *
+     * @since v1.1.0
+     */
+    actual fun glGenRenderbuffers(renderbufferHandles: IntArray) {
+        GLES20.glGenRenderbuffers(renderbufferHandles.size, renderbufferHandles, 0)
+    }
+
+    /**
+     * Binds a given [renderbufferHandle] to a renderbuffer target.
+     *
+     * @since v1.1.0
+     */
+    actual fun glBindRenderbuffer(renderbufferHandle: Int) {
+        GLES20.glBindRenderbuffer(GLES20.GL_RENDERBUFFER, renderbufferHandle)
+    }
+
+    /**
+     * Specifies format and dimensions of the image in renderbuffer.
+     *
+     * @since v1.1.0
+     */
+    actual fun glRenderbufferStorage(internalFormat: TextureInternalFormat, width: Int, height: Int) {
+        GLES20.glRenderbufferStorage(GLES20.GL_RENDERBUFFER, internalFormat.toInt(), width, height)
+    }
+
+    /**
+     * Deletes renderbuffers represented by given [renderbufferHandles].
+     *
+     * @since v1.1.0
+     */
+    actual fun glDeleteRenderbuffers(renderbufferHandles: IntArray) {
+        GLES20.glDeleteRenderbuffers(renderbufferHandles.size, renderbufferHandles, 0)
+    }
+
+    /**
      * Generates texture handles and writes them to a given [textureHandles] array.
      *
-     * The number of generated texture handles is equal to the the size of the given
+     * The number of generated texture handles is equal to the size of the given
      * [textureHandles] array.
      */
     actual fun glGenTextures(textureHandles: IntArray) {
@@ -309,6 +438,53 @@ actual class GlimpseAdapter {
     private fun TextureType.toInt(): Int = when (this) {
         TextureType.TEXTURE_2D -> GLES20.GL_TEXTURE_2D
         TextureType.TEXTURE_CUBE_MAP -> GLES20.GL_TEXTURE_CUBE_MAP
+    }
+
+    /**
+     * Specifies a 2D texture image.
+     *
+     * @since v1.1.0
+     */
+    actual fun glTexImage2D(
+        internalFormat: TextureInternalFormat,
+        width: Int,
+        height: Int,
+        pixelFormat: TexturePixelFormat,
+        pixelType: TexturePixelType,
+        pixelData: ByteArray?
+    ) {
+        val pixelDataBuffer: ByteBuffer? = pixelData?.let { array ->
+            ByteBuffer.allocateDirect(array.size).apply { put(array) }
+        }
+        GLES20.glTexImage2D(
+            GLES20.GL_TEXTURE_2D, 0, internalFormat.toInt(),
+            width, height, 0,
+            pixelFormat.toInt(), pixelType.toInt(), pixelDataBuffer
+        )
+    }
+
+    private fun TextureInternalFormat.toInt(): Int = when (this) {
+        TextureInternalFormat.DEPTH_COMPONENT -> GLES20.GL_DEPTH_COMPONENT
+        TextureInternalFormat.RGB -> GLES20.GL_RGB
+        TextureInternalFormat.RGBA -> GLES20.GL_RGBA
+        TextureInternalFormat.RGB16F -> GL_RGB16F
+        TextureInternalFormat.RGBA16F -> GL_RGBA16F
+    }
+
+    private fun TexturePixelFormat.toInt(): Int = when (this) {
+        TexturePixelFormat.RGB -> GLES20.GL_RGB
+        TexturePixelFormat.RGBA -> GLES20.GL_RGBA
+        TexturePixelFormat.DEPTH_COMPONENT -> GLES20.GL_DEPTH_COMPONENT
+    }
+
+    private fun TexturePixelType.toInt(): Int = when (this) {
+        TexturePixelType.UNSIGNED_BYTE -> GLES20.GL_UNSIGNED_BYTE
+        TexturePixelType.BYTE -> GLES20.GL_BYTE
+        TexturePixelType.UNSIGNED_SHORT -> GLES20.GL_UNSIGNED_SHORT
+        TexturePixelType.SHORT -> GLES20.GL_SHORT
+        TexturePixelType.UNSIGNED_INT -> GLES20.GL_UNSIGNED_INT
+        TexturePixelType.INT -> GLES20.GL_INT
+        TexturePixelType.FLOAT -> GLES20.GL_FLOAT
     }
 
     /**
@@ -757,5 +933,7 @@ actual class GlimpseAdapter {
 
     companion object {
         private const val GL_VERTEX_PROGRAM_POINT_SIZE = 34370
+        private const val GL_RGB16F = 34843
+        private const val GL_RGBA16F = 34842
     }
 }

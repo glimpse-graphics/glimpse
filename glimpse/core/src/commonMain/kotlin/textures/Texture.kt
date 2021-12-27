@@ -18,6 +18,7 @@
 package graphics.glimpse.textures
 
 import graphics.glimpse.GlimpseAdapter
+import graphics.glimpse.framebuffers.Framebuffer
 
 /**
  * A texture.
@@ -71,5 +72,18 @@ interface Texture {
              */
             fun getInstance(gl: GlimpseAdapter): Builder = TextureBuilderImpl(gl)
         }
+    }
+
+    companion object {
+
+        /**
+         * Creates an empty texture of the given [width] and [height], and with the given [presets].
+         *
+         * Empty textures are intended to be used with [Framebuffer]s.
+         *
+         * @since v1.1.0
+         */
+        fun createEmpty(gl: GlimpseAdapter, width: Int, height: Int, presets: EmptyTexturePresets): Texture =
+            EmptyTextureFactory(gl).create(width, height, presets)
     }
 }

@@ -6,6 +6,7 @@
   (uniform value in shader is still an `Int`, with a value of `GL_TRUE` or `GL_FALSE`):
   - Method `GlimpseAdapter.glUniform(Int, Boolean)`
   - Method `BaseProgramExecutor.glUniform(GlimpseAdapter, String, Boolean)`
+- Support for framebuffers
 - Additional parameters in composable `GlimpseView`:
   - `modifier` – The modifier to be applied to the layout.
   - `update` – The callback to be invoked after the layout is inflated.
