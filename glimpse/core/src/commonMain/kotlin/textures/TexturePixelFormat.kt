@@ -14,12 +14,27 @@
  * limitations under the License.
  */
 
-package graphics.glimpse.examples.triangle
-
-import graphics.glimpse.shaders.Program
-import graphics.glimpse.shaders.ProgramExecutor
+package graphics.glimpse.textures
 
 /**
- * Creates a program executor for [TriangleShader].
+ * Texture pixel data format.
+ *
+ * @since v1.1.0
  */
-expect fun Program.createTriangleShaderProgramExecutor(): ProgramExecutor<TriangleShader>
+enum class TexturePixelFormat {
+
+    /**
+     * Only depth component.
+     */
+    DEPTH_COMPONENT,
+
+    /**
+     * RGB color.
+     */
+    RGB,
+
+    /**
+     * RGBA color.
+     */
+    RGBA
+}

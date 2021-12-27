@@ -14,13 +14,27 @@
  * limitations under the License.
  */
 
-package graphics.glimpse.examples.triangle
-
-import graphics.glimpse.shaders.Program
-import graphics.glimpse.shaders.ProgramExecutor
+package graphics.glimpse.framebuffers
 
 /**
- * Creates a program executor for [TriangleShader].
+ * Framebuffer attachment type.
+ *
+ * @since v1.1.0
  */
-actual fun Program.createTriangleShaderProgramExecutor(): ProgramExecutor<TriangleShader> =
-    TriangleShaderProgramExecutor(program = this)
+enum class FramebufferAttachmentType {
+
+    /**
+     * Color attachment.
+     */
+    COLOR,
+
+    /**
+     * Depth attachment.
+     */
+    DEPTH,
+
+    /**
+     * Stencil attachment.
+     */
+    STENCIL
+}

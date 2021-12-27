@@ -14,13 +14,47 @@
  * limitations under the License.
  */
 
-package graphics.glimpse.examples.triangle
-
-import graphics.glimpse.shaders.Program
-import graphics.glimpse.shaders.ProgramExecutor
+package graphics.glimpse.textures
 
 /**
- * Creates a program executor for [TriangleShader].
+ * Texture pixel data type.
+ *
+ * @since v1.1.0
  */
-actual fun Program.createTriangleShaderProgramExecutor(): ProgramExecutor<TriangleShader> =
-    TriangleShaderProgramExecutor(program = this)
+enum class TexturePixelType {
+
+    /**
+     * Unsigned byte.
+     */
+    UNSIGNED_BYTE,
+
+    /**
+     * Signed byte.
+     */
+    BYTE,
+
+    /**
+     * Unsigned short.
+     */
+    UNSIGNED_SHORT,
+
+    /**
+     * Signed short.
+     */
+    SHORT,
+
+    /**
+     * Unsigned integer.
+     */
+    UNSIGNED_INT,
+
+    /**
+     * Signed integer.
+     */
+    INT,
+
+    /**
+     * Floating point number.
+     */
+    FLOAT
+}

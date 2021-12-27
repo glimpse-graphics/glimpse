@@ -85,9 +85,26 @@ actual class AppResources {
             .fromResource(this, NORMAL_MAP_FILE_NAME)
             .build()
 
+    /**
+     * Returns mesh data for blur effect.
+     */
+    actual fun getBlurMeshData(): ArrayMeshData =
+        ObjMeshDataParser().parseArrayMeshData(javaClass.getResourceAsStream(BLUR_MESH_FILE_NAME))
+
+    /**
+     * Returns source of a blur effect shader of a given [type].
+     */
+    actual fun getBlurShaderSource(type: ShaderType): String =
+        javaClass.getResourceAsStream(getBlurShaderResourceName(type))
+            .use { it.bufferedReader().readText() }
+
+    private fun getBlurShaderResourceName(type: ShaderType): String =
+        "/blur_${type.name.lowercase(Locale.ENGLISH)}.glsl"
+
     companion object {
         private const val MESH_FILE_NAME = "/triangle.obj"
         private const val TEXTURE_FILE_NAME = "/triangle_texture.png"
         private const val NORMAL_MAP_FILE_NAME = "/triangle_normalmap.png"
+        private const val BLUR_MESH_FILE_NAME = "/quad.obj"
     }
 }

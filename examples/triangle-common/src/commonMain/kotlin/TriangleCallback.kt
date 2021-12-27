@@ -25,18 +25,23 @@ import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.GlimpseCallback
 import graphics.glimpse.cameras.Camera
 import graphics.glimpse.cameras.FreeCamera
+import graphics.glimpse.framebuffers.Framebuffer
+import graphics.glimpse.framebuffers.FramebufferAttachmentType
+import graphics.glimpse.framebuffers.withFramebuffer
 import graphics.glimpse.lenses.Lens
 import graphics.glimpse.lenses.PerspectiveLens
 import graphics.glimpse.logging.GlimpseLogger
 import graphics.glimpse.meshes.Mesh
 import graphics.glimpse.shaders.Program
 import graphics.glimpse.shaders.ProgramExecutor
+import graphics.glimpse.textures.EmptyTexturePresets
 import graphics.glimpse.textures.Texture
 import graphics.glimpse.textures.TextureMagFilter
 import graphics.glimpse.textures.TextureMinFilter
 import graphics.glimpse.textures.TextureType
 import graphics.glimpse.textures.TextureWrap
 import graphics.glimpse.types.Angle
+import graphics.glimpse.types.Vec2
 import graphics.glimpse.types.Vec3
 import graphics.glimpse.types.rotationY
 import graphics.glimpse.ui.compose.types.Vec3
@@ -55,6 +60,14 @@ class TriangleCallback(
     private lateinit var normalMap: Texture
     private lateinit var program: Program
     private lateinit var programExecutor: ProgramExecutor<TriangleShader>
+
+    private lateinit var blurMesh: Mesh
+    private lateinit var blurProgram: Program
+    private lateinit var blurProgramExecutor: ProgramExecutor<BlurShader>
+
+    private lateinit var imageFramebuffer: Framebuffer
+
+    private var size = Vec2(x = 1f, y = 1f)
 
     private var lens: Lens = PerspectiveLens(fovY, aspect = 1f, NEAR, FAR)
 
@@ -95,6 +108,21 @@ class TriangleCallback(
         normalMap = textures[1]
         program = TriangleProgramFactory(resources).createProgram(gl)
         programExecutor = program.createTriangleShaderProgramExecutor()
+
+        blurMesh = Mesh.Factory.newInstance(gl).createMesh(resources.getBlurMeshData())
+        blurProgram = BlurProgramFactory(resources).createProgram(gl)
+        blurProgramExecutor = blurProgram.createBlurShaderProgramExecutor()
+
+        imageFramebuffer = Framebuffer.Builder.getInstance(gl)
+            .attachTexture(
+                FramebufferAttachmentType.COLOR,
+                Texture.createEmpty(gl, 1, 1, EmptyTexturePresets.rgba)
+            )
+            .attachTexture(
+                FramebufferAttachmentType.DEPTH,
+                Texture.createEmpty(gl, 1, 1, EmptyTexturePresets.depthComponent)
+            )
+            .build()
     }
 
     /**
@@ -105,16 +133,36 @@ class TriangleCallback(
 
         gl.glViewport(width = width, height = height)
         lens = PerspectiveLens(fovY, aspect = width.toFloat() / height.toFloat(), NEAR, FAR)
+
+        size = Vec2(x = width.toFloat(), y = height.toFloat())
+
+        imageFramebuffer.dispose(gl)
+        imageFramebuffer = Framebuffer.Builder.getInstance(gl)
+            .attachTexture(
+                FramebufferAttachmentType.COLOR,
+                Texture.createEmpty(gl, width, height, EmptyTexturePresets.rgba)
+            )
+            .attachTexture(
+                FramebufferAttachmentType.DEPTH,
+                Texture.createEmpty(gl, width, height, EmptyTexturePresets.depthComponent)
+            )
+            .build()
     }
 
     /**
      * Renders the triangle.
      */
     override fun onRender(gl: GlimpseAdapter) {
-        gl.glClear(ClearableBufferType.COLOR_BUFFER, ClearableBufferType.DEPTH_BUFFER)
+        if (!::programExecutor.isInitialized ||
+            !::blurProgramExecutor.isInitialized ||
+            !::imageFramebuffer.isInitialized) return
 
-        if (!::program.isInitialized) return
-        if (!::programExecutor.isInitialized) return
+        gl.withFramebuffer(imageFramebuffer) { renderTriangle(this) }
+        applyBlur(gl, imageFramebuffer)
+    }
+
+    private fun renderTriangle(gl: GlimpseAdapter) {
+        gl.glClear(ClearableBufferType.COLOR_BUFFER, ClearableBufferType.DEPTH_BUFFER)
 
         program.use(gl)
 
@@ -135,6 +183,21 @@ class TriangleCallback(
     private fun calculateRotationAngle() =
         Angle.fromDeg(((getSystemTimeInMillis() / ROTATION_SPEED_FACTOR) % FULL_ANGLE_DEG).toFloat())
 
+    private fun applyBlur(gl: GlimpseAdapter, framebuffer: Framebuffer) {
+        gl.glClear(ClearableBufferType.COLOR_BUFFER, ClearableBufferType.DEPTH_BUFFER)
+
+        blurProgram.use(gl)
+
+        val blurParams = BlurShader(
+            screenSize = size,
+            image = requireNotNull(framebuffer.textures[FramebufferAttachmentType.COLOR]),
+            depth = requireNotNull(framebuffer.textures[FramebufferAttachmentType.DEPTH])
+        )
+
+        blurProgramExecutor.applyParams(gl, blurParams)
+        blurProgramExecutor.drawMesh(gl, blurMesh)
+    }
+
     /**
      * Disposes the mesh and the program.
      */
@@ -142,9 +205,12 @@ class TriangleCallback(
         logger.debug(message = "onDestroy")
 
         try {
+            if (::imageFramebuffer.isInitialized) imageFramebuffer.dispose(gl)
             if (::mesh.isInitialized) mesh.dispose(gl)
             if (::programExecutor.isInitialized) programExecutor.dispose(gl)
             else if (::program.isInitialized) program.dispose(gl)
+            if (::blurProgramExecutor.isInitialized) blurProgramExecutor.dispose(gl)
+            else if (::blurProgram.isInitialized) blurProgram.dispose(gl)
         } catch (expected: Exception) {
             logger.error(message = "Error disposing Glimpse", exception = expected)
         }
@@ -156,6 +222,6 @@ class TriangleCallback(
         private const val FAR = 10f
 
         private const val FULL_ANGLE_DEG = 360L
-        private const val ROTATION_SPEED_FACTOR = 20L
+        private const val ROTATION_SPEED_FACTOR = 40L
     }
 }
