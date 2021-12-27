@@ -130,6 +130,7 @@ jobs:
           cd glimpse
           ./gradlew dokkaHtmlMultiModule --stacktrace
       - name: Update Documentation
+        id: update_docs
         env:
           VERSION: v${{ needs.properties.outputs.version }}
         run: |
@@ -137,7 +138,10 @@ jobs:
           rm -rf ${VERSION%%-*}
           mkdir ${VERSION%%-*}
           cp -R ../glimpse/build/dokka/htmlMultiModule/* ./${VERSION%%-*}/
+          EMPTY_COMMIT="$(git diff-index --quiet HEAD -- && echo 1 || echo 0)"
+          echo "::set-output name=empty_commit::$EMPTY_COMMIT"
       - name: Commit Documentation Changes
+        if: steps.update_docs.outputs.empty_commit == 0
         env:
           VERSION: v${{ needs.properties.outputs.version }}
         run: |
@@ -147,6 +151,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git commit -m "Update docs ${VERSION%%-*}" -a
       - name: Push Changes
+        if: steps.update_docs.outputs.empty_commit == 0
         uses: ad-m/github-push-action@master
         with:
           repository: glimpse-graphics/docs
