@@ -22,5 +22,9 @@ import graphics.glimpse.shaders.ProgramExecutor
 /**
  * Creates a program executor for [TriangleShader].
  */
-actual fun Program.createTriangleShaderProgramExecutor(): ProgramExecutor<TriangleShader> =
-    TriangleShaderProgramExecutor(program = this)
+expect fun Program.createTriangleShaderProgramExecutor(): ProgramExecutor<TriangleShader>
+
+/**
+ * Creates a program executor for [BlurShader].
+ */
+expect fun Program.createBlurShaderProgramExecutor(): ProgramExecutor<BlurShader>

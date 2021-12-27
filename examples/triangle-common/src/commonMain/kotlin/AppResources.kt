@@ -56,4 +56,14 @@ expect class AppResources {
      * Returns normal map image source.
      */
     fun getNormalMapSource(): TextureImageSource
+
+    /**
+     * Returns mesh data for blur effect.
+     */
+    fun getBlurMeshData(): ArrayMeshData
+
+    /**
+     * Returns source of a blur effect shader of a given [type].
+     */
+    fun getBlurShaderSource(type: ShaderType): String
 }
