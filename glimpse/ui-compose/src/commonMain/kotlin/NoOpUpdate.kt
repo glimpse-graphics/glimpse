@@ -14,22 +14,9 @@
  * limitations under the License.
  */
 
-package graphics.glimpse.examples.triangle
-
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import graphics.glimpse.ui.compose.GlimpseView
+package graphics.glimpse.ui.compose
 
 /**
- * Composable application content layout.
+ * An empty update block used by [GlimpseView].
  */
-@Composable
-fun AppContent(modifier: Modifier = Modifier, resources: AppResources) {
-    GlimpseView(
-        callback = TriangleCallback(resources),
-        modifier = Modifier.fillMaxSize().then(modifier)
-    ) {
-        zOrderOnTop = true
-    }
-}
+val NoOpUpdate: GlimpseViewScope.() -> Unit = {}

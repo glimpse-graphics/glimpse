@@ -14,22 +14,21 @@
  * limitations under the License.
  */
 
-package graphics.glimpse.examples.triangle
+package graphics.glimpse.ui.compose
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import graphics.glimpse.ui.compose.GlimpseView
+import graphics.glimpse.ui.GlimpseSurfaceView
 
 /**
- * Composable application content layout.
+ * Receiver scope used by [GlimpseView].
  */
-@Composable
-fun AppContent(modifier: Modifier = Modifier, resources: AppResources) {
-    GlimpseView(
-        callback = TriangleCallback(resources),
-        modifier = Modifier.fillMaxSize().then(modifier)
-    ) {
-        zOrderOnTop = true
-    }
+actual class GlimpseViewScope(internal val view: GlimpseSurfaceView) {
+
+    /**
+     * Controls whether the surface of the [GlimpseView] is placed on top of its window.
+     */
+    actual var zOrderOnTop: Boolean = false
+        set(value) {
+            field = value
+            view.setZOrderOnTop(value)
+        }
 }

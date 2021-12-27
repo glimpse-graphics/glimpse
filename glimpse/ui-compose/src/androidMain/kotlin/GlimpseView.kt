@@ -18,6 +18,9 @@
 package graphics.glimpse.ui.compose
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.GlimpseCallback
@@ -26,11 +29,30 @@ import graphics.glimpse.ui.GlimpseSurfaceView
 /**
  * A `GlimpseView` displays content rendered using [Glimpse OpenGL adapter][GlimpseAdapter]
  * and [callback interface][GlimpseCallback].
+ *
+ * @param callback The rendering [callback interface][GlimpseCallback].
+ * @param modifier The modifier to be applied to the layout.
+ * @param update The callback to be invoked after the layout is inflated.
  */
 @Composable
-actual fun GlimpseView(callback: GlimpseCallback, zOrderOnTop: Boolean) {
-    AndroidView({ GlimpseSurfaceView(it) }) { view ->
+actual fun GlimpseView(
+    callback: GlimpseCallback,
+    modifier: Modifier,
+    update: GlimpseViewScope.() -> Unit
+) {
+    val context = LocalContext.current
+    val glimpseViewScope = remember {
+        val view = GlimpseSurfaceView(context)
+        GlimpseViewScope(view).apply {
+            this.zOrderOnTop = false
+        }
+    }
+
+    AndroidView(
+        factory = { glimpseViewScope.view },
+        modifier = modifier
+    ) { view ->
         view.setCallback(callback)
-        view.setZOrderOnTop(zOrderOnTop)
+        glimpseViewScope.update()
     }
 }
