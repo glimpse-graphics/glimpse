@@ -10,6 +10,10 @@ Buffers of vertex attributes and vertex array indices.
 
 Cameras, defining view matrix.
 
+# Package graphics.glimpse.framebuffers
+
+Framebuffers and renderbuffers.
+
 # Package graphics.glimpse.lenses
 
 Lenses, defining projection matrix.
