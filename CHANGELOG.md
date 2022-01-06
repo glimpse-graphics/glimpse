@@ -26,7 +26,7 @@
   - Upgrade `org.jetbrains.dokka` to `1.6.0`
   - Upgrade `kotlinpoet` to `1.10.2`
   - Upgrade `androidx.annotation:annotation` to `1.3.0`
-  - Upgrade `mockk` to `1.12.1`
+  - Upgrade `mockk` to `1.12.2`
   - Upgrade `activity-compose` to `1.4.0`
   - Upgrade `kotlinx-coroutines-android` to `1.6.0-native-mt`
   - Upgrade `slf4j-api` to `1.7.32`
