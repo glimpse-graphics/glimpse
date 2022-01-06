@@ -65,7 +65,7 @@ class TriangleCallback(
     private lateinit var blurProgram: Program
     private lateinit var blurProgramExecutor: ProgramExecutor<BlurShader>
 
-    private lateinit var imageFramebuffer: Framebuffer
+    private var imageFramebuffer: Framebuffer? = null
 
     private var size = Vec2(x = 1f, y = 1f)
 
@@ -113,31 +113,13 @@ class TriangleCallback(
         blurProgram = BlurProgramFactory(resources).createProgram(gl)
         blurProgramExecutor = blurProgram.createBlurShaderProgramExecutor()
 
-        imageFramebuffer = Framebuffer.Builder.getInstance(gl)
-            .attachTexture(
-                FramebufferAttachmentType.COLOR,
-                Texture.createEmpty(gl, 1, 1, EmptyTexturePresets.rgba)
-            )
-            .attachTexture(
-                FramebufferAttachmentType.DEPTH,
-                Texture.createEmpty(gl, 1, 1, EmptyTexturePresets.depthComponent)
-            )
-            .build()
+        imageFramebuffer = createImageFramebuffer(gl)
     }
 
-    /**
-     * Updates viewport and lens.
-     */
-    override fun onResize(gl: GlimpseAdapter, x: Int, y: Int, width: Int, height: Int) {
-        logger.debug(message = "onResize: $width×$height")
-
-        gl.glViewport(width = width, height = height)
-        lens = PerspectiveLens(fovY, aspect = width.toFloat() / height.toFloat(), NEAR, FAR)
-
-        size = Vec2(x = width.toFloat(), y = height.toFloat())
-
-        imageFramebuffer.dispose(gl)
-        imageFramebuffer = Framebuffer.Builder.getInstance(gl)
+    private fun createImageFramebuffer(gl: GlimpseAdapter): Framebuffer? = try {
+        val width = size.x.toInt()
+        val height = size.y.toInt()
+        Framebuffer.Builder.getInstance(gl)
             .attachTexture(
                 FramebufferAttachmentType.COLOR,
                 Texture.createEmpty(gl, width, height, EmptyTexturePresets.rgba)
@@ -147,18 +129,39 @@ class TriangleCallback(
                 Texture.createEmpty(gl, width, height, EmptyTexturePresets.depthComponent)
             )
             .build()
+    } catch (exception: IllegalStateException) {
+        logger.error(message = "Error creating framebuffer", exception = exception)
+        null
+    }
+
+    /**
+     * Updates viewport and lens.
+     */
+    override fun onResize(gl: GlimpseAdapter, x: Int, y: Int, width: Int, height: Int) {
+        logger.debug(message = "onResize: ${width}x$height")
+
+        gl.glViewport(width = width, height = height)
+        lens = PerspectiveLens(fovY, aspect = width.toFloat() / height.toFloat(), NEAR, FAR)
+
+        size = Vec2(x = width.toFloat(), y = height.toFloat())
+
+        imageFramebuffer?.dispose(gl)
+        imageFramebuffer = createImageFramebuffer(gl)
     }
 
     /**
      * Renders the triangle.
      */
     override fun onRender(gl: GlimpseAdapter) {
-        if (!::programExecutor.isInitialized ||
-            !::blurProgramExecutor.isInitialized ||
-            !::imageFramebuffer.isInitialized) return
+        if (!::programExecutor.isInitialized || !::blurProgramExecutor.isInitialized) return
 
-        gl.withFramebuffer(imageFramebuffer) { renderTriangle(this) }
-        applyBlur(gl, imageFramebuffer)
+        val framebuffer = imageFramebuffer
+        if (framebuffer != null) {
+            gl.withFramebuffer(framebuffer) { renderTriangle(this) }
+            applyBlur(gl, framebuffer)
+        } else {
+            renderTriangle(gl)
+        }
     }
 
     private fun renderTriangle(gl: GlimpseAdapter) {
@@ -205,7 +208,7 @@ class TriangleCallback(
         logger.debug(message = "onDestroy")
 
         try {
-            if (::imageFramebuffer.isInitialized) imageFramebuffer.dispose(gl)
+            imageFramebuffer?.dispose(gl)
             if (::mesh.isInitialized) mesh.dispose(gl)
             if (::programExecutor.isInitialized) programExecutor.dispose(gl)
             else if (::program.isInitialized) program.dispose(gl)
