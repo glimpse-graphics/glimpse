@@ -30,7 +30,9 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.application
+import androidx.compose.ui.window.rememberWindowState
 
 val resources = AppResources()
 
@@ -38,8 +40,10 @@ val resources = AppResources()
  * Runs _Triangle_ example desktop application.
  */
 fun main() = application {
+    val windowState = rememberWindowState()
     Window(
         onCloseRequest = this::exitApplication,
+        state = windowState,
         title = resources.getAppName(),
         icon = painterResource("icon.png"),
         undecorated = true,
@@ -61,4 +65,5 @@ fun main() = application {
             }
         }
     }
+    windowState.placement = WindowPlacement.Fullscreen
 }
