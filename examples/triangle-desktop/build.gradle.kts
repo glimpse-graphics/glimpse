@@ -50,11 +50,18 @@ compose.desktop {
         mainClass = "graphics.glimpse.examples.triangle.MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "desktop"
+            packageName = "Glimpse Triangle Example"
 
             // Compose apps require correct DMG and MSI version format (X.X.X):
             val glimpseVersion: String by project
             packageVersion = glimpseVersion
+
+            windows {
+                iconFile.set(project.file("icon.ico"))
+            }
+            linux {
+                iconFile.set(project.file("icon.png"))
+            }
         }
         jvmArgs.add("--add-exports=jogl.all/com.jogamp.opengl.util=ALL-UNNAMED")
         jvmArgs.add("--add-exports=jogl.all/com.jogamp.opengl.util.texture=ALL-UNNAMED")
