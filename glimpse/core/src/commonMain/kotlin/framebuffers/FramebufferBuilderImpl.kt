@@ -53,9 +53,12 @@ internal class FramebufferBuilderImpl(private val gl: GlimpseAdapter) : Framebuf
 
         attachRenderbuffers()
         attachTextures()
-        checkFramebufferStatus()
 
-        gl.glBindFramebuffer(framebufferHandle = 0)
+        try {
+            checkFramebufferStatus(handles)
+        } finally {
+            gl.glBindFramebuffer(framebufferHandle = 0)
+        }
 
         return FramebufferImpl(handle, renderbuffers.toMap(), textures.toMap())
     }
@@ -72,9 +75,10 @@ internal class FramebufferBuilderImpl(private val gl: GlimpseAdapter) : Framebuf
         }
     }
 
-    private fun checkFramebufferStatus() {
+    private fun checkFramebufferStatus(framebufferHandles: IntArray) {
         val framebufferStatus = gl.glCheckFramebufferStatus()
         if (framebufferStatus != FramebufferStatus.COMPLETE) {
+            gl.glDeleteFramebuffers(framebufferHandles)
             val errorMessage = "Framebuffer is not complete: $framebufferStatus"
             logger.error(errorMessage)
             throw IllegalStateException(errorMessage)
