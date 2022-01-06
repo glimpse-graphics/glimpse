@@ -43,15 +43,13 @@ actual fun GlimpseView(
     val glimpseViewScope = remember {
         val component = GlimpsePanel()
         component.animator = Animator(component)
+        component.setCallback(callback)
         GlimpseViewScope(component)
     }
 
     SwingPanel(
         factory = { glimpseViewScope.component },
         modifier = modifier,
-        update = { component ->
-            component.setCallback(callback)
-            glimpseViewScope.update()
-        }
+        update = { glimpseViewScope.update() }
     )
 }
