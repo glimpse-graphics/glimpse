@@ -31,18 +31,23 @@ import graphics.glimpse.ui.GlimpsePanel
  *
  * @param callback The rendering [callback interface][GlimpseCallback].
  * @param modifier The modifier to be applied to the layout.
+ * @param onClick Called when the user clicks on this [GlimpseView].
  * @param update The callback to be invoked after the layout is inflated.
  */
 @Composable
 actual fun GlimpseView(
     callback: GlimpseCallback,
     modifier: Modifier,
+    onClick: (() -> Unit)?,
     update: GlimpseViewScope.() -> Unit
 ) {
     val glimpseViewScope = remember {
         val component = GlimpsePanel()
         component.animator = Animator(component)
         component.setCallback(callback)
+        if (onClick != null) {
+            component.addMouseListener(OnClickMouseListener(onClick))
+        }
         GlimpseViewScope(component)
     }
 

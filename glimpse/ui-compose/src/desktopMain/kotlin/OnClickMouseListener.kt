@@ -14,23 +14,19 @@
  * limitations under the License.
  */
 
-package graphics.glimpse.examples.triangle
+package graphics.glimpse.ui.compose
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import graphics.glimpse.ui.compose.GlimpseView
+import java.awt.event.MouseAdapter
+import java.awt.event.MouseEvent
 
 /**
- * Composable application content layout.
+ * Mouse listener handling click events in composable view.
  */
-@Composable
-fun AppContent(resources: AppResources, onClick: () -> Unit, modifier: Modifier = Modifier) {
-    GlimpseView(
-        callback = TriangleCallback(resources),
-        modifier = Modifier.fillMaxSize().then(modifier),
-        onClick = onClick
-    ) {
-        zOrderOnTop = true
+internal class OnClickMouseListener(private val onClick: () -> Unit) : MouseAdapter() {
+
+    override fun mouseClicked(event: MouseEvent?) {
+        if (event?.button == MouseEvent.BUTTON1) {
+            onClick()
+        }
     }
 }

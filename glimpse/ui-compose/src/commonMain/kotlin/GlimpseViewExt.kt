@@ -25,6 +25,16 @@ import graphics.glimpse.GlimpseCallback
 
 /**
  * A `GlimpseView` displays content rendered using [Glimpse OpenGL adapter][GlimpseAdapter].
+ *
+ * @param onCreate Called when this [GlimpseView] is being initialized.
+ * @param onResize Called when this [GlimpseView] is resized.
+ * @param onRender Called on each frame when the contents of this [GlimpseView] are being rendered.
+ * @param onDestroy Called when this [GlimpseView] is being destroyed.
+ * @param modifier The modifier to be applied to the layout.
+ * @param onClick Called when the user clicks on this [GlimpseView].
+ * @param update The callback to be invoked after the layout is inflated.
+ *
+ * @since v1.1.0
  */
 @Composable
 fun GlimpseView(
@@ -33,6 +43,7 @@ fun GlimpseView(
     onRender: GlimpseAdapter.() -> Unit,
     onDestroy: GlimpseAdapter.() -> Unit,
     modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null,
     update: GlimpseViewScope.() -> Unit = NoOpUpdate
 ) {
     val callback = object : GlimpseCallback {
@@ -57,6 +68,7 @@ fun GlimpseView(
     GlimpseView(
         callback = callback,
         modifier = modifier,
+        onClick = onClick,
         update = update
     )
 }

@@ -31,17 +31,22 @@ import graphics.glimpse.ui.GlimpseSurfaceView
  *
  * @param callback The rendering [callback interface][GlimpseCallback].
  * @param modifier The modifier to be applied to the layout.
+ * @param onClick Called when the user clicks on this [GlimpseView].
  * @param update The callback to be invoked after the layout is inflated.
  */
 @Composable
 actual fun GlimpseView(
     callback: GlimpseCallback,
     modifier: Modifier,
+    onClick: (() -> Unit)?,
     update: GlimpseViewScope.() -> Unit
 ) {
     val context = LocalContext.current
     val glimpseViewScope = remember {
         val view = GlimpseSurfaceView(context)
+        if (onClick != null) {
+            view.setOnClickListener { onClick() }
+        }
         GlimpseViewScope(view).apply {
             this.zOrderOnTop = false
         }
