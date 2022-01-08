@@ -4,6 +4,7 @@ complexity:
     ignoreSimpleWhenEntries: true
   LongParameterList:
     functionThreshold: 7
+    ignoreDefaultParameters: true
   TooManyFunctions:
     thresholdInFiles: 30
     thresholdInClasses: 30
