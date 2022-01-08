@@ -8,8 +8,9 @@
   - Method `BaseProgramExecutor.glUniform(GlimpseAdapter, String, Boolean)`
 - Support for framebuffers
 - Additional parameters in composable `GlimpseView`:
-  - `modifier` – The modifier to be applied to the layout.
-  - `update` – The callback to be invoked after the layout is inflated.
+  - `modifier` – the modifier to be applied to the layout
+  - `onClick` – called when the view has been clicked
+  - `update` – the callback to be invoked after the layout is inflated
 - Composable `GlimpseView` function with separate functional parameters instead of `callback`.
 - Utility functions for creating `Vec3` and `Vec4` from Jetpack Compose `Color`
 - KSP processor for shader parameters

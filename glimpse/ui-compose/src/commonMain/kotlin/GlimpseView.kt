@@ -27,11 +27,13 @@ import graphics.glimpse.GlimpseCallback
  *
  * @param callback The rendering [callback interface][GlimpseCallback].
  * @param modifier The modifier to be applied to the layout.
+ * @param onClick Called when the user clicks on this [GlimpseView].
  * @param update The callback to be invoked after the layout is inflated.
  */
 @Composable
 expect fun GlimpseView(
     callback: GlimpseCallback,
     modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null,
     update: GlimpseViewScope.() -> Unit = NoOpUpdate
 )
