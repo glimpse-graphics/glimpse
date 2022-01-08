@@ -19,7 +19,7 @@ package graphics.glimpse.textures
 /**
  * Empty texture presets.
  *
- * @since v1.0.0
+ * @since v1.1.0
  */
 data class EmptyTexturePresets(
     val internalFormat: TextureInternalFormat,
