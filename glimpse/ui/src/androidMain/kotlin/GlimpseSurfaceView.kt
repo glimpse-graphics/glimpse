@@ -70,6 +70,9 @@ open class GlimpseSurfaceView(
         super.setRenderer(glimpseRenderer)
     }
 
+    /**
+     * @deprecated This method should never be called explicitly. Use [setCallback] instead.
+     */
     @Deprecated(message = "Use setCallback() instead")
     override fun setRenderer(renderer: Renderer?) {
         if (renderer != null && renderer !is GlimpseRenderer) {

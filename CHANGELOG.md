@@ -6,6 +6,7 @@
   (uniform value in shader is still an `Int`, with a value of `GL_TRUE` or `GL_FALSE`):
   - Method `GlimpseAdapter.glUniform(Int, Boolean)`
   - Method `BaseProgramExecutor.glUniform(GlimpseAdapter, String, Boolean)`
+- Method `ProgramExecutor.dispose(GlimpseAdapter)`, disposing also referenced `Program`
 - Support for framebuffers
 - Additional parameters in composable `GlimpseView`:
   - `modifier` – the modifier to be applied to the layout
@@ -16,9 +17,8 @@
 - KSP processor for shader parameters
 
 ### Changed
-- Change target JVM to Java 11
-- Dispose `Program` with `ProgramExecutor`
 - Make Kapt processors incremental (isolating)
+- Change target JVM to Java 11
 - Upgrade Gradle Wrapper to `7.3.2`
 - Dependencies:
   - Upgrade Kotlin to `1.6.10`
@@ -37,6 +37,9 @@
   - Upgrade `com.google.android.material:material` to `1.4.0`
   - Upgrade `detekt-gradle-plugin` to `1.19.0`
   - Upgrade `org.jetbrains.changelog` to `1.3.1`
+
+### Deprecated
+- Method `ProgramExecutor.dispose()` without parameters
 
 ### Removed
 - **BREAKING CHANGE:** Remove `zOrderOnTop` from `GlimpseView` composable function.

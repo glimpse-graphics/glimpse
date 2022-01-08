@@ -217,6 +217,8 @@ abstract class BaseProgramExecutor<T>(
 
     /**
      * Clears cached locations of variables.
+     *
+     * @deprecated Use `dispose(GlimpseAdapter)` instead.
      */
     @Deprecated(message = "Use dispose(GlimpseAdapter) instead")
     override fun dispose() {
