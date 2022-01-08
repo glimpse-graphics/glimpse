@@ -1,4 +1,4 @@
-# Changelog
+# Glimpse Changelog
 
 ## [Unreleased]
 ### Added
@@ -11,7 +11,7 @@
   - `modifier` – the modifier to be applied to the layout
   - `onClick` – called when the view has been clicked
   - `update` – the callback to be invoked after the layout is inflated
-- Composable `GlimpseView` function with separate functional parameters instead of `callback`.
+- Composable `GlimpseView` function with separate functional parameters instead of `callback`
 - Utility functions for creating `Vec3` and `Vec4` from Jetpack Compose `Color`
 - KSP processor for shader parameters
 
@@ -138,3 +138,13 @@
 - Generating program executors from annotated shader parameters class
 - Support for Wavefront OBJ files
 - Offscreen rendering (Android)
+
+[Unreleased]: https://github.com/glimpse-graphics/glimpse/tree/main
+[1.0.0]: https://github.com/glimpse-graphics/glimpse/releases/tag/v1.0.0
+[1.0.0-RC1]: https://github.com/glimpse-graphics/glimpse/releases/tag/v1.0.0-RC1
+[1.0.0-BETA2]: https://github.com/glimpse-graphics/glimpse/releases/tag/v1.0.0-BETA2
+[1.0.0-BETA1]: https://github.com/glimpse-graphics/glimpse/releases/tag/v1.0.0-BETA1
+[1.0.0-ALPHA4]: https://github.com/glimpse-graphics/glimpse/releases/tag/v1.0.0-ALPHA4
+[1.0.0-ALPHA3]: https://github.com/glimpse-graphics/glimpse/releases/tag/v1.0.0-ALPHA3
+[1.0.0-ALPHA2]: https://github.com/glimpse-graphics/glimpse/releases/tag/v1.0.0-ALPHA2
+[1.0.0-ALPHA1]: https://github.com/glimpse-graphics/glimpse/releases/tag/v1.0.0-ALPHA1
