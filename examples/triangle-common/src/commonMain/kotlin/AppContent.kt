@@ -25,10 +25,11 @@ import graphics.glimpse.ui.compose.GlimpseView
  * Composable application content layout.
  */
 @Composable
-fun AppContent(modifier: Modifier = Modifier, resources: AppResources) {
+fun AppContent(resources: AppResources, onClick: () -> Unit, modifier: Modifier = Modifier) {
     GlimpseView(
         callback = TriangleCallback(resources),
-        modifier = Modifier.fillMaxSize().then(modifier)
+        modifier = Modifier.fillMaxSize().then(modifier),
+        onClick = onClick
     ) {
         zOrderOnTop = true
     }

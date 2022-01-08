@@ -43,7 +43,11 @@ class MainActivity : AppCompatActivity() {
             MaterialTheme(colors = appResources.getThemeColors()) {
                 Column(modifier = Modifier.fillMaxWidth()) {
                     TopAppBar(title = { Text(text = appResources.getAppName()) })
-                    AppContent(modifier = Modifier.weight(weight = 1f), resources = appResources)
+                    AppContent(
+                        resources = appResources,
+                        onClick = ::onBackPressed,
+                        modifier = Modifier.weight(weight = 1f)
+                    )
                 }
             }
         }

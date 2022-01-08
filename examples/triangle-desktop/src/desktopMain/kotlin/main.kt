@@ -41,7 +41,7 @@ val resources = AppResources()
 fun main() = application {
     val windowState = rememberWindowState()
     Window(
-        onCloseRequest = this::exitApplication,
+        onCloseRequest = ::exitApplication,
         state = windowState,
         title = resources.getAppName(),
         icon = painterResource("icon.png"),
@@ -60,7 +60,11 @@ fun main() = application {
                         }
                     )
                 }
-                AppContent(modifier = Modifier.weight(weight = 1f), resources = resources)
+                AppContent(
+                    resources = resources,
+                    onClick = ::exitApplication,
+                    modifier = Modifier.weight(weight = 1f)
+                )
             }
         }
     }
