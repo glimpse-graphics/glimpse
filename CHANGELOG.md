@@ -2,6 +2,19 @@
 
 ## [Unreleased]
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [1.1.0-ALPHA1]
+### Added
 - Support for `Boolean` uniform shader parameters
   (uniform value in shader is still an `Int`, with a value of `GL_TRUE` or `GL_FALSE`):
   - Method `GlimpseAdapter.glUniform(Int, Boolean)`
