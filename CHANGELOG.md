@@ -143,6 +143,7 @@
 - Offscreen rendering (Android)
 
 [Unreleased]: https://github.com/glimpse-graphics/glimpse/tree/main
+[1.1.0-ALPHA1]: https://github.com/glimpse-graphics/glimpse/releases/tag/v1.1.0-ALPHA1
 [1.0.0]: https://github.com/glimpse-graphics/glimpse/releases/tag/v1.0.0
 [1.0.0-RC1]: https://github.com/glimpse-graphics/glimpse/releases/tag/v1.0.0-RC1
 [1.0.0-BETA2]: https://github.com/glimpse-graphics/glimpse/releases/tag/v1.0.0-BETA2
