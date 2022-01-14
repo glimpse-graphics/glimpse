@@ -36,7 +36,8 @@ internal class MeshFactoryImpl(gl: GlimpseAdapter) : Mesh.Factory {
                     positionsData,
                     texCoordsData,
                     normalsData,
-                    tangentsData
+                    tangentsData,
+                    bitangentsData
                 )
             }
         )

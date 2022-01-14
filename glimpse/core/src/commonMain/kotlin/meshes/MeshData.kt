@@ -50,6 +50,13 @@ interface MeshData {
     val tangentsData: FloatBufferData
 
     /**
+     * Buffer data for vertices bitangent vectors.
+     *
+     * @since v1.1.0
+     */
+    val bitangentsData: FloatBufferData
+
+    /**
      * Indices of vertices for subsequent mesh triangles.
      *
      * If not provided, the mesh will be drawn sequentially for all defined vertices.

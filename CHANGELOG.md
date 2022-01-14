@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Added
+- Support bitangents shader attribute
 
 ### Changed
 - Dependencies:

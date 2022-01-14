@@ -47,6 +47,7 @@ class AttributeModelBuilder(
                 "TEX_COORDS" -> TEX_COORDS_BUFFER_INDEX
                 "NORMALS" -> NORMALS_BUFFER_INDEX
                 "TANGENTS" -> TANGENTS_BUFFER_INDEX
+                "BITANGENTS" -> BITANGENTS_BUFFER_INDEX
                 else -> NO_BUFFER_INDEX
             }
         }
@@ -69,5 +70,6 @@ class AttributeModelBuilder(
         private const val TEX_COORDS_BUFFER_INDEX = 1
         private const val NORMALS_BUFFER_INDEX = 2
         private const val TANGENTS_BUFFER_INDEX = 3
+        private const val BITANGENTS_BUFFER_INDEX = 4
     }
 }

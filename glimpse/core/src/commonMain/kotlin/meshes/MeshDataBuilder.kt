@@ -112,6 +112,9 @@ class MeshDataBuilder {
             }.toFloatBufferData(),
             tangentsData = triangles.flatMap { triangle ->
                 triangle.tangents.flatMap { vector -> vector.toList() }
+            }.toFloatBufferData(),
+            bitangentsData = triangles.flatMap { triangle ->
+                triangle.bitangents.flatMap { vector -> vector.toList() }
             }.toFloatBufferData()
         )
         positions.clear()
@@ -155,6 +158,7 @@ class MeshDataBuilder {
     ) {
 
         val tangent: Vec3
+        val bitangent: Vec3
 
         val positions: List<Vec3>
             get() = listOf(position1, position2, position3)
@@ -168,6 +172,9 @@ class MeshDataBuilder {
         val tangents: List<Vec3>
             get() = listOf(tangent, tangent, tangent)
 
+        val bitangents: List<Vec3>
+            get() = listOf(bitangent, bitangent, bitangent)
+
         init {
             val edge1 = position2 - position1
             val edge2 = position3 - position1
@@ -178,6 +185,7 @@ class MeshDataBuilder {
             val factor = 1f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y)
 
             tangent = (edge1 * deltaUV2.y - edge2 * deltaUV1.y) * factor
+            bitangent = (edge1 * deltaUV1.x - edge2 * deltaUV2.x) * factor
         }
     }
 
