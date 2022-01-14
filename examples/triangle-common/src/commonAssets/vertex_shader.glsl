@@ -11,6 +11,7 @@ attribute vec3 aPos;
 attribute vec2 aTexCoords;
 attribute vec3 aNormal;
 attribute vec3 aTangent;
+attribute vec3 aBitangent;
 
 varying vec3 vLightPosTan;
 varying vec3 vPosTan;
@@ -22,7 +23,8 @@ void main() {
     vec3 normal = normalize(uNormalMatrix * aNormal);
     vec3 tangent = normalize(uNormalMatrix * aTangent);
     tangent = normalize(tangent - dot(tangent, normal) * normal);
-    vec3 bitangent = cross(normal, tangent);
+    vec3 bitangent = normalize(uNormalMatrix * aBitangent);
+    bitangent = normalize(bitangent - dot(bitangent, normal) * normal);
 
     mat3 tbnMatrix = mat3(
         vec3(tangent.x, bitangent.x, normal.x),

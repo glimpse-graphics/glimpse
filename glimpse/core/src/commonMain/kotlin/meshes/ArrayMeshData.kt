@@ -49,7 +49,14 @@ data class ArrayMeshData(
     /**
      * Buffer data for vertices tangent vectors.
      */
-    override val tangentsData: FloatBufferData
+    override val tangentsData: FloatBufferData,
+
+    /**
+     * Buffer data for vertices bitangent vectors.
+     *
+     * @since v1.1.0
+     */
+    override val bitangentsData: FloatBufferData
 ) : MeshData {
 
     /**
@@ -68,6 +75,7 @@ data class ArrayMeshData(
         if (!texCoordsData.contentEquals(other.texCoordsData)) return false
         if (!normalsData.contentEquals(other.normalsData)) return false
         if (!tangentsData.contentEquals(other.tangentsData)) return false
+        if (!bitangentsData.contentEquals(other.bitangentsData)) return false
 
         return true
     }
@@ -78,6 +86,7 @@ data class ArrayMeshData(
         result = 31 * result + texCoordsData.contentHashCode()
         result = 31 * result + normalsData.contentHashCode()
         result = 31 * result + tangentsData.contentHashCode()
+        result = 31 * result + bitangentsData.contentHashCode()
         return result
     }
 }

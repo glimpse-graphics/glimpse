@@ -41,5 +41,12 @@ enum class AttributeRole {
     /**
      * Tangent vectors.
      */
-    TANGENTS
+    TANGENTS,
+
+    /**
+     * Bitangent vectors.
+     *
+     * @since v1.1.0
+     */
+    BITANGENTS
 }
