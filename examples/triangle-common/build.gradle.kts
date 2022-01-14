@@ -51,8 +51,8 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                api("com.google.android.material:material:1.4.0")
-                api("androidx.appcompat:appcompat:1.4.0")
+                api("com.google.android.material:material:1.5.0")
+                api("androidx.appcompat:appcompat:1.4.1")
                 api("androidx.activity:activity-compose:1.4.0") {
                     exclude(group = "androidx.compose.animation")
                     exclude(group = "androidx.compose.foundation")
@@ -73,7 +73,7 @@ kotlin {
             dependencies {
                 implementation("org.jogamp.jogl:jogl-all-main:2.3.2")
                 implementation("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
-                implementation("org.slf4j:slf4j-api:1.7.32")
+                implementation("org.slf4j:slf4j-api:1.7.33")
             }
         }
         val desktopTest by getting {
