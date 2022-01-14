@@ -30,9 +30,9 @@ jobs:
       - name: Fetch Sources
         uses: actions/checkout@v2.4.0
       - name: Setup Java
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v2.5.0
         with:
-          distribution: zulu
+          distribution: temurin
           java-version: 11
       - name: Export Properties
         id: properties
@@ -55,9 +55,9 @@ jobs:
       - name: Fetch Sources
         uses: actions/checkout@v2.4.0
       - name: Setup Java
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v2.5.0
         with:
-          distribution: zulu
+          distribution: temurin
           java-version: 11
       - name: Run Unit Tests
         run: ./gradlew allTests testDebugUnitTest --stacktrace
@@ -94,9 +94,9 @@ jobs:
       - name: Fetch Sources
         uses: actions/checkout@v2.4.0
       - name: Setup Java
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v2.5.0
         with:
-          distribution: zulu
+          distribution: temurin
           java-version: 11
       - name: Generate Documentation
         run: ./gradlew dokkaHtml --stacktrace
@@ -121,9 +121,9 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
       - name: Setup Java
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v2.5.0
         with:
-          distribution: zulu
+          distribution: temurin
           java-version: 11
       - name: Generate Documentation
         run: |
@@ -168,9 +168,9 @@ jobs:
       - name: Fetch Sources
         uses: actions/checkout@v2.4.0
       - name: Setup Java
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v2.5.0
         with:
-          distribution: zulu
+          distribution: temurin
           java-version: 11
       - name: Assemble Library
         run: ./gradlew assemble --stacktrace
@@ -211,9 +211,9 @@ jobs:
       - name: Fetch Sources
         uses: actions/checkout@v2.4.0
       - name: Setup Java
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v2.5.0
         with:
-          distribution: zulu
+          distribution: temurin
           java-version: 11
       - name: Decrypt Key Ring File
         env:
