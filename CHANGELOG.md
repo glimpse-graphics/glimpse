@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Added
+- Glimpse Gradle plugin
 
 ### Changed
 
