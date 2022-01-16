@@ -25,6 +25,7 @@ plugins {
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
+    implementation("com.android.tools.build:gradle:7.0.4")
     testImplementation("junit:junit:4.13.1")
 }
 
@@ -34,6 +35,12 @@ gradlePlugin {
         displayName = "Glimpse JVM Gradle Plugin"
         description = "Glimpse Gradle plugin for Kotlin JVM projects"
         implementationClass = "graphics.glimpse.gradle.GlimpseJvmGradlePlugin"
+    }
+    plugins.create("glimpseAndroidGradlePlugin") {
+        id = "${group}.android"
+        displayName = "Glimpse Android Gradle Plugin"
+        description = "Glimpse Gradle plugin for Android projects"
+        implementationClass = "graphics.glimpse.gradle.GlimpseAndroidGradlePlugin"
     }
     pluginBundle {
         website = "https://glimpse.graphics/"

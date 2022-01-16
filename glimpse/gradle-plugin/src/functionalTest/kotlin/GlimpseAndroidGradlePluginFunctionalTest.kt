@@ -20,24 +20,24 @@ import org.junit.Before
 import org.junit.Test
 import java.io.File
 
-class GlimpseJvmGradlePluginFunctionalTest : AbstractFunctionalTest() {
+class GlimpseAndroidGradlePluginFunctionalTest : AbstractFunctionalTest() {
 
     @Before
     fun createProjectStructure() {
         createDirectories(projectDir)
         createDirectories(srcDir)
         createDirectories(srcSubDir)
-        createDirectories(resDir)
+        createDirectories(assetsDir)
 
         writeFile(File(projectDir, "settings.gradle.kts"), EMPTY)
-        writeFile(File(projectDir, "build.gradle.kts"), BUILD_JVM)
+        writeFile(File(projectDir, "build.gradle.kts"), BUILD_ANDROID)
         writeFile(File(srcDir, "test.obj"), TRIANGLE.trimIndent())
         writeFile(File(srcSubDir, "test.obj"), TRIANGLE.trimIndent())
-        writeFile(File(resDir, "resource.txt"), TEXT)
+        writeFile(File(assetsDir, "asset.txt"), TEXT)
     }
 
     @Test
-    fun `GIVEN a JVM project, WHEN run generateMeshData task, THEN generate mesh data`() {
+    fun `GIVEN an Android project, WHEN run generateMeshData task, THEN generate mesh data`() {
         generateMeshData()
 
         assertFileContents(expectedMeshDataBytes, path = "generated/glimpseResources/main/test.meshdata")
@@ -45,13 +45,16 @@ class GlimpseJvmGradlePluginFunctionalTest : AbstractFunctionalTest() {
     }
 
     @Test
-    fun `GIVEN a JVM project, WHEN run processResources task, THEN generate and process mesh data`() {
-        processResources()
+    fun `GIVEN an Android project, WHEN run mergeAssets tasks, THEN generate mesh data and merge assets`() {
+        mergeAssets()
 
         assertFileContents(expectedMeshDataBytes, path = "generated/glimpseResources/main/test.meshdata")
         assertFileContents(expectedMeshDataBytes, path = "generated/glimpseResources/main/subdir/test.meshdata")
-        assertFileContents(expectedMeshDataBytes, path = "resources/main/test.meshdata")
-        assertFileContents(expectedMeshDataBytes, path = "resources/main/subdir/test.meshdata")
-        assertFileContents(TEXT.toByteArray(), path = "resources/main/resource.txt")
+        assertFileContents(expectedMeshDataBytes, path = "intermediates/merged_assets/debug/out/test.meshdata")
+        assertFileContents(expectedMeshDataBytes, path = "intermediates/merged_assets/debug/out/subdir/test.meshdata")
+        assertFileContents(expectedMeshDataBytes, path = "intermediates/merged_assets/release/out/test.meshdata")
+        assertFileContents(expectedMeshDataBytes, path = "intermediates/merged_assets/release/out/subdir/test.meshdata")
+        assertFileContents(TEXT.toByteArray(), path = "intermediates/merged_assets/debug/out/asset.txt")
+        assertFileContents(TEXT.toByteArray(), path = "intermediates/merged_assets/release/out/asset.txt")
     }
 }

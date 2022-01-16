@@ -21,10 +21,20 @@ import java.io.DataOutputStream
 import java.nio.ByteBuffer
 
 const val EMPTY: String = ""
-const val PLUGINS: String = """
+const val BUILD_JVM: String = """
             plugins {
                 id("org.jetbrains.kotlin.jvm")
                 id("graphics.glimpse.jvm")
+            }
+        """
+const val BUILD_ANDROID: String = """
+            plugins {
+                id("com.android.library")
+                id("org.jetbrains.kotlin.android")
+                id("graphics.glimpse.android")
+            }
+            android {
+                compileSdk = 31
             }
         """
 const val TRIANGLE: String = """
@@ -57,7 +67,7 @@ val EXPECTED_DATA = floatArrayOf(
     0f, 0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f // bitangents
 )
 
-val expectedMeshDataFileContents: ByteArray by lazy {
+val expectedMeshDataBytes: ByteArray by lazy {
     val buffer = ByteBuffer.allocate(Int.SIZE_BYTES + EXPECTED_DATA.size * Float.SIZE_BYTES)
     val outputStream = DataOutputStream(ByteBufferOutputStream(buffer))
     outputStream.use { out ->

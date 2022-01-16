@@ -16,92 +16,42 @@
 
 package graphics.glimpse.gradle
 
-import org.gradle.testkit.runner.GradleRunner
-import org.junit.After
-import org.junit.Assert.assertArrayEquals
 import org.junit.Before
 import org.junit.Test
 import java.io.File
 
-class GlimpseJvmGradlePluginTestFunctionalTest {
-
-    private val projectDir = File("build/functionalTest")
-    private val srcDir = File(projectDir, "src/test/obj")
-    private val resDir = File(projectDir, "src/test/resources")
-    private val subdir = File(srcDir, "subdir")
-    private val buildDir = File(projectDir, "build")
+class GlimpseJvmGradlePluginTestFunctionalTest : AbstractFunctionalTest() {
 
     @Before
-    fun `set up project`() {
+    fun createProjectStructure() {
         createDirectories(projectDir)
-        createDirectories(srcDir)
-        createDirectories(subdir)
-        createDirectories(resDir)
+        createDirectories(testSrcDir)
+        createDirectories(testSrcSubDir)
+        createDirectories(testResDir)
 
         writeFile(File(projectDir, "settings.gradle.kts"), EMPTY)
-        writeFile(File(projectDir, "build.gradle.kts"), PLUGINS)
-        writeFile(File(srcDir, "test.obj"), TRIANGLE.trimIndent())
-        writeFile(File(subdir, "test.obj"), TRIANGLE.trimIndent())
-        writeFile(File(resDir, "resource.txt"), TEXT)
-    }
-
-    @After
-    fun `clean project`() {
-        deleteDirectory(buildDir)
+        writeFile(File(projectDir, "build.gradle.kts"), BUILD_JVM)
+        writeFile(File(testSrcDir, "test.obj"), TRIANGLE.trimIndent())
+        writeFile(File(testSrcSubDir, "test.obj"), TRIANGLE.trimIndent())
+        writeFile(File(testResDir, "resource.txt"), TEXT)
     }
 
     @Test
     fun `GIVEN a JVM project, WHEN run generateTestMeshData task, THEN generate mesh data`() {
         generateTestMeshData()
 
-        assertArrayEquals(
-            expectedMeshDataFileContents,
-            File(buildDir, "generated/glimpseResources/test/test.meshdata").readBytes()
-        )
-        assertArrayEquals(
-            expectedMeshDataFileContents,
-            File(buildDir, "generated/glimpseResources/test/subdir/test.meshdata").readBytes()
-        )
-    }
-
-    private fun generateTestMeshData() {
-        GradleRunner.create()
-            .forwardOutput()
-            .withPluginClasspath()
-            .withArguments("generateTestMeshData")
-            .withProjectDir(projectDir)
-            .build()
+        assertFileContents(expectedMeshDataBytes, path = "generated/glimpseResources/test/test.meshdata")
+        assertFileContents(expectedMeshDataBytes, path = "generated/glimpseResources/test/subdir/test.meshdata")
     }
 
     @Test
     fun `GIVEN a JVM project, WHEN run processTestResources task, THEN generate and process mesh data`() {
         processTestResources()
 
-        assertArrayEquals(
-            expectedMeshDataFileContents,
-            File(buildDir, "generated/glimpseResources/test/test.meshdata").readBytes()
-        )
-        assertArrayEquals(
-            expectedMeshDataFileContents,
-            File(buildDir, "generated/glimpseResources/test/subdir/test.meshdata").readBytes()
-        )
-        assertArrayEquals(
-            expectedMeshDataFileContents,
-            File(buildDir, "resources/test/test.meshdata").readBytes()
-        )
-        assertArrayEquals(
-            expectedMeshDataFileContents,
-            File(buildDir, "resources/test/subdir/test.meshdata").readBytes()
-        )
-        assertArrayEquals(TEXT.toByteArray(), File(buildDir, "resources/test/resource.txt").readBytes())
-    }
-
-    private fun processTestResources() {
-        GradleRunner.create()
-            .forwardOutput()
-            .withPluginClasspath()
-            .withArguments("processTestResources")
-            .withProjectDir(projectDir)
-            .build()
+        assertFileContents(expectedMeshDataBytes, path = "generated/glimpseResources/test/test.meshdata")
+        assertFileContents(expectedMeshDataBytes, path = "generated/glimpseResources/test/subdir/test.meshdata")
+        assertFileContents(expectedMeshDataBytes, path = "resources/test/test.meshdata")
+        assertFileContents(expectedMeshDataBytes, path = "resources/test/subdir/test.meshdata")
+        assertFileContents(TEXT.toByteArray(), path = "resources/test/resource.txt")
     }
 }
