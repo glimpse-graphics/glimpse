@@ -8,6 +8,7 @@
 - Set texture parameters in texture builder
 - Dependencies:
   - Upgrade `slf4j-api` to `1.7.33`
+  - Upgrade `org.jetbrains.dokka` to `1.6.10`
   - Upgrade `androidx.appcompat:appcompat` to `1.4.1`
   - Upgrade `com.google.android.material:material` to `1.5.0`
 
