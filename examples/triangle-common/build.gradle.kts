@@ -19,7 +19,7 @@ plugins {
     kotlin("multiplatform")
     id("com.google.devtools.ksp") version "1.6.10-1.0.2"
     id("org.jetbrains.compose")
-    id("graphics.glimpse.detekt")
+    id("graphics.glimpse.internal.detekt")
 }
 
 kotlin {

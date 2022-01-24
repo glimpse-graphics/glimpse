@@ -15,5 +15,5 @@
  */
 
 plugins {
-    id("graphics.glimpse.jvm")
+    id("graphics.glimpse.internal.jvm")
 }

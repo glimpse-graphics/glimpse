@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package graphics.glimpse
+package graphics.glimpse.internal
 
 plugins {
-    id("com.android.library")
-    kotlin("multiplatform")
-    id("graphics.glimpse.test.logging")
-    id("graphics.glimpse.detekt")
-    id("graphics.glimpse.dokka")
-    id("graphics.glimpse.sonatype")
+    kotlin("jvm")
+    id("graphics.glimpse.internal.test.logging")
+    id("graphics.glimpse.internal.detekt")
+    id("graphics.glimpse.internal.dokka")
+    id("graphics.glimpse.internal.sonatype")
     signing
 }
 
@@ -35,33 +34,29 @@ tasks {
                 from(dokkaHtml)
             }
         )
+        archives(
+            create<Jar>("sourcesJar") {
+                archiveClassifier.set("sources")
+                from(sourceSets.named("main").get().allJava.srcDirs)
+            }
+        )
     }
-}
-
-kotlin {
-    android {
-        publishLibraryVariants("debug", "release")
-    }
-
-    jvm(name = "desktop") {
-        compilations.all {
-            kotlinOptions.jvmTarget = "11"
-        }
-    }
-}
-
-android {
-    compileSdk = 31
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 }
 
 afterEvaluate {
     publishing {
         publications {
-            filterIsInstance<MavenPublication>().forEach { publication ->
-                publication.artifactId = "${project.parent?.name}-${publication.artifactId}"
-                publication.artifact(project.tasks["javadocJar"])
-                publication.pom {
+            register("libraryJar", MavenPublication::class) {
+                from(project.components["kotlin"])
+
+                artifact(project.tasks["javadocJar"])
+                artifact(project.tasks["sourcesJar"])
+
+                artifactId = "${project.parent?.name}-${project.name}"
+                groupId = "${project.group}"
+                version = "${project.version}"
+
+                pom {
                     val gitUrl = "https://github.com/glimpse-graphics/glimpse"
 
                     name.set("Glimpse ${project.name.replace('-', ' ').capitalize()}")

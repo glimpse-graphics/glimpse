@@ -15,7 +15,7 @@
  */
 
 plugins {
-    id("graphics.glimpse.multiplatform")
+    id("graphics.glimpse.internal.multiplatform")
     id("org.jetbrains.compose")
 }
 

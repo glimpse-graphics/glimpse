@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package graphics.glimpse.test
+package graphics.glimpse.internal.test
 
 import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.invoke
