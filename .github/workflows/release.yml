@@ -41,7 +41,7 @@ jobs:
           SIGNING_PASS: ${{ secrets.SIGNING_PASS }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-        run: ./gradlew publish -Psigning.secretKeyRingFile=../../secring.gpg -Psigning.password="${SIGNING_PASS}" -Psigning.keyId="${SIGNING_KEY_ID}" --stacktrace
+        run: ./gradlew publish -Psigning.secretKeyRingFile=../../secring.gpg -Psigning.password="${SIGNING_PASS}" -Psigning.keyId="${SIGNING_KEY_ID}" -Porg.gradle.parallel=false --stacktrace
 
   changelog:
     name: Update Changelog

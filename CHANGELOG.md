@@ -12,14 +12,6 @@
   - Upgrade `androidx.appcompat:appcompat` to `1.4.1`
   - Upgrade `com.google.android.material:material` to `1.5.0`
 
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
-
 ## [1.1.0-ALPHA1]
 ### Added
 - Support for `Boolean` uniform shader parameters
@@ -163,6 +155,7 @@
 - Offscreen rendering (Android)
 
 [Unreleased]: https://github.com/glimpse-graphics/glimpse/tree/main
+[1.1.0-ALPHA2]: https://github.com/glimpse-graphics/glimpse/releases/tag/v1.1.0-ALPHA2
 [1.1.0-ALPHA1]: https://github.com/glimpse-graphics/glimpse/releases/tag/v1.1.0-ALPHA1
 [1.0.0]: https://github.com/glimpse-graphics/glimpse/releases/tag/v1.0.0
 [1.0.0-RC1]: https://github.com/glimpse-graphics/glimpse/releases/tag/v1.0.0-RC1
