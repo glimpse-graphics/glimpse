@@ -55,6 +55,25 @@ interface Texture {
         fun addCubemapTexture(side: CubemapSide, source: TextureImageSource): Builder
 
         /**
+         * Sets [minifying][minFilter] and [magnifying][magFilter] filters all created textures.
+         *
+         * Default values are [TextureMinFilter.LINEAR] or [TextureMinFilter.LINEAR_MIPMAP_LINEAR] for minifying
+         * filter and [TextureMagFilter.LINEAR] for magnifying filter.
+         *
+         * @since v1.1.0
+         */
+        fun setTextureFilter(minFilter: TextureMinFilter, magFilter: TextureMagFilter): Builder
+
+        /**
+         * Sets wrap parameter for texture coordinates [S][wrapS] and [T][wrapT] filters all created textures.
+         *
+         * Default values are [TextureWrap.REPEAT].
+         *
+         * @since v1.1.0
+         */
+        fun setTextureWrap(wrapS: TextureWrap, wrapT: TextureWrap = wrapS): Builder
+
+        /**
          * Tells the builder to generate mipmaps for all created textures.
          */
         fun generateMipmaps(): Builder

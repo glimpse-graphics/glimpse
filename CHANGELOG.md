@@ -5,6 +5,7 @@
 - Support bitangents shader attribute
 
 ### Changed
+- Set texture parameters in texture builder
 - Dependencies:
   - Upgrade `slf4j-api` to `1.7.33`
   - Upgrade `androidx.appcompat:appcompat` to `1.4.1`
