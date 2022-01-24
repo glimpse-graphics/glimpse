@@ -2,6 +2,19 @@
 
 ## [Unreleased]
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [1.1.0-ALPHA2]
+### Added
 - Support bitangents shader attribute
 
 ### Changed
