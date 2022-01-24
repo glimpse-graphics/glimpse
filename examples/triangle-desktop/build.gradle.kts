@@ -20,7 +20,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
-    id("graphics.glimpse.detekt")
+    id("graphics.glimpse.internal.detekt")
 }
 
 kotlin {

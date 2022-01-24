@@ -17,7 +17,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    id("graphics.glimpse.detekt")
+    id("graphics.glimpse.internal.detekt")
 }
 
 dependencies {

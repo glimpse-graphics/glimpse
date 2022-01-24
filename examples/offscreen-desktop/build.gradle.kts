@@ -17,7 +17,7 @@
 plugins {
     application
     kotlin("jvm")
-    id("graphics.glimpse.detekt")
+    id("graphics.glimpse.internal.detekt")
 }
 
 dependencies {

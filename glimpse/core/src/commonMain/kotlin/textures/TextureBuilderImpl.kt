@@ -24,6 +24,16 @@ internal class TextureBuilderImpl(private val gl: GlimpseAdapter) : Texture.Buil
     private val logger: GlimpseLogger = GlimpseLogger.create(this)
 
     private val params = mutableListOf<TextureParams>()
+
+    private var _minFilter: TextureMinFilter? = null
+    private var minFilter
+        get() = _minFilter ?: if (generateMipmaps) TextureMinFilter.LINEAR_MIPMAP_LINEAR else TextureMinFilter.LINEAR
+        set(value) { _minFilter = value }
+    private var magFilter = TextureMagFilter.LINEAR
+
+    private var wrapS = TextureWrap.REPEAT
+    private var wrapT = TextureWrap.REPEAT
+
     private var generateMipmaps = false
 
     override fun addTexture(source: TextureImageSource): Texture.Builder {
@@ -36,6 +46,18 @@ internal class TextureBuilderImpl(private val gl: GlimpseAdapter) : Texture.Buil
         source: TextureImageSource
     ): Texture.Builder {
         params.add(TextureParams(TextureType.TEXTURE_CUBE_MAP, side, source))
+        return this
+    }
+
+    override fun setTextureFilter(minFilter: TextureMinFilter, magFilter: TextureMagFilter): Texture.Builder {
+        this.minFilter = minFilter
+        this.magFilter = magFilter
+        return this
+    }
+
+    override fun setTextureWrap(wrapS: TextureWrap, wrapT: TextureWrap): Texture.Builder {
+        this.wrapS = wrapS
+        this.wrapT = wrapT
         return this
     }
 
@@ -52,26 +74,39 @@ internal class TextureBuilderImpl(private val gl: GlimpseAdapter) : Texture.Buil
         gl.glGenTextures(handles)
         for ((index, textureParams) in params.withIndex()) {
             gl.glBindTexture(textureParams.type, handles[index])
-            when (textureParams.type) {
-                TextureType.TEXTURE_2D -> {
-                    textureParams.source.glTexImage2D(gl, generateMipmaps)
-                }
-                TextureType.TEXTURE_CUBE_MAP -> {
-                    textureParams.source.glTexImage2D(
-                        gl,
-                        checkNotNull(textureParams.side) { "Null side for cubemap texture" },
-                        generateMipmaps
-                    )
-                }
-            }
-
+            glTexImage(textureParams)
+            gl.glTexParameterFilter(textureParams.type, minFilter, magFilter)
+            gl.glTexParameterWrap(textureParams.type, wrapS, wrapT)
         }
         val textures = handles.mapIndexed { index, handle ->
             TextureImpl(handle, params[index].type)
         }
-        params.clear()
-        generateMipmaps = false
+        resetState()
         return textures
+    }
+
+    private fun glTexImage(textureParams: TextureParams) {
+        when (textureParams.type) {
+            TextureType.TEXTURE_2D -> {
+                textureParams.source.glTexImage2D(gl, generateMipmaps)
+            }
+            TextureType.TEXTURE_CUBE_MAP -> {
+                textureParams.source.glTexImage2D(
+                    gl,
+                    checkNotNull(textureParams.side) { "Null side for cubemap texture" },
+                    generateMipmaps
+                )
+            }
+        }
+    }
+
+    private fun resetState() {
+        params.clear()
+        _minFilter = null
+        magFilter = TextureMagFilter.LINEAR
+        wrapS = TextureWrap.REPEAT
+        wrapT = TextureWrap.REPEAT
+        generateMipmaps = false
     }
 
     private data class TextureParams(

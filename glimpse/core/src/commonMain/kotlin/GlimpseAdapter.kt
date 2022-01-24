@@ -279,6 +279,9 @@ expect class GlimpseAdapter {
     /**
      * Sets texture [minifying][minFilter] and [magnifying][magFilter] filters for the currently
      * selected texture of a given [type].
+     *
+     * Since v1.1.0, there is no need to call this function explicitly. To change texture filters,
+     * use [texture builder][graphics.glimpse.textures.Texture.Builder.setTextureFilter].
      */
     fun glTexParameterFilter(
         type: TextureType,
@@ -289,6 +292,9 @@ expect class GlimpseAdapter {
     /**
      * Sets wrap parameter for texture coordinates [S][wrapS] and [T][wrapT] for the currently
      * selected texture of a given [type].
+     *
+     * Since v1.1.0, there is no need to call this function explicitly. To change texture wrapping,
+     * use [texture builder][graphics.glimpse.textures.Texture.Builder.setTextureWrap].
      */
     fun glTexParameterWrap(
         type: TextureType,

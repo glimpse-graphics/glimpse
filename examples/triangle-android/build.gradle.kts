@@ -18,7 +18,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("org.jetbrains.compose")
-    id("graphics.glimpse.detekt")
+    id("graphics.glimpse.internal.detekt")
 }
 
 dependencies {

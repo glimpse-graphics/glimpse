@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package graphics.glimpse
+package graphics.glimpse.internal
 
 import org.jetbrains.dokka.gradle.DokkaTaskPartial
 

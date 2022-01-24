@@ -30,10 +30,6 @@ import graphics.glimpse.shaders.Program
 import graphics.glimpse.shaders.Shader
 import graphics.glimpse.shaders.ShaderType
 import graphics.glimpse.textures.Texture
-import graphics.glimpse.textures.TextureMagFilter
-import graphics.glimpse.textures.TextureMinFilter
-import graphics.glimpse.textures.TextureType
-import graphics.glimpse.textures.TextureWrap
 import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Mat3
 import graphics.glimpse.types.Mat4
@@ -68,13 +64,6 @@ class QuadRenderer(
         gl.glClearDepth(depth = 1f)
         gl.glDepthTest(DepthTestFunction.LESS_OR_EQUAL)
         gl.glCullFace(FaceCullingMode.BACK)
-
-        gl.glTexParameterWrap(TextureType.TEXTURE_2D, TextureWrap.REPEAT, TextureWrap.REPEAT)
-        gl.glTexParameterFilter(
-            TextureType.TEXTURE_2D,
-            TextureMinFilter.LINEAR_MIPMAP_LINEAR,
-            TextureMagFilter.LINEAR
-        )
 
         gl.glClear(ClearableBufferType.COLOR_BUFFER, ClearableBufferType.DEPTH_BUFFER)
 

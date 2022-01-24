@@ -35,9 +35,6 @@ import graphics.glimpse.shaders.Program
 import graphics.glimpse.shaders.ProgramExecutor
 import graphics.glimpse.textures.EmptyTexturePresets
 import graphics.glimpse.textures.Texture
-import graphics.glimpse.textures.TextureMagFilter
-import graphics.glimpse.textures.TextureMinFilter
-import graphics.glimpse.textures.TextureType
 import graphics.glimpse.textures.TextureWrap
 import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Vec2
@@ -90,17 +87,11 @@ class TriangleCallback(
         gl.glEnableBlending()
         gl.glBlendingFunction(BlendingFactorFunction.SOURCE_ALPHA, BlendingFactorFunction.ONE_MINUS_SOURCE_ALPHA)
 
-        gl.glTexParameterWrap(TextureType.TEXTURE_2D, TextureWrap.REPEAT, TextureWrap.REPEAT)
-        gl.glTexParameterFilter(
-            TextureType.TEXTURE_2D,
-            TextureMinFilter.LINEAR_MIPMAP_LINEAR,
-            TextureMagFilter.LINEAR
-        )
-
         mesh = Mesh.Factory.newInstance(gl).createMesh(resources.getMeshData())
         val textures = Texture.Builder.getInstance(gl)
             .addTexture(resources.getTextureSource())
             .addTexture(resources.getNormalMapSource())
+            .setTextureWrap(TextureWrap.CLAMP_TO_EDGE)
             .generateMipmaps()
             .build()
         texture = textures[0]
