@@ -185,7 +185,7 @@ class MeshDataBuilder {
             val factor = 1f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y)
 
             tangent = (edge1 * deltaUV2.y - edge2 * deltaUV1.y) * factor
-            bitangent = (edge1 * deltaUV1.x - edge2 * deltaUV2.x) * factor
+            bitangent = (edge2 * deltaUV1.x - edge1 * deltaUV2.x) * factor
         }
     }
 

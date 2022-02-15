@@ -10,6 +10,7 @@
 ### Removed
 
 ### Fixed
+- Fix bitangent calculations
 - Correct implementation of `toString()` for buffer data objects
 
 ### Security

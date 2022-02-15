@@ -38,7 +38,7 @@ class ObjMeshDataParserIntegrationTest {
                 texCoordsData = floatBufferDataOf(0f, 0f, 2f, 0f, 1f, 1f),
                 normalsData = floatBufferDataOf(0f, -1f, 0f, 1f, 0f, 0f, 0.7f, -0.7f, 0f),
                 tangentsData = floatBufferDataOf(1f, 1f, 0f, 1f, 1f, 0f, 1f, 1f, 0f),
-                bitangentsData = floatBufferDataOf(1.5f, 1.5f, -0.5f, 1.5f, 1.5f, -0.5f, 1.5f, 1.5f, -0.5f)
+                bitangentsData = floatBufferDataOf(0f, 0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f)
             ),
             result
         )
