@@ -19,6 +19,7 @@ package graphics.glimpse.buffers
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer
+import kotlin.math.min
 
 /**
  * Data to be stored in a buffer of floating point numbers.
@@ -44,9 +45,23 @@ actual class FloatBufferData(
      */
     actual fun contentHashCode(): Int = nioBuffer.hashCode()
 
+    override fun toString(): String {
+        nioBuffer.rewind()
+        val capacity = nioBuffer.capacity()
+        val floats = FloatArray(size = min(capacity, MAX_ELEMENTS_TO_STRING))
+        nioBuffer.get(floats)
+        nioBuffer.rewind()
+        return floats.joinToString(
+            prefix = "FloatBufferData(sizeInBytes=$sizeInBytes, [",
+            postfix = if (capacity > MAX_ELEMENTS_TO_STRING) ", ... ])" else "])"
+        )
+    }
+
     actual companion object {
 
         private const val ELEMENT_SIZE = Float.SIZE_BYTES
+
+        private const val MAX_ELEMENTS_TO_STRING = 32
 
         /**
          * Creates buffer data from an array of floating point numbers.
