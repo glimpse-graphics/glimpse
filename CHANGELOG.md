@@ -1,7 +1,19 @@
 # Glimpse Changelog
 
 ## [Unreleased]
+### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [1.1.0-ALPHA3]
 ### Fixed
 - Fix bitangent calculations
 - Correct implementation of `toString()` for buffer data objects
