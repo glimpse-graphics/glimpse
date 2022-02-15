@@ -27,8 +27,10 @@ internal class BufferFactoryImpl(private val gl: GlimpseAdapter) : Buffer.Factor
         val buffersCount = buffersData.size
 
         logger.debug(
-            message = "Creating $buffersCount array buffers with sizes: " +
-                    "${buffersData.map { it.sizeInBytes }} bytes"
+            message = buffersData.joinToString(
+                prefix = "Creating $buffersCount array buffers with data:\n\t",
+                separator = "\n\t"
+            )
         )
 
         val handles = IntArray(size = buffersCount)
@@ -55,8 +57,10 @@ internal class BufferFactoryImpl(private val gl: GlimpseAdapter) : Buffer.Factor
         val buffersCount = buffersData.size
 
         logger.debug(
-            message = "Creating $buffersCount element array buffers with sizes: " +
-                    "${buffersData.map { it.sizeInBytes }} bytes"
+            message = buffersData.joinToString(
+                prefix = "Creating $buffersCount element array buffers with data:\n\t",
+                separator = "\n\t"
+            )
         )
 
         val handles = IntArray(size = buffersCount)

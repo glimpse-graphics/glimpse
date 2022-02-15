@@ -19,6 +19,7 @@ package graphics.glimpse.buffers
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.IntBuffer
+import kotlin.math.min
 
 /**
  * Data to be stored in a buffer of integer numbers.
@@ -44,9 +45,23 @@ actual class IntBufferData(
      */
     actual fun contentHashCode(): Int = nioBuffer.hashCode()
 
+    override fun toString(): String {
+        nioBuffer.rewind()
+        val capacity = nioBuffer.capacity()
+        val ints = IntArray(size = min(capacity, MAX_ELEMENTS_TO_STRING))
+        nioBuffer.get(ints)
+        nioBuffer.rewind()
+        return ints.joinToString(
+            prefix = "IntBufferData(sizeInBytes=$sizeInBytes, [",
+            postfix = if (capacity > MAX_ELEMENTS_TO_STRING) ", ... ])" else "])"
+        )
+    }
+
     actual companion object {
 
         private const val ELEMENT_SIZE = Int.SIZE_BYTES
+
+        private const val MAX_ELEMENTS_TO_STRING = 32
 
         /**
          * Creates buffer data from an array of integer numbers.

@@ -10,6 +10,7 @@
 ### Removed
 
 ### Fixed
+- Correct implementation of `toString()` for buffer data objects
 
 ### Security
 
