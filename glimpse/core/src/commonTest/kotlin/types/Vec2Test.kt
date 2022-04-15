@@ -109,6 +109,27 @@ class Vec2Test {
     }
 
     @Test
+    @JsName(name = "GIVEN_two_vectors_WHEN_dot_THEN_return_dot_product_of_two_vectors")
+    fun `GIVEN two vectors, WHEN dot, THEN return dot product of two vectors`() {
+        val v1 = Vec2(x = 10f, y = 20f)
+        val v2 = Vec2(x = 1f, y = 2f)
+
+        val result = v1 dot v2
+
+        assertEquals(50f, result)
+    }
+
+    @Test
+    @JsName(name = "GIVEN_a_vector_WHEN_atan_THEN_return_arc_tangent_of_the_vector")
+    fun `GIVEN a vector, WHEN atan, THEN return arc tangent of the vector`() {
+        val vector = Vec2(x = 1f, y = 1f)
+
+        val result = vector.atan()
+
+        assertEquals(Angle.fromDeg(deg = 45f), result)
+    }
+
+    @Test
     @JsName(name = "GIVEN_a_vector_WHEN_toVec3_THEN_return_the_a_3D_vector_with_z_0")
     fun `GIVEN a vector, WHEN toVec3, THEN return the a 3D vector with z = 0`() {
         val vector = Vec2(x = 7f, y = 13f)
@@ -186,5 +207,19 @@ class Vec2Test {
         assertFailsWith(IllegalArgumentException::class) {
             Vec2.fromList(list)
         }
+    }
+
+    @Test
+    @JsName(
+        name = "GIVEN_polar_coordinates_WHEN_fromPolarCoordinates_" +
+                "THEN_return_vector_from_polar_coordinates"
+    )
+    fun `GIVEN polar coordinates, WHEN fromPolarCoordinates, THEN return vector from polar coordinates`() {
+        val distance = 5f
+        val angle = Angle.fromDeg(deg = 135f)
+
+        val result = Vec2.fromPolarCoordinates(distance, angle)
+
+        assertEquals(Vec2(x = -3.535533906f, y = 3.535533906f), result)
     }
 }

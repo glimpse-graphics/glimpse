@@ -204,4 +204,28 @@ class Mat3Test {
 
         assertEquals(listOf(1f, 4f, 7f, 2f, 5f, 8f, 3f, 6f, 9f), result.toList())
     }
+
+    @Test
+    @JsName(name = "GIVEN_a_matrix_WHEN_toMat2_THEN_return_a_2x2_matrix_from_its_augmented_matrix")
+    fun `GIVEN a matrix, WHEN toMat2, THEN return a 2x2 matrix from its augmented matrix`() {
+        val matrix = Mat3(
+            listOf(
+                1f, 2f, 3f,
+                4f, 5f, 6f,
+                7f, 8f, 9f
+            )
+        )
+
+        val result = matrix.toMat2()
+
+        assertEquals(
+            Mat2(
+                listOf(
+                    1f, 2f,
+                    4f, 5f
+                )
+            ),
+            result
+        )
+    }
 }

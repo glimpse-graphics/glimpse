@@ -17,7 +17,7 @@
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
-    id("com.google.devtools.ksp") version "1.6.10-1.0.2"
+    id("com.google.devtools.ksp") version "1.6.10-1.0.4"
     id("org.jetbrains.compose")
     id("graphics.glimpse.internal.detekt")
 }
@@ -73,7 +73,7 @@ kotlin {
             dependencies {
                 implementation("org.jogamp.jogl:jogl-all-main:2.3.2")
                 implementation("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
-                implementation("org.slf4j:slf4j-api:1.7.33")
+                implementation("org.slf4j:slf4j-api:1.7.36")
             }
         }
         val desktopTest by getting {

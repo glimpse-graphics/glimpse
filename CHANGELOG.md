@@ -2,8 +2,28 @@
 
 ## [Unreleased]
 ### Added
+- Method `Vec2.dot(Vec2)`
+- Method `Vec2.atan()`
+- Method `Mat3.toMat2()`
+- Method `Mat4.toMat2()`
+- Factory function `Vec2.fromPolarCoordinates(Float, Angle)`
+- Constants:
+  - `Vec2.nullVector`
+  - `Vec2.unitX`
+  - `Vec2.unitY`
 
 ### Changed
+- Upgrade Gradle Wrapper to `7.4.2`
+- Dependencies:
+  - Upgrade KSP to `1.6.10-1.0.4`
+  - Upgrade JetBrains Compose for Desktop to `1.1.1`
+  - Upgrade `kotlinx-coroutines-android` to `1.6.1-native-mt`
+  - Upgrade `kotlinpoet` to `1.11.0`
+  - Upgrade `slf4j-api` to `1.7.36`
+  - Upgrade `logback-core` to `1.2.11`
+  - Upgrade `logback-classic` to `1.2.11`
+  - Upgrade `mockk` to `1.12.3`
+  - Upgrade `org.jetbrains.dokka` to `1.6.20`
 
 ### Deprecated
 

@@ -60,6 +60,17 @@ data class Mat4(override val elements: List<Float>) : BaseMat<Mat4, Vec4>(MATRIX
     override fun adj(): Mat4 = comatrix.transpose()
 
     /**
+     * Returns a 2×2 submatrix of this matrix, obtained by deleting the last two rows and the last two columns
+     * of this 4×4 matrix.
+     */
+    fun toMat2(): Mat2 = Mat2(
+        listOf(
+            this[0, 0], this[1, 0],
+            this[0, 1], this[1, 1]
+        )
+    )
+
+    /**
      * Returns a 3×3 submatrix of this matrix, obtained by deleting the last row and the last column
      * of this 4×4 matrix.
      */

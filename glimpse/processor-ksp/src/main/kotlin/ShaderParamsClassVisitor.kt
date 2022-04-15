@@ -52,7 +52,7 @@ class ShaderParamsClassVisitor : KSDefaultVisitor<CodeGenerator, Unit>() {
         ).use { output ->
             val writer = output.bufferedWriter()
             FileSpec.builder(packageName, programExecutorName)
-                .addComment(HEADER_COMMENT_FORMAT, classDeclaration.qualifiedName?.asString().orEmpty())
+                .addFileComment(HEADER_COMMENT_FORMAT, classDeclaration.qualifiedName?.asString().orEmpty())
                 .addType(
                     buildProgramExecutorTypeSpec(
                         packageName,
