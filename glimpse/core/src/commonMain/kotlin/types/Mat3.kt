@@ -61,7 +61,7 @@ data class Mat3(override val elements: List<Float>) : BaseMat<Mat3, Vec3>(MATRIX
      * Returns a 2×2 submatrix of this matrix, obtained by deleting the last row and the last column
      * of this 4×4 matrix.
      *
-     * @since v1.2.0
+     * @since v1.1.0
      */
     fun toMat2(): Mat2 = Mat2(
         listOf(
