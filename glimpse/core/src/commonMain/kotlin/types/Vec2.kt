@@ -65,12 +65,16 @@ data class Vec2(val x: Float, val y: Float) : Vec {
 
     /**
      * Calculates dot product of this vector and the [other] vector.
+     *
+     * @since v1.2.0
      */
     infix fun dot(other: Vec2): Float =
         (this.toList() zip other.toList()).map { (a, b) -> a * b }.sum()
 
     /**
      * Returns the arc tangent of value [y]/[x] for this vector.
+     *
+     * @since v1.2.0
      */
     fun atan(): Angle = Angle.atan2(y, x)
 
@@ -101,16 +105,22 @@ data class Vec2(val x: Float, val y: Float) : Vec {
 
         /**
          * A null vector.
+         *
+         * @since v1.2.0
          */
         val nullVector: Vec2 = Vec2(x = 0f, y = 0f)
 
         /**
          * A standard unit vector in the direction of X axis.
+         *
+         * @since v1.2.0
          */
         val unitX: Vec2 = Vec2(x = 1f, y = 0f)
 
         /**
          * A standard unit vector in the direction of Y axis.
+         *
+         * @since v1.2.0
          */
         val unitY: Vec2 = Vec2(x = 0f, y = 1f)
 
@@ -128,6 +138,8 @@ data class Vec2(val x: Float, val y: Float) : Vec {
 
         /**
          * Returns a 2D vector defined by its polar coordinates: radial [distance] and [angle].
+         *
+         * @since v1.2.0
          */
         fun fromPolarCoordinates(
             distance: Float,
