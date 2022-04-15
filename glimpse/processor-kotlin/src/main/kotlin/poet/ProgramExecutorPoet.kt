@@ -31,7 +31,7 @@ object ProgramExecutorPoet {
             model.annotatedPackageName,
             model.programExecutorClassName.simpleName
         )
-            .addComment(HEADER_COMMENT_FORMAT, model.annotatedClassName.canonicalName)
+            .addFileComment(HEADER_COMMENT_FORMAT, model.annotatedClassName.canonicalName)
             .addType(ProgramExecutorClassPoet.generateRendererClass(model))
             .build()
             .writeTo(filer)
