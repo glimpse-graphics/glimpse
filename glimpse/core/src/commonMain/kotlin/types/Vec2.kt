@@ -64,6 +64,17 @@ data class Vec2(val x: Float, val y: Float) : Vec {
     operator fun div(number: Float): Vec2 = Vec2(x = this.x / number, y = this.y / number)
 
     /**
+     * Calculates dot product of this vector and the [other] vector.
+     */
+    infix fun dot(other: Vec2): Float =
+        (this.toList() zip other.toList()).map { (a, b) -> a * b }.sum()
+
+    /**
+     * Returns the arc tangent of value [y]/[x] for this vector.
+     */
+    fun atan(): Angle = Angle.atan2(y, x)
+
+    /**
      * Returns a 3D vector with `x` and `y` coordinates of this vector and the given [z] coordinate.
      */
     fun toVec3(z: Float = 0f) = Vec3(x = this.x, y = this.y, z = z)
@@ -89,6 +100,21 @@ data class Vec2(val x: Float, val y: Float) : Vec {
         private const val SIZE = 2
 
         /**
+         * A null vector.
+         */
+        val nullVector: Vec2 = Vec2(x = 0f, y = 0f)
+
+        /**
+         * A standard unit vector in the direction of X axis.
+         */
+        val unitX: Vec2 = Vec2(x = 1f, y = 0f)
+
+        /**
+         * A standard unit vector in the direction of Y axis.
+         */
+        val unitY: Vec2 = Vec2(x = 0f, y = 1f)
+
+        /**
          * Returns an instance of [Vec2] with the given [list] of coordinates.
          *
          * If the size of the list of coordinates is different than 2, [IllegalArgumentException]
@@ -99,5 +125,16 @@ data class Vec2(val x: Float, val y: Float) : Vec {
             val (x, y) = list
             return Vec2(x, y)
         }
+
+        /**
+         * Returns a 2D vector defined by its polar coordinates: radial [distance] and [angle].
+         */
+        fun fromPolarCoordinates(
+            distance: Float,
+            angle: Angle
+        ): Vec2 = Vec2(
+            x = distance * cos(angle),
+            y = distance * sin(angle)
+        )
     }
 }

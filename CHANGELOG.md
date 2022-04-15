@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 ### Added
+- Method `Vec2.dot(Vec2)`
+- Method `Vec2.atan()`
+- Method `Mat3.toMat2()`
+- Method `Mat4.toMat2()`
+- Factory function `Vec2.fromPolarCoordinates(Float, Angle)`
+- Constants:
+  - `Vec2.nullVector`
+  - `Vec2.unitX`
+  - `Vec2.unitY`
 
 ### Changed
 

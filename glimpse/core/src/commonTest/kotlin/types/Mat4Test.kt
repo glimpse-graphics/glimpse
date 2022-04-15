@@ -228,6 +228,31 @@ class Mat4Test {
     }
 
     @Test
+    @JsName(name = "GIVEN_a_matrix_WHEN_toMat2_THEN_return_a_2x2_matrix_from_its_augmented_matrix")
+    fun `GIVEN a matrix, WHEN toMat2, THEN return a 2x2 matrix from its augmented matrix`() {
+        val matrix = Mat4(
+            listOf(
+                1f, 2f, 3f, 4f,
+                5f, 6f, 7f, 8f,
+                9f, 10f, 11f, 12f,
+                13f, 14f, 15f, 16f
+            )
+        )
+
+        val result = matrix.toMat2()
+
+        assertEquals(
+            Mat2(
+                listOf(
+                    1f, 2f,
+                    5f, 6f
+                )
+            ),
+            result
+        )
+    }
+
+    @Test
     @JsName(name = "GIVEN_a_matrix_WHEN_toMat3_THEN_return_a_3x3_matrix_from_its_augmented_matrix")
     fun `GIVEN a matrix, WHEN toMat3, THEN return a 3x3 matrix from its augmented matrix`() {
         val matrix = Mat4(

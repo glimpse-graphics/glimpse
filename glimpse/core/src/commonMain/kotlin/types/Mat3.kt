@@ -58,6 +58,17 @@ data class Mat3(override val elements: List<Float>) : BaseMat<Mat3, Vec3>(MATRIX
     override fun adj(): Mat3 = comatrix.transpose()
 
     /**
+     * Returns a 2×2 submatrix of this matrix, obtained by deleting the last row and the last column
+     * of this 4×4 matrix.
+     */
+    fun toMat2(): Mat2 = Mat2(
+        listOf(
+            this[0, 0], this[1, 0],
+            this[0, 1], this[1, 1]
+        )
+    )
+
+    /**
      * Returns a string representation of this matrix.
      */
     override fun toString(): String = toString(className = "Mat3")
