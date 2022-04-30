@@ -2,19 +2,6 @@
 
 ## [Unreleased]
 ### Added
-
-### Changed
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
-
-## [1.1.0-BETA1]
-### Added
 - Support for `Boolean` uniform shader parameters
   (uniform value in shader is still an `Int`, with a value of `GL_TRUE` or `GL_FALSE`):
   - Method `GlimpseAdapter.glUniform(Int, Boolean)`
@@ -100,6 +87,6 @@
 - Support for Wavefront OBJ files
 - Offscreen rendering
 
-[Unreleased]: https://github.com/glimpse-graphics/glimpse/compare/v1.1.0-BETA1...main
-[1.1.0-BETA1]: https://github.com/glimpse-graphics/glimpse/compare/v1.0.0...v1.1.0-BETA1
+[Unreleased]: https://github.com/glimpse-graphics/glimpse/compare/v1.1.0...main
+[1.1.0]: https://github.com/glimpse-graphics/glimpse/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/glimpse-graphics/glimpse/releases/tag/v1.0.0
