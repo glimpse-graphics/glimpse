@@ -63,7 +63,7 @@ jobs:
         run: ./gradlew allTests testDebugUnitTest --stacktrace
       - name: Publish Test Report
         if: always() && (github.event_name == 'pull_request')
-        uses: EnricoMi/publish-unit-test-result-action@v1
+        uses: EnricoMi/publish-unit-test-result-action@v2
         with:
           files: '**/build/test-results/**/*.xml'
       - name: Run Detekt
