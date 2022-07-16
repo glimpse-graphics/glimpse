@@ -6,6 +6,10 @@
 - Build `TextureImageSource` containing text
 
 ### Changed
+- Dependencies:
+  - Upgrade `androidx.appcompat:appcompat` to `1.4.2`
+  - Upgrade `com.google.android.material:material` to `1.6.1`
+  - Upgrade `androidx.annotation:annotation` to `1.4.0`
 
 ### Deprecated
 - Usage of method `ProgramExecutor.dispose()` without parameters will be reported as an error
