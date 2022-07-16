@@ -20,6 +20,7 @@ import com.jogamp.opengl.GL2ES2
 import com.jogamp.opengl.GLProfile
 import com.jogamp.opengl.util.texture.TextureData
 import com.jogamp.opengl.util.texture.TextureIO
+import com.jogamp.opengl.util.texture.awt.AWTTextureIO
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.logging.GlimpseLogger
 import java.util.*
@@ -33,6 +34,8 @@ actual class TextureImageSourceBuilder {
 
     private var filename: String = ""
     private var inputStreamProvider: InputStreamProvider = InputStreamProvider { null }
+    private var bufferedImageProvider: BufferedImageProvider = BufferedImageProvider { null }
+    private var imageSourceType: ImageSourceType? = null
 
     /**
      * Will build a texture source with a given [filename].
@@ -47,6 +50,18 @@ actual class TextureImageSourceBuilder {
      */
     fun fromInputStream(inputStreamProvider: InputStreamProvider): TextureImageSourceBuilder {
         this.inputStreamProvider = inputStreamProvider
+        this.imageSourceType = ImageSourceType.INPUT_STREAM
+        return this
+    }
+
+    /**
+     * Will build a texture source from a buffered image provided by [bufferedImageProvider].
+     *
+     * @since v1.2.0
+     */
+    fun fromBufferedImage(bufferedImageProvider: BufferedImageProvider): TextureImageSourceBuilder {
+        this.bufferedImageProvider = bufferedImageProvider
+        this.imageSourceType = ImageSourceType.BUFFERED_IMAGE
         return this
     }
 
@@ -56,6 +71,12 @@ actual class TextureImageSourceBuilder {
     actual fun build(): TextureImageSource {
         check(value = filename.isNotBlank()) {
             "Filename cannot be blank. Must call withFilename()."
+        }
+        check(value = imageSourceType == ImageSourceType.INPUT_STREAM) {
+            """
+                Image source type must be an InputStream. Must call fromInputStream().
+                When building image source fromBufferedImage(), use buildPrepared().
+            """.trimIndent()
         }
         logger.debug(message = "Building image source from: '$filename'")
         return TextureImageSourceImpl(filename, inputStreamProvider)
@@ -69,6 +90,16 @@ actual class TextureImageSourceBuilder {
      * a texture image, but it will also consume more memory._
      */
     fun buildPrepared(profile: GLProfile): TextureImageSource {
+        val textureData = when (imageSourceType) {
+            ImageSourceType.INPUT_STREAM -> createTextureDataFromInputStream(profile)
+            ImageSourceType.BUFFERED_IMAGE -> createTextureDataFromBufferedImage(profile)
+            null -> error("No image source provided")
+        }
+        logger.debug(message = "Decoded texture data: $textureData")
+        return PreparedTextureImageSourceImpl(textureData)
+    }
+
+    private fun createTextureDataFromInputStream(profile: GLProfile): TextureData {
         check(value = filename.isNotBlank()) {
             "Filename cannot be blank. Must call withFilename()."
         }
@@ -78,9 +109,17 @@ actual class TextureImageSourceBuilder {
         }
         logger.debug(message = "Decoding texture data: '$filename'")
         val fileType = filename.split('.').last().lowercase(Locale.ENGLISH)
-        val textureData = TextureIO.newTextureData(profile, inputStream, false, fileType)
-        logger.debug(message = "Decoded texture data: $textureData")
-        return PreparedTextureImageSourceImpl(textureData)
+        return TextureIO.newTextureData(profile, inputStream, false, fileType)
+    }
+
+    private fun createTextureDataFromBufferedImage(profile: GLProfile): TextureData {
+        logger.debug(message = "Building image source from buffered image")
+        return AWTTextureIO.newTextureData(profile, bufferedImageProvider.createBufferedImage(), false)
+    }
+
+    private enum class ImageSourceType {
+        INPUT_STREAM,
+        BUFFERED_IMAGE
     }
 
     private abstract class BaseTextureImageSourceImpl : TextureImageSource {

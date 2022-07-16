@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Added
+- Build `TextureImageSource` from `BufferedImage`
 
 ### Changed
 
