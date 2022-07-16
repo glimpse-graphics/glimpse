@@ -69,17 +69,24 @@ actual class TextureImageSourceBuilder {
      * Builds a [TextureImageSource] with the provided parameters.
      */
     actual fun build(): TextureImageSource {
+        return when (imageSourceType) {
+            ImageSourceType.INPUT_STREAM -> buildFromInputStream()
+            ImageSourceType.BUFFERED_IMAGE -> buildFromBufferedImage()
+            null -> error("No image source provided")
+        }
+    }
+
+    private fun buildFromInputStream(): TextureImageSource {
         check(value = filename.isNotBlank()) {
             "Filename cannot be blank. Must call withFilename()."
         }
-        check(value = imageSourceType == ImageSourceType.INPUT_STREAM) {
-            """
-                Image source type must be an InputStream. Must call fromInputStream().
-                When building image source fromBufferedImage(), use buildPrepared().
-            """.trimIndent()
-        }
         logger.debug(message = "Building image source from: '$filename'")
         return TextureImageSourceImpl(filename, inputStreamProvider)
+    }
+
+    private fun buildFromBufferedImage(): TextureImageSource {
+        logger.debug(message = "Building image source from buffered image")
+        return BufferedImageTextureImageSourceImpl(bufferedImageProvider)
     }
 
     /**
@@ -124,6 +131,8 @@ actual class TextureImageSourceBuilder {
 
     private abstract class BaseTextureImageSourceImpl : TextureImageSource {
 
+        protected val logger: GlimpseLogger by lazy { GlimpseLogger.create(this) }
+
         final override fun glTexImage2D(gl: GlimpseAdapter, withMipmaps: Boolean) {
             glTexImage2D(gl, TextureType.TEXTURE_2D, GL2ES2.GL_TEXTURE_2D, withMipmaps)
         }
@@ -147,14 +156,31 @@ actual class TextureImageSourceBuilder {
             target: Int,
             withMipmaps: Boolean
         )
+
+        protected fun glTexImage2D(
+            gl: GlimpseAdapter,
+            textureType: TextureType,
+            textureData: TextureData,
+            target: Int,
+            withMipmaps: Boolean
+        ) {
+            logger.debug(message = "Decoded texture data: $textureData")
+            gl.gles.glPixelStorei(GL2ES2.GL_UNPACK_ALIGNMENT, textureData.alignment)
+            gl.gles.glTexImage2D(
+                target, 0, textureData.internalFormat,
+                textureData.width, textureData.height, 0,
+                textureData.pixelFormat, textureData.pixelType, textureData.buffer
+            )
+            if (withMipmaps) {
+                gl.glGenerateMipmap(textureType)
+            }
+        }
     }
 
     private class TextureImageSourceImpl(
         private val filename: String,
         private val inputStreamProvider: InputStreamProvider
     ) : BaseTextureImageSourceImpl() {
-
-        private val logger: GlimpseLogger = GlimpseLogger.create(this)
 
         override fun glTexImage2D(
             gl: GlimpseAdapter,
@@ -170,17 +196,29 @@ actual class TextureImageSourceBuilder {
             val textureData = TextureIO.newTextureData(
                 gl.gles.glProfile, inputStream, false, fileType
             )
-            logger.debug(message = "Decoded texture data: $textureData")
-            gl.gles.glPixelStorei(GL2ES2.GL_UNPACK_ALIGNMENT, textureData.alignment)
-            gl.gles.glTexImage2D(
-                target, 0, textureData.internalFormat,
-                textureData.width, textureData.height, 0,
-                textureData.pixelFormat, textureData.pixelType, textureData.buffer
-            )
+            glTexImage2D(gl, textureType, textureData, target, withMipmaps)
             textureData.destroy()
-            if (withMipmaps) {
-                gl.glGenerateMipmap(textureType)
-            }
+        }
+
+        override fun dispose() = Unit
+    }
+
+    private class BufferedImageTextureImageSourceImpl(
+        private val bufferedImageProvider: BufferedImageProvider
+    ) : BaseTextureImageSourceImpl() {
+
+        override fun glTexImage2D(
+            gl: GlimpseAdapter,
+            textureType: TextureType,
+            target: Int,
+            withMipmaps: Boolean
+        ) {
+            logger.debug(message = "Creating texture from buffered image")
+            val textureData = AWTTextureIO.newTextureData(
+                gl.gles.glProfile, bufferedImageProvider.createBufferedImage(), false
+            )
+            glTexImage2D(gl, textureType, textureData, target, withMipmaps)
+            textureData.destroy()
         }
 
         override fun dispose() = Unit
@@ -196,15 +234,7 @@ actual class TextureImageSourceBuilder {
             target: Int,
             withMipmaps: Boolean
         ) {
-            gl.gles.glPixelStorei(GL2ES2.GL_UNPACK_ALIGNMENT, textureData.alignment)
-            gl.gles.glTexImage2D(
-                target, 0, textureData.internalFormat,
-                textureData.width, textureData.height, 0,
-                textureData.pixelFormat, textureData.pixelType, textureData.buffer
-            )
-            if (withMipmaps) {
-                gl.glGenerateMipmap(textureType)
-            }
+            glTexImage2D(gl, textureType, textureData, target, withMipmaps)
         }
 
         override fun dispose() {

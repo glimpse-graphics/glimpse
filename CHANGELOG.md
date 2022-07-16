@@ -3,6 +3,7 @@
 ## [Unreleased]
 ### Added
 - Build `TextureImageSource` from `BufferedImage`
+- Build `TextureImageSource` containing text
 
 ### Changed
 
