@@ -11,6 +11,7 @@
 ### Removed
 
 ### Fixed
+- Apply correct unpack pixel alignment for texture data before calling `glTexImage2D()`
 
 ### Security
 

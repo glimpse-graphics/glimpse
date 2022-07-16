@@ -171,6 +171,7 @@ actual class TextureImageSourceBuilder {
                 gl.gles.glProfile, inputStream, false, fileType
             )
             logger.debug(message = "Decoded texture data: $textureData")
+            gl.gles.glPixelStorei(GL2ES2.GL_UNPACK_ALIGNMENT, textureData.alignment)
             gl.gles.glTexImage2D(
                 target, 0, textureData.internalFormat,
                 textureData.width, textureData.height, 0,
@@ -195,6 +196,7 @@ actual class TextureImageSourceBuilder {
             target: Int,
             withMipmaps: Boolean
         ) {
+            gl.gles.glPixelStorei(GL2ES2.GL_UNPACK_ALIGNMENT, textureData.alignment)
             gl.gles.glTexImage2D(
                 target, 0, textureData.internalFormat,
                 textureData.width, textureData.height, 0,
