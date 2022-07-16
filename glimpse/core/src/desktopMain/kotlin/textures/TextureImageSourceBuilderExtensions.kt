@@ -16,6 +16,7 @@
 
 package graphics.glimpse.textures
 
+import java.awt.image.BufferedImage
 import java.io.File
 
 /**
@@ -31,3 +32,11 @@ fun TextureImageSourceBuilder.fromFile(file: File): TextureImageSourceBuilder = 
 fun TextureImageSourceBuilder.fromResource(owner: Any, name: String): TextureImageSourceBuilder = this
     .withFilename(name)
     .fromInputStream { owner.javaClass.getResourceAsStream(name) }
+
+/**
+ * Will build a texture source from a given [bufferedImage].
+ *
+ * @since v1.2.0
+ */
+fun TextureImageSourceBuilder.fromBufferedImage(bufferedImage: BufferedImage): TextureImageSourceBuilder = this
+    .fromBufferedImage { bufferedImage }
