@@ -32,7 +32,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3.4.1
         with:
-          distribution: temurin
+          distribution: zulu
           java-version: 11
       - name: Export Properties
         id: properties
@@ -57,7 +57,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3.4.1
         with:
-          distribution: temurin
+          distribution: zulu
           java-version: 11
       - name: Run Unit Tests
         run: ./gradlew allTests testDebugUnitTest --stacktrace
@@ -96,7 +96,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3.4.1
         with:
-          distribution: temurin
+          distribution: zulu
           java-version: 11
       - name: Generate Documentation
         run: ./gradlew dokkaHtml --stacktrace
@@ -123,7 +123,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3.4.1
         with:
-          distribution: temurin
+          distribution: zulu
           java-version: 11
       - name: Generate Documentation
         run: |
@@ -170,7 +170,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3.4.1
         with:
-          distribution: temurin
+          distribution: zulu
           java-version: 11
       - name: Assemble Library
         run: ./gradlew assemble --stacktrace
@@ -213,7 +213,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3.4.1
         with:
-          distribution: temurin
+          distribution: zulu
           java-version: 11
       - name: Decrypt Key Ring File
         env:

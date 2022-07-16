@@ -29,7 +29,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3.4.1
         with:
-          distribution: temurin
+          distribution: zulu
           java-version: 11
       - name: Decrypt Key Ring File
         env:
@@ -55,7 +55,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3.4.1
         with:
-          distribution: temurin
+          distribution: zulu
           java-version: 11
       - name: Patch Changelog
         run: ./gradlew patchChangelog
