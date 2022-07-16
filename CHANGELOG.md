@@ -7,6 +7,7 @@
 ### Changed
 
 ### Deprecated
+- Usage of method `ProgramExecutor.dispose()` without parameters will be reported as an error
 
 ### Removed
 

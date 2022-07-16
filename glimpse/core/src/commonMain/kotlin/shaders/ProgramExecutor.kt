@@ -46,9 +46,12 @@ interface ProgramExecutor<T> {
     /**
      * Disposes the program executor.
      *
-     * @deprecated Use `dispose(GlimpseAdapter)` instead.
+     * @deprecated This method is scheduled for removal in v1.3.0. Use `dispose(GlimpseAdapter)` instead.
      */
-    @Deprecated(message = "Use dispose(GlimpseAdapter) instead")
+    @Deprecated(
+        message = "This method is scheduled for removal in v1.3.0. Use dispose(GlimpseAdapter) instead.",
+        level = DeprecationLevel.ERROR
+    )
     fun dispose()
 
     /**
