@@ -6,6 +6,7 @@
 - Build `TextureImageSource` containing text
 
 ### Changed
+- Upgrade Gradle Wrapper to `7.5`
 - Dependencies:
   - Upgrade `androidx.appcompat:appcompat` to `1.4.2`
   - Upgrade `com.google.android.material:material` to `1.6.1`
