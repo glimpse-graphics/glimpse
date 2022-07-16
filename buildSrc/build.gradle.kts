@@ -27,8 +27,8 @@ repositories {
 }
 
 dependencies {
-    implementation("com.android.tools.build:gradle:7.0.4")
-    implementation("com.android.tools.build:gradle-api:7.0.4")
+    implementation("com.android.tools.build:gradle:7.2.1")
+    implementation("com.android.tools.build:gradle-api:7.2.1")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.7.0")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0")
     implementation("org.jetbrains.dokka:dokka-core:1.7.0")

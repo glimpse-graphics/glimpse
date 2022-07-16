@@ -11,6 +11,7 @@
   - Upgrade Kotlin to `1.7.0`
   - Upgrade KSP to `1.7.0-1.0.6`
   - Upgrade JetBrains Compose for Desktop to `1.2.0-alpha01-dev745`
+  - Upgrade Android Gradle Plugin to `7.2.1`
   - Upgrade `androidx.appcompat:appcompat` to `1.4.2`
   - Upgrade `com.google.android.material:material` to `1.6.1`
   - Upgrade `androidx.annotation:annotation` to `1.4.0`
