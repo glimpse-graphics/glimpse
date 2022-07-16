@@ -97,23 +97,20 @@ internal class ProgramBuilderImpl(private val gl: GlimpseAdapter) : Program.Buil
         private val fragmentShaderHandle: Int
     ) : Program {
 
-        private val logger: GlimpseLogger = GlimpseLogger.create(this)
-
         override fun use(gl: GlimpseAdapter) {
             gl.glUseProgram(handle)
         }
 
         override fun dispose(gl: GlimpseAdapter) {
-            gl.glDeleteProgram(handle)
-
-            gl.glDeleteShader(vertexShaderHandle)
-            gl.glDeleteShader(fragmentShaderHandle)
-
             if (!gl.glGetProgramDeleteStatus(handle)) {
-                val shaderInfoLog = gl.glGetProgramInfoLog(handle)
-                logger.error(message = "Program deletion failed:\n$shaderInfoLog")
+                gl.glDeleteProgram(handle)
+            }
 
-                throw IllegalStateException("Program deletion failed:\n$shaderInfoLog")
+            if (!gl.glGetShaderDeleteStatus(vertexShaderHandle)) {
+                gl.glDeleteShader(vertexShaderHandle)
+            }
+            if (!gl.glGetShaderDeleteStatus(fragmentShaderHandle)) {
+                gl.glDeleteShader(fragmentShaderHandle)
             }
         }
     }

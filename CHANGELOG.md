@@ -19,6 +19,7 @@
 
 ### Fixed
 - Apply correct unpack pixel alignment for texture data before calling `glTexImage2D()`
+- Remove misleading error after deleting program or shader
 
 ### Security
 

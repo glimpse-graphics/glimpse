@@ -49,16 +49,9 @@ internal class ShaderFactoryImpl(private val gl: GlimpseAdapter) : Shader.Factor
 
     private data class ShaderImpl(override val handle: Int) : Shader {
 
-        private val logger: GlimpseLogger = GlimpseLogger.create(this)
-
         override fun dispose(gl: GlimpseAdapter) {
-            gl.glDeleteShader(handle)
-
             if (!gl.glGetShaderDeleteStatus(handle)) {
-                val shaderInfoLog = gl.glGetShaderInfoLog(handle)
-                logger.error(message = "Shader deletion failed:\n$shaderInfoLog")
-
-                throw IllegalStateException("Shader deletion failed:\n$shaderInfoLog")
+                gl.glDeleteShader(handle)
             }
         }
     }
