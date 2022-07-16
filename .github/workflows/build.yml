@@ -30,9 +30,9 @@ jobs:
       - name: Fetch Sources
         uses: actions/checkout@v3.0.2
       - name: Setup Java
-        uses: actions/setup-java@v3.2.0
+        uses: actions/setup-java@v3.4.1
         with:
-          distribution: temurin
+          distribution: zulu
           java-version: 11
       - name: Export Properties
         id: properties
@@ -55,15 +55,15 @@ jobs:
       - name: Fetch Sources
         uses: actions/checkout@v3.0.2
       - name: Setup Java
-        uses: actions/setup-java@v3.2.0
+        uses: actions/setup-java@v3.4.1
         with:
-          distribution: temurin
+          distribution: zulu
           java-version: 11
       - name: Run Unit Tests
         run: ./gradlew allTests testDebugUnitTest --stacktrace
       - name: Publish Test Report
         if: always() && (github.event_name == 'pull_request')
-        uses: EnricoMi/publish-unit-test-result-action@v1
+        uses: EnricoMi/publish-unit-test-result-action@v2
         with:
           files: '**/build/test-results/**/*.xml'
       - name: Run Detekt
@@ -94,9 +94,9 @@ jobs:
       - name: Fetch Sources
         uses: actions/checkout@v3.0.2
       - name: Setup Java
-        uses: actions/setup-java@v3.2.0
+        uses: actions/setup-java@v3.4.1
         with:
-          distribution: temurin
+          distribution: zulu
           java-version: 11
       - name: Generate Documentation
         run: ./gradlew dokkaHtml --stacktrace
@@ -121,9 +121,9 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
       - name: Setup Java
-        uses: actions/setup-java@v3.2.0
+        uses: actions/setup-java@v3.4.1
         with:
-          distribution: temurin
+          distribution: zulu
           java-version: 11
       - name: Generate Documentation
         run: |
@@ -168,9 +168,9 @@ jobs:
       - name: Fetch Sources
         uses: actions/checkout@v3.0.2
       - name: Setup Java
-        uses: actions/setup-java@v3.2.0
+        uses: actions/setup-java@v3.4.1
         with:
-          distribution: temurin
+          distribution: zulu
           java-version: 11
       - name: Assemble Library
         run: ./gradlew assemble --stacktrace
@@ -211,9 +211,9 @@ jobs:
       - name: Fetch Sources
         uses: actions/checkout@v3.0.2
       - name: Setup Java
-        uses: actions/setup-java@v3.2.0
+        uses: actions/setup-java@v3.4.1
         with:
-          distribution: temurin
+          distribution: zulu
           java-version: 11
       - name: Decrypt Key Ring File
         env:
