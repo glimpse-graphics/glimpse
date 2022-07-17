@@ -4,6 +4,7 @@
 ### Added
 - Build `TextureImageSource` from `BufferedImage`
 - Build `TextureImageSource` containing text
+- Method `GlimpseAdapter.glVSync(VSync)`, setting V-sync mode (if supported)
 
 ### Changed
 - Upgrade Gradle Wrapper to `7.5`

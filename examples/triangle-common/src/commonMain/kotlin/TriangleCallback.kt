@@ -22,6 +22,7 @@ import graphics.glimpse.DepthTestFunction
 import graphics.glimpse.FaceCullingMode
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.GlimpseCallback
+import graphics.glimpse.VSync
 import graphics.glimpse.cameras.Camera
 import graphics.glimpse.cameras.FreeCamera
 import graphics.glimpse.framebuffers.Framebuffer
@@ -86,6 +87,7 @@ class TriangleCallback(
         gl.glCullFace(FaceCullingMode.DISABLED)
         gl.glEnableBlending()
         gl.glBlendingFunction(BlendingFactorFunction.SOURCE_ALPHA, BlendingFactorFunction.ONE_MINUS_SOURCE_ALPHA)
+        gl.glVSync(VSync.ON)
 
         mesh = Mesh.Factory.newInstance(gl).createMesh(resources.getMeshData())
         val textures = Texture.Builder.getInstance(gl)

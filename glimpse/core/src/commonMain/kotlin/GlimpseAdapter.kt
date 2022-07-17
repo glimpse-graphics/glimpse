@@ -121,6 +121,15 @@ expect class GlimpseAdapter {
     fun glDisableProgramPointSize()
 
     /**
+     * Sets given [vSync] mode.
+     *
+     * @return `true` if the operation was successful.
+     *
+     * @since v1.2.0
+     */
+    fun glVSync(vSync: VSync): Boolean
+
+    /**
      * Sets the viewport to have its bottom-left corner at ([x], [y]),
      * and a given [width] and [height].
      */
