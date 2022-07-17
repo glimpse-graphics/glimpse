@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("MagicNumber", "FunctionNaming")
+
 package graphics.glimpse.meshes.obj
 
 import graphics.glimpse.buffers.floatBufferDataOf
@@ -31,7 +33,6 @@ class ObjMeshDataParserIntegrationTest {
         val result = parser.parseArrayMeshData(triangleObj.lines())
 
         assertEquals(
-            @Suppress("MagicNumber")
             ArrayMeshData(
                 vertexCount = 3,
                 positionsData = floatBufferDataOf(-1f, -1f, 0f, 1f, 1f, 0f, 0f, 0f, 1f),

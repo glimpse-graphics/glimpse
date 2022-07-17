@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
+@file:Suppress("MagicNumber", "FunctionNaming")
+
 package graphics.glimpse.meshes.obj
 
 import graphics.glimpse.meshes.ArrayMeshData
 import graphics.glimpse.meshes.MeshDataBuilder
-import graphics.glimpse.types.Vec2
-import graphics.glimpse.types.Vec3
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -54,7 +54,6 @@ class ObjMeshDataParserTest {
 
         assertSame(meshData, result)
 
-        @Suppress("MagicNumber")
         verifySequence {
             builder.addVertex(listOf(-1f, -1f, 0f))
             builder.addVertex(listOf(1f, 1f, 0f))

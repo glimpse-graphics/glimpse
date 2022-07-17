@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
+@file:Suppress("MagicNumber", "FunctionNaming")
+
 package graphics.glimpse.types
 
 import java.awt.Color
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-@Suppress("MagicNumber")
 class ColorsTest {
 
     @Test
