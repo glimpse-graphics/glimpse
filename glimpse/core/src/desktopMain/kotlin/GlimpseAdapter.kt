@@ -209,6 +209,22 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     }
 
     /**
+     * Sets given [vSync] mode.
+     *
+     * @return `true` if the operation was successful.
+     *
+     * @since v1.2.0
+     */
+    actual fun glVSync(vSync: VSync): Boolean =
+        gles.context.setSwapInterval(vSync.toInt())
+
+    private fun VSync.toInt(): Int = when (this) {
+        VSync.OFF -> 0
+        VSync.ON -> 1
+        VSync.ADAPTIVE -> -1
+    }
+
+    /**
      * Sets the viewport to have its bottom-left corner at ([x], [y]),
      * and a given [width] and [height].
      */

@@ -16,7 +16,9 @@
 
 package graphics.glimpse
 
+import android.opengl.EGL14
 import android.opengl.GLES20
+import android.os.Build
 import graphics.glimpse.buffers.BufferType
 import graphics.glimpse.buffers.BufferUsage
 import graphics.glimpse.buffers.FloatBufferData
@@ -206,6 +208,28 @@ actual class GlimpseAdapter {
      */
     actual fun glDisableProgramPointSize() {
         GLES20.glDisable(GL_VERTEX_PROGRAM_POINT_SIZE)
+    }
+
+    /**
+     * Sets given [vSync] mode.
+     *
+     * For API < 17, always returns false.
+     *
+     * @return `true` if the operation was successful.
+     *
+     * @since v1.2.0
+     */
+    actual fun glVSync(vSync: VSync): Boolean =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            EGL14.eglSwapInterval(EGL14.eglGetDisplay(EGL14.EGL_DEFAULT_DISPLAY), vSync.toInt())
+        } else {
+            false
+        }
+
+    private fun VSync.toInt(): Int = when (this) {
+        VSync.OFF -> 0
+        VSync.ON -> 1
+        VSync.ADAPTIVE -> -1
     }
 
     /**
