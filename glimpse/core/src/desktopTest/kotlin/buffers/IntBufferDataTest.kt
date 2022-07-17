@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("FunctionNaming")
+
 package graphics.glimpse.buffers
 
 import graphics.glimpse.differentInts
