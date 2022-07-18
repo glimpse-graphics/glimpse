@@ -145,10 +145,10 @@ actual class TextTextureImageSourceBuilder {
             )
             paint.getTextBounds(text, 0, text.length, textBounds)
 
-            val imageWidth = width.takeUnless { width == 0 } ?: (textBounds.width() + paddingLeft + paddingRight)
-            val imageHeight = height.takeUnless { height == 0 } ?: (textBounds.height() + paddingTop + paddingBottom)
+            val imageWidth = if (width > 0) width else (textBounds.width() + paddingLeft + paddingRight)
+            val imageHeight = if (height > 0) height else (textBounds.height() + paddingTop + paddingBottom)
             val textAreaWidth = imageWidth - paddingLeft - paddingRight
-            val textAreaHeight = imageWidth - paddingTop - paddingBottom
+            val textAreaHeight = imageHeight - paddingTop - paddingBottom
 
             logger.debug(
                 message = "Creating texture image for text: '$text' of size: ${imageWidth}x$imageHeight"
