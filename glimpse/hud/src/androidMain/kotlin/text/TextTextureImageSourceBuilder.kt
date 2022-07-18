@@ -47,6 +47,9 @@ actual class TextTextureImageSourceBuilder {
     private var paddingTop: Int = 0
     private var paddingBottom: Int = 0
 
+    private var width: Int = 0
+    private var height: Int = 0
+
     /**
      * Will build a texture source containing given [text].
      */
@@ -95,6 +98,18 @@ actual class TextTextureImageSourceBuilder {
     }
 
     /**
+     * Will build a texture source containing text with given [width] and [height].
+     *
+     * If either [width] or [height] is 0, the dimension of the resulting texture
+     * will be adjusted to wrap the text with padding.
+     */
+    actual fun withSize(width: Int, height: Int): TextTextureImageSourceBuilder {
+        this.width = width
+        this.height = height
+        return this
+    }
+
+    /**
      * Builds a [TextureImageSource] with the provided parameters.
      */
     actual fun build(): TextureImageSource {
@@ -130,8 +145,10 @@ actual class TextTextureImageSourceBuilder {
             )
             paint.getTextBounds(text, 0, text.length, textBounds)
 
-            val imageWidth = textBounds.width() + paddingLeft + paddingRight
-            val imageHeight = textBounds.height() + paddingTop + paddingBottom
+            val imageWidth = if (width > 0) width else (textBounds.width() + paddingLeft + paddingRight)
+            val imageHeight = if (height > 0) height else (textBounds.height() + paddingTop + paddingBottom)
+            val textAreaWidth = imageWidth - paddingLeft - paddingRight
+            val textAreaHeight = imageHeight - paddingTop - paddingBottom
 
             logger.debug(
                 message = "Creating texture image for text: '$text' of size: ${imageWidth}x$imageHeight"
@@ -139,7 +156,12 @@ actual class TextTextureImageSourceBuilder {
 
             val bitmap = Bitmap.createBitmap(imageWidth, imageHeight, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bitmap)
-            canvas.drawText(text, paddingLeft.toFloat(), (paddingTop + textBounds.height()).toFloat(), paint)
+            canvas.drawText(
+                text,
+                paddingLeft.toFloat() + (textAreaWidth - textBounds.width()).toFloat() / 2f,
+                paddingTop.toFloat() + (textAreaHeight + textBounds.height()).toFloat() / 2f,
+                paint
+            )
             return bitmap
         }
     }

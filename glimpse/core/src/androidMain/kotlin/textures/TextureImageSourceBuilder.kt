@@ -90,6 +90,12 @@ actual class TextureImageSourceBuilder {
         private val bitmapProvider: BitmapProvider
     ) : BaseTextureImageSourceImpl() {
 
+        override var width: Int = 0
+            private set
+
+        override var height: Int = 0
+            private set
+
         override fun glTexImage2D(
             gl: GlimpseAdapter,
             textureType: TextureType,
@@ -99,6 +105,9 @@ actual class TextureImageSourceBuilder {
             val bitmap = checkNotNull(bitmapProvider.createBitmap()) {
                 "Texture bitmap cannot be null"
             }.flipVertically()
+            width = bitmap.width
+            height = bitmap.height
+
             GLUtils.texImage2D(target, 0, GLES20.GL_RGBA, bitmap, 0)
             bitmap.recycle()
             if (withMipmaps) gl.glGenerateMipmap(textureType)
@@ -110,6 +119,10 @@ actual class TextureImageSourceBuilder {
     private class PreparedTextureImageSourceImpl(
         private val bitmap: Bitmap
     ) : BaseTextureImageSourceImpl() {
+
+        override val width: Int get() = bitmap.width
+
+        override val height: Int get() = bitmap.height
 
         override fun glTexImage2D(
             gl: GlimpseAdapter,

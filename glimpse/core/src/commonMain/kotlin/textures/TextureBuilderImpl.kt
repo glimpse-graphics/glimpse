@@ -79,7 +79,7 @@ internal class TextureBuilderImpl(private val gl: GlimpseAdapter) : Texture.Buil
             gl.glTexParameterWrap(textureParams.type, wrapS, wrapT)
         }
         val textures = handles.mapIndexed { index, handle ->
-            TextureImpl(handle, params[index].type)
+            TextureImpl(handle, params[index].source.width, params[index].source.height, params[index].type)
         }
         resetState()
         return textures
@@ -117,6 +117,8 @@ internal class TextureBuilderImpl(private val gl: GlimpseAdapter) : Texture.Buil
 
     data class TextureImpl(
         override val handle: Int,
+        override val width: Int,
+        override val height: Int,
         private val type: TextureType
     ) : Texture {
 

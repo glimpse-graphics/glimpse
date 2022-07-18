@@ -43,10 +43,14 @@ internal class EmptyTextureFactory(private val gl: GlimpseAdapter) {
         gl.glTexParameterFilter(TextureType.TEXTURE_2D, TextureMinFilter.LINEAR, TextureMagFilter.LINEAR)
         gl.glTexParameterWrap(TextureType.TEXTURE_2D, TextureWrap.CLAMP_TO_EDGE, TextureWrap.CLAMP_TO_EDGE)
 
-        return TextureImpl(textureHandle)
+        return TextureImpl(textureHandle, width, height)
     }
 
-    data class TextureImpl(override val handle: Int) : Texture {
+    data class TextureImpl(
+        override val handle: Int,
+        override val width: Int,
+        override val height: Int
+    ) : Texture {
 
         override fun useAtIndex(gl: GlimpseAdapter, textureIndex: Int) {
             gl.glActiveTexture(textureIndex)

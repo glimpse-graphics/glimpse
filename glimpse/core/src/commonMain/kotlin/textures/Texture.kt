@@ -30,6 +30,20 @@ interface Texture {
     val handle: Int
 
     /**
+     * Width of this texture.
+     *
+     * @since v1.2.0
+     */
+    val width: Int
+
+    /**
+     * Height of this texture.
+     *
+     * @since v1.2.0
+     */
+    val height: Int
+
+    /**
      * Uses this texture at a given [textureIndex].
      */
     fun useAtIndex(gl: GlimpseAdapter, textureIndex: Int)

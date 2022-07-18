@@ -182,6 +182,12 @@ actual class TextureImageSourceBuilder {
         private val inputStreamProvider: InputStreamProvider
     ) : BaseTextureImageSourceImpl() {
 
+        override var width: Int = 0
+            private set
+
+        override var height: Int = 0
+            private set
+
         override fun glTexImage2D(
             gl: GlimpseAdapter,
             textureType: TextureType,
@@ -196,6 +202,8 @@ actual class TextureImageSourceBuilder {
             val textureData = TextureIO.newTextureData(
                 gl.gles.glProfile, inputStream, false, fileType
             )
+            width = textureData.width
+            height = textureData.height
             glTexImage2D(gl, textureType, textureData, target, withMipmaps)
             textureData.destroy()
         }
@@ -207,6 +215,12 @@ actual class TextureImageSourceBuilder {
         private val bufferedImageProvider: BufferedImageProvider
     ) : BaseTextureImageSourceImpl() {
 
+        override var width: Int = 0
+            private set
+
+        override var height: Int = 0
+            private set
+
         override fun glTexImage2D(
             gl: GlimpseAdapter,
             textureType: TextureType,
@@ -214,9 +228,12 @@ actual class TextureImageSourceBuilder {
             withMipmaps: Boolean
         ) {
             logger.debug(message = "Creating texture from buffered image")
-            val textureData = AWTTextureIO.newTextureData(
-                gl.gles.glProfile, bufferedImageProvider.createBufferedImage(), false
-            )
+
+            val bufferedImage = bufferedImageProvider.createBufferedImage()
+            width = bufferedImage?.width ?: 0
+            height = bufferedImage?.height ?: 0
+
+            val textureData = AWTTextureIO.newTextureData(gl.gles.glProfile, bufferedImage, false)
             glTexImage2D(gl, textureType, textureData, target, withMipmaps)
             textureData.destroy()
         }
@@ -227,6 +244,10 @@ actual class TextureImageSourceBuilder {
     private class PreparedTextureImageSourceImpl(
         private val textureData: TextureData
     ) : BaseTextureImageSourceImpl() {
+
+        override val width: Int get() = textureData.width
+
+        override val height: Int get() = textureData.height
 
         override fun glTexImage2D(
             gl: GlimpseAdapter,

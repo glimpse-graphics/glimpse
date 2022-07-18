@@ -24,6 +24,24 @@ import graphics.glimpse.GlimpseAdapter
 interface TextureImageSource {
 
     /**
+     * Width of the texture image provided by this image source.
+     *
+     * If this image source is not prepared, the value is 0 before [glTexImage2D] is called.
+     *
+     * @since v1.2.0
+     */
+    val width: Int
+
+    /**
+     * Height of the texture image provided by this image source.
+     *
+     * If this image source is not prepared, the value is 0 before [glTexImage2D] is called.
+     *
+     * @since v1.2.0
+     */
+    val height: Int
+
+    /**
      * Sets a 2D texture image.
      */
     fun glTexImage2D(gl: GlimpseAdapter, withMipmaps: Boolean)
