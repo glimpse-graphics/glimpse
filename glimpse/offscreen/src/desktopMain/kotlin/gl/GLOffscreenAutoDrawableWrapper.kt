@@ -33,7 +33,7 @@ class GLOffscreenAutoDrawableWrapper private constructor(
      */
     val gl: GL2ES2 by lazy {
         if (drawable.gl.isGL2ES2) drawable.gl.gL2ES2
-        else throw IllegalStateException("OpenGL does not conform to GL2ES2 profile.")
+        else error("OpenGL does not conform to GL2ES2 profile.")
     }
 
     /**

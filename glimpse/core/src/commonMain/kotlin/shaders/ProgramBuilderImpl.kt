@@ -68,7 +68,7 @@ internal class ProgramBuilderImpl(private val gl: GlimpseAdapter) : Program.Buil
 
             cleanUpAfterError(handle)
 
-            throw IllegalStateException("Program linking failed:\n$programInfoLog")
+            error("Program linking failed:\n$programInfoLog")
         }
     }
 
@@ -81,7 +81,7 @@ internal class ProgramBuilderImpl(private val gl: GlimpseAdapter) : Program.Buil
 
             cleanUpAfterError(handle)
 
-            throw IllegalStateException("Program validation failed:\n$programInfoLog")
+            error("Program validation failed:\n$programInfoLog")
         }
     }
 

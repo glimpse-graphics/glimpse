@@ -11,3 +11,8 @@ complexity:
 naming:
   FunctionNaming:
     ignoreAnnotated: [ Composable ]
+  InvalidPackageDeclaration:
+    active: false
+style:
+  DestructuringDeclarationWithTooManyEntries:
+    maxDestructuringEntries: 4

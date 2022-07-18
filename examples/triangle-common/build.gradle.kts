@@ -53,7 +53,7 @@ kotlin {
             dependencies {
                 api("com.google.android.material:material:1.6.1")
                 api("androidx.appcompat:appcompat:1.4.2")
-                api("androidx.activity:activity-compose:1.4.0") {
+                api("androidx.activity:activity-compose:1.5.0") {
                     exclude(group = "androidx.compose.animation")
                     exclude(group = "androidx.compose.foundation")
                     exclude(group = "androidx.compose.material")
