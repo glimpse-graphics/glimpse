@@ -43,7 +43,7 @@ internal class ShaderFactoryImpl(private val gl: GlimpseAdapter) : Shader.Factor
 
             gl.glDeleteShader(handle)
 
-            throw IllegalStateException("$type compilation failed:\n$shaderInfoLog")
+            error("$type compilation failed:\n$shaderInfoLog")
         }
     }
 
