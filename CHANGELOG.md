@@ -16,6 +16,8 @@
   - Upgrade `androidx.appcompat:appcompat` to `1.4.2`
   - Upgrade `com.google.android.material:material` to `1.6.1`
   - Upgrade `androidx.annotation:annotation` to `1.4.0`
+  - Upgrade `activity-compose` to `1.5.0`
+  - Upgrade `kotlinpoet` to `1.12.0`
   - Upgrade `detekt-gradle-plugin` to `1.21.0`
   - Upgrade `org.jetbrains.dokka` to `1.7.0`
 
