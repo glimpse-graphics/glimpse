@@ -57,6 +57,14 @@ expect class TextTextureImageSourceBuilder {
     fun withPadding(left: Int = 0, top: Int = 0, right: Int = 0, bottom: Int = 0): TextTextureImageSourceBuilder
 
     /**
+     * Will build a texture source containing text with given [width] and [height].
+     *
+     * If either [width] or [height] is 0, the dimension of the resulting texture
+     * will be adjusted to wrap the text with padding.
+     */
+    fun withSize(width: Int = 0, height: Int = 0): TextTextureImageSourceBuilder
+
+    /**
      * Builds a [TextureImageSource] with the provided parameters.
      */
     fun build(): TextureImageSource

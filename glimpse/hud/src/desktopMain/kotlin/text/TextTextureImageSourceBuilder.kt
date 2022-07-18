@@ -47,6 +47,9 @@ actual class TextTextureImageSourceBuilder {
     private var paddingTop: Int = 0
     private var paddingBottom: Int = 0
 
+    private var width: Int = 0
+    private var height: Int = 0
+
     /**
      * Will build a texture source containing given [text].
      */
@@ -95,6 +98,18 @@ actual class TextTextureImageSourceBuilder {
     }
 
     /**
+     * Will build a texture source containing text with given [width] and [height].
+     *
+     * If either [width] or [height] is 0, the dimension of the resulting texture
+     * will be adjusted to wrap the text with padding.
+     */
+    actual fun withSize(width: Int, height: Int): TextTextureImageSourceBuilder {
+        this.width = width
+        this.height = height
+        return this
+    }
+
+    /**
      * Builds a [TextureImageSource] containing text, with the provided parameters.
      */
     actual fun build(): TextureImageSource {
@@ -120,8 +135,10 @@ actual class TextTextureImageSourceBuilder {
 
         override fun createBufferedImage(): BufferedImage {
             val textBounds = calculateTextBounds()
-            val imageWidth = textBounds.width + paddingLeft + paddingRight
-            val imageHeight = textBounds.height + paddingTop + paddingBottom
+            val imageWidth = width.takeUnless { width == 0 } ?: (textBounds.width + paddingLeft + paddingRight)
+            val imageHeight = height.takeUnless { height == 0 } ?: (textBounds.height + paddingTop + paddingBottom)
+            val textAreaWidth = imageWidth - paddingLeft - paddingRight
+            val textAreaHeight = imageWidth - paddingTop - paddingBottom
 
             logger.debug(
                 message = "Creating texture image for text: '$text' of size: ${imageWidth}x${imageHeight}"
@@ -135,7 +152,11 @@ actual class TextTextureImageSourceBuilder {
             graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
             graphics.font = font.awtFont
             graphics.color = Color(color.r, color.g, color.b, color.a)
-            graphics.drawString(text, paddingLeft, paddingTop + graphics.fontMetrics.ascent)
+            graphics.drawString(
+                text,
+                paddingLeft + (textAreaWidth - textBounds.width) / 2,
+                paddingTop + (textAreaHeight - textBounds.height) / 2 + graphics.fontMetrics.ascent
+            )
             graphics.dispose()
 
             return image
