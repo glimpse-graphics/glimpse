@@ -14,41 +14,12 @@
  * limitations under the License.
  */
 
-package graphics.glimpse.shaders.annotations
+package graphics.glimpse.ksp
 
-/**
- * Attribute role.
- *
- * Determines which buffer should be used with the attribute.
- *
- * @see Attribute
- */
-enum class AttributeRole {
+import com.google.devtools.ksp.symbol.KSNode
 
-    /**
-     * Positions of vertices.
-     */
-    POSITIONS,
-
-    /**
-     * Texture coordinates.
-     */
-    TEX_COORDS,
-
-    /**
-     * Normal vectors.
-     */
-    NORMALS,
-
-    /**
-     * Tangent vectors.
-     */
-    TANGENTS,
-
-    /**
-     * Bitangent vectors.
-     *
-     * @since v1.1.0
-     */
-    BITANGENTS
-}
+class KSPException(
+    val symbol: KSNode,
+    message: String? = null,
+    cause: Throwable? = null
+) : Exception(message, cause)

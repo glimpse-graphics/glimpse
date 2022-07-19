@@ -18,6 +18,12 @@ package graphics.glimpse.shaders.annotations
 
 /**
  * Marks a class providing shader parameters data.
+ *
+ * @sample graphics.glimpse.samples.SampleShaderParams
+ *
+ * @see Attribute
+ * @see Uniform
+ * @see Sampler2D
  */
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)

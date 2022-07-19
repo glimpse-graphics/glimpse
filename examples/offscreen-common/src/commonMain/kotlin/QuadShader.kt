@@ -18,6 +18,7 @@ package graphics.glimpse.examples.offscreen
 
 import graphics.glimpse.shaders.annotations.Attribute
 import graphics.glimpse.shaders.annotations.AttributeRole
+import graphics.glimpse.shaders.annotations.Sampler2D
 import graphics.glimpse.shaders.annotations.ShaderParams
 import graphics.glimpse.shaders.annotations.Uniform
 import graphics.glimpse.textures.Texture
@@ -46,9 +47,9 @@ data class QuadShader(
     @Uniform(name = "uNormalMatrix")
     val normalMatrix: Mat3,
 
-    @Uniform(name = "uTexture")
+    @Sampler2D(name = "uTexture")
     val texture: Texture,
 
-    @Uniform(name = "uNormalMap")
+    @Sampler2D(name = "uNormalMap")
     val normalMap: Texture,
 )

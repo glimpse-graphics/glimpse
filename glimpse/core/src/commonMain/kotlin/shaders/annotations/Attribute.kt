@@ -20,6 +20,9 @@ package graphics.glimpse.shaders.annotations
  * Vertex attributes array provided to a shader from the [mesh][graphics.glimpse.meshes.Mesh].
  *
  * This annotation is only intended to by used as an array element in [ShaderParams.attributes].
+ *
+ * @see ShaderParams
+ * @see AttributeRole
  */
 @Target
 @Retention(AnnotationRetention.SOURCE)
