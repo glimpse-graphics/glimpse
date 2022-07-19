@@ -14,17 +14,12 @@
  * limitations under the License.
  */
 
-package graphics.glimpse.processor.poet.model
+package graphics.glimpse.ksp
 
-data class UniformModel(
-    val propertyAccessorName: String,
-    val name: String,
-    val type: Type,
-    val comment: String
-) {
+import com.google.devtools.ksp.symbol.KSNode
 
-    enum class Type {
-        VALUE,
-        TEXTURE
-    }
-}
+class KSPException(
+    val symbol: KSNode,
+    message: String? = null,
+    cause: Throwable? = null
+) : Exception(message, cause)

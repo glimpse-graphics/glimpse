@@ -17,27 +17,31 @@
 package graphics.glimpse.shaders.annotations
 
 /**
- * Marks a uniform variable property in [ShaderParams]-annotated class.
+ * Marks a uniform sampler2D variable property in [ShaderParams]-annotated class.
  *
  * Supports properties of types:
- * - numbers: `Boolean` (since v1.1.0), `Int`, `Float`,
- * - vectors: `Vec2`, `Vec3`, `Vec4`,
- * - matrices: `Mat2`, `Mat3`, `Mat4`,
- * - arrays of these types.
- *
- * Since v1.2.0, no longer supports properties of type `Texture`.
- * Use [@Sampler2D][Sampler2D] instead.
+ * - textures: `Texture`,
+ * - types with `iterator(): Iterator<Texture>` method (e.g. `Array<Texture>`, `Iterable<Texture>`, etc.).
  *
  * @see ShaderParams
- * @see Sampler2D
+ * @see Uniform
+ *
+ * @since v1.2.0
  */
 @Target(AnnotationTarget.PROPERTY)
 @Retention(AnnotationRetention.SOURCE)
 @MustBeDocumented
-annotation class Uniform(
+annotation class Sampler2D(
 
     /**
      * Uniform variable name, as defined in the shader.
      */
-    val name: String
+    val name: String,
+
+    /**
+     * Number of textures returned by the iterator.
+     *
+     * Negative value, if the type of the annotated property is `Texture`.
+     */
+    val size: Int = -1
 )

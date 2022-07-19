@@ -20,6 +20,8 @@ package graphics.glimpse.shaders.annotations
  * Attribute role.
  *
  * Determines which buffer should be used with the attribute.
+ *
+ * @see Attribute
  */
 enum class AttributeRole {
 

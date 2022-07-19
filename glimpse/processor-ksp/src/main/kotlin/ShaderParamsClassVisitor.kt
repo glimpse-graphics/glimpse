@@ -100,6 +100,7 @@ class ShaderParamsClassVisitor : KSDefaultVisitor<CodeGenerator, Unit>() {
         .addParameter(PARAM_NAME_GL_ADAPTER, glimpseAdapterClassName)
         .addParameter(PARAM_NAME_PARAMS, ClassName(packageName, shaderParamsName))
         .apply { classDeclaration.accept(UniformVisitor(), data = this) }
+        .apply { classDeclaration.accept(Sampler2DVisitor(), data = this) }
         .build()
 
     private fun buildDrawMeshFunSpec(

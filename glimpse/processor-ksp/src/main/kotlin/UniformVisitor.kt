@@ -30,8 +30,6 @@ import graphics.glimpse.ksp.poet.addEmptyLine
  */
 class UniformVisitor : KSTopDownVisitor<FunSpec.Builder, FunSpec.Builder>() {
 
-    var textureIndex = 0
-
     override fun defaultHandler(node: KSNode, data: FunSpec.Builder): FunSpec.Builder = data
 
     override fun visitPropertyDeclaration(property: KSPropertyDeclaration, data: FunSpec.Builder): FunSpec.Builder {
@@ -44,8 +42,14 @@ class UniformVisitor : KSTopDownVisitor<FunSpec.Builder, FunSpec.Builder>() {
             if (uniformName != null) {
                 addEmptyLine()
                 addComment(COMMENT_FORMAT_UNIFORM, annotation, uniformName)
-                if (propertyType.isTexture()) addStatementTexture(uniformName, propertyName, textureIndex++)
-                else addUniformStatement(uniformName, propertyName)
+                if(propertyType.isTexture()) {
+                    throw KSPException(
+                        symbol = property,
+                        message = "Property '$property' of type $TYPE_NAME_TEXTURE is annotated as @Uniform. " +
+                                "@Sampler2D should be used instead."
+                    )
+                }
+                addUniformStatement(uniformName, propertyName)
             }
         }
     }
@@ -58,22 +62,6 @@ class UniformVisitor : KSTopDownVisitor<FunSpec.Builder, FunSpec.Builder>() {
 
     private fun KSTypeReference.isTexture(): Boolean =
         toString() == TYPE_NAME_TEXTURE
-
-    private fun FunSpec.Builder.addStatementTexture(
-        uniformName: String,
-        propertyName: String,
-        textureIndex: Int
-    ): FunSpec.Builder {
-        addStatement(
-            STATEMENT_FORMAT_USE_TEXTURE,
-            PARAM_NAME_PARAMS, propertyName, FUNCTION_NAME_HANDLE, textureIndex
-        )
-        addStatement(
-            STATEMENT_FORMAT_UNIFORM_TEXTURE,
-            uniformName, textureIndex
-        )
-        return this
-    }
 
     private fun FunSpec.Builder.addUniformStatement(
         uniformName: String,
@@ -91,12 +79,9 @@ class UniformVisitor : KSTopDownVisitor<FunSpec.Builder, FunSpec.Builder>() {
         private const val ARGUMENT_NAME_NAME = "name"
         private const val TYPE_NAME_TEXTURE = "Texture"
 
-        private const val FUNCTION_NAME_HANDLE = "useAtIndex"
         private const val PARAM_NAME_PARAMS = "shaderParams"
 
         private const val COMMENT_FORMAT_UNIFORM = "%L(name = %S)"
         private const val STATEMENT_FORMAT_UNIFORM = "glUniform(gl, name = %S, %N.%N)"
-        private const val STATEMENT_FORMAT_USE_TEXTURE = "%N.%N.%N(gl, textureIndex = %L)"
-        private const val STATEMENT_FORMAT_UNIFORM_TEXTURE = "glUniform(gl, name = %S, value = %L)"
     }
 }

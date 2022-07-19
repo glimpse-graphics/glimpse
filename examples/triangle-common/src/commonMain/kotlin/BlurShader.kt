@@ -18,6 +18,7 @@ package graphics.glimpse.examples.triangle
 
 import graphics.glimpse.shaders.annotations.Attribute
 import graphics.glimpse.shaders.annotations.AttributeRole
+import graphics.glimpse.shaders.annotations.Sampler2D
 import graphics.glimpse.shaders.annotations.ShaderParams
 import graphics.glimpse.shaders.annotations.Uniform
 import graphics.glimpse.textures.Texture
@@ -34,9 +35,9 @@ data class BlurShader(
     @Uniform(name = "uScreenSize")
     val screenSize: Vec2,
 
-    @Uniform(name = "uImage")
+    @Sampler2D(name = "uImage")
     val image: Texture,
 
-    @Uniform(name = "uDepth")
+    @Sampler2D(name = "uDepth")
     val depth: Texture,
 )

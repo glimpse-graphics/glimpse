@@ -4,10 +4,17 @@
 ### Added
 - Build `TextureImageSource` from `BufferedImage`
 - Build `TextureImageSource` containing text
-- Method `GlimpseAdapter.glVSync(VSync)`, setting V-sync mode (if supported)
 - Properties `width` and `height` in `TextureImageSource` and `Texture`
+- `@Sampler2D` annotation that can be used to annotate shader parameters
+  properties of types:
+  - `Texture`
+  - `Array<Texture>`
+  - `Iterable<Texture>`
+- Method `GlimpseAdapter.glVSync(VSync)`, setting V-sync mode (if supported)
 
 ### Changed
+- `@Uniform` can no longer be used to annotate properties of type `Texture`
+  (`@Sampler2D` should be used instead)
 - Upgrade Gradle Wrapper to `7.5`
 - Dependencies:
   - Upgrade Kotlin to `1.7.0`
@@ -26,6 +33,8 @@
 - Usage of method `ProgramExecutor.dispose()` without parameters will be reported as an error
 
 ### Removed
+- Remove Kapt processors (`glimpse-processor-java` and `glimpse-processor-kotlin`).
+  _Use KSP processor instead (`glimpse-processor-ksp`)_
 
 ### Fixed
 - Apply correct unpack pixel alignment for texture data before calling `glTexImage2D()`

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package graphics.glimpse.examples.triangle
+package graphics.glimpse.samples
 
 import graphics.glimpse.shaders.annotations.Attribute
 import graphics.glimpse.shaders.annotations.AttributeRole
@@ -34,7 +34,7 @@ import graphics.glimpse.types.Mat4
         Attribute(name = "aBitangent", role = AttributeRole.BITANGENTS, vectorSize = 3),
     ]
 )
-data class TriangleShader(
+data class SampleShaderParams(
 
     @Uniform(name = "uProjMatrix")
     val projectionMatrix: Mat4,

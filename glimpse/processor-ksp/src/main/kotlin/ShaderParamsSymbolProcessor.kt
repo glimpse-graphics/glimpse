@@ -39,7 +39,13 @@ class ShaderParamsSymbolProcessor(
 
         for (annotatedSymbol in annotatedSymbols) {
             logger.info("Processing shader parameters", annotatedSymbol)
-            annotatedSymbol.accept(annotatedClassVisitor, codeGenerator)
+            try {
+                annotatedSymbol.accept(annotatedClassVisitor, codeGenerator)
+            } catch (kspException: KSPException) {
+                logger.error(kspException.message ?: "Error processing shader parameters", kspException.symbol)
+            } catch (expected: Throwable) {
+                logger.error(expected.message ?: "Error processing shader parameters", annotatedSymbol)
+            }
         }
 
         return emptyList()
