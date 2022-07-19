@@ -30,6 +30,7 @@ tasks {
         dokkaSourceSets {
             configureEach {
                 includes.from(project.files("module.md", "packages.md"))
+                samples.from(project.fileTree("src/samples/kotlin").files)
             }
         }
     }
@@ -39,6 +40,7 @@ tasks {
         dokkaSourceSets {
             configureEach {
                 includes.from(project.files("module.md", "packages.md"))
+                samples.from(project.fileTree("src/samples/kotlin").files)
             }
         }
     }
