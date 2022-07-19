@@ -26,6 +26,8 @@
 - Usage of method `ProgramExecutor.dispose()` without parameters will be reported as an error
 
 ### Removed
+- Remove Kapt processors (`glimpse-processor-java` and `glimpse-processor-kotlin`).
+  _Use KSP processor instead (`glimpse-processor-ksp`)_
 
 ### Fixed
 - Apply correct unpack pixel alignment for texture data before calling `glTexImage2D()`
