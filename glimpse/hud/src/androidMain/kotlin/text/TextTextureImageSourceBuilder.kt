@@ -156,6 +156,8 @@ actual class TextTextureImageSourceBuilder {
 
             val bitmap = Bitmap.createBitmap(imageWidth, imageHeight, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bitmap)
+            canvas.scale(1f, -1f)
+            canvas.translate(0f, -imageHeight.toFloat())
             canvas.drawText(
                 text,
                 paddingLeft.toFloat() + (textAreaWidth - textBounds.width()).toFloat() / 2f,
