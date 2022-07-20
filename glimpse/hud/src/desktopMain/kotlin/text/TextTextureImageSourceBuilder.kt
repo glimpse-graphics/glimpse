@@ -147,8 +147,6 @@ actual class TextTextureImageSourceBuilder {
             val image = BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_4BYTE_ABGR)
 
             val graphics = image.createGraphics()
-            graphics.scale(1.0, -1.0)
-            graphics.translate(0, -imageHeight)
             graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
             graphics.font = font.awtFont
             graphics.color = Color(color.r, color.g, color.b, color.a)
