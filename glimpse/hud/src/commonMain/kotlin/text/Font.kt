@@ -23,9 +23,10 @@ package graphics.glimpse.hud.text
  */
 expect class Font {
 
-    override fun equals(other: Any?): Boolean
-    override fun hashCode(): Int
-    override fun toString(): String
+    /**
+     * Returns a copy of this font with given [textSize].
+     */
+    fun withSize(textSize: Float): Font
 
     companion object {
 
