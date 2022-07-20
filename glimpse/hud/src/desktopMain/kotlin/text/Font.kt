@@ -23,6 +23,12 @@ package graphics.glimpse.hud.text
  */
 actual data class Font(internal val awtFont: java.awt.Font) {
 
+    /**
+     * Returns a copy of this font with given [textSize].
+     */
+    actual fun withSize(textSize: Float): Font =
+        copy(awtFont = awtFont.deriveFont(textSize))
+
     actual companion object {
 
         private const val DEFAULT_FONT_SIZE = 24

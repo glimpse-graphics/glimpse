@@ -25,6 +25,12 @@ import android.graphics.Typeface
  */
 actual data class Font(internal val typeface: Typeface, internal val textSize: Float) {
 
+    /**
+     * Returns a copy of this font with given [textSize].
+     */
+    actual fun withSize(textSize: Float): Font =
+        copy(textSize = textSize)
+
     actual companion object {
 
         private const val DEFAULT_FONT_SIZE = 24f

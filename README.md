@@ -7,6 +7,11 @@
 [![Maven Central](https://img.shields.io/maven-central/v/graphics.glimpse/glimpse-core)][core-release]
 [![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/graphics.glimpse/glimpse-core?server=https%3A%2F%2Foss.sonatype.org)][core-snapshot]
 
+## Glimpse HUD
+
+[![Maven Central](https://img.shields.io/maven-central/v/graphics.glimpse/glimpse-hud)][hud-release]
+[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/graphics.glimpse/glimpse-hud?server=https%3A%2F%2Foss.sonatype.org)][hud-snapshot]
+
 ## Glimpse Wavefront OBJ Format Support
 
 [![Maven Central](https://img.shields.io/maven-central/v/graphics.glimpse/glimpse-obj)][obj-release]
@@ -17,10 +22,10 @@
 [![Maven Central](https://img.shields.io/maven-central/v/graphics.glimpse/glimpse-offscreen)][offscreen-release]
 [![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/graphics.glimpse/glimpse-offscreen?server=https%3A%2F%2Foss.sonatype.org)][offscreen-snapshot]
 
-## Glimpse Annotation Processor
+## Glimpse Kotlin Symbol Processor
 
-[![Maven Central](https://img.shields.io/maven-central/v/graphics.glimpse/glimpse-processor)][processor-release]
-[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/graphics.glimpse/glimpse-processor?server=https%3A%2F%2Foss.sonatype.org)][processor-snapshot]
+[![Maven Central](https://img.shields.io/maven-central/v/graphics.glimpse/glimpse-processor-ksp)][processor-ksp-release]
+[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/graphics.glimpse/glimpse-processor-ksp?server=https%3A%2F%2Foss.sonatype.org)][processor-ksp-snapshot]
 
 ## Glimpse UI Components
 
@@ -38,10 +43,12 @@
 [core-snapshot]: https://oss.sonatype.org/content/repositories/snapshots/graphics/glimpse/glimpse-core/
 [obj-release]: https://repo1.maven.org/maven2/graphics/glimpse/glimpse-obj/
 [obj-snapshot]: https://oss.sonatype.org/content/repositories/snapshots/graphics/glimpse/glimpse-obj/
+[hud-release]: https://repo1.maven.org/maven2/graphics/glimpse/glimpse-hud/
+[hud-snapshot]: https://oss.sonatype.org/content/repositories/snapshots/graphics/glimpse/glimpse-hud/
 [offscreen-release]: https://repo1.maven.org/maven2/graphics/glimpse/glimpse-offscreen/
 [offscreen-snapshot]: https://oss.sonatype.org/content/repositories/snapshots/graphics/glimpse/glimpse-offscreen/
-[processor-release]: https://repo1.maven.org/maven2/graphics/glimpse/glimpse-processor/
-[processor-snapshot]: https://oss.sonatype.org/content/repositories/snapshots/graphics/glimpse/glimpse-processor/
+[processor-ksp-release]: https://repo1.maven.org/maven2/graphics/glimpse/glimpse-processor-ksp/
+[processor-ksp-snapshot]: https://oss.sonatype.org/content/repositories/snapshots/graphics/glimpse/glimpse-processor-ksp/
 [ui-release]: https://repo1.maven.org/maven2/graphics/glimpse/glimpse-ui/
 [ui-snapshot]: https://oss.sonatype.org/content/repositories/snapshots/graphics/glimpse/glimpse-ui/
 [ui-compose-release]: https://repo1.maven.org/maven2/graphics/glimpse/glimpse-ui-compose/
