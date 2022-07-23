@@ -1,3 +1,3 @@
 # Module glimpse-hud
 
-Utilities for rendering HUD-like 2D element on top of 3D scene.
+Utilities for rendering HUD-style 2D elements on top of 3D scene.
