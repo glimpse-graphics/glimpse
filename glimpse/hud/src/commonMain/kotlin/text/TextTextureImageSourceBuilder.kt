@@ -24,7 +24,7 @@ import graphics.glimpse.types.Vec4
  *
  * @since v1.2.0
  */
-expect class TextTextureImageSourceBuilder {
+expect class TextTextureImageSourceBuilder constructor() {
 
     /**
      * Will build a texture source containing given [text].
