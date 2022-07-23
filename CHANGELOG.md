@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Added
+- Utilities for rendering HUD-style 2D elements on top of 3D scene
 - Build `TextureImageSource` from `BufferedImage`
 - Build `TextureImageSource` containing text
 - Properties `width` and `height` in `TextureImageSource` and `Texture`

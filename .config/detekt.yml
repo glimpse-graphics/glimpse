@@ -16,3 +16,5 @@ naming:
 style:
   DestructuringDeclarationWithTooManyEntries:
     maxDestructuringEntries: 4
+  ReturnCount:
+    max: 3
