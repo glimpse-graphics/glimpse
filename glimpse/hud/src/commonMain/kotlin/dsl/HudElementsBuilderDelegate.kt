@@ -35,7 +35,7 @@ import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Vec2
 import graphics.glimpse.types.Vec4
 
-internal class HudElementsBuilderDelegate(
+class HudElementsBuilderDelegate(
     private val gl: GlimpseAdapter
 ) : HudElementsBuilder {
 
