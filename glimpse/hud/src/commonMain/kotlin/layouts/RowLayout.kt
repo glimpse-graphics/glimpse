@@ -41,6 +41,8 @@ class RowLayout(
      * Arranges this layout's elements in a row.
      */
     override fun layoutElements() {
+        super.layoutElements()
+
         val width = elements.map { element -> element.boundingBox.width }.sum()
         val height = elements.maxOf { element -> element.boundingBox.height }
 

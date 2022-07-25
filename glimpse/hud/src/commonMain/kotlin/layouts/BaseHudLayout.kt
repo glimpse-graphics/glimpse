@@ -87,6 +87,14 @@ abstract class BaseHudLayout(
         elements.removeAt(index)
         layoutElements()
     }
+    /**
+     * Arranges this layout's elements recursively.
+     */
+    override fun layoutElements() {
+        for (element in elements) {
+            (element as? HudLayout)?.layoutElements()
+        }
+    }
 
     /**
      * Handles given input [event] at given [position].

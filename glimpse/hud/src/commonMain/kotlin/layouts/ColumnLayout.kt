@@ -41,6 +41,8 @@ class ColumnLayout(
      * Arranges this layout's elements in a column.
      */
     override fun layoutElements() {
+        super.layoutElements()
+
         val width = elements.maxOf { element -> element.boundingBox.width }
         val height = elements.map { element -> element.boundingBox.height }.sum()
 
