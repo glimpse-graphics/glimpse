@@ -26,19 +26,19 @@ class Space(
     /**
      * Space width.
      */
-    width: Float = 0f,
+    var width: Float = 0f,
 
     /**
      * Space height.
      */
-    height: Float = 0f
+    var height: Float = 0f
 ) : BaseHudElement(Vec2.nullVector) {
 
     /**
      * Bounding box of this space.
      */
-    override val boundingBox: BoundingBox =
-        BoundingBox(
+    override val boundingBox: BoundingBox
+        get() = BoundingBox(
             left = 0f,
             right = width,
             top = 0f,
