@@ -41,7 +41,7 @@ class HudElementsBuilderDelegate(
 
     private val textureBuilder = Texture.Builder.getInstance(gl)
 
-    internal val elements = mutableListOf<HudElement>()
+    val elements = mutableListOf<HudElement>()
 
     override fun <T : HudElement> element(element: T): T {
         elements += element
