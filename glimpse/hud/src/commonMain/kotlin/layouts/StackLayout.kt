@@ -41,6 +41,8 @@ class StackLayout(
      * Arranges this layout's elements in a stack.
      */
     override fun layoutElements() {
+        super.layoutElements()
+
         val width = elements.maxOf { element -> element.boundingBox.width }
         val height = elements.maxOf { element -> element.boundingBox.height }
 
