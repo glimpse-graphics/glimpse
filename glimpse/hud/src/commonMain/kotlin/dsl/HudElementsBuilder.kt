@@ -115,11 +115,11 @@ interface HudElementsBuilder {
      * Creates a table layout
      */
     fun table(
-        position: Vec2,
+        position: Vec2 = Vec2.nullVector,
         columns: List<TableLayout.Column>,
         columnsSpacing: Float = 0f,
         rowsSpacing: Float = 0f,
-        onInputEvent: ((event: Any?) -> Boolean)?,
+        onInputEvent: ((event: Any?) -> Boolean)? = null,
         init: HudElementsBuilder.() -> Unit
     ): TableLayout
 
