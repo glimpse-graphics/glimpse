@@ -34,8 +34,22 @@ class RowLayout(
     /**
      * Vertical alignment of the elements.
      */
-    private val alignment: VerticalAlignment = VerticalAlignment.Center
+    private val alignment: VerticalAlignment = VerticalAlignment.Center,
+
+    /**
+     * Spacing of elements in this row layout.
+     */
+    spacing: Float = 0f
 ) : BaseHudLayout(position) {
+
+    /**
+     * Spacing of elements in this row layout.
+     */
+    var spacing: Float = spacing
+        set(value) {
+            field = value
+            layoutElements()
+        }
 
     /**
      * Arranges this layout's elements in a row.
@@ -43,7 +57,7 @@ class RowLayout(
     override fun layoutElements() {
         super.layoutElements()
 
-        val width = elements.map { element -> element.boundingBox.width }.sum()
+        val width = elements.map { element -> element.boundingBox.width }.sum() + elements.lastIndex * spacing
         val height = elements.maxOf { element -> element.boundingBox.height }
 
         boundingBox = BoundingBox(
@@ -59,7 +73,7 @@ class RowLayout(
                 x = left - element.boundingBox.left,
                 y = alignment.y * (height - element.boundingBox.height) / 2f - element.boundingBox.midpoint.y
             )
-            left += element.boundingBox.width
+            left += element.boundingBox.width + spacing
         }
     }
 }

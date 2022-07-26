@@ -26,6 +26,7 @@ import graphics.glimpse.hud.layouts.ColumnLayout
 import graphics.glimpse.hud.layouts.HorizontalAlignment
 import graphics.glimpse.hud.layouts.RowLayout
 import graphics.glimpse.hud.layouts.StackLayout
+import graphics.glimpse.hud.layouts.TableLayout
 import graphics.glimpse.hud.layouts.VerticalAlignment
 import graphics.glimpse.hud.text.Font
 import graphics.glimpse.textures.Texture
@@ -84,6 +85,7 @@ interface HudElementsBuilder {
     fun column(
         position: Vec2 = Vec2.nullVector,
         alignment: HorizontalAlignment = HorizontalAlignment.Center,
+        spacing: Float = 0f,
         onInputEvent: ((event: Any?) -> Boolean)? = null,
         init: HudElementsBuilder.() -> Unit
     ): ColumnLayout
@@ -94,6 +96,7 @@ interface HudElementsBuilder {
     fun row(
         position: Vec2 = Vec2.nullVector,
         alignment: VerticalAlignment = VerticalAlignment.Center,
+        spacing: Float = 0f,
         onInputEvent: ((event: Any?) -> Boolean)? = null,
         init: HudElementsBuilder.() -> Unit
     ): RowLayout
@@ -107,6 +110,18 @@ interface HudElementsBuilder {
         onInputEvent: ((event: Any?) -> Boolean)? = null,
         init: HudElementsBuilder.() -> Unit
     ): StackLayout
+
+    /**
+     * Creates a table layout
+     */
+    fun table(
+        position: Vec2,
+        columns: List<TableLayout.Column>,
+        columnsSpacing: Float = 0f,
+        rowsSpacing: Float = 0f,
+        onInputEvent: ((event: Any?) -> Boolean)?,
+        init: HudElementsBuilder.() -> Unit
+    ): TableLayout
 
     /**
      * Sets [visibility] of an element defined in the [init] block.

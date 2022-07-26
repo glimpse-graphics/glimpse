@@ -27,6 +27,7 @@ import graphics.glimpse.hud.layouts.ColumnLayout
 import graphics.glimpse.hud.layouts.HorizontalAlignment
 import graphics.glimpse.hud.layouts.RowLayout
 import graphics.glimpse.hud.layouts.StackLayout
+import graphics.glimpse.hud.layouts.TableLayout
 import graphics.glimpse.hud.layouts.VerticalAlignment
 import graphics.glimpse.hud.text.Font
 import graphics.glimpse.hud.text.TextTextureImageSourceBuilder
@@ -36,7 +37,7 @@ import graphics.glimpse.types.Vec2
 import graphics.glimpse.types.Vec4
 
 class HudElementsBuilderDelegate(
-    private val gl: GlimpseAdapter
+    val gl: GlimpseAdapter
 ) : HudElementsBuilder {
 
     private val textureBuilder = Texture.Builder.getInstance(gl)
@@ -107,10 +108,11 @@ class HudElementsBuilderDelegate(
     override fun column(
         position: Vec2,
         alignment: HorizontalAlignment,
+        spacing: Float,
         onInputEvent: ((event: Any?) -> Boolean)?,
         init: HudElementsBuilder.() -> Unit
     ): ColumnLayout = element(
-        ColumnLayoutBuilder(gl, position, alignment)
+        ColumnLayoutBuilder(gl, position, alignment, spacing)
             .apply(init)
             .build()
             .applyInputEventListener(onInputEvent)
@@ -119,10 +121,11 @@ class HudElementsBuilderDelegate(
     override fun row(
         position: Vec2,
         alignment: VerticalAlignment,
+        spacing: Float,
         onInputEvent: ((event: Any?) -> Boolean)?,
         init: HudElementsBuilder.() -> Unit
     ): RowLayout = element(
-        RowLayoutBuilder(gl, position, alignment)
+        RowLayoutBuilder(gl, position, alignment, spacing)
             .apply(init)
             .build()
             .applyInputEventListener(onInputEvent)
@@ -135,6 +138,20 @@ class HudElementsBuilderDelegate(
         init: HudElementsBuilder.() -> Unit
     ): StackLayout = element(
         StackLayoutBuilder(gl, position, alignment)
+            .apply(init)
+            .build()
+            .applyInputEventListener(onInputEvent)
+    )
+
+    override fun table(
+        position: Vec2,
+        columns: List<TableLayout.Column>,
+        columnsSpacing: Float,
+        rowsSpacing: Float,
+        onInputEvent: ((event: Any?) -> Boolean)?,
+        init: HudElementsBuilder.() -> Unit
+    ): TableLayout = element(
+        TableLayoutBuilder(gl, position, columns, columnsSpacing, rowsSpacing)
             .apply(init)
             .build()
             .applyInputEventListener(onInputEvent)
