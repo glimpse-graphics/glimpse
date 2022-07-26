@@ -27,6 +27,7 @@ import graphics.glimpse.hud.layouts.ColumnLayout
 import graphics.glimpse.hud.layouts.HorizontalAlignment
 import graphics.glimpse.hud.layouts.RowLayout
 import graphics.glimpse.hud.layouts.StackLayout
+import graphics.glimpse.hud.layouts.TableLayout
 import graphics.glimpse.hud.layouts.VerticalAlignment
 import graphics.glimpse.hud.text.Font
 import graphics.glimpse.hud.text.TextTextureImageSourceBuilder
@@ -137,6 +138,20 @@ class HudElementsBuilderDelegate(
         init: HudElementsBuilder.() -> Unit
     ): StackLayout = element(
         StackLayoutBuilder(gl, position, alignment)
+            .apply(init)
+            .build()
+            .applyInputEventListener(onInputEvent)
+    )
+
+    override fun table(
+        position: Vec2,
+        columns: List<TableLayout.Column>,
+        columnsSpacing: Float,
+        rowsSpacing: Float,
+        onInputEvent: ((event: Any?) -> Boolean)?,
+        init: HudElementsBuilder.() -> Unit
+    ): TableLayout = element(
+        TableLayoutBuilder(gl, position, columns, columnsSpacing, rowsSpacing)
             .apply(init)
             .build()
             .applyInputEventListener(onInputEvent)
