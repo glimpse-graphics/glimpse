@@ -23,13 +23,14 @@ import graphics.glimpse.types.Vec2
 
 internal class RowLayoutBuilder(
     gl: GlimpseAdapter,
-    private val position: Vec2 = Vec2.nullVector,
-    private val alignment: VerticalAlignment = VerticalAlignment.Center,
+    private val position: Vec2,
+    private val alignment: VerticalAlignment,
+    private val spacing: Float,
     private val delegate: HudElementsBuilderDelegate = HudElementsBuilderDelegate(gl)
 ) : HudElementsBuilder by delegate {
 
     fun build(): RowLayout =
-        RowLayout(position, alignment).apply {
+        RowLayout(position, alignment, spacing).apply {
             for (element in delegate.elements) {
                 addElement(element)
             }

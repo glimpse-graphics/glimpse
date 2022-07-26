@@ -107,10 +107,11 @@ class HudElementsBuilderDelegate(
     override fun column(
         position: Vec2,
         alignment: HorizontalAlignment,
+        spacing: Float,
         onInputEvent: ((event: Any?) -> Boolean)?,
         init: HudElementsBuilder.() -> Unit
     ): ColumnLayout = element(
-        ColumnLayoutBuilder(gl, position, alignment)
+        ColumnLayoutBuilder(gl, position, alignment, spacing)
             .apply(init)
             .build()
             .applyInputEventListener(onInputEvent)
@@ -119,10 +120,11 @@ class HudElementsBuilderDelegate(
     override fun row(
         position: Vec2,
         alignment: VerticalAlignment,
+        spacing: Float,
         onInputEvent: ((event: Any?) -> Boolean)?,
         init: HudElementsBuilder.() -> Unit
     ): RowLayout = element(
-        RowLayoutBuilder(gl, position, alignment)
+        RowLayoutBuilder(gl, position, alignment, spacing)
             .apply(init)
             .build()
             .applyInputEventListener(onInputEvent)

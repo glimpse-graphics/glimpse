@@ -34,8 +34,22 @@ class ColumnLayout(
     /**
      * Horizontal alignment of the elements.
      */
-    private val alignment: HorizontalAlignment = HorizontalAlignment.Center
+    private val alignment: HorizontalAlignment = HorizontalAlignment.Center,
+
+    /**
+     * Spacing of elements in this column layout.
+     */
+    spacing: Float = 0f
 ) : BaseHudLayout(position) {
+
+    /**
+     * Spacing of elements in this column layout.
+     */
+    var spacing: Float = spacing
+        set(value) {
+            field = value
+            layoutElements()
+        }
 
     /**
      * Arranges this layout's elements in a column.
@@ -44,7 +58,7 @@ class ColumnLayout(
         super.layoutElements()
 
         val width = elements.maxOf { element -> element.boundingBox.width }
-        val height = elements.map { element -> element.boundingBox.height }.sum()
+        val height = elements.map { element -> element.boundingBox.height }.sum() + elements.lastIndex * spacing
 
         boundingBox = BoundingBox(
             left = -width / 2f,
@@ -59,7 +73,7 @@ class ColumnLayout(
                 x = alignment.x * (width - element.boundingBox.width) / 2f - element.boundingBox.midpoint.x,
                 y = top - element.boundingBox.top
             )
-            top += element.boundingBox.height
+            top += element.boundingBox.height + spacing
         }
     }
 }

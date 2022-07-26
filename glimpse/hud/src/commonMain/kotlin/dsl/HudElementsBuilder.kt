@@ -84,6 +84,7 @@ interface HudElementsBuilder {
     fun column(
         position: Vec2 = Vec2.nullVector,
         alignment: HorizontalAlignment = HorizontalAlignment.Center,
+        spacing: Float = 0f,
         onInputEvent: ((event: Any?) -> Boolean)? = null,
         init: HudElementsBuilder.() -> Unit
     ): ColumnLayout
@@ -94,6 +95,7 @@ interface HudElementsBuilder {
     fun row(
         position: Vec2 = Vec2.nullVector,
         alignment: VerticalAlignment = VerticalAlignment.Center,
+        spacing: Float = 0f,
         onInputEvent: ((event: Any?) -> Boolean)? = null,
         init: HudElementsBuilder.() -> Unit
     ): RowLayout
