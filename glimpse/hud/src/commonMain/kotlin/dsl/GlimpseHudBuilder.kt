@@ -20,7 +20,7 @@ import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.hud.GlimpseHudCallback
 
 internal class GlimpseHudBuilder(
-    private val gl: GlimpseAdapter,
+    gl: GlimpseAdapter,
     private val delegate: HudElementsBuilderDelegate = HudElementsBuilderDelegate(gl)
 ) : HudElementsBuilder by delegate {
 

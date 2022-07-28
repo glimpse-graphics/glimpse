@@ -22,7 +22,7 @@ import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Vec2
 
 internal class TransformationWrapperBuilder(
-    private val gl: GlimpseAdapter,
+    gl: GlimpseAdapter,
     private val translation: () -> Vec2,
     private val rotation: () -> Angle,
     private val scale: () -> Vec2,
