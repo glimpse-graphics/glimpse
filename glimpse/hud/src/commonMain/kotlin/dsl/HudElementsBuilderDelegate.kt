@@ -36,6 +36,9 @@ import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Vec2
 import graphics.glimpse.types.Vec4
 
+/**
+ * Concrete builder of HUD elements to be used as a delegate by other builders.
+ */
 class HudElementsBuilderDelegate(
 
     /**
@@ -48,11 +51,17 @@ class HudElementsBuilderDelegate(
 
     val elements = mutableListOf<HudElement>()
 
+    /**
+     * Adds a custom element.
+     */
     override fun <T : HudElement> element(element: T): T {
         elements += element
         return element
     }
 
+    /**
+     * Creates a quad.
+     */
     override fun quad(
         texture: Texture,
         position: Vec2,
@@ -74,6 +83,9 @@ class HudElementsBuilderDelegate(
         return this
     }
 
+    /**
+     * Creates a quad containing text.
+     */
     override fun text(
         text: String,
         font: Font,
@@ -102,6 +114,9 @@ class HudElementsBuilderDelegate(
         init = init
     )
 
+    /**
+     * Creates empty space.
+     */
     override fun space(
         width: Number,
         height: Number
@@ -109,6 +124,9 @@ class HudElementsBuilderDelegate(
         Space(width.toFloat(), height.toFloat())
     )
 
+    /**
+     * Creates a column layout.
+     */
     override fun column(
         position: Vec2,
         alignment: HorizontalAlignment,
@@ -122,6 +140,9 @@ class HudElementsBuilderDelegate(
             .applyInputEventListener(onInputEvent)
     )
 
+    /**
+     * Creates a row layout.
+     */
     override fun row(
         position: Vec2,
         alignment: VerticalAlignment,
@@ -135,6 +156,9 @@ class HudElementsBuilderDelegate(
             .applyInputEventListener(onInputEvent)
     )
 
+    /**
+     * Creates a stack layout.
+     */
     override fun stack(
         position: Vec2,
         alignment: Alignment,
@@ -147,6 +171,9 @@ class HudElementsBuilderDelegate(
             .applyInputEventListener(onInputEvent)
     )
 
+    /**
+     * Creates a table layout
+     */
     override fun table(
         position: Vec2,
         columns: List<TableLayout.Column>,
@@ -161,6 +188,9 @@ class HudElementsBuilderDelegate(
             .applyInputEventListener(onInputEvent)
     )
 
+    /**
+     * Sets [visibility] of an element defined in the [init] block.
+     */
     override fun withVisibility(
         visibility: () -> Boolean,
         init: HudElementsBuilder.() -> Unit
@@ -170,6 +200,9 @@ class HudElementsBuilderDelegate(
             .build()
     )
 
+    /**
+     * Transforms an element defined in the [init] block.
+     */
     override fun withTransformation(
         translation: () -> Vec2,
         rotation: () -> Angle,
