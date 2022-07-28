@@ -16,6 +16,7 @@
 
 package graphics.glimpse.hud.dsl
 
+import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.hud.HudElement
 import graphics.glimpse.hud.TransformationWrapper
 import graphics.glimpse.hud.Quad
@@ -38,6 +39,11 @@ import graphics.glimpse.types.Vec4
  * Builder of HUD elements.
  */
 interface HudElementsBuilder {
+
+    /**
+     * Glimpse adapter associated with this builder.
+     */
+    val gl: GlimpseAdapter
 
     /**
      * Adds a custom element.

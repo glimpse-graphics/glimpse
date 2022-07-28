@@ -37,7 +37,11 @@ import graphics.glimpse.types.Vec2
 import graphics.glimpse.types.Vec4
 
 class HudElementsBuilderDelegate(
-    val gl: GlimpseAdapter
+
+    /**
+     * Glimpse adapter associated with this builder.
+     */
+    override val gl: GlimpseAdapter
 ) : HudElementsBuilder {
 
     private val textureBuilder = Texture.Builder.getInstance(gl)

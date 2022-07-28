@@ -20,7 +20,7 @@ import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.hud.VisibilityWrapper
 
 internal class VisibilityWrapperBuilder(
-    private val gl: GlimpseAdapter,
+    gl: GlimpseAdapter,
     private val visibility: () -> Boolean,
     private val delegate: HudElementsBuilderDelegate = HudElementsBuilderDelegate(gl)
 ) : HudElementsBuilder by delegate {
