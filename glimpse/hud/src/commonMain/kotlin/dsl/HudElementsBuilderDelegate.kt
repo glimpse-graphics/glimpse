@@ -17,10 +17,11 @@
 package graphics.glimpse.hud.dsl
 
 import graphics.glimpse.GlimpseAdapter
+import graphics.glimpse.GlimpseDisposableContainer
 import graphics.glimpse.hud.HudElement
-import graphics.glimpse.hud.TransformationWrapper
 import graphics.glimpse.hud.Quad
 import graphics.glimpse.hud.Space
+import graphics.glimpse.hud.TransformationWrapper
 import graphics.glimpse.hud.VisibilityWrapper
 import graphics.glimpse.hud.layouts.Alignment
 import graphics.glimpse.hud.layouts.ColumnLayout
@@ -44,11 +45,24 @@ class HudElementsBuilderDelegate(
     /**
      * Glimpse adapter associated with this builder.
      */
-    override val gl: GlimpseAdapter
+    override val gl: GlimpseAdapter,
+
+    /**
+     * Container for disposable Glimpse objects created by this builder.
+     */
+    override val disposables: GlimpseDisposableContainer
 ) : HudElementsBuilder {
+
+    /**
+     * Creates a new HUD elements builder delegate from given [parent] HUD elements builder.
+     */
+    constructor(parent: HudElementsBuilder) : this(parent.gl, parent.disposables)
 
     private val textureBuilder = Texture.Builder.getInstance(gl)
 
+    /**
+     * Elements added to this builder.
+     */
     val elements = mutableListOf<HudElement>()
 
     /**
@@ -108,7 +122,8 @@ class HudElementsBuilderDelegate(
                     .build()
             )
             .build()
-            .single(),
+            .single()
+            .also(disposables::add),
         position = position,
         onInputEvent = onInputEvent,
         init = init
@@ -134,7 +149,7 @@ class HudElementsBuilderDelegate(
         onInputEvent: ((event: Any?) -> Boolean)?,
         init: HudElementsBuilder.() -> Unit
     ): ColumnLayout = element(
-        ColumnLayoutBuilder(gl, position, alignment, spacing)
+        ColumnLayoutBuilder(this, position, alignment, spacing)
             .apply(init)
             .build()
             .applyInputEventListener(onInputEvent)
@@ -150,7 +165,7 @@ class HudElementsBuilderDelegate(
         onInputEvent: ((event: Any?) -> Boolean)?,
         init: HudElementsBuilder.() -> Unit
     ): RowLayout = element(
-        RowLayoutBuilder(gl, position, alignment, spacing)
+        RowLayoutBuilder(this, position, alignment, spacing)
             .apply(init)
             .build()
             .applyInputEventListener(onInputEvent)
@@ -165,7 +180,7 @@ class HudElementsBuilderDelegate(
         onInputEvent: ((event: Any?) -> Boolean)?,
         init: HudElementsBuilder.() -> Unit
     ): StackLayout = element(
-        StackLayoutBuilder(gl, position, alignment)
+        StackLayoutBuilder(this, position, alignment)
             .apply(init)
             .build()
             .applyInputEventListener(onInputEvent)
@@ -182,7 +197,7 @@ class HudElementsBuilderDelegate(
         onInputEvent: ((event: Any?) -> Boolean)?,
         init: HudElementsBuilder.() -> Unit
     ): TableLayout = element(
-        TableLayoutBuilder(gl, position, columns, columnsSpacing, rowsSpacing)
+        TableLayoutBuilder(this, position, columns, columnsSpacing, rowsSpacing)
             .apply(init)
             .build()
             .applyInputEventListener(onInputEvent)
@@ -195,7 +210,7 @@ class HudElementsBuilderDelegate(
         visibility: () -> Boolean,
         init: HudElementsBuilder.() -> Unit
     ): VisibilityWrapper = element(
-        VisibilityWrapperBuilder(gl, visibility)
+        VisibilityWrapperBuilder(this, visibility)
             .apply(init)
             .build()
     )
@@ -209,7 +224,7 @@ class HudElementsBuilderDelegate(
         scale: () -> Vec2,
         init: HudElementsBuilder.() -> Unit
     ): TransformationWrapper = element(
-        TransformationWrapperBuilder(gl, translation, rotation, scale)
+        TransformationWrapperBuilder(this, translation, rotation, scale)
             .apply(init)
             .build()
     )

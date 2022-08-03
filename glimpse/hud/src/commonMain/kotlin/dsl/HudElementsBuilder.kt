@@ -17,6 +17,7 @@
 package graphics.glimpse.hud.dsl
 
 import graphics.glimpse.GlimpseAdapter
+import graphics.glimpse.GlimpseDisposableContainer
 import graphics.glimpse.hud.HudElement
 import graphics.glimpse.hud.TransformationWrapper
 import graphics.glimpse.hud.Quad
@@ -44,6 +45,11 @@ interface HudElementsBuilder {
      * Glimpse adapter associated with this builder.
      */
     val gl: GlimpseAdapter
+
+    /**
+     * Container for disposable Glimpse objects created by this builder.
+     */
+    val disposables: GlimpseDisposableContainer
 
     /**
      * Adds a custom element.

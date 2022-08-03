@@ -17,13 +17,15 @@
 package graphics.glimpse.hud.dsl
 
 import graphics.glimpse.GlimpseAdapter
+import graphics.glimpse.GlimpseDisposableContainer
 import graphics.glimpse.hud.GlimpseHudCallback
 
 internal class GlimpseHudBuilder(
     gl: GlimpseAdapter,
-    private val delegate: HudElementsBuilderDelegate = HudElementsBuilderDelegate(gl)
+    disposables: GlimpseDisposableContainer = GlimpseDisposableContainer(),
+    private val delegate: HudElementsBuilderDelegate = HudElementsBuilderDelegate(gl, disposables)
 ) : HudElementsBuilder by delegate {
 
     fun build(): GlimpseHudCallback =
-        GlimpseHudCallback(delegate.elements)
+        GlimpseHudCallback(delegate.elements, delegate.disposables)
 }

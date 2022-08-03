@@ -16,13 +16,12 @@
 
 package graphics.glimpse.hud.dsl
 
-import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.hud.VisibilityWrapper
 
 internal class VisibilityWrapperBuilder(
-    gl: GlimpseAdapter,
+    parent: HudElementsBuilder,
     private val visibility: () -> Boolean,
-    private val delegate: HudElementsBuilderDelegate = HudElementsBuilderDelegate(gl)
+    private val delegate: HudElementsBuilderDelegate = HudElementsBuilderDelegate(parent)
 ) : HudElementsBuilder by delegate {
 
     fun build(): VisibilityWrapper =

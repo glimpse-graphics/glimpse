@@ -16,17 +16,16 @@
 
 package graphics.glimpse.hud.dsl
 
-import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.hud.TransformationWrapper
 import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Vec2
 
 internal class TransformationWrapperBuilder(
-    gl: GlimpseAdapter,
+    parent: HudElementsBuilder,
     private val translation: () -> Vec2,
     private val rotation: () -> Angle,
     private val scale: () -> Vec2,
-    private val delegate: HudElementsBuilderDelegate = HudElementsBuilderDelegate(gl)
+    private val delegate: HudElementsBuilderDelegate = HudElementsBuilderDelegate(parent)
 ) : HudElementsBuilder by delegate {
 
     fun build(): TransformationWrapper =
