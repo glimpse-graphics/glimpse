@@ -17,12 +17,14 @@
 package graphics.glimpse.shaders
 
 import graphics.glimpse.GlimpseAdapter
+import graphics.glimpse.GlimpseDisposable
 import graphics.glimpse.types.Mat2
 import graphics.glimpse.types.Mat3
 import graphics.glimpse.types.Mat4
 import graphics.glimpse.types.Vec2
 import graphics.glimpse.types.Vec3
 import graphics.glimpse.types.Vec4
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Base for generated [ProgramExecutor] implementations.
@@ -33,6 +35,9 @@ abstract class BaseProgramExecutor<T>(
 
     private val uniformLocations = mutableMapOf<String, Int>()
     private val attributeLocations = mutableMapOf<String, Int>()
+
+    private val disposed = AtomicBoolean(false)
+    override val isDisposed: Boolean get() = disposed.get()
 
     /**
      * Tells the given [OpenGL adapter][gl] to use the [program] contained in the executor.
@@ -218,13 +223,14 @@ abstract class BaseProgramExecutor<T>(
     /**
      * Clears cached locations of variables.
      *
-     * @deprecated This method is scheduled for removal in v1.3.0. Use `dispose(GlimpseAdapter)` instead.
+     * @deprecated This method is scheduled for removal in v1.3.0. Use [GlimpseDisposable.dispose] instead.
      */
     @Deprecated(
         message = "This method is scheduled for removal in v1.3.0. Use dispose(GlimpseAdapter) instead.",
         level = DeprecationLevel.ERROR
     )
     override fun dispose() {
+        check(disposed.compareAndSet(false, true)) { "Program executor is already disposed" }
         uniformLocations.clear()
         attributeLocations.clear()
     }
@@ -235,6 +241,7 @@ abstract class BaseProgramExecutor<T>(
      * @since v1.1.0
      */
     override fun dispose(gl: GlimpseAdapter) {
+        check(disposed.compareAndSet(false, true)) { "Program executor is already disposed" }
         uniformLocations.clear()
         attributeLocations.clear()
         program.dispose(gl)

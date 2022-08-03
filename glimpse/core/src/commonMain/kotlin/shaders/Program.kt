@@ -17,11 +17,12 @@
 package graphics.glimpse.shaders
 
 import graphics.glimpse.GlimpseAdapter
+import graphics.glimpse.GlimpseDisposable
 
 /**
  * A program.
  */
-interface Program {
+interface Program : GlimpseDisposable {
 
     /**
      * Program handle.
@@ -32,11 +33,6 @@ interface Program {
      * Tells the given [OpenGL adapter][gl] to use this program.
      */
     fun use(gl: GlimpseAdapter)
-
-    /**
-     * Tells the given [OpenGL adapter][gl] to dispose this program.
-     */
-    fun dispose(gl: GlimpseAdapter)
 
     /**
      * A builder for programs.

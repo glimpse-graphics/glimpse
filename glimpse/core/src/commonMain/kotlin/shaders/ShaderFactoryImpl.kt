@@ -18,6 +18,7 @@ package graphics.glimpse.shaders
 
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.logging.GlimpseLogger
+import java.util.concurrent.atomic.AtomicBoolean
 
 internal class ShaderFactoryImpl(private val gl: GlimpseAdapter) : Shader.Factory {
 
@@ -49,7 +50,11 @@ internal class ShaderFactoryImpl(private val gl: GlimpseAdapter) : Shader.Factor
 
     private data class ShaderImpl(override val handle: Int) : Shader {
 
+        private val disposed = AtomicBoolean(false)
+        override val isDisposed: Boolean get() = disposed.get()
+
         override fun dispose(gl: GlimpseAdapter) {
+            check(disposed.compareAndSet(false, true)) { "Shader is already disposed" }
             if (!gl.glGetShaderDeleteStatus(handle)) {
                 gl.glDeleteShader(handle)
             }

@@ -17,6 +17,7 @@
 package graphics.glimpse.shaders
 
 import graphics.glimpse.GlimpseAdapter
+import graphics.glimpse.GlimpseDisposable
 import graphics.glimpse.meshes.Mesh
 import graphics.glimpse.shaders.annotations.ShaderParams
 
@@ -26,7 +27,7 @@ import graphics.glimpse.shaders.annotations.ShaderParams
  * Program executors are not intended to be implemented manually. Instead, they should be generated
  * from classes annotated with [ShaderParams].
  */
-interface ProgramExecutor<T> {
+interface ProgramExecutor<T> : GlimpseDisposable {
 
     /**
      * Tells the given [OpenGL adapter][gl] to use the program contained in the executor.
@@ -46,18 +47,11 @@ interface ProgramExecutor<T> {
     /**
      * Disposes the program executor.
      *
-     * @deprecated This method is scheduled for removal in v1.3.0. Use `dispose(GlimpseAdapter)` instead.
+     * @deprecated This method is scheduled for removal in v1.3.0. Use [GlimpseDisposable.dispose] instead.
      */
     @Deprecated(
         message = "This method is scheduled for removal in v1.3.0. Use dispose(GlimpseAdapter) instead.",
         level = DeprecationLevel.ERROR
     )
     fun dispose()
-
-    /**
-     * Disposes the program executor and the program itself.
-     *
-     * @since v1.1.0
-     */
-    fun dispose(gl: GlimpseAdapter)
 }

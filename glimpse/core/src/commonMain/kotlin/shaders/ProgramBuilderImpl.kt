@@ -18,6 +18,7 @@ package graphics.glimpse.shaders
 
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.logging.GlimpseLogger
+import java.util.concurrent.atomic.AtomicBoolean
 
 internal class ProgramBuilderImpl(private val gl: GlimpseAdapter) : Program.Builder {
 
@@ -97,11 +98,16 @@ internal class ProgramBuilderImpl(private val gl: GlimpseAdapter) : Program.Buil
         private val fragmentShaderHandle: Int
     ) : Program {
 
+        private val disposed = AtomicBoolean(false)
+        override val isDisposed: Boolean get() = disposed.get()
+
         override fun use(gl: GlimpseAdapter) {
             gl.glUseProgram(handle)
         }
 
         override fun dispose(gl: GlimpseAdapter) {
+            check(disposed.compareAndSet(false, true)) { "Program is already disposed" }
+
             if (!gl.glGetProgramDeleteStatus(handle)) {
                 gl.glDeleteProgram(handle)
             }

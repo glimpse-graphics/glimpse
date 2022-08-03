@@ -16,17 +16,16 @@
 
 package graphics.glimpse.hud.dsl
 
-import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.hud.layouts.RowLayout
 import graphics.glimpse.hud.layouts.VerticalAlignment
 import graphics.glimpse.types.Vec2
 
 internal class RowLayoutBuilder(
-    gl: GlimpseAdapter,
+    parent: HudElementsBuilder,
     private val position: Vec2,
     private val alignment: VerticalAlignment,
     private val spacing: Float,
-    private val delegate: HudElementsBuilderDelegate = HudElementsBuilderDelegate(gl)
+    private val delegate: HudElementsBuilderDelegate = HudElementsBuilderDelegate(parent)
 ) : HudElementsBuilder by delegate {
 
     fun build(): RowLayout =

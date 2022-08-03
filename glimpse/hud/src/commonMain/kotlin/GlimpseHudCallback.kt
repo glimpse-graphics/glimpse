@@ -21,13 +21,14 @@ import graphics.glimpse.DepthTestFunction
 import graphics.glimpse.DrawingMode
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.GlimpseCallback
+import graphics.glimpse.GlimpseDisposable
 import graphics.glimpse.buffers.Buffer
 import graphics.glimpse.buffers.toFloatBufferData
 import graphics.glimpse.cameras.Camera
 import graphics.glimpse.cameras.FreeCamera
 import graphics.glimpse.hud.shaders.Hud
-import graphics.glimpse.hud.shaders.HudShaderSourcesProvider
 import graphics.glimpse.hud.shaders.HudProgramExecutor
+import graphics.glimpse.hud.shaders.HudShaderSourcesProvider
 import graphics.glimpse.lenses.OrthographicLens
 import graphics.glimpse.meshes.Mesh
 import graphics.glimpse.shaders.Program
@@ -36,6 +37,7 @@ import graphics.glimpse.shaders.ShaderType
 import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Vec2
 import graphics.glimpse.types.Vec3
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Glimpse callback for HUD.
@@ -48,6 +50,13 @@ class GlimpseHudCallback(
      * Elements of this HUD.
      */
     private val elements: List<HudElement>,
+
+    /**
+     * Disposable to be disposed when [onDestroy] method is called.
+     *
+     * Typically, it is a disposable container, containing textures used exclusively by this HUD.
+     */
+    private val disposable: GlimpseDisposable? = null,
 
     /**
      * Provider of HUD shader sources.
@@ -87,6 +96,9 @@ class GlimpseHudCallback(
 
             override val vertexCount: Int = QUAD_VERTICES
 
+            private val disposed = AtomicBoolean(false)
+            override val isDisposed: Boolean get() = disposed.get()
+
             override fun useBuffer(gl: GlimpseAdapter, bufferIndex: Int) {
                 buffers[bufferIndex].use(gl)
             }
@@ -96,6 +108,7 @@ class GlimpseHudCallback(
             }
 
             override fun dispose(gl: GlimpseAdapter) {
+                check(disposed.compareAndSet(false, true)) { "Mesh is already disposed" }
                 buffer.dispose(gl)
             }
         }
@@ -149,6 +162,7 @@ class GlimpseHudCallback(
      * Disposes program executor and mesh related to this HUD.
      */
     override fun onDestroy(gl: GlimpseAdapter) {
+        disposable?.dispose(gl)
         if (::programExecutor.isInitialized) {
             programExecutor.dispose(gl)
         }

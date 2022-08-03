@@ -14,37 +14,24 @@
  * limitations under the License.
  */
 
-package graphics.glimpse.shaders
-
-import graphics.glimpse.GlimpseAdapter
-import graphics.glimpse.GlimpseDisposable
+package graphics.glimpse
 
 /**
- * A shader.
+ * Interface for disposable Glimpse objects.
+ *
+ * @since v1.2.0
  */
-interface Shader : GlimpseDisposable {
+interface GlimpseDisposable {
 
     /**
-     * Shader handle.
+     * `true` if this object has been disposed.
      */
-    val handle: Int
+    val isDisposed: Boolean
 
     /**
-     * A factory for shaders.
+     * Disposes this object and its resources using given [OpenGL adapter][gl].
+     *
+     * @throws IllegalStateException if this object has already been disposed.
      */
-    interface Factory {
-
-        /**
-         * Creates a new shader of a given [type] from the given shader [source].
-         */
-        fun createShader(type: ShaderType, source: String): Shader
-
-        companion object {
-
-            /**
-             * Returns a new instance of shader factory.
-             */
-            fun newInstance(gl: GlimpseAdapter): Factory = ShaderFactoryImpl(gl)
-        }
-    }
+    fun dispose(gl: GlimpseAdapter)
 }

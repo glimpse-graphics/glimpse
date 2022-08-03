@@ -16,16 +16,15 @@
 
 package graphics.glimpse.hud.dsl
 
-import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.hud.layouts.Alignment
 import graphics.glimpse.hud.layouts.StackLayout
 import graphics.glimpse.types.Vec2
 
 internal class StackLayoutBuilder(
-    gl: GlimpseAdapter,
+    parent: HudElementsBuilder,
     private val position: Vec2 = Vec2.nullVector,
     private val alignment: Alignment = Alignment.Center,
-    private val delegate: HudElementsBuilderDelegate = HudElementsBuilderDelegate(gl)
+    private val delegate: HudElementsBuilderDelegate = HudElementsBuilderDelegate(parent)
 ) : HudElementsBuilder by delegate {
 
     fun build(): StackLayout =
