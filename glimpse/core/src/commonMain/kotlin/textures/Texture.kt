@@ -17,12 +17,13 @@
 package graphics.glimpse.textures
 
 import graphics.glimpse.GlimpseAdapter
+import graphics.glimpse.GlimpseDisposable
 import graphics.glimpse.framebuffers.Framebuffer
 
 /**
  * A texture.
  */
-interface Texture {
+interface Texture : GlimpseDisposable {
 
     /**
      * Texture handle.
@@ -47,11 +48,6 @@ interface Texture {
      * Uses this texture at a given [textureIndex].
      */
     fun useAtIndex(gl: GlimpseAdapter, textureIndex: Int)
-
-    /**
-     * Disposes this texture.
-     */
-    fun dispose(gl: GlimpseAdapter)
 
     /**
      * An interface for a texture builder.

@@ -17,11 +17,12 @@
 package graphics.glimpse.buffers
 
 import graphics.glimpse.GlimpseAdapter
+import graphics.glimpse.GlimpseDisposable
 
 /**
  * A wrapper for a vertex data buffer.
  */
-interface Buffer {
+interface Buffer : GlimpseDisposable {
 
     /**
      * Type of the buffer.
@@ -37,11 +38,6 @@ interface Buffer {
      * Tells the given [OpenGL adapter][gl] to use this buffer.
      */
     fun use(gl: GlimpseAdapter)
-
-    /**
-     * Tells the given [OpenGL adapter][gl] to dispose this buffer.
-     */
-    fun dispose(gl: GlimpseAdapter)
 
     /**
      * A factory for vertex data buffers.

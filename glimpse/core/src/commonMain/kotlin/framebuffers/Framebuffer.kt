@@ -17,6 +17,7 @@
 package graphics.glimpse.framebuffers
 
 import graphics.glimpse.GlimpseAdapter
+import graphics.glimpse.GlimpseDisposable
 import graphics.glimpse.textures.Texture
 
 /**
@@ -24,7 +25,7 @@ import graphics.glimpse.textures.Texture
  *
  * @since v1.1.0
  */
-interface Framebuffer {
+interface Framebuffer : GlimpseDisposable {
 
     /**
      * Framebuffer handle.
@@ -40,11 +41,6 @@ interface Framebuffer {
      * Textures attached to this framebuffer.
      */
     val textures: Map<FramebufferAttachmentType, Texture>
-
-    /**
-     * Disposes this framebuffer.
-     */
-    fun dispose(gl: GlimpseAdapter)
 
     /**
      * An interface for a framebuffer builder.

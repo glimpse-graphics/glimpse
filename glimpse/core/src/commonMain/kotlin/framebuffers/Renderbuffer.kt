@@ -17,6 +17,7 @@
 package graphics.glimpse.framebuffers
 
 import graphics.glimpse.GlimpseAdapter
+import graphics.glimpse.GlimpseDisposable
 import graphics.glimpse.textures.TextureInternalFormat
 
 /**
@@ -24,17 +25,12 @@ import graphics.glimpse.textures.TextureInternalFormat
  *
  * @since v1.1.0
  */
-interface Renderbuffer {
+interface Renderbuffer : GlimpseDisposable {
 
     /**
      * Renderbuffer handle.
      */
     val handle: Int
-
-    /**
-     * Disposes this renderbuffer.
-     */
-    fun dispose(gl: GlimpseAdapter)
 
     /**
      * A factory for renderbuffers.

@@ -20,6 +20,7 @@ import graphics.glimpse.DrawingMode
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.buffers.Buffer
 import graphics.glimpse.logging.GlimpseLogger
+import java.util.concurrent.atomic.AtomicBoolean
 
 internal class MeshFactoryImpl(gl: GlimpseAdapter) : Mesh.Factory {
 
@@ -48,6 +49,9 @@ internal class MeshFactoryImpl(gl: GlimpseAdapter) : Mesh.Factory {
         override val buffers: List<Buffer>
     ) : Mesh {
 
+        private val disposed = AtomicBoolean(false)
+        override val isDisposed: Boolean get() = disposed.get()
+
         override fun useBuffer(gl: GlimpseAdapter, bufferIndex: Int) {
             buffers[bufferIndex].use(gl)
         }
@@ -57,6 +61,7 @@ internal class MeshFactoryImpl(gl: GlimpseAdapter) : Mesh.Factory {
         }
 
         override fun dispose(gl: GlimpseAdapter) {
+            check(disposed.compareAndSet(false, true)) { "Mesh is already disposed" }
             gl.glDeleteBuffers(buffers.map { it.handle }.toIntArray())
         }
     }

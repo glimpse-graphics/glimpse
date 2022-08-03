@@ -18,6 +18,7 @@ package graphics.glimpse.textures
 
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.logging.GlimpseLogger
+import java.util.concurrent.atomic.AtomicBoolean
 
 internal class EmptyTextureFactory(private val gl: GlimpseAdapter) {
 
@@ -52,12 +53,16 @@ internal class EmptyTextureFactory(private val gl: GlimpseAdapter) {
         override val height: Int
     ) : Texture {
 
+        private val disposed = AtomicBoolean(false)
+        override val isDisposed: Boolean get() = disposed.get()
+
         override fun useAtIndex(gl: GlimpseAdapter, textureIndex: Int) {
             gl.glActiveTexture(textureIndex)
             gl.glBindTexture(TextureType.TEXTURE_2D, handle)
         }
 
         override fun dispose(gl: GlimpseAdapter) {
+            check(disposed.compareAndSet(false, true)) { "Texture is already disposed" }
             val handles = intArrayOf(handle)
             gl.glDeleteTextures(handles)
         }

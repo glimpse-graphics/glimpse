@@ -36,6 +36,7 @@ import graphics.glimpse.shaders.ShaderType
 import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Vec2
 import graphics.glimpse.types.Vec3
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Glimpse callback for HUD.
@@ -87,6 +88,9 @@ class GlimpseHudCallback(
 
             override val vertexCount: Int = QUAD_VERTICES
 
+            private val disposed = AtomicBoolean(false)
+            override val isDisposed: Boolean get() = disposed.get()
+
             override fun useBuffer(gl: GlimpseAdapter, bufferIndex: Int) {
                 buffers[bufferIndex].use(gl)
             }
@@ -96,6 +100,7 @@ class GlimpseHudCallback(
             }
 
             override fun dispose(gl: GlimpseAdapter) {
+                check(disposed.compareAndSet(false, true)) { "Mesh is already disposed" }
                 buffer.dispose(gl)
             }
         }

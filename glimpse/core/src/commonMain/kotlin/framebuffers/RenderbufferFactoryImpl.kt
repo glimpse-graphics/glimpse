@@ -19,6 +19,7 @@ package graphics.glimpse.framebuffers
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.logging.GlimpseLogger
 import graphics.glimpse.textures.TextureInternalFormat
+import java.util.concurrent.atomic.AtomicBoolean
 
 internal class RenderbufferFactoryImpl(private val gl: GlimpseAdapter) : Renderbuffer.Factory {
 
@@ -40,7 +41,11 @@ internal class RenderbufferFactoryImpl(private val gl: GlimpseAdapter) : Renderb
 
     data class RenderbufferImpl(override val handle: Int) : Renderbuffer {
 
+        private val disposed = AtomicBoolean(false)
+        override val isDisposed: Boolean get() = disposed.get()
+
         override fun dispose(gl: GlimpseAdapter) {
+            check(disposed.compareAndSet(false, true)) { "Renderbuffer is already disposed" }
             val handles = intArrayOf(handle)
             gl.glDeleteRenderbuffers(handles)
         }

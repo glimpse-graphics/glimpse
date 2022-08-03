@@ -20,6 +20,7 @@ import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.logging.GlimpseLogger
 import graphics.glimpse.textures.Texture
 import graphics.glimpse.textures.TextureType
+import java.util.concurrent.atomic.AtomicBoolean
 
 internal class FramebufferBuilderImpl(private val gl: GlimpseAdapter) : Framebuffer.Builder {
 
@@ -91,7 +92,12 @@ internal class FramebufferBuilderImpl(private val gl: GlimpseAdapter) : Framebuf
         override val textures: Map<FramebufferAttachmentType, Texture>
     ) : Framebuffer {
 
+        private val disposed = AtomicBoolean(false)
+        override val isDisposed: Boolean get() = disposed.get()
+
         override fun dispose(gl: GlimpseAdapter) {
+            check(disposed.compareAndSet(false, true)) { "Framebuffer is already disposed" }
+
             val handles = intArrayOf(handle)
             gl.glDeleteFramebuffers(handles)
 
