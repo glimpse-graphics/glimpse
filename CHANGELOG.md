@@ -12,6 +12,7 @@
   - `Array<Texture>`
   - `Iterable<Texture>`
 - Method `GlimpseAdapter.glVSync(VSync)`, setting V-sync mode (if supported)
+- Automatic module names for Java 9 (desktop)
 
 ### Changed
 - `@Uniform` can no longer be used to annotate properties of type `Texture`
