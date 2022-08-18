@@ -56,6 +56,11 @@ android {
 }
 
 afterEvaluate {
+    tasks.withType(Jar::class) {
+        manifest {
+            attributes["Automatic-Module-Name"] = "${project.group}.${project.name.replace('-', '.')}"
+        }
+    }
     publishing {
         publications {
             filterIsInstance<MavenPublication>().forEach { publication ->
