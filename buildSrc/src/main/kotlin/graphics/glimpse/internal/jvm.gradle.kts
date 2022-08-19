@@ -44,6 +44,12 @@ tasks {
 }
 
 afterEvaluate {
+    tasks.withType(Jar::class) {
+        manifest {
+            attributes["Built-By"] = System.getenv("GITHUB_ACTOR") ?: System.getProperty("user.name")
+            attributes["Automatic-Module-Name"] = "${project.group}.${project.name.replace('-', '.')}"
+        }
+    }
     publishing {
         publications {
             register("libraryJar", MavenPublication::class) {

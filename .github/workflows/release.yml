@@ -37,6 +37,7 @@ jobs:
         run: gpg --quiet --batch --yes --decrypt --passphrase="${FILE_PASSPHRASE}" --output secring.gpg secring.gpg.gpg
       - name: Publish To Maven Central
         env:
+          GITHUB_ACTOR: ${{ github.actor }}
           SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
           SIGNING_PASS: ${{ secrets.SIGNING_PASS }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
