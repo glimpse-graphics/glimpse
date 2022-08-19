@@ -19,6 +19,9 @@ package graphics.glimpse.internal.test
 import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.invoke
 
+println("Username: " + System.getProperty("user.name"))
+println("GitHub actor: " + System.getenv("GITHUB_ACTOR"))
+
 tasks {
     withType(Test::class.java) {
         testLogging {
