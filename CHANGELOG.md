@@ -19,15 +19,19 @@
   (`@Sampler2D` should be used instead)
 - Upgrade Gradle Wrapper to `7.5`
 - Dependencies:
-  - Upgrade Kotlin to `1.7.0`
-  - Upgrade KSP to `1.7.0-1.0.6`
-  - Upgrade JetBrains Compose for Desktop to `1.2.0-alpha01-dev748`
+  - Upgrade Kotlin to `1.7.20`
+  - Upgrade KSP to `1.7.20-1.0.7`
+  - Upgrade JetBrains Compose for Desktop to `1.2.1`
   - Upgrade Android Gradle Plugin to `7.2.1`
-  - Upgrade `androidx.appcompat:appcompat` to `1.4.2`
-  - Upgrade `com.google.android.material:material` to `1.6.1`
+  - Upgrade `kotlinx-coroutines-android` to `1.6.3-native-mt`
+  - Upgrade `androidx.appcompat:appcompat` to `1.5.1`
+  - Upgrade `com.google.android.material:material` to `1.7.0`
   - Upgrade `androidx.annotation:annotation` to `1.4.0`
   - Upgrade `activity-compose` to `1.5.0`
   - Upgrade `kotlinpoet` to `1.12.0`
+  - Upgrade `slf4j-api` to `2.0.3`
+  - Upgrade `logback-core` to `1.4.4`
+  - Upgrade `logback-classic` to `1.4.4`
   - Upgrade `mockk` to `1.12.4`
   - Upgrade `detekt-gradle-plugin` to `1.21.0`
   - Upgrade `org.jetbrains.dokka` to `1.7.0`

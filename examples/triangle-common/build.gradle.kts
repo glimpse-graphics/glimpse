@@ -17,7 +17,7 @@
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
-    id("com.google.devtools.ksp") version "1.7.0-1.0.6"
+    id("com.google.devtools.ksp") version "1.7.20-1.0.7"
     id("org.jetbrains.compose")
     id("graphics.glimpse.internal.detekt")
 }
@@ -51,8 +51,8 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                api("com.google.android.material:material:1.6.1")
-                api("androidx.appcompat:appcompat:1.4.2")
+                api("com.google.android.material:material:1.7.0")
+                api("androidx.appcompat:appcompat:1.5.1")
                 api("androidx.activity:activity-compose:1.5.0") {
                     exclude(group = "androidx.compose.animation")
                     exclude(group = "androidx.compose.foundation")
@@ -73,7 +73,7 @@ kotlin {
             dependencies {
                 implementation("org.jogamp.jogl:jogl-all-main:2.3.2")
                 implementation("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
-                implementation("org.slf4j:slf4j-api:1.7.36")
+                implementation("org.slf4j:slf4j-api:2.0.3")
             }
         }
         val desktopTest by getting {
@@ -85,7 +85,7 @@ kotlin {
 }
 
 android {
-    compileSdk = 31
+    compileSdk = 32
     sourceSets["main"].apply {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
         res.srcDir("src/androidMain/res")
@@ -99,7 +99,7 @@ android {
     }
     defaultConfig {
         minSdk = 21
-        targetSdk = 31
+        targetSdk = 32
     }
 }
 
