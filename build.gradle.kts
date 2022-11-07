@@ -19,13 +19,11 @@ buildscript {
         gradlePluginPortal()
         google()
         mavenCentral()
-        // JB Composable dev versions:
-        maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0")
-        classpath("org.jetbrains.compose:compose-gradle-plugin:1.2.0-alpha01-dev748")
-        classpath("com.android.tools.build:gradle:7.2.1")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20")
+        classpath("org.jetbrains.compose:compose-gradle-plugin:1.2.1")
+        classpath("com.android.tools.build:gradle:7.2.2")
     }
 }
 
@@ -43,8 +41,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        // JB Composable dev versions:
-        maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
     }
 }
 
