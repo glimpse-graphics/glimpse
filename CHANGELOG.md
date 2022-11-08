@@ -2,6 +2,19 @@
 
 ## [Unreleased]
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [1.2.0]
+### Added
 - Utilities for rendering HUD-style 2D elements on top of 3D scene
 - Build `TextureImageSource` from `BufferedImage`
 - Build `TextureImageSource` containing text
@@ -47,8 +60,6 @@
 - Apply correct unpack pixel alignment for texture data before calling `glTexImage2D()`
 - Remove misleading error after deleting program or shader
 
-### Security
-
 ## [1.1.0]
 ### Added
 - Support for `Boolean` uniform shader parameters
@@ -75,6 +86,7 @@
   - `Vec2.unitY`
 - KSP processor for shader parameters
 
+
 ### Changed
 - Set texture parameters in texture builder
 - Make Kapt processors incremental (isolating)
@@ -99,12 +111,15 @@
   - Upgrade `org.jetbrains.changelog` to `1.3.1`
   - Upgrade `org.jetbrains.dokka` to `1.6.20`
 
+
 ### Deprecated
 - Method `ProgramExecutor.dispose()` without parameters
+
 
 ### Removed
 - **BREAKING CHANGE:** Remove `zOrderOnTop` from `GlimpseView` composable function.
   Call `zOrderOnTop = …` inside `update` block instead.
+
 
 ### Fixed
 - Fix bitangent calculations
