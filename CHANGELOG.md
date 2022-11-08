@@ -20,7 +20,7 @@
 - Upgrade Gradle Wrapper to `7.5`
 - Dependencies:
   - Upgrade Kotlin to `1.7.20`
-  - Upgrade KSP to `1.7.20-1.0.7`
+  - Upgrade KSP to `1.7.20-1.0.8`
   - Upgrade JetBrains Compose for Desktop to `1.2.1`
   - Upgrade Android Gradle Plugin to `7.2.1`
   - Upgrade `kotlinx-coroutines-android` to `1.6.3-native-mt`
@@ -34,7 +34,7 @@
   - Upgrade `logback-classic` to `1.4.4`
   - Upgrade `mockk` to `1.12.4`
   - Upgrade `detekt-gradle-plugin` to `1.21.0`
-  - Upgrade `org.jetbrains.dokka` to `1.7.0`
+  - Upgrade `org.jetbrains.dokka` to `1.7.20`
 
 ### Deprecated
 - Usage of method `ProgramExecutor.dispose()` without parameters will be reported as an error
