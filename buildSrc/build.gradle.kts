@@ -31,7 +31,7 @@ dependencies {
     implementation("com.android.tools.build:gradle-api:7.2.1")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.7.20")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20")
-    implementation("org.jetbrains.dokka:dokka-core:1.7.0")
+    implementation("org.jetbrains.dokka:dokka-core:1.7.20")
     implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.7.0")
     implementation("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.21.0")
 }
