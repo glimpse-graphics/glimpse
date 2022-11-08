@@ -30,7 +30,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                compileOnly("androidx.annotation:annotation:1.4.0")
+                compileOnly("androidx.annotation:annotation:1.5.0")
             }
         }
         val androidTest by getting {
@@ -42,7 +42,7 @@ kotlin {
             dependencies {
                 compileOnly("org.jogamp.jogl:jogl-all-main:2.3.2")
                 compileOnly("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
-                compileOnly("org.slf4j:slf4j-api:1.7.36")
+                compileOnly("org.slf4j:slf4j-api:2.0.3")
             }
         }
         val desktopTest by getting {

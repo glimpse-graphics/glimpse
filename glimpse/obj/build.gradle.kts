@@ -42,13 +42,13 @@ kotlin {
             dependencies {
                 compileOnly("org.jogamp.jogl:jogl-all-main:2.3.2")
                 compileOnly("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
-                compileOnly("org.slf4j:slf4j-api:1.7.36")
+                compileOnly("org.slf4j:slf4j-api:2.0.3")
             }
         }
         val desktopTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
-                implementation("io.mockk:mockk:1.12.4")
+                implementation("io.mockk:mockk:1.13.2")
             }
         }
     }
