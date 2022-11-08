@@ -136,6 +136,7 @@
 - Support for Wavefront OBJ files
 - Offscreen rendering
 
-[Unreleased]: https://github.com/glimpse-graphics/glimpse/compare/v1.1.0...main
+[Unreleased]: https://github.com/glimpse-graphics/glimpse/compare/v1.2.0...main
+[1.2.0]: https://github.com/glimpse-graphics/glimpse/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/glimpse-graphics/glimpse/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/glimpse-graphics/glimpse/releases/tag/v1.0.0
