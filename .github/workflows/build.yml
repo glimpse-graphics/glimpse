@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Sources
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.2.0
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1.0.5
 
@@ -28,7 +28,7 @@ jobs:
       changelog: ${{ steps.properties.outputs.changelog }}
     steps:
       - name: Fetch Sources
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.2.0
       - name: Setup Java
         uses: actions/setup-java@v3.6.0
         with:
@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Sources
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.2.0
       - name: Setup Java
         uses: actions/setup-java@v3.6.0
         with:
@@ -92,7 +92,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Sources
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.2.0
       - name: Setup Java
         uses: actions/setup-java@v3.6.0
         with:
@@ -108,13 +108,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Sources
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.2.0
         with:
           path: glimpse
           persist-credentials: false
           fetch-depth: 0
       - name: Fetch Documentation
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.2.0
         with:
           repository: glimpse-graphics/docs
           path: docs
@@ -167,7 +167,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Sources
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.2.0
       - name: Setup Java
         uses: actions/setup-java@v3.6.0
         with:
@@ -183,7 +183,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Sources
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.2.0
       - name: Remove Old Release Drafts
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -210,7 +210,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Sources
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.2.0
       - name: Setup Java
         uses: actions/setup-java@v3.6.0
         with:
