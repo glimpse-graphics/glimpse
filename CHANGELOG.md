@@ -10,6 +10,7 @@
 ### Removed
 
 ### Fixed
+- Correctly apply face culling mode
 
 ### Security
 
