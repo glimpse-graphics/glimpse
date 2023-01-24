@@ -115,7 +115,7 @@ actual class GlimpseAdapter {
         } else {
             GLES20.glDisable(GLES20.GL_CULL_FACE)
         }
-        faceCullingMode.toInt()?.let { depthFunc -> GLES20.glDepthFunc(depthFunc) }
+        faceCullingMode.toInt()?.let { mode -> GLES20.glCullFace(mode) }
     }
 
     private fun FaceCullingMode.toInt(): Int? = when (this) {
