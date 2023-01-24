@@ -1,18 +1,8 @@
 # Glimpse Changelog
 
 ## [Unreleased]
-### Added
-
-### Changed
-
-### Deprecated
-
-### Removed
-
 ### Fixed
 - Correctly apply face culling mode
-
-### Security
 
 ## [1.2.0]
 ### Added
@@ -153,6 +143,7 @@
 - Offscreen rendering
 
 [Unreleased]: https://github.com/glimpse-graphics/glimpse/compare/v1.2.0...main
+[1.2.1]: https://github.com/glimpse-graphics/glimpse/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/glimpse-graphics/glimpse/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/glimpse-graphics/glimpse/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/glimpse-graphics/glimpse/releases/tag/v1.0.0
