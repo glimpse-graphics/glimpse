@@ -1,6 +1,19 @@
 # Glimpse Changelog
 
 ## [Unreleased]
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [1.2.1]
 ### Fixed
 - Correctly apply face culling mode
 
@@ -77,7 +90,6 @@
   - `Vec2.unitY`
 - KSP processor for shader parameters
 
-
 ### Changed
 - Set texture parameters in texture builder
 - Make Kapt processors incremental (isolating)
@@ -102,15 +114,12 @@
   - Upgrade `org.jetbrains.changelog` to `1.3.1`
   - Upgrade `org.jetbrains.dokka` to `1.6.20`
 
-
 ### Deprecated
 - Method `ProgramExecutor.dispose()` without parameters
-
 
 ### Removed
 - **BREAKING CHANGE:** Remove `zOrderOnTop` from `GlimpseView` composable function.
   Call `zOrderOnTop = …` inside `update` block instead.
-
 
 ### Fixed
 - Fix bitangent calculations
