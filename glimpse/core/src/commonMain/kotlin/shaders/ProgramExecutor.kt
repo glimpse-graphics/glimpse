@@ -43,15 +43,4 @@ interface ProgramExecutor<T> : GlimpseDisposable {
      * Draws a given [mesh] using the program contained in the executor.
      */
     fun drawMesh(gl: GlimpseAdapter, mesh: Mesh)
-
-    /**
-     * Disposes the program executor.
-     *
-     * @deprecated This method is scheduled for removal in v1.3.0. Use [GlimpseDisposable.dispose] instead.
-     */
-    @Deprecated(
-        message = "This method is scheduled for removal in v1.3.0. Use dispose(GlimpseAdapter) instead.",
-        level = DeprecationLevel.ERROR
-    )
-    fun dispose()
 }

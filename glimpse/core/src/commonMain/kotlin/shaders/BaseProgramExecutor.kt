@@ -17,7 +17,6 @@
 package graphics.glimpse.shaders
 
 import graphics.glimpse.GlimpseAdapter
-import graphics.glimpse.GlimpseDisposable
 import graphics.glimpse.types.Mat2
 import graphics.glimpse.types.Mat3
 import graphics.glimpse.types.Mat4
@@ -218,21 +217,6 @@ abstract class BaseProgramExecutor<T>(
      */
     protected fun glVertexAttribPointer(gl: GlimpseAdapter, location: Int, vectorSize: Int) {
         gl.glVertexAttribPointer(location, vectorSize)
-    }
-
-    /**
-     * Clears cached locations of variables.
-     *
-     * @deprecated This method is scheduled for removal in v1.3.0. Use [GlimpseDisposable.dispose] instead.
-     */
-    @Deprecated(
-        message = "This method is scheduled for removal in v1.3.0. Use dispose(GlimpseAdapter) instead.",
-        level = DeprecationLevel.ERROR
-    )
-    override fun dispose() {
-        check(disposed.compareAndSet(false, true)) { "Program executor is already disposed" }
-        uniformLocations.clear()
-        attributeLocations.clear()
     }
 
     /**
