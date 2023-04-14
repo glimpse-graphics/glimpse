@@ -28,6 +28,7 @@
 ### Deprecated
 
 ### Removed
+- Method `ProgramExecutor.dispose()` without parameters
 
 ### Fixed
 
