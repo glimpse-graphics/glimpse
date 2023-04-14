@@ -149,6 +149,7 @@ actual class GlimpseAdapter {
         GLES20.glBlendFunc(sourceFactor.toInt(), destinationFactor.toInt())
     }
 
+    @Suppress("CyclomaticComplexMethod")
     private fun BlendingFactorFunction.toInt(): Int = when (this) {
         BlendingFactorFunction.ZERO -> GLES20.GL_ZERO
         BlendingFactorFunction.ONE -> GLES20.GL_ONE

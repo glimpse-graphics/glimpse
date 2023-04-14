@@ -21,9 +21,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20")
-        classpath("org.jetbrains.compose:compose-gradle-plugin:1.2.1")
-        classpath("com.android.tools.build:gradle:7.2.2")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")
+        classpath("org.jetbrains.compose:compose-gradle-plugin:1.4.0")
+        classpath("com.android.tools.build:gradle:7.4.2")
     }
 }
 
@@ -41,11 +41,15 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven {
+            name = "JogAmp"
+            url = uri(path = "https://www.jogamp.org/deployment/maven/")
+        }
     }
 }
 
 plugins {
-    id("org.jetbrains.changelog") version "1.3.1"
+    id("org.jetbrains.changelog") version "2.0.0"
     id("org.jetbrains.dokka")
 }
 

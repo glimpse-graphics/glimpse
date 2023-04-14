@@ -30,7 +30,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                compileOnly("androidx.annotation:annotation:1.5.0")
+                compileOnly("androidx.annotation:annotation:1.6.0")
             }
         }
         val androidTest by getting {
@@ -40,9 +40,9 @@ kotlin {
         }
         val desktopMain by getting {
             dependencies {
-                compileOnly("org.jogamp.jogl:jogl-all-main:2.3.2")
-                compileOnly("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
-                compileOnly("org.slf4j:slf4j-api:2.0.3")
+                compileOnly("org.jogamp.jogl:jogl-all-main:2.4.0")
+                compileOnly("org.jogamp.gluegen:gluegen-rt-main:2.4.0")
+                compileOnly("org.slf4j:slf4j-api:2.0.7")
             }
         }
         val desktopTest by getting {
@@ -54,8 +54,8 @@ kotlin {
 }
 
 android {
+    namespace = "graphics.glimpse"
     defaultConfig {
         minSdk = 14
-        targetSdk = compileSdk
     }
 }

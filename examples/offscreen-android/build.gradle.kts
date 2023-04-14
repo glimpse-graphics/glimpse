@@ -21,16 +21,17 @@ plugins {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.3-native-mt")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
     implementation(project(":examples:offscreen-common"))
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
+    namespace = "graphics.glimpse.examples.offscreen.android"
     defaultConfig {
         applicationId = "graphics.glimpse.examples.offscreen.android"
         minSdk = 19
-        targetSdk = 32
+        targetSdk = 33
         versionCode = 1
         versionName = project.version.toString()
     }

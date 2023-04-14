@@ -17,7 +17,7 @@
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
-    id("com.google.devtools.ksp") version "1.7.20-1.0.8"
+    id("com.google.devtools.ksp") version "1.8.20-1.0.10"
     id("graphics.glimpse.internal.detekt")
 }
 
@@ -47,7 +47,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                api("com.google.android.material:material:1.7.0")
+                api("com.google.android.material:material:1.8.0")
             }
         }
         val androidTest by getting {
@@ -59,9 +59,9 @@ kotlin {
             kotlin.srcDir(file("$buildDir/generated/ksp/desktopMain/kotlin"))
             resources.srcDir("src/commonAssets")
             dependencies {
-                implementation("org.jogamp.jogl:jogl-all-main:2.3.2")
-                implementation("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
-                implementation("org.slf4j:slf4j-api:2.0.3")
+                implementation("org.jogamp.jogl:jogl-all-main:2.4.0")
+                implementation("org.jogamp.gluegen:gluegen-rt-main:2.4.0")
+                implementation("org.slf4j:slf4j-api:2.0.7")
             }
         }
         val desktopTest by getting {
@@ -73,7 +73,8 @@ kotlin {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
+    namespace = "graphics.glimpse.examples.offscreen"
     sourceSets["main"].apply {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
         res.srcDir("src/androidMain/res")
@@ -87,7 +88,10 @@ android {
     }
     defaultConfig {
         minSdk = 19
-        targetSdk = 32
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 

@@ -44,23 +44,23 @@ kotlin {
         }
         val desktopMain by getting {
             dependencies {
-                compileOnly("org.jogamp.jogl:jogl-all-main:2.3.2")
-                compileOnly("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
-                compileOnly("org.slf4j:slf4j-api:2.0.3")
+                compileOnly("org.jogamp.jogl:jogl-all-main:2.4.0")
+                compileOnly("org.jogamp.gluegen:gluegen-rt-main:2.4.0")
+                compileOnly("org.slf4j:slf4j-api:2.0.7")
             }
         }
         val desktopTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
-                implementation("io.mockk:mockk:1.13.2")
+                implementation("io.mockk:mockk:1.13.5")
             }
         }
     }
 }
 
 android {
+    namespace = "graphics.glimpse.offscreen"
     defaultConfig {
         minSdk = 19
-        targetSdk = compileSdk
     }
 }
