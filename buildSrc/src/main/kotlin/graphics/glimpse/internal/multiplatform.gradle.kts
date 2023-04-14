@@ -121,5 +121,8 @@ afterEvaluate {
     if (project.hasProperty("signing.keyId")) {
         val mavenPublications = publishing.publications.filterIsInstance<MavenPublication>()
         signing.sign(*mavenPublications.toTypedArray())
+        val signRelease = tasks.getByName("signAndroidReleasePublication")
+        val publishDebug = tasks.getByName("publishAndroidDebugPublicationToMavenRepository")
+        publishDebug.dependsOn(signRelease)
     }
 }
