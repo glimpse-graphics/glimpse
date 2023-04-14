@@ -16,6 +16,8 @@
 
 package graphics.glimpse.internal
 
+import java.util.*
+
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
@@ -45,14 +47,20 @@ kotlin {
 
     jvm(name = "desktop") {
         compilations.all {
+            jvmToolchain(11)
             kotlinOptions.jvmTarget = "11"
         }
     }
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
 }
 
 afterEvaluate {
@@ -70,7 +78,12 @@ afterEvaluate {
                 publication.pom {
                     val gitUrl = "https://github.com/glimpse-graphics/glimpse"
 
-                    name.set("Glimpse ${project.name.replace('-', ' ').capitalize()}")
+                    name.set("Glimpse ${
+                        project.name.replace('-', ' ')
+                            .replaceFirstChar {
+                                if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+                            }
+                    }")
                     description.set("OpenGL made simple")
                     url.set("https://glimpse.graphics/")
 

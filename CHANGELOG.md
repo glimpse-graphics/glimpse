@@ -4,6 +4,26 @@
 ### Added
 
 ### Changed
+- Upgrade Gradle Wrapper to `8.1`
+- Dependencies:
+  - Upgrade Kotlin to `1.8.20`
+  - Upgrade KSP to `1.8.20-1.0.10`
+  - Upgrade JetBrains Compose for Desktop to `1.4.0`
+  - Upgrade Android Gradle Plugin to `7.4.2`
+  - Upgrade JogAmp to `2.4.0`
+  - Upgrade `kotlinx-coroutines-android` to `1.6.4`
+  - Upgrade `androidx.appcompat:appcompat` to `1.6.1`
+  - Upgrade `com.google.android.material:material` to `1.8.0`
+  - Upgrade `androidx.annotation:annotation` to `1.6.0`
+  - Upgrade `activity-compose` to `1.7.0`
+  - Upgrade `kotlinpoet` to `1.13.0`
+  - Upgrade `slf4j-api` to `2.0.7`
+  - Upgrade `logback-core` to `1.4.6`
+  - Upgrade `logback-classic` to `1.4.6`
+  - Upgrade `mockk` to `1.13.5`
+  - Upgrade `detekt-gradle-plugin` to `1.22.0`
+  - Upgrade `org.jetbrains.changelog` to `2.0.0`
+  - Upgrade `org.jetbrains.dokka` to `1.8.10`
 
 ### Deprecated
 

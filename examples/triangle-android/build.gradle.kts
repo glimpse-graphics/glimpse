@@ -26,11 +26,12 @@ dependencies {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
+    namespace = "graphics.glimpse.examples.triangle.android"
     defaultConfig {
         applicationId = "graphics.glimpse.examples.triangle.android"
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 33
         versionCode = 1
         versionName = project.version.toString()
     }

@@ -45,9 +45,9 @@ kotlin {
         }
         val desktopMain by getting {
             dependencies {
-                compileOnly("org.jogamp.jogl:jogl-all-main:2.3.2")
-                compileOnly("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
-                compileOnly("org.slf4j:slf4j-api:2.0.3")
+                compileOnly("org.jogamp.jogl:jogl-all-main:2.4.0")
+                compileOnly("org.jogamp.gluegen:gluegen-rt-main:2.4.0")
+                compileOnly("org.slf4j:slf4j-api:2.0.7")
             }
         }
         val desktopTest by getting {
@@ -59,8 +59,8 @@ kotlin {
 }
 
 android {
+    namespace = "graphics.glimpse.ui.compose"
     defaultConfig {
         minSdk = 21
-        targetSdk = compileSdk
     }
 }

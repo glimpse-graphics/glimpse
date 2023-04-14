@@ -17,7 +17,7 @@
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
-    id("com.google.devtools.ksp") version "1.7.20-1.0.8"
+    id("com.google.devtools.ksp") version "1.8.20-1.0.10"
     id("org.jetbrains.compose")
     id("graphics.glimpse.internal.detekt")
 }
@@ -51,9 +51,9 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                api("com.google.android.material:material:1.7.0")
-                api("androidx.appcompat:appcompat:1.5.1")
-                api("androidx.activity:activity-compose:1.5.0") {
+                api("com.google.android.material:material:1.8.0")
+                api("androidx.appcompat:appcompat:1.6.1")
+                api("androidx.activity:activity-compose:1.7.0") {
                     exclude(group = "androidx.compose.animation")
                     exclude(group = "androidx.compose.foundation")
                     exclude(group = "androidx.compose.material")
@@ -71,9 +71,9 @@ kotlin {
             kotlin.srcDir(file("$buildDir/generated/ksp/desktopMain/kotlin"))
             resources.srcDir("src/commonAssets")
             dependencies {
-                implementation("org.jogamp.jogl:jogl-all-main:2.3.2")
-                implementation("org.jogamp.gluegen:gluegen-rt-main:2.3.2")
-                implementation("org.slf4j:slf4j-api:2.0.3")
+                implementation("org.jogamp.jogl:jogl-all-main:2.4.0")
+                implementation("org.jogamp.gluegen:gluegen-rt-main:2.4.0")
+                implementation("org.slf4j:slf4j-api:2.0.7")
             }
         }
         val desktopTest by getting {
@@ -85,7 +85,8 @@ kotlin {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
+    namespace = "graphics.glimpse.examples.triangle"
     sourceSets["main"].apply {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
         res.srcDir("src/androidMain/res")
@@ -99,7 +100,10 @@ android {
     }
     defaultConfig {
         minSdk = 21
-        targetSdk = 32
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 
