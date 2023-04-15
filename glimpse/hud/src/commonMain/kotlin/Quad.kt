@@ -67,7 +67,7 @@ class Quad(
      *
      * The pivot point for this rotation is the [origin].
      */
-    var rotation: Angle = Angle.nullAngle
+    var rotation: Angle<Float> = Angle.nullAngle
 
     /**
      * Output model matrix for this quad.

@@ -162,8 +162,8 @@ data class Vec3(val x: Float, val y: Float, val z: Float) : Vec {
          */
         fun fromSphericalCoordinates(
             distance: Float,
-            longitude: Angle,
-            latitude: Angle
+            longitude: Angle<Float>,
+            latitude: Angle<Float>
         ): Vec3 = Vec3(
             x = distance * cos(longitude) * cos(latitude),
             y = distance * sin(longitude) * cos(latitude),

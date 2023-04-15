@@ -5,6 +5,7 @@
 - `Double` buffer data wrapper: `DoubleBufferData`
 
 ### Changed
+- **BREAKING CHANGE:** Add parameter type `T : Number` to `Angle` and `AngleRange`
 - Upgrade Gradle Wrapper to `8.1`
 - Dependencies:
   - Upgrade Kotlin to `1.8.20`

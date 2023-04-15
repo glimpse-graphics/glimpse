@@ -23,7 +23,7 @@ import graphics.glimpse.types.Vec2
 internal class TransformationWrapperBuilder(
     parent: HudElementsBuilder,
     private val translation: () -> Vec2,
-    private val rotation: () -> Angle,
+    private val rotation: () -> Angle<Float>,
     private val scale: () -> Vec2,
     private val delegate: HudElementsBuilderDelegate = HudElementsBuilderDelegate(parent)
 ) : HudElementsBuilder by delegate {

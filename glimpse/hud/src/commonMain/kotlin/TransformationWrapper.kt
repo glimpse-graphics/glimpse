@@ -42,7 +42,7 @@ class TransformationWrapper(
     /**
      * Function returning current rotation of the transformed element.
      */
-    private val rotationProvider: () -> Angle,
+    private val rotationProvider: () -> Angle<Float>,
 
     /**
      * Function returning current scale of the transformed element.

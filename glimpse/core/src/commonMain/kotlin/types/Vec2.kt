@@ -76,7 +76,7 @@ data class Vec2(val x: Float, val y: Float) : Vec {
      *
      * @since v1.1.0
      */
-    fun atan(): Angle = Angle.atan2(y, x)
+    fun atan(): Angle<Float> = Angle.atan2(y, x)
 
     /**
      * Returns a 3D vector with `x` and `y` coordinates of this vector and the given [z] coordinate.
@@ -143,7 +143,7 @@ data class Vec2(val x: Float, val y: Float) : Vec {
          */
         fun fromPolarCoordinates(
             distance: Float,
-            angle: Angle
+            angle: Angle<Float>
         ): Vec2 = Vec2(
             x = distance * cos(angle),
             y = distance * sin(angle)

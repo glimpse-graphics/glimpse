@@ -19,9 +19,9 @@ package graphics.glimpse.hud.dsl
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.GlimpseDisposableContainer
 import graphics.glimpse.hud.HudElement
-import graphics.glimpse.hud.TransformationWrapper
 import graphics.glimpse.hud.Quad
 import graphics.glimpse.hud.Space
+import graphics.glimpse.hud.TransformationWrapper
 import graphics.glimpse.hud.VisibilityWrapper
 import graphics.glimpse.hud.layouts.Alignment
 import graphics.glimpse.hud.layouts.ColumnLayout
@@ -148,7 +148,7 @@ interface HudElementsBuilder {
      */
     fun withTransformation(
         translation: () -> Vec2 = { Vec2.nullVector },
-        rotation: () -> Angle = { Angle.nullAngle },
+        rotation: () -> Angle<Float> = { Angle.nullAngle },
         scale: () -> Vec2 = { Vec2(x = 1f, y = 1f) },
         init: HudElementsBuilder.() -> Unit
     ): TransformationWrapper

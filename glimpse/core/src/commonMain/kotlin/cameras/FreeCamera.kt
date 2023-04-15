@@ -38,17 +38,17 @@ data class FreeCamera(
     /**
      * Camera roll angle (clockwise/anticlockwise rotation of the camera eye).
      */
-    val roll: Angle,
+    val roll: Angle<Float>,
 
     /**
      * Camera pitch angle (point upwards/downwards).
      */
-    val pitch: Angle,
+    val pitch: Angle<Float>,
 
     /**
      * Camera yaw angle (camera heading rotation)
      */
-    val yaw: Angle
+    val yaw: Angle<Float>
 ) : Camera {
 
     /**

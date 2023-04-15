@@ -34,7 +34,7 @@ fun translation(vector: Vec3): Mat4 {
 /**
  * Creates a transformation matrix for a rotation by a given [angle] around a given [axis].
  */
-fun rotation(axis: Vec3, angle: Angle): Mat4 {
+fun rotation(axis: Vec3, angle: Angle<Float>): Mat4 {
     val (x, y, z) = normalize(axis)
     val sin = sin(angle)
     val cos = cos(angle)
@@ -52,7 +52,7 @@ fun rotation(axis: Vec3, angle: Angle): Mat4 {
 /**
  * Creates a transformation matrix for a rotation by a given [angle] around X axis.
  */
-fun rotationX(angle: Angle): Mat4 {
+fun rotationX(angle: Angle<Float>): Mat4 {
     val sin = sin(angle)
     val cos = cos(angle)
     return Mat4(
@@ -68,7 +68,7 @@ fun rotationX(angle: Angle): Mat4 {
 /**
  * Creates a transformation matrix for a rotation by a given [angle] around Y axis.
  */
-fun rotationY(angle: Angle): Mat4 {
+fun rotationY(angle: Angle<Float>): Mat4 {
     val sin = sin(angle)
     val cos = cos(angle)
     return Mat4(
@@ -84,7 +84,7 @@ fun rotationY(angle: Angle): Mat4 {
 /**
  * Creates a transformation matrix for a rotation by a given [angle] around Z axis.
  */
-fun rotationZ(angle: Angle): Mat4 {
+fun rotationZ(angle: Angle<Float>): Mat4 {
     val sin = sin(angle)
     val cos = cos(angle)
     return Mat4(

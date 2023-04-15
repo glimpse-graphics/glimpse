@@ -22,7 +22,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertSame
 
-class AngleTest {
+class AngleFTest {
 
     @Test
     @JsName(name = "GIVEN_an_Angle_WHEN_unaryPlus_THEN_return_the_same_object")

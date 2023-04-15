@@ -220,7 +220,7 @@ class HudElementsBuilderDelegate(
      */
     override fun withTransformation(
         translation: () -> Vec2,
-        rotation: () -> Angle,
+        rotation: () -> Angle<Float>,
         scale: () -> Vec2,
         init: HudElementsBuilder.() -> Unit
     ): TransformationWrapper = element(

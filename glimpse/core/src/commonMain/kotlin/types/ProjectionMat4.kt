@@ -55,7 +55,7 @@ fun frustum(
  * field of view.
  */
 fun perspective(
-    fovY: Angle,
+    fovY: Angle<Float>,
     aspect: Float,
     near: Float,
     far: Float

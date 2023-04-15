@@ -40,12 +40,12 @@ data class RelativeTargetCamera(
     /**
      * Camera longitude relative to the target.
      */
-    val longitude: Angle,
+    val longitude: Angle<Float>,
 
     /**
      * Camera latitude relative to the target.
      */
-    val latitude: Angle,
+    val latitude: Angle<Float>,
 
     /**
      * Up-vector preserved for the camera.

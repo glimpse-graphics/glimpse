@@ -8,6 +8,8 @@ complexity:
   TooManyFunctions:
     thresholdInFiles: 30
     thresholdInClasses: 30
+    thresholdInInterfaces: 30
+    thresholdInObjects: 30
 naming:
   FunctionNaming:
     ignoreAnnotated: [ Composable ]

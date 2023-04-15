@@ -49,7 +49,7 @@ class QuadBuilder internal constructor(
     /**
      * Rotation of the quad.
      */
-    var rotation: Angle = Angle.nullAngle
+    var rotation: Angle<Float> = Angle.nullAngle
 
     internal fun build(): Quad =
         Quad(texture, position, origin).apply {
