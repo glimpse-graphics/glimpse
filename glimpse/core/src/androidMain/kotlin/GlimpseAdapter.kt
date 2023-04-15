@@ -21,6 +21,7 @@ import android.opengl.GLES20
 import android.os.Build
 import graphics.glimpse.buffers.BufferType
 import graphics.glimpse.buffers.BufferUsage
+import graphics.glimpse.buffers.DoubleBufferData
 import graphics.glimpse.buffers.FloatBufferData
 import graphics.glimpse.buffers.IntBufferData
 import graphics.glimpse.framebuffers.FramebufferAttachmentType
@@ -149,7 +150,6 @@ actual class GlimpseAdapter {
         GLES20.glBlendFunc(sourceFactor.toInt(), destinationFactor.toInt())
     }
 
-    @Suppress("CyclomaticComplexMethod")
     private fun BlendingFactorFunction.toInt(): Int = when (this) {
         BlendingFactorFunction.ZERO -> GLES20.GL_ZERO
         BlendingFactorFunction.ONE -> GLES20.GL_ONE
@@ -303,6 +303,20 @@ actual class GlimpseAdapter {
      * Creates a buffer of floating point values and fills it with data.
      */
     actual fun glBufferData(type: BufferType, data: FloatBufferData, usage: BufferUsage) {
+        GLES20.glBufferData(
+            type.toInt(),
+            data.sizeInBytes,
+            data.nioBuffer,
+            usage.toInt()
+        )
+    }
+
+    /**
+     * Creates a buffer of double-precision floating point values and fills it with data.
+     *
+     * @since v1.3.0
+     */
+    actual fun glBufferData(type: BufferType, data: DoubleBufferData, usage: BufferUsage) {
         GLES20.glBufferData(
             type.toInt(),
             data.sizeInBytes,

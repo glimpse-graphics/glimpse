@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Added
+- `Double` buffer data wrapper: `DoubleBufferData`
 
 ### Changed
 - Upgrade Gradle Wrapper to `8.1`

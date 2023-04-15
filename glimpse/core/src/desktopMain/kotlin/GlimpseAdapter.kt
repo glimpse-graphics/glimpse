@@ -20,6 +20,7 @@ import com.jogamp.opengl.GL2ES2
 import com.jogamp.opengl.GL2GL3
 import graphics.glimpse.buffers.BufferType
 import graphics.glimpse.buffers.BufferUsage
+import graphics.glimpse.buffers.DoubleBufferData
 import graphics.glimpse.buffers.FloatBufferData
 import graphics.glimpse.buffers.IntBufferData
 import graphics.glimpse.framebuffers.FramebufferAttachmentType
@@ -147,7 +148,6 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
         gles.glBlendFunc(sourceFactor.toInt(), destinationFactor.toInt())
     }
 
-    @Suppress("CyclomaticComplexMethod")
     private fun BlendingFactorFunction.toInt(): Int = when (this) {
         BlendingFactorFunction.ZERO -> GL2ES2.GL_ZERO
         BlendingFactorFunction.ONE -> GL2ES2.GL_ONE
@@ -295,6 +295,20 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
      * Creates a buffer of floating point values and fills it with data.
      */
     actual fun glBufferData(type: BufferType, data: FloatBufferData, usage: BufferUsage) {
+        gles.glBufferData(
+            type.toInt(),
+            data.sizeInBytes.toLong(),
+            data.nioBuffer,
+            usage.toInt()
+        )
+    }
+
+    /**
+     * Creates a buffer of double-precision floating point values and fills it with data.
+     *
+     * @since v1.3.0
+     */
+    actual fun glBufferData(type: BufferType, data: DoubleBufferData, usage: BufferUsage) {
         gles.glBufferData(
             type.toInt(),
             data.sizeInBytes.toLong(),

@@ -1,6 +1,6 @@
 # Allow bigger complexity in utility classes:
 complexity:
-  ComplexMethod:
+  CyclomaticComplexMethod:
     ignoreSimpleWhenEntries: true
   LongParameterList:
     functionThreshold: 7

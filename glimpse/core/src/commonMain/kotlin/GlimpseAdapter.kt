@@ -18,6 +18,7 @@ package graphics.glimpse
 
 import graphics.glimpse.buffers.BufferType
 import graphics.glimpse.buffers.BufferUsage
+import graphics.glimpse.buffers.DoubleBufferData
 import graphics.glimpse.buffers.FloatBufferData
 import graphics.glimpse.buffers.IntBufferData
 import graphics.glimpse.framebuffers.FramebufferAttachmentType
@@ -162,6 +163,13 @@ expect class GlimpseAdapter {
      * Creates a buffer of floating point values and fills it with data.
      */
     fun glBufferData(type: BufferType, data: FloatBufferData, usage: BufferUsage)
+
+    /**
+     * Creates a buffer of double-precision floating point values and fills it with data.
+     *
+     * @since v1.3.0
+     */
+    fun glBufferData(type: BufferType, data: DoubleBufferData, usage: BufferUsage)
 
     /**
      * Deletes buffers represented by given [bufferHandles].
