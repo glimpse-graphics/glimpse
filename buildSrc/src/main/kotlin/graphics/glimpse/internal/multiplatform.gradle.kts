@@ -120,6 +120,9 @@ afterEvaluate {
     }
     if (project.hasProperty("signing.keyId")) {
         val mavenPublications = publishing.publications.filterIsInstance<MavenPublication>()
-        signing.sign(*mavenPublications.toTypedArray())
+        val signTasks = signing.sign(*mavenPublications.toTypedArray())
+        tasks.withType(PublishToMavenRepository::class) {
+            mustRunAfter(*signTasks.toTypedArray())
+        }
     }
 }
