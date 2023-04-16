@@ -110,6 +110,16 @@ class Vec2ITest {
     }
 
     @Test
+    fun `GIVEN two vectors, WHEN cross, THEN return cross product of two vectors`() {
+        val v1 = Vec2(x = 1, y = 2)
+        val v2 = Vec2(x = 3, y = 2)
+
+        val result = v1 cross v2
+
+        assertEquals(Vec3(x = 0, y = 0, z = -4), result)
+    }
+
+    @Test
     fun `GIVEN a vector, WHEN atan, THEN return arc tangent of the vector`() {
         val vector = Vec2(x = 1, y = 1)
 
