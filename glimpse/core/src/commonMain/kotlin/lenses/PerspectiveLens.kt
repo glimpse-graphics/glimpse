@@ -37,5 +37,5 @@ data class PerspectiveLens(
     /**
      * Projection matrix defined by the lens.
      */
-    override val projectionMatrix: Mat4 = perspective(fovY, aspect, near, far)
+    override val projectionMatrix: Mat4<Float> = perspective(fovY, aspect, near, far)
 }

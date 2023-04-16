@@ -36,16 +36,16 @@ import graphics.glimpse.types.Mat4
 data class QuadShader(
 
     @Uniform(name = "uProjMatrix")
-    val projectionMatrix: Mat4,
+    val projectionMatrix: Mat4<Float>,
 
     @Uniform(name = "uViewMatrix")
-    val viewMatrix: Mat4,
+    val viewMatrix: Mat4<Float>,
 
     @Uniform(name = "uModelMatrix")
-    val modelMatrix: Mat4,
+    val modelMatrix: Mat4<Float>,
 
     @Uniform(name = "uNormalMatrix")
-    val normalMatrix: Mat3,
+    val normalMatrix: Mat3<Float>,
 
     @Sampler2D(name = "uTexture")
     val texture: Texture,

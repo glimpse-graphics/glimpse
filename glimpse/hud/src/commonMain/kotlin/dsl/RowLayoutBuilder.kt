@@ -22,7 +22,7 @@ import graphics.glimpse.types.Vec2
 
 internal class RowLayoutBuilder(
     parent: HudElementsBuilder,
-    private val position: Vec2,
+    private val position: Vec2<Float>,
     private val alignment: VerticalAlignment,
     private val spacing: Float,
     private val delegate: HudElementsBuilderDelegate = HudElementsBuilderDelegate(parent)

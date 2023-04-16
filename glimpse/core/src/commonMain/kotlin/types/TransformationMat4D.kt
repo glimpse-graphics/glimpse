@@ -19,14 +19,14 @@ package graphics.glimpse.types
 /**
  * Creates a transformation matrix for a translation by a given [vector].
  */
-fun translation(vector: Vec3): Mat4 {
+fun translation(vector: Vec3<Double>): Mat4<Double> {
     val (x, y, z) = vector
     return Mat4(
         listOf(
-            1f, 0f, 0f, 0f,
-            0f, 1f, 0f, 0f,
-            0f, 0f, 1f, 0f,
-            x, y, z, 1f
+            1.0, 0.0, 0.0, 0.0,
+            0.0, 1.0, 0.0, 0.0,
+            0.0, 0.0, 1.0, 0.0,
+            x, y, z, 1.0
         )
     )
 }
@@ -34,17 +34,17 @@ fun translation(vector: Vec3): Mat4 {
 /**
  * Creates a transformation matrix for a rotation by a given [angle] around a given [axis].
  */
-fun rotation(axis: Vec3, angle: Angle<Float>): Mat4 {
-    val (x, y, z) = normalize(axis)
+fun rotation(axis: Vec3<Double>, angle: Angle<Double>): Mat4<Double> {
+    val (x, y, z) = axis.normalize()
     val sin = sin(angle)
     val cos = cos(angle)
-    val nCos = 1f - cos(angle)
+    val nCos = 1.0 - cos(angle)
     return Mat4(
         listOf(
-            cos + x * x * nCos, x * y * nCos + z * sin, x * z * nCos - y * sin, 0f,
-            x * y * nCos - z * sin, cos + y * y * nCos, y * z * nCos + x * sin, 0f,
-            x * z * nCos + y * sin, y * z * nCos - x * sin, cos + z * z * nCos, 0f,
-            0f, 0f, 0f, 1f
+            cos + x * x * nCos, x * y * nCos + z * sin, x * z * nCos - y * sin, 0.0,
+            x * y * nCos - z * sin, cos + y * y * nCos, y * z * nCos + x * sin, 0.0,
+            x * z * nCos + y * sin, y * z * nCos - x * sin, cos + z * z * nCos, 0.0,
+            0.0, 0.0, 0.0, 1.0
         )
     )
 }
@@ -52,15 +52,15 @@ fun rotation(axis: Vec3, angle: Angle<Float>): Mat4 {
 /**
  * Creates a transformation matrix for a rotation by a given [angle] around X axis.
  */
-fun rotationX(angle: Angle<Float>): Mat4 {
+fun rotationX(angle: Angle<Double>): Mat4<Double> {
     val sin = sin(angle)
     val cos = cos(angle)
     return Mat4(
         listOf(
-            1f, 0f, 0f, 0f,
-            0f, cos, sin, 0f,
-            0f, -sin, cos, 0f,
-            0f, 0f, 0f, 1f
+            1.0, 0.0, 0.0, 0.0,
+            0.0, cos, sin, 0.0,
+            0.0, -sin, cos, 0.0,
+            0.0, 0.0, 0.0, 1.0
         )
     )
 }
@@ -68,15 +68,15 @@ fun rotationX(angle: Angle<Float>): Mat4 {
 /**
  * Creates a transformation matrix for a rotation by a given [angle] around Y axis.
  */
-fun rotationY(angle: Angle<Float>): Mat4 {
+fun rotationY(angle: Angle<Double>): Mat4<Double> {
     val sin = sin(angle)
     val cos = cos(angle)
     return Mat4(
         listOf(
-            cos, 0f, -sin, 0f,
-            0f, 1f, 0f, 0f,
-            sin, 0f, cos, 0f,
-            0f, 0f, 0f, 1f
+            cos, 0.0, -sin, 0.0,
+            0.0, 1.0, 0.0, 0.0,
+            sin, 0.0, cos, 0.0,
+            0.0, 0.0, 0.0, 1.0
         )
     )
 }
@@ -84,15 +84,15 @@ fun rotationY(angle: Angle<Float>): Mat4 {
 /**
  * Creates a transformation matrix for a rotation by a given [angle] around Z axis.
  */
-fun rotationZ(angle: Angle<Float>): Mat4 {
+fun rotationZ(angle: Angle<Double>): Mat4<Double> {
     val sin = sin(angle)
     val cos = cos(angle)
     return Mat4(
         listOf(
-            cos, sin, 0f, 0f,
-            -sin, cos, 0f, 0f,
-            0f, 0f, 1f, 0f,
-            0f, 0f, 0f, 1f
+            cos, sin, 0.0, 0.0,
+            -sin, cos, 0.0, 0.0,
+            0.0, 0.0, 1.0, 0.0,
+            0.0, 0.0, 0.0, 1.0
         )
     )
 }
@@ -100,18 +100,18 @@ fun rotationZ(angle: Angle<Float>): Mat4 {
 /**
  * Creates a transformation matrix for scaling by a given [scale].
  */
-fun scale(scale: Float): Mat4 = scale(scale, scale, scale)
+fun scale(scale: Double): Mat4<Double> = scale(scale, scale, scale)
 
 /**
  * Creates a transformation matrix for scaling by a given scale in [x], [y] and [z] directions.
  */
-fun scale(x: Float = 1f, y: Float = 1f, z: Float = 1f): Mat4 =
+fun scale(x: Double = 1.0, y: Double = 1.0, z: Double = 1.0): Mat4<Double> =
     Mat4(
         listOf(
-            x, 0f, 0f, 0f,
-            0f, y, 0f, 0f,
-            0f, 0f, z, 0f,
-            0f, 0f, 0f, 1f
+            x, 0.0, 0.0, 0.0,
+            0.0, y, 0.0, 0.0,
+            0.0, 0.0, z, 0.0,
+            0.0, 0.0, 0.0, 1.0
         )
     )
 
@@ -119,16 +119,16 @@ fun scale(x: Float = 1f, y: Float = 1f, z: Float = 1f): Mat4 =
  * Creates a transformation matrix for mirroring through a plane passing through the [origin] point,
  * and perpendicular a given [normal] vector.
  */
-fun mirror(normal: Vec3, origin: Vec3): Mat4 {
-    val (a, b, c) = normalize(normal)
-    val d = -origin dot normalize(normal)
+fun mirror(normal: Vec3<Double>, origin: Vec3<Double>): Mat4<Double> {
+    val (a, b, c) = normal.normalize()
+    val d = -origin dot normal.normalize()
     return Mat4(
         @Suppress("MagicNumber")
         listOf(
-            1f - 2f * a * a, -2f * b * a, -2f * c * a, 0f,
-            -2f * a * b, 1f - 2f * b * b, -2f * c * b, 0f,
-            -2f * a * c, -2f * b * c, 1f - 2f * c * c, 0f,
-            -2f * a * d, -2f * b * d, -2f * c * d, 1f
+            1.0 - 2.0 * a * a, -2.0 * b * a, -2.0 * c * a, 0.0,
+            -2.0 * a * b, 1.0 - 2.0 * b * b, -2.0 * c * b, 0.0,
+            -2.0 * a * c, -2.0 * b * c, 1.0 - 2.0 * c * c, 0.0,
+            -2.0 * a * d, -2.0 * b * d, -2.0 * c * d, 1.0
         )
     )
 }

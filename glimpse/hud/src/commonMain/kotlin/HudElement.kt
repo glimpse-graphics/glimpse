@@ -26,7 +26,7 @@ interface HudElement {
     /**
      * Position of this element.
      */
-    var position: Vec2
+    var position: Vec2<Float>
 
     /**
      * Bounding box of this element.
@@ -60,7 +60,7 @@ interface HudElement {
      *
      * @return `true` if the event has been consumed by this element.
      */
-    fun handleInputEvent(position: Vec2, event: Any?): Boolean
+    fun handleInputEvent(position: Vec2<Float>, event: Any?): Boolean
 
     /**
      * Input events listener for HUD elements.
@@ -72,6 +72,6 @@ interface HudElement {
          *
          * @return `true` if the event has been consumed.
          */
-        fun onInputEvent(position: Vec2, event: Any?): Boolean
+        fun onInputEvent(position: Vec2<Float>, event: Any?): Boolean
     }
 }

@@ -35,5 +35,5 @@ data class OrthographicLens(
     /**
      * Projection matrix defined by the lens.
      */
-    override val projectionMatrix: Mat4 = orthographic(left, right, bottom, top, near, far)
+    override val projectionMatrix: Mat4<Float> = orthographic(left, right, bottom, top, near, far)
 }

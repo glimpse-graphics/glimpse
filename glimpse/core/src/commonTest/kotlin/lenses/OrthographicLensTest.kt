@@ -18,13 +18,11 @@ package graphics.glimpse.lenses
 
 import graphics.glimpse.assertions.assertEqualsWithDelta
 import graphics.glimpse.types.Mat4
-import kotlin.js.JsName
 import kotlin.test.Test
 
 class OrthographicLensTest {
 
     @Test
-    @JsName(name = "GIVEN_a_OrthographicLens_WHEN_projectionMatrix_THEN_return_correct_matrix")
     fun `GIVEN a OrthographicLens, WHEN projectionMatrix, THEN return correct matrix`() {
         val left = -1f
         val right = 1f

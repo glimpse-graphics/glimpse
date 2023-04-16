@@ -16,14 +16,12 @@
 
 package graphics.glimpse.types
 
-import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class Mat2Test {
+class Mat2FTest {
 
     @Test
-    @JsName(name = "GIVEN_two_matrices_WHEN_times_THEN_return_product_of_the_matrices")
     fun `GIVEN two matrices, WHEN times, THEN return product of the matrices`() {
         val m1 = Mat2(listOf(1f, 3f, 2f, 4f))
         val m2 = Mat2(listOf(5f, 7f, 6f, 8f))
@@ -34,7 +32,6 @@ class Mat2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_matrix_and_a_vector_WHEN_times_THEN_return_product_of_the_matrix_and_the_vector")
     fun `GIVEN a matrix and a vector, WHEN times, THEN return product of the matrix and the vector`() {
         val matrix = Mat2(listOf(1f, 3f, 2f, 4f))
         val vector = Vec2(x = 5f, y = 6f)
@@ -45,7 +42,6 @@ class Mat2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_matrix_and_a_number_WHEN_times_THEN_return_product_of_the_matrix_and_the_number")
     fun `GIVEN a matrix and a number, WHEN times, THEN return product of the matrix and the number`() {
         val matrix = Mat2(listOf(1f, 3f, 2f, 4f))
         val number = 3f
@@ -56,7 +52,6 @@ class Mat2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_matrix_WHEN_transpose_THEN_return_transposed_matrix")
     fun `GIVEN a matrix, WHEN transpose, THEN return transposed matrix`() {
         val matrix = Mat2(listOf(1f, 3f, 2f, 4f))
 
@@ -66,7 +61,6 @@ class Mat2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_matrix_WHEN_det_THEN_return_determinant_of_the_matrix")
     fun `GIVEN a matrix, WHEN det, THEN return determinant of the matrix`() {
         val matrix = Mat2(listOf(1f, 3f, 2f, 4f))
 
@@ -76,7 +70,6 @@ class Mat2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_matrix_WHEN_adj_THEN_return_adjugate_of_the_matrix")
     fun `GIVEN a matrix, WHEN adj, THEN return adjugate of the matrix`() {
         val matrix = Mat2(listOf(1f, 3f, 2f, 4f))
 
@@ -86,7 +79,6 @@ class Mat2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_matrix_WHEN_inverse_THEN_return_inverse_of_th_matrix")
     fun `GIVEN a matrix, WHEN inverse, THEN return inverse of th matrix`() {
         val matrix = Mat2(listOf(1f, 3f, 2f, 4f))
 
@@ -96,7 +88,6 @@ class Mat2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_matrix_WHEN_toFloatArray_THEN_return_matrix_coordinates_as_array")
     fun `GIVEN a matrix, WHEN toFloatArray, THEN return matrix coordinates as array`() {
         val matrix = Mat2(listOf(1f, 2f, 3f, 4f))
 

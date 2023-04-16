@@ -45,5 +45,5 @@ interface HudAtom {
     /**
      * Model matrix of this atom.
      */
-    val modelMatrix: Mat4
+    val modelMatrix: Mat4<Float>
 }

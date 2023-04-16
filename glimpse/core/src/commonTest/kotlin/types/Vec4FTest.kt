@@ -16,15 +16,13 @@
 
 package graphics.glimpse.types
 
-import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
-class Vec4Test {
+class Vec4FTest {
 
     @Test
-    @JsName(name = "GIVEN_a_vector_WHEN_r_THEN_return_x")
     fun `GIVEN a vector, WHEN r, THEN return x`() {
         val vector = Vec4(x = 7f, y = 13f, z = 29f, w = 31f)
 
@@ -34,7 +32,6 @@ class Vec4Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_vector_WHEN_g_THEN_return_y")
     fun `GIVEN a vector, WHEN g, THEN return y`() {
         val vector = Vec4(x = 7f, y = 13f, z = 29f, w = 31f)
 
@@ -44,7 +41,6 @@ class Vec4Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_vector_WHEN_b_THEN_return_z")
     fun `GIVEN a vector, WHEN b, THEN return z`() {
         val vector = Vec4(x = 7f, y = 13f, z = 29f, w = 31f)
 
@@ -54,7 +50,6 @@ class Vec4Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_vector_WHEN_a_THEN_return_w")
     fun `GIVEN a vector, WHEN a, THEN return w`() {
         val vector = Vec4(x = 7f, y = 13f, z = 29f, w = 31f)
 
@@ -64,7 +59,6 @@ class Vec4Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_vector_WHEN_toVec2_THEN_return_the_a_2D_vector")
     fun `GIVEN a vector, WHEN toVec2, THEN return the a 2D vector`() {
         val vector = Vec4(x = 7f, y = 13f, z = 29f, w = 31f)
 
@@ -74,7 +68,6 @@ class Vec4Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_vector_WHEN_toVec4_THEN_return_the_a_3D_vector")
     fun `GIVEN a vector, WHEN toVec4, THEN return the a 3D vector`() {
         val vector = Vec4(x = 7f, y = 13f, z = 29f, w = 31f)
 
@@ -84,7 +77,6 @@ class Vec4Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_vector_WHEN_toList_THEN_return_vectors_coordinates_as_list")
     fun `GIVEN a vector, WHEN toList, THEN return vector's coordinates as list`() {
         val vector = Vec4(x = 10f, y = 20f, z = 30f, w = 40f)
 
@@ -94,7 +86,6 @@ class Vec4Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_vector_WHEN_toFloatArray_THEN_return_vectors_coordinates_as_array")
     fun `GIVEN a vector, WHEN toFloatArray, THEN return vector's coordinates as array`() {
         val vector = Vec4(x = 10f, y = 20f, z = 30f, w = 40f)
 
@@ -104,7 +95,6 @@ class Vec4Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_list_WHEN_fromList_THEN_return_vector_with_coordinates_from_list")
     fun `GIVEN a list, WHEN fromList, THEN return vector with coordinates from list`() {
         val list = listOf(1f, 2f, 3f, 4f)
 
@@ -114,7 +104,6 @@ class Vec4Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_list_of_3_numbers_WHEN_fromList_THEN_throw_exception")
     fun `GIVEN a list of 3 numbers, WHEN fromList, THEN throw exception`() {
         val list = listOf(1f, 2f, 3f)
 

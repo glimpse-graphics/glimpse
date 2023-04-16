@@ -27,10 +27,10 @@ interface Camera {
     /**
      * Position of the camera eye.
      */
-    val eye: Vec3
+    val eye: Vec3<Float>
 
     /**
      * View matrix defined by the camera.
      */
-    val viewMatrix: Mat4
+    val viewMatrix: Mat4<Float>
 }

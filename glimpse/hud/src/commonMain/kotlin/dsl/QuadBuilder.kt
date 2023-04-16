@@ -26,7 +26,7 @@ import graphics.glimpse.types.Vec2
  */
 class QuadBuilder internal constructor(
     private val texture: Texture,
-    private val position: Vec2
+    private val position: Vec2<Float>
 ) {
 
     /**

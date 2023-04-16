@@ -21,7 +21,7 @@ import graphics.glimpse.types.Vec2
 
 internal class TableLayoutBuilder(
     parent: HudElementsBuilder,
-    private val position: Vec2,
+    private val position: Vec2<Float>,
     private val columns: List<TableLayout.Column>,
     private val columnsSpacing: Float,
     private val rowsSpacing: Float,

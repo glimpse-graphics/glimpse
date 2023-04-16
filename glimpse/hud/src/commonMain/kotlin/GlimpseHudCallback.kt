@@ -174,7 +174,7 @@ class GlimpseHudCallback(
     /**
      * Dispatches given input [event] at given [position] to this HUD's [elements].
      */
-    fun onInputEvent(position: Vec2, event: Any?) {
+    fun onInputEvent(position: Vec2<Float>, event: Any?) {
         for (element in elements.reversed()) {
             if (position - element.position in element.boundingBox) {
                 if (element.handleInputEvent(position, event)) break

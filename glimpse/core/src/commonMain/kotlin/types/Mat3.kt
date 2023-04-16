@@ -19,43 +19,51 @@ package graphics.glimpse.types
 /**
  * A 3×3 matrix.
  */
-data class Mat3(override val elements: List<Float>) : BaseMat<Mat3, Vec3>(MATRIX_DIMENSION) {
+abstract class Mat3<T : Number> : BaseMat<T, Mat3<T>, Vec3<T>>(MATRIX_DIMENSION) {
 
-    private val comatrix: Mat3 by lazy {
-        Mat3(transform { row, col -> cofactor(row, col) })
+    private val comatrix: Mat3<T> by lazy {
+        create(transform { row, col -> cofactor(row, col) })
     }
-
-    init { validate() }
-
-    /**
-     * Returns a new 3×3 matrix with the given [elements].
-     */
-    override fun create(elements: List<Float>): Mat3 = Mat3(elements)
-
-    /**
-     * Returns a new 3D vector with the given [elements].
-     */
-    override fun createVector(elements: List<Float>): Vec3 = Vec3.fromList(elements)
 
     /**
      * Returns a determinant of this matrix.
      */
-    override fun det(): Float =
-        indices.map { col -> this[0, col] * cofactor(row = 0, col) }.sum()
+    override fun det(): T =
+        indices.map { col -> field.multiply(this[0, col], cofactor(row = 0, col)) }.let { field.sum(it) }
 
-    private fun cofactor(row: Int, col: Int): Float =
-        minor(row = row, col = col) * if ((row + col) % 2 == 0) 1f else -1f
+    private fun cofactor(row: Int, col: Int): T =
+        field.multiply(
+            minor(row = row, col = col),
+            if ((row + col) % 2 == 0) field.multiplicativeIdentity
+            else field.additiveInverse(field.multiplicativeIdentity)
+        )
 
-    private fun minor(row: Int, col: Int): Float = Mat2(
-        indices.flatMap { c -> indices.map { r -> r to c } }
-            .filter { (r, c) -> r != row && c != col }
-            .map { (r, c) -> this[r, c] }
-    ).det()
+    private fun minor(row: Int, col: Int): T = submatrix(row, col).det()
+
+    /**
+     * Implement this method to provide a submatrix without given
+     * [row][withoutRow] and [column][withoutCol].
+     */
+    protected abstract fun submatrix(withoutRow: Int, withoutCol: Int): Mat2<T>
 
     /**
      * Returns an adjugate of this matrix.
      */
-    override fun adj(): Mat3 = comatrix.transpose()
+    override fun adj(): Mat3<T> = comatrix.transpose()
+
+    /**
+     * Returns a 3×3 float matrix equal to this matrix.
+     *
+     * @since v1.3.0
+     */
+    abstract fun toFloatMatrix(): Mat3<Float>
+
+    /**
+     * Returns a 3×3 double-precision float matrix equal to this matrix.
+     *
+     * @since v1.3.0
+     */
+    abstract fun toDoubleMatrix(): Mat3<Double>
 
     /**
      * Returns a 2×2 submatrix of this matrix, obtained by deleting the last row and the last column
@@ -63,17 +71,10 @@ data class Mat3(override val elements: List<Float>) : BaseMat<Mat3, Vec3>(MATRIX
      *
      * @since v1.1.0
      */
-    fun toMat2(): Mat2 = Mat2(
-        listOf(
-            this[0, 0], this[1, 0],
-            this[0, 1], this[1, 1]
-        )
+    fun toMat2(): Mat2<T> = submatrix(
+        withoutRow = indices.last,
+        withoutCol = indices.last
     )
-
-    /**
-     * Returns a string representation of this matrix.
-     */
-    override fun toString(): String = toString(className = "Mat3")
 
     companion object {
         private const val MATRIX_DIMENSION = 3
@@ -81,6 +82,20 @@ data class Mat3(override val elements: List<Float>) : BaseMat<Mat3, Vec3>(MATRIX
         /**
          * A 3×3 identity matrix.
          */
-        val identity: Mat3 = Mat3(listOf(1f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 1f))
+        val identity: Mat3<Float> = Mat3(listOf(1f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 1f))
     }
 }
+
+/**
+ * Returns a new 3×3 float matrix.
+ */
+@Suppress("FunctionNaming")
+@JvmName("FloatMat3")
+fun Mat3(elements: List<Float>): Mat3<Float> = Mat3F(elements)
+
+/**
+ * Returns a double-precision new 3×3 float matrix.
+ */
+@Suppress("FunctionNaming")
+@JvmName("DoubleMat3")
+fun Mat3(elements: List<Double>): Mat3<Double> = Mat3D(elements)

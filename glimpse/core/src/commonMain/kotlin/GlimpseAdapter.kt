@@ -52,12 +52,12 @@ expect class GlimpseAdapter {
     /**
      * Sets clear values for color buffers to [color] with alpha channel set to fully opaque.
      */
-    fun glClearColor(color: Vec3)
+    fun glClearColor(color: Vec3<Float>)
 
     /**
      * Sets clear values for color buffers to [color].
      */
-    fun glClearColor(color: Vec4)
+    fun glClearColor(color: Vec4<Float>)
 
     /**
      * Sets clear value for the depth buffer to [depth].
@@ -94,7 +94,7 @@ expect class GlimpseAdapter {
      * [BlendingFactorFunction.ONE_MINUS_CONSTANT_COLOR], [BlendingFactorFunction.CONSTANT_ALPHA]
      * and [BlendingFactorFunction.ONE_MINUS_CONSTANT_ALPHA].
      */
-    fun glBlendingColor(color: Vec4)
+    fun glBlendingColor(color: Vec4<Float>)
 
     /**
      * Enables rasterized line anti-aliasing.
@@ -455,17 +455,17 @@ expect class GlimpseAdapter {
     /**
      * Sets [value] of 2D vector uniform variable at a given [location] for current program.
      */
-    fun glUniform(location: Int, value: Vec2)
+    fun glUniform(location: Int, value: Vec2<Float>)
 
     /**
      * Sets [value] of 3D vector uniform variable at a given [location] for current program.
      */
-    fun glUniform(location: Int, value: Vec3)
+    fun glUniform(location: Int, value: Vec3<Float>)
 
     /**
      * Sets [value] of 4D vector uniform variable at a given [location] for current program.
      */
-    fun glUniform(location: Int, value: Vec4)
+    fun glUniform(location: Int, value: Vec4<Float>)
 
     /**
      * Sets [values] of integer array uniform variable at a given [location] for current program.
@@ -480,38 +480,38 @@ expect class GlimpseAdapter {
     /**
      * Sets [values] of 2D vector array uniform variable at a given [location] for current program.
      */
-    fun glUniform(location: Int, vararg values: Vec2)
+    fun glUniform(location: Int, vararg values: Vec2<Float>)
 
     /**
      * Sets [values] of 3D vector array uniform variable at a given [location] for current program.
      */
-    fun glUniform(location: Int, vararg values: Vec3)
+    fun glUniform(location: Int, vararg values: Vec3<Float>)
 
     /**
      * Sets [values] of 4D vector array uniform variable at a given [location] for current program.
      */
-    fun glUniform(location: Int, vararg values: Vec4)
+    fun glUniform(location: Int, vararg values: Vec4<Float>)
 
     /**
      * Sets [values] of 2×2 matrix array uniform variable at a given [location] for current program.
      *
      * Optionally, if the [transpose] flag is set to `true`, transpose matrices will be set instead.
      */
-    fun glUniform(location: Int, vararg values: Mat2, transpose: Boolean = false)
+    fun glUniform(location: Int, vararg values: Mat2<Float>, transpose: Boolean = false)
 
     /**
      * Sets [values] of 3×3 matrix array uniform variable at a given [location] for current program.
      *
      * Optionally, if the [transpose] flag is set to `true`, transpose matrices will be set instead.
      */
-    fun glUniform(location: Int, vararg values: Mat3, transpose: Boolean = false)
+    fun glUniform(location: Int, vararg values: Mat3<Float>, transpose: Boolean = false)
 
     /**
      * Sets [values] of 4×4 matrix array uniform variable at a given [location] for current program.
      *
      * Optionally, if the [transpose] flag is set to `true`, transpose matrices will be set instead.
      */
-    fun glUniform(location: Int, vararg values: Mat4, transpose: Boolean = false)
+    fun glUniform(location: Int, vararg values: Mat4<Float>, transpose: Boolean = false)
 
     /**
      * Enables vertex attributes array at a given [location] for current program.

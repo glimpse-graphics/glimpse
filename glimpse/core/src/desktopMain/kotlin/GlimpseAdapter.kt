@@ -58,7 +58,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     /**
      * Sets clear values for color buffers to [color] with alpha channel set to fully opaque.
      */
-    actual fun glClearColor(color: Vec3) {
+    actual fun glClearColor(color: Vec3<Float>) {
         logger.debug(message = "Setting clear color: $color")
         gles.glClearColor(color.r, color.g, color.b, 1f)
     }
@@ -66,7 +66,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     /**
      * Sets clear values for color buffers to [color].
      */
-    actual fun glClearColor(color: Vec4) {
+    actual fun glClearColor(color: Vec4<Float>) {
         logger.debug(message = "Setting clear color: $color")
         gles.glClearColor(color.r, color.g, color.b, color.a)
     }
@@ -170,7 +170,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
      * [BlendingFactorFunction.ONE_MINUS_CONSTANT_COLOR], [BlendingFactorFunction.CONSTANT_ALPHA]
      * and [BlendingFactorFunction.ONE_MINUS_CONSTANT_ALPHA].
      */
-    actual fun glBlendingColor(color: Vec4) {
+    actual fun glBlendingColor(color: Vec4<Float>) {
         gles.glBlendColor(color.r, color.g, color.b, color.a)
     }
 
@@ -796,21 +796,21 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     /**
      * Sets [value] of 2D vector uniform variable at a given [location] for current program.
      */
-    actual fun glUniform(location: Int, value: Vec2) {
+    actual fun glUniform(location: Int, value: Vec2<Float>) {
         gles.glUniform2f(location, value.x, value.y)
     }
 
     /**
      * Sets [value] of 3D vector uniform variable at a given [location] for current program.
      */
-    actual fun glUniform(location: Int, value: Vec3) {
+    actual fun glUniform(location: Int, value: Vec3<Float>) {
         gles.glUniform3f(location, value.x, value.y, value.z)
     }
 
     /**
      * Sets [value] of 4D vector uniform variable at a given [location] for current program.
      */
-    actual fun glUniform(location: Int, value: Vec4) {
+    actual fun glUniform(location: Int, value: Vec4<Float>) {
         gles.glUniform4f(location, value.x, value.y, value.z, value.w)
     }
 
@@ -831,21 +831,21 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     /**
      * Sets [values] of 2D vector array uniform variable at a given [location] for current program.
      */
-    actual fun glUniform(location: Int, vararg values: Vec2) {
+    actual fun glUniform(location: Int, vararg values: Vec2<Float>) {
         gles.glUniform2fv(location, values.size, values.flatMap { it.toList() }.toFloatArray(), 0)
     }
 
     /**
      * Sets [values] of 3D vector array uniform variable at a given [location] for current program.
      */
-    actual fun glUniform(location: Int, vararg values: Vec3) {
+    actual fun glUniform(location: Int, vararg values: Vec3<Float>) {
         gles.glUniform3fv(location, values.size, values.flatMap { it.toList() }.toFloatArray(), 0)
     }
 
     /**
      * Sets [values] of 4D vector array uniform variable at a given [location] for current program.
      */
-    actual fun glUniform(location: Int, vararg values: Vec4) {
+    actual fun glUniform(location: Int, vararg values: Vec4<Float>) {
         gles.glUniform4fv(location, values.size, values.flatMap { it.toList() }.toFloatArray(), 0)
     }
 
@@ -854,7 +854,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
      *
      * Optionally, if the [transpose] flag is set to `true`, transpose matrices will be set instead.
      */
-    actual fun glUniform(location: Int, vararg values: Mat2, transpose: Boolean) {
+    actual fun glUniform(location: Int, vararg values: Mat2<Float>, transpose: Boolean) {
         gles.glUniformMatrix2fv(
             location,
             values.size,
@@ -869,7 +869,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
      *
      * Optionally, if the [transpose] flag is set to `true`, transpose matrices will be set instead.
      */
-    actual fun glUniform(location: Int, vararg values: Mat3, transpose: Boolean) {
+    actual fun glUniform(location: Int, vararg values: Mat3<Float>, transpose: Boolean) {
         gles.glUniformMatrix3fv(
             location,
             values.size,
@@ -884,7 +884,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
      *
      * Optionally, if the [transpose] flag is set to `true`, transpose matrices will be set instead.
      */
-    actual fun glUniform(location: Int, vararg values: Mat4, transpose: Boolean) {
+    actual fun glUniform(location: Int, vararg values: Mat4<Float>, transpose: Boolean) {
         gles.glUniformMatrix4fv(
             location,
             values.size,

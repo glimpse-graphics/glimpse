@@ -41,7 +41,6 @@ import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Vec2
 import graphics.glimpse.types.Vec3
 import graphics.glimpse.types.rotationY
-import graphics.glimpse.ui.compose.types.Vec3
 
 /**
  * A [callback][GlimpseCallback] rendering rotating triangle.
@@ -81,7 +80,7 @@ class TriangleCallback(
     override fun onCreate(gl: GlimpseAdapter) {
         logger.debug(message = "onCreate")
 
-        gl.glClearColor(Vec3(resources.getThemeColors().background))
+        gl.glClearColor(graphics.glimpse.ui.compose.types.Vec3(resources.getThemeColors().background))
         gl.glClearDepth(depth = 1f)
         gl.glDepthTest(DepthTestFunction.LESS_OR_EQUAL)
         gl.glCullFace(FaceCullingMode.DISABLED)

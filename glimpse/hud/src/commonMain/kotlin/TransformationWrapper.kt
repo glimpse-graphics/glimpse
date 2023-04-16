@@ -37,7 +37,7 @@ class TransformationWrapper(
     /**
      * Function returning current translation of the transformed element.
      */
-    private val translationProvider: () -> Vec2,
+    private val translationProvider: () -> Vec2<Float>,
 
     /**
      * Function returning current rotation of the transformed element.
@@ -47,13 +47,13 @@ class TransformationWrapper(
     /**
      * Function returning current scale of the transformed element.
      */
-    private val scaleProvider: () -> Vec2
+    private val scaleProvider: () -> Vec2<Float>
 ) : BaseHudElementWrapper(element) {
 
     /**
      * Position of the transformed element.
      */
-    override var position: Vec2
+    override var position: Vec2<Float>
         get() = super.position + translationProvider()
         set(value) { super.position = value }
 
@@ -73,10 +73,10 @@ class TransformationWrapper(
             val originSpaceMatrix = rotationZ(rotationProvider()) * scale(x = scale.x, scale.y)
             val transformedCorners = corners.map { corner -> originSpaceMatrix * corner.toVec4(w = 1f) }
             return BoundingBox(
-                left = transformedCorners.minOf(Vec4::x),
-                right = transformedCorners.maxOf(Vec4::x),
-                top = transformedCorners.minOf(Vec4::y),
-                bottom = transformedCorners.maxOf(Vec4::y)
+                left = transformedCorners.minOf(Vec4<Float>::x),
+                right = transformedCorners.maxOf(Vec4<Float>::x),
+                top = transformedCorners.minOf(Vec4<Float>::y),
+                bottom = transformedCorners.maxOf(Vec4<Float>::y)
             )
         }
 
@@ -86,7 +86,7 @@ class TransformationWrapper(
     override val atoms: Iterable<HudAtom>
         get() = super.atoms.map { atom -> TransformationAtom(atom) }
 
-    private val transformationMatrix: Mat4
+    private val transformationMatrix: Mat4<Float>
         get() {
             val scale = scaleProvider()
             return listOf(
@@ -94,7 +94,7 @@ class TransformationWrapper(
                 rotationZ(rotationProvider()),
                 scale(x = scale.x, scale.y),
                 translation(-super.position.toVec3())
-            ).reduce(Mat4::times)
+            ).reduce(Mat4<Float>::times)
         }
 
     /**
@@ -102,7 +102,7 @@ class TransformationWrapper(
      *
      * @return `true` if the event has been consumed by the transformed element.
      */
-    override fun handleInputEvent(position: Vec2, event: Any?): Boolean =
+    override fun handleInputEvent(position: Vec2<Float>, event: Any?): Boolean =
         super.handleInputEvent(
             (transformationMatrix.inverse() * position.toVec4(w = 1f)).toVec2(),
             event
@@ -110,7 +110,7 @@ class TransformationWrapper(
 
     private inner class TransformationAtom(private val atom: HudAtom) : HudAtom by atom {
 
-        override val modelMatrix: Mat4
+        override val modelMatrix: Mat4<Float>
             get() = transformationMatrix * atom.modelMatrix
     }
 }

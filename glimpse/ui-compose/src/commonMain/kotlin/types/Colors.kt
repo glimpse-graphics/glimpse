@@ -25,7 +25,8 @@ import graphics.glimpse.types.Vec4
  *
  * @since v1.1.0
  */
-fun Vec3(color: Color): Vec3 {
+@Suppress("FunctionNaming")
+fun Vec3(color: Color): Vec3<Float> {
     return Vec3(color.red, color.green, color.blue)
 }
 
@@ -34,6 +35,7 @@ fun Vec3(color: Color): Vec3 {
  *
  * @since v1.1.0
  */
-fun Vec4(color: Color): Vec4 {
+@Suppress("FunctionNaming")
+fun Vec4(color: Color): Vec4<Float> {
     return Vec4(color.red, color.green, color.blue, color.alpha)
 }

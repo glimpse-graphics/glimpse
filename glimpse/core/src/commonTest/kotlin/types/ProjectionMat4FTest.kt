@@ -17,13 +17,11 @@
 package graphics.glimpse.types
 
 import graphics.glimpse.assertions.assertEqualsWithDelta
-import kotlin.js.JsName
 import kotlin.test.Test
 
-class ProjectionMat4Test {
+class ProjectionMat4FTest {
 
     @Test
-    @JsName(name = "GIVEN_6_numbers_WHEN_frustum_THEN_should_generate_frustum_projection_matrix")
     fun `GIVEN 6 numbers, WHEN frustum, THEN should generate frustum projection matrix`() {
         val left = -2f
         val right = 2f
@@ -46,8 +44,8 @@ class ProjectionMat4Test {
                 listOf(
                     0.5f, 0f, 0f, 0f,
                     0f, 1f, 0f, 0f,
-                    0f, 0f, -1.22222222f, -1f,
-                    0f, 0f, -2.22222222f, 0f
+                    0f, 0f, -1.2222222f, -1f,
+                    0f, 0f, -2.2222223f, 0f
                 )
             ),
             result
@@ -55,9 +53,6 @@ class ProjectionMat4Test {
     }
 
     @Test
-    @JsName(
-        name = "GIVEN_an_angle_ratio_and_2_numbers_WHEN_perspective_THEN_should_generate_perspective_projection_matrix"
-    )
     fun `GIVEN an angle, ratio and 2 numbers, WHEN perspective, THEN should generate perspective projection matrix`() {
         val angle = Angle.rightAngle
         val aspect = 2f
@@ -71,8 +66,8 @@ class ProjectionMat4Test {
                 listOf(
                     0.5f, 0f, 0f, 0f,
                     0f, 1f, 0f, 0f,
-                    0f, 0f, -1.22222222f, -1f,
-                    0f, 0f, -2.22222222f, 0f
+                    0f, 0f, -1.2222222f, -1f,
+                    0f, 0f, -2.2222223f, 0f
                 )
             ),
             result
@@ -80,7 +75,6 @@ class ProjectionMat4Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_6_numbers_WHEN_orthographic_THEN_should_generate_orthographic_projection_matrix")
     fun `GIVEN 6 numbers, WHEN orthographic, THEN should generate orthographic projection matrix`() {
         val left = -1f
         val right = 1f

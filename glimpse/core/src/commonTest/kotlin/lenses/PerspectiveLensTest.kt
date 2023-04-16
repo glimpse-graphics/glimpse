@@ -19,13 +19,11 @@ package graphics.glimpse.lenses
 import graphics.glimpse.assertions.assertEqualsWithDelta
 import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Mat4
-import kotlin.js.JsName
 import kotlin.test.Test
 
 class PerspectiveLensTest {
 
     @Test
-    @JsName(name = "GIVEN_a_PerspectiveLens_WHEN_projectionMatrix_THEN_return_correct_matrix")
     fun `GIVEN a PerspectiveLens, WHEN projectionMatrix, THEN return correct matrix`() {
         val fovY = Angle.rightAngle
         val aspect = 2f

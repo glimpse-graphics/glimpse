@@ -19,16 +19,12 @@ package graphics.glimpse.meshes
 import graphics.glimpse.buffers.floatBufferDataOf
 import graphics.glimpse.types.Vec2
 import graphics.glimpse.types.Vec3
-import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class MeshDataBuilderTest {
 
     @Test
-    @JsName(
-        name = "GIVEN_MeshDataBuilder_WHEN_build_triangle_array_mesh_data_THEN_return_mesh_data_with_single_triangle"
-    )
     fun `GIVEN MeshDataBuilder, WHEN build triangle array mesh data, THEN return mesh data with single triangle`() {
         val result = MeshDataBuilder()
             .addVertex(Vec3(x = -1f, y = -1f, z = 0f))

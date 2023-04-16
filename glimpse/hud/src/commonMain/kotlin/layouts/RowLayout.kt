@@ -29,7 +29,7 @@ class RowLayout(
     /**
      * Position of this layout.
      */
-    position: Vec2 = Vec2.nullVector,
+    position: Vec2<Float> = Vec2.nullVector,
 
     /**
      * Vertical alignment of the elements.

@@ -29,7 +29,7 @@ fun frustum(
     top: Float,
     near: Float,
     far: Float
-): Mat4 {
+): Mat4<Float> {
     require(value = near > 0f) { "Near depth clipping plane must be at a positive distance" }
     require(value = far > 0f) { "Far depth clipping plane must be at a positive distance" }
 
@@ -59,7 +59,7 @@ fun perspective(
     aspect: Float,
     near: Float,
     far: Float
-): Mat4 {
+): Mat4<Float> {
     require(value = fovY > Angle.nullAngle) { "Field of view must be at a positive angle" }
     require(value = fovY < Angle.straightAngle) { "Field of view must be less than 180 degrees" }
     require(value = aspect > 0f) { "Aspect ratio must be a positive number" }
@@ -91,7 +91,7 @@ fun orthographic(
     top: Float,
     near: Float,
     far: Float
-): Mat4 {
+): Mat4<Float> {
     val width = right - left
     val height = top - bottom
     val depth = far - near

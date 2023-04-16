@@ -29,7 +29,7 @@ class ColumnLayout(
     /**
      * Position of this layout.
      */
-    position: Vec2 = Vec2.nullVector,
+    position: Vec2<Float> = Vec2.nullVector,
 
     /**
      * Horizontal alignment of the elements.

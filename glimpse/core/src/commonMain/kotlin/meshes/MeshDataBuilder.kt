@@ -25,15 +25,15 @@ import graphics.glimpse.types.Vec3
  */
 class MeshDataBuilder {
 
-    private val positions = mutableListOf<Vec3>()
-    private val texCoords = mutableListOf<Vec2>()
-    private val normals = mutableListOf<Vec3>()
+    private val positions = mutableListOf<Vec3<Float>>()
+    private val texCoords = mutableListOf<Vec2<Float>>()
+    private val normals = mutableListOf<Vec3<Float>>()
     private val triangles = mutableListOf<Triangle>()
 
     /**
      * Adds another [vertex position][vertexPos] to the mesh.
      */
-    fun addVertex(vertexPos: Vec3): MeshDataBuilder {
+    fun addVertex(vertexPos: Vec3<Float>): MeshDataBuilder {
         positions.add(vertexPos)
         return this
     }
@@ -47,7 +47,7 @@ class MeshDataBuilder {
     /**
      * Adds another texture [coordinates] to the mesh.
      */
-    fun addTextureCoordinates(coordinates: Vec2): MeshDataBuilder {
+    fun addTextureCoordinates(coordinates: Vec2<Float>): MeshDataBuilder {
         texCoords.add(coordinates)
         return this
     }
@@ -61,7 +61,7 @@ class MeshDataBuilder {
     /**
      * Adds another [normal] vector to the mesh.
      */
-    fun addNormal(normal: Vec3): MeshDataBuilder {
+    fun addNormal(normal: Vec3<Float>): MeshDataBuilder {
         normals.add(normal)
         return this
     }
@@ -146,33 +146,33 @@ class MeshDataBuilder {
     )
 
     private data class Triangle(
-        val position1: Vec3,
-        val position2: Vec3,
-        val position3: Vec3,
-        val texCoord1: Vec2,
-        val texCoord2: Vec2,
-        val texCoord3: Vec2,
-        val normal1: Vec3,
-        val normal2: Vec3,
-        val normal3: Vec3
+        val position1: Vec3<Float>,
+        val position2: Vec3<Float>,
+        val position3: Vec3<Float>,
+        val texCoord1: Vec2<Float>,
+        val texCoord2: Vec2<Float>,
+        val texCoord3: Vec2<Float>,
+        val normal1: Vec3<Float>,
+        val normal2: Vec3<Float>,
+        val normal3: Vec3<Float>
     ) {
 
-        val tangent: Vec3
-        val bitangent: Vec3
+        val tangent: Vec3<Float>
+        val bitangent: Vec3<Float>
 
-        val positions: List<Vec3>
+        val positions: List<Vec3<Float>>
             get() = listOf(position1, position2, position3)
 
-        val textureCoordinates: List<Vec2>
+        val textureCoordinates: List<Vec2<Float>>
             get() = listOf(texCoord1, texCoord2, texCoord3)
 
-        val normals: List<Vec3>
+        val normals: List<Vec3<Float>>
             get() = listOf(normal1, normal2, normal3)
 
-        val tangents: List<Vec3>
+        val tangents: List<Vec3<Float>>
             get() = listOf(tangent, tangent, tangent)
 
-        val bitangents: List<Vec3>
+        val bitangents: List<Vec3<Float>>
             get() = listOf(bitangent, bitangent, bitangent)
 
         init {

@@ -20,13 +20,11 @@ import graphics.glimpse.assertions.assertEqualsWithDelta
 import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Mat4
 import graphics.glimpse.types.Vec3
-import kotlin.js.JsName
 import kotlin.test.Test
 
 class FreeCameraTest {
 
     @Test
-    @JsName(name = "GIVEN_a_FreeCamera_WHEN_viewMatrix_THEN_return_correct_matrix")
     fun `GIVEN a FreeCamera, WHEN viewMatrix, THEN return correct matrix`() {
         val eye = Vec3(x = 0.5f, y = 0.5f, z = 0.7071067812f)
         val roll = Angle.nullAngle
