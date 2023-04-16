@@ -17,19 +17,24 @@
 package graphics.glimpse.types
 
 /**
- * Returns the magnitude of the given [vector].
+ * Base implementation of a vector.
+ *
+ * @since v1.3.0
  */
-@Deprecated(
-    message = "Use Vec2.magnitude() instead",
-    replaceWith = ReplaceWith("vector.magnitude()")
-)
-fun <T : Number> magnitude(vector: Vec3<T>): T = vector.magnitude()
+abstract class BaseVec<T : Number> : Vec<T> {
 
-/**
- * Returns a unit vector in the direction of the given [vector].
- */
-@Deprecated(
-    message = "Use Vec2.normalize() instead",
-    replaceWith = ReplaceWith("vector.normalize()")
-)
-fun <T : Number> normalize(vector: Vec3<T>): Vec3<T> = vector / vector.magnitude()
+    /**
+     * Implement this property to provide a ring of numbers of type [T].
+     */
+    protected abstract val ring: Ring<T>
+
+    /**
+     * Returns a string representation of this vector.
+     */
+    protected fun toString(className: String): String =
+        toList().joinToString(
+            prefix = "$className(data=[",
+            separator = ", ",
+            postfix = "])"
+        )
+}

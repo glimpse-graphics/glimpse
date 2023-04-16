@@ -107,7 +107,7 @@ class Vec4DTest {
     fun `GIVEN a list of 3 numbers, WHEN fromList, THEN throw exception`() {
         val list = listOf(1.0, 2.0, 3.0)
 
-        assertFailsWith(IllegalArgumentException::class) {
+        assertFailsWith<IllegalArgumentException> {
             Vec4.fromList(list)
         }
     }

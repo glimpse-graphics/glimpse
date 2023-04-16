@@ -18,6 +18,7 @@ package graphics.glimpse.assertions
 
 import graphics.glimpse.types.Mat3
 import graphics.glimpse.types.Mat4
+import graphics.glimpse.types.Vec2
 import graphics.glimpse.types.Vec3
 import graphics.glimpse.types.Vec4
 import graphics.glimpse.types.toDoubleArray
@@ -114,6 +115,46 @@ fun assertEqualsWithDelta(
             message = "${messagePrefix}Different values at index <$index>"
         )
     }
+}
+
+/**
+ * Asserts that the [actual] vector is equal to the [expected] vector plus/minus [delta]
+ * (compared per coordinate), with an optional [message].
+ */
+@JvmName("assertFloatEqualsWithDelta")
+fun assertEqualsWithDelta(
+    expected: Vec2<Float>,
+    actual: Vec2<Float>,
+    delta: Delta = Delta.FINE,
+    message: String? = null
+) {
+    val messagePrefix = messagePrefix(message)
+    assertEqualsWithDelta(
+        expected = expected.toFloatArray().toList(),
+        actual = actual.toFloatArray().toList(),
+        delta = delta,
+        message = "${messagePrefix}Vectors are different"
+    )
+}
+
+/**
+ * Asserts that the [actual] vector is equal to the [expected] vector plus/minus [delta]
+ * (compared per coordinate), with an optional [message].
+ */
+@JvmName("assertDoubleEqualsWithDelta")
+fun assertEqualsWithDelta(
+    expected: Vec2<Double>,
+    actual: Vec2<Double>,
+    delta: Delta = Delta.FINE,
+    message: String? = null
+) {
+    val messagePrefix = messagePrefix(message)
+    assertEqualsWithDelta(
+        expected = expected.toDoubleArray().toList(),
+        actual = actual.toDoubleArray().toList(),
+        delta = delta,
+        message = "${messagePrefix}Vectors are different"
+    )
 }
 
 /**

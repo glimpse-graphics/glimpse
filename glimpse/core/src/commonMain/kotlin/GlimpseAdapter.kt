@@ -436,7 +436,7 @@ expect class GlimpseAdapter {
     /**
      * Sets [value] of boolean uniform variable at a given [location] for current program.
      *
-     * A boolean uniform is converted to an integer value of `GL_TRUE` or `GL_FALSE`.
+     * A boolean value is converted to an integer value of `GL_TRUE` or `GL_FALSE`.
      *
      * @since v1.1.0
      */
@@ -454,8 +454,22 @@ expect class GlimpseAdapter {
 
     /**
      * Sets [value] of 2D vector uniform variable at a given [location] for current program.
+     *
+     * @since v1.3.0
+     */
+    fun glUniform(location: Int, value: Vec2<Int>)
+
+    /**
+     * Sets [value] of 2D vector uniform variable at a given [location] for current program.
      */
     fun glUniform(location: Int, value: Vec2<Float>)
+
+    /**
+     * Sets [value] of 3D vector uniform variable at a given [location] for current program.
+     *
+     * @since v1.3.0
+     */
+    fun glUniform(location: Int, value: Vec3<Int>)
 
     /**
      * Sets [value] of 3D vector uniform variable at a given [location] for current program.
@@ -464,8 +478,24 @@ expect class GlimpseAdapter {
 
     /**
      * Sets [value] of 4D vector uniform variable at a given [location] for current program.
+     *
+     * @since v1.3.0
+     */
+    fun glUniform(location: Int, value: Vec4<Int>)
+
+    /**
+     * Sets [value] of 4D vector uniform variable at a given [location] for current program.
      */
     fun glUniform(location: Int, value: Vec4<Float>)
+
+    /**
+     * Sets [values] of boolean array uniform variable at a given [location] for current program.
+     *
+     * A boolean value is converted to an integer value of `GL_TRUE` or `GL_FALSE`.
+     *
+     * @since v1.3.0
+     */
+    fun glUniform(location: Int, vararg values: Boolean)
 
     /**
      * Sets [values] of integer array uniform variable at a given [location] for current program.
@@ -479,13 +509,34 @@ expect class GlimpseAdapter {
 
     /**
      * Sets [values] of 2D vector array uniform variable at a given [location] for current program.
+     *
+     * @since v1.3.0
+     */
+    fun glUniform(location: Int, vararg values: Vec2<Int>)
+
+    /**
+     * Sets [values] of 2D vector array uniform variable at a given [location] for current program.
      */
     fun glUniform(location: Int, vararg values: Vec2<Float>)
 
     /**
      * Sets [values] of 3D vector array uniform variable at a given [location] for current program.
+     *
+     * @since v1.3.0
+     */
+    fun glUniform(location: Int, vararg values: Vec3<Int>)
+
+    /**
+     * Sets [values] of 3D vector array uniform variable at a given [location] for current program.
      */
     fun glUniform(location: Int, vararg values: Vec3<Float>)
+
+    /**
+     * Sets [values] of 4D vector array uniform variable at a given [location] for current program.
+     *
+     * @since v1.3.0
+     */
+    fun glUniform(location: Int, vararg values: Vec4<Int>)
 
     /**
      * Sets [values] of 4D vector array uniform variable at a given [location] for current program.

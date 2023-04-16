@@ -21,29 +21,29 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertSame
 
-class Vec2FTest {
+class Vec2ITest {
 
     @Test
     fun `GIVEN a vector, WHEN u, THEN return x`() {
-        val vector = Vec2(x = 7f, y = 13f)
+        val vector = Vec2(x = 7, y = 13)
 
         val result = vector.u
 
-        assertEquals(7f, result)
+        assertEquals(7, result)
     }
 
     @Test
     fun `GIVEN a vector, WHEN v, THEN return y`() {
-        val vector = Vec2(x = 7f, y = 13f)
+        val vector = Vec2(x = 7, y = 13)
 
         val result = vector.v
 
-        assertEquals(13f, result)
+        assertEquals(13, result)
     }
 
     @Test
     fun `GIVEN a vector, WHEN unaryPlus, THEN return the same vector`() {
-        val vector = Vec2(x = 7f, y = 13f)
+        val vector = Vec2(x = 7, y = 13)
 
         val result = +vector
 
@@ -52,169 +52,159 @@ class Vec2FTest {
 
     @Test
     fun `GIVEN a vector, WHEN unaryMinus, THEN return the opposite vector`() {
-        val vector = Vec2(x = 7f, y = 13f)
+        val vector = Vec2(x = 7, y = 13)
 
         val result = -vector
 
-        assertEquals(Vec2(x = -7f, y = -13f), result)
+        assertEquals(Vec2(x = -7, y = -13), result)
     }
 
     @Test
     fun `GIVEN two vectors, WHEN plus, THEN return sum of two vectors`() {
-        val v1 = Vec2(x = 10f, y = 20f)
-        val v2 = Vec2(x = 1f, y = 2f)
+        val v1 = Vec2(x = 10, y = 20)
+        val v2 = Vec2(x = 1, y = 2)
 
         val result = v1 + v2
 
-        assertEquals(Vec2(x = 11f, y = 22f), result)
+        assertEquals(Vec2(x = 11, y = 22), result)
     }
 
     @Test
     fun `GIVEN two vectors, WHEN minus, THEN return difference of two vectors`() {
-        val v1 = Vec2(x = 10f, y = 20f)
-        val v2 = Vec2(x = 1f, y = 2f)
+        val v1 = Vec2(x = 10, y = 20)
+        val v2 = Vec2(x = 1, y = 2)
 
         val result = v1 - v2
 
-        assertEquals(Vec2(x = 9f, y = 18f), result)
+        assertEquals(Vec2(x = 9, y = 18), result)
     }
 
     @Test
     fun `GIVEN a vector and a number, WHEN times, THEN return product of the vector and the number`() {
-        val vector = Vec2(x = 1f, y = 2f)
-        val number = 3f
+        val vector = Vec2(x = 1, y = 2)
+        val number = 3
 
         val result = vector * number
 
-        assertEquals(Vec2(x = 3f, y = 6f), result)
+        assertEquals(Vec2(x = 3, y = 6), result)
     }
 
     @Test
     fun `GIVEN a vector and a number, WHEN div, THEN return quotient of the vector and the number`() {
-        val vector = Vec2(x = 5f, y = 7f)
-        val number = 2f
+        val vector = Vec2(x = 5, y = 7)
+        val number = 2
 
-        val result = vector / number
-
-        assertEquals(Vec2(x = 2.5f, y = 3.5f), result)
-    }
-
-    @Test
-    fun `GIVEN two vectors, WHEN dot, THEN return dot product of two vectors`() {
-        val v1 = Vec2(x = 10f, y = 20f)
-        val v2 = Vec2(x = 1f, y = 2f)
-
-        val result = v1 dot v2
-
-        assertEquals(50f, result)
-    }
-
-    @Test
-    fun `GIVEN a vector, WHEN atan, THEN return arc tangent of the vector`() {
-        val vector = Vec2(x = 1f, y = 1f)
-
-        val result = vector.atan()
-
-        assertEquals(Angle.fromDeg(deg = 45f), result)
-    }
-
-    @Test
-    fun `GIVEN a vector, WHEN magnitude, THEN return vector's magnitude`() {
-        val vector = Vec2(x = 3f, y = 4f)
-
-        val result = vector.magnitude()
-
-        assertEquals(5f, result)
-    }
-
-    @Test
-    fun `GIVEN a vector, WHEN normalize, THEN return a unit vector in the same direction`() {
-        val vector = Vec2(x = 3f, y = 4f)
-
-        val result = vector.normalize()
-
-        assertEquals(Vec2(x = 0.6f, y = 0.8f), result)
-    }
-
-    @Test
-    fun `GIVEN a vector, WHEN toVec3, THEN return the a 3D vector with z = 0`() {
-        val vector = Vec2(x = 7f, y = 13f)
-
-        val result = vector.toVec3()
-
-        assertEquals(Vec3(x = 7f, y = 13f, z = 0f), result)
-    }
-
-    @Test
-    fun `GIVEN a vector, WHEN toVec3 with z, THEN return the a 3D vector with z`() {
-        val vector = Vec2(x = 7f, y = 13f)
-
-        val result = vector.toVec3(z = 29f)
-
-        assertEquals(Vec3(x = 7f, y = 13f, z = 29f), result)
-    }
-
-    @Test
-    fun `GIVEN a vector, WHEN toVec4, THEN return the a 4D vector with z = 0 and w = 0`() {
-        val vector = Vec2(x = 7f, y = 13f)
-
-        val result = vector.toVec4()
-
-        assertEquals(Vec4(x = 7f, y = 13f, z = 0f, w = 0f), result)
-    }
-
-    @Test
-    fun `GIVEN a vector, WHEN toVec4 with z and w, THEN return the a 4D vector with z and w`() {
-        val vector = Vec2(x = 7f, y = 13f)
-
-        val result = vector.toVec4(z = 29f, w = 31f)
-
-        assertEquals(Vec4(x = 7f, y = 13f, z = 29f, w = 31f), result)
-    }
-
-    @Test
-    fun `GIVEN a vector, WHEN toList, THEN return vector's coordinates as list`() {
-        val vector = Vec2(x = 10f, y = 20f)
-
-        val result = vector.toList()
-
-        assertEquals(listOf(10f, 20f), result)
-    }
-
-    @Test
-    fun `GIVEN a vector, WHEN toFloatArray, THEN return vector's coordinates as array`() {
-        val vector = Vec2(x = 10f, y = 20f)
-
-        val result = vector.toFloatArray()
-
-        assertEquals(listOf(10f, 20f), result.toList())
-    }
-
-    @Test
-    fun `GIVEN a list, WHEN fromList, THEN return vector with coordinates from list`() {
-        val list = listOf(1f, 2f)
-
-        val result = Vec2.fromList(list)
-
-        assertEquals(Vec2(x = 1f, y = 2f), result)
-    }
-
-    @Test
-    fun `GIVEN a list of 3 numbers, WHEN fromList, THEN throw exception`() {
-        val list = listOf(1f, 2f, 3f)
-
-        assertFailsWith<IllegalArgumentException> {
-            Vec2.fromList(list)
+        assertFailsWith<UnsupportedOperationException> {
+            vector / number
         }
     }
 
     @Test
-    fun `GIVEN polar coordinates, WHEN fromPolarCoordinates, THEN return vector from polar coordinates`() {
-        val distance = 5f
-        val angle = Angle.fromDeg(deg = 135f)
+    fun `GIVEN two vectors, WHEN dot, THEN return dot product of two vectors`() {
+        val v1 = Vec2(x = 10, y = 20)
+        val v2 = Vec2(x = 1, y = 2)
 
-        val result = Vec2.fromPolarCoordinates(distance, angle)
+        val result = v1 dot v2
 
-        assertEquals(Vec2(x = -3.535534f, y = 3.535534f), result)
+        assertEquals(50, result)
+    }
+
+    @Test
+    fun `GIVEN a vector, WHEN atan, THEN return arc tangent of the vector`() {
+        val vector = Vec2(x = 1, y = 1)
+
+        assertFailsWith<UnsupportedOperationException> {
+            vector.atan()
+        }
+    }
+
+    @Test
+    fun `GIVEN a vector, WHEN magnitude, THEN return vector's magnitude`() {
+        val vector = Vec2(x = 3, y = 4)
+
+        assertFailsWith<UnsupportedOperationException> {
+            vector.magnitude()
+        }
+    }
+
+    @Test
+    fun `GIVEN a vector, WHEN normalize, THEN return a unit vector in the same direction`() {
+        val vector = Vec2(x = 3, y = 4)
+
+        assertFailsWith<UnsupportedOperationException> {
+            vector.normalize()
+        }
+    }
+
+    @Test
+    fun `GIVEN a vector, WHEN toVec3, THEN return the a 3D vector with z = 0`() {
+        val vector = Vec2(x = 7, y = 13)
+
+        val result = vector.toVec3()
+
+        assertEquals(Vec3(x = 7, y = 13, z = 0), result)
+    }
+
+    @Test
+    fun `GIVEN a vector, WHEN toVec3 with z, THEN return the a 3D vector with z`() {
+        val vector = Vec2(x = 7, y = 13)
+
+        val result = vector.toVec3(z = 29)
+
+        assertEquals(Vec3(x = 7, y = 13, z = 29), result)
+    }
+
+    @Test
+    fun `GIVEN a vector, WHEN toVec4, THEN return the a 4D vector with z = 0 and w = 0`() {
+        val vector = Vec2(x = 7, y = 13)
+
+        val result = vector.toVec4()
+
+        assertEquals(Vec4(x = 7, y = 13, z = 0, w = 0), result)
+    }
+
+    @Test
+    fun `GIVEN a vector, WHEN toVec4 with z and w, THEN return the a 4D vector with z and w`() {
+        val vector = Vec2(x = 7, y = 13)
+
+        val result = vector.toVec4(z = 29, w = 31)
+
+        assertEquals(Vec4(x = 7, y = 13, z = 29, w = 31), result)
+    }
+
+    @Test
+    fun `GIVEN a vector, WHEN toList, THEN return vector's coordinates as list`() {
+        val vector = Vec2(x = 10, y = 20)
+
+        val result = vector.toList()
+
+        assertEquals(listOf(10, 20), result)
+    }
+
+    @Test
+    fun `GIVEN a vector, WHEN toIntArray, THEN return vector's coordinates as array`() {
+        val vector = Vec2(x = 10, y = 20)
+
+        val result = vector.toIntArray()
+
+        assertEquals(listOf(10, 20), result.toList())
+    }
+
+    @Test
+    fun `GIVEN a list, WHEN fromList, THEN return vector with coordinates from list`() {
+        val list = listOf(1, 2)
+
+        val result = Vec2.fromList(list)
+
+        assertEquals(Vec2(x = 1, y = 2), result)
+    }
+
+    @Test
+    fun `GIVEN a list of 3 numbers, WHEN fromList, THEN throw exception`() {
+        val list = listOf(1, 2, 3)
+
+        assertFailsWith<IllegalArgumentException> {
+            Vec2.fromList(list)
+        }
     }
 }

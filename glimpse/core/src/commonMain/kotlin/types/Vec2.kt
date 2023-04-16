@@ -21,17 +21,17 @@ package graphics.glimpse.types
  *
  * Can also be used to specify texture coordinates in UV mapping.
  */
-interface Vec2<T : Number> : Vec<T> {
+abstract class Vec2<T : Number> : BaseVec<T>() {
 
     /**
      * X coordinate of this vector.
      */
-    val x: T
+    abstract val x: T
 
     /**
      * Y coordinate of this vector.
      */
-    val y: T
+    abstract val y: T
 
     /**
      * U coordinate for UV mapping.
@@ -46,117 +46,143 @@ interface Vec2<T : Number> : Vec<T> {
     /**
      * First component of this vector.
      */
-    operator fun component1(): T
+    abstract operator fun component1(): T
 
     /**
      * Second component of this vector.
      */
-    operator fun component2(): T
+    abstract operator fun component2(): T
+
+    /**
+     * Implement this function to provide a way to create a new vector.
+     *
+     * @since v1.3.0
+     */
+    protected abstract fun create(x: T, y: T): Vec2<T>
 
     /**
      * Returns this vector.
      */
-    operator fun unaryPlus(): Vec2<T>
+    operator fun unaryPlus(): Vec2<T> = this
 
     /**
      * Returns a vector opposite to this vector.
      */
-    operator fun unaryMinus(): Vec2<T>
+    operator fun unaryMinus(): Vec2<T> =
+        create(
+            x = ring.additiveInverse(this.x),
+            y = ring.additiveInverse(this.y)
+        )
 
     /**
      * Adds the [other] vector to this vector.
      */
-    operator fun plus(other: Vec2<T>): Vec2<T>
+    operator fun plus(other: Vec2<T>): Vec2<T> =
+        create(
+            x = ring.add(this.x, other.x),
+            y = ring.add(this.y, other.y)
+        )
 
     /**
      * Subtracts the [other] vector from this vector.
      */
-    operator fun minus(other: Vec2<T>): Vec2<T>
+    operator fun minus(other: Vec2<T>): Vec2<T> =
+        create(
+            x = ring.subtract(this.x, other.x),
+            y = ring.subtract(this.y, other.y)
+        )
 
     /**
      * Multiplies this vector by the specified [number].
      */
-    operator fun times(number: T): Vec2<T>
+    operator fun times(number: T): Vec2<T> =
+        create(
+            x = ring.multiply(this.x, number),
+            y = ring.multiply(this.y, number)
+        )
 
     /**
      * Divides this vector by the specified [number].
      */
-    operator fun div(number: T): Vec2<T>
+    operator fun div(number: T): Vec2<T> =
+        (ring as? Field<T>)?.let { field ->
+            create(
+                x = field.divide(this.x, number),
+                y = field.divide(this.y, number)
+            )
+        } ?: throw UnsupportedOperationException("${ring::class.simpleName} is not a field")
 
     /**
      * Calculates dot product of this vector and the [other] vector.
      *
      * @since v1.1.0
      */
-    infix fun dot(other: Vec2<T>): T
+    infix fun dot(other: Vec2<T>): T =
+        (this.toList() zip other.toList()).map { (a, b) -> ring.multiply(a, b) }.let { ring.sum(it) }
 
     /**
      * Returns the arc tangent of value [y]/[x] for this vector.
      *
      * @since v1.1.0
      */
-    fun atan(): Angle<T>
+    abstract fun atan(): Angle<T>
 
     /**
      * Returns the magnitude of this vector.
      *
      * @since v1.3.0
      */
-    fun magnitude(): T
+    abstract fun magnitude(): T
 
     /**
      * Returns a unit vector in the direction of this vector.
      *
      * @since v1.3.0
      */
-    fun normalize(): Vec2<T>
-
-    /**
-     * Returns a 3D vector with `x` and `y` coordinates of this vector and z coordinate equal to zero.
-     *
-     * @since v1.3.0
-     */
-    fun toVec3(): Vec3<T>
+    fun normalize(): Vec2<T> = this / this.magnitude()
 
     /**
      * Returns a 3D vector with `x` and `y` coordinates of this vector and the given [z] coordinate.
      */
-    fun toVec3(z: T): Vec3<T>
-
-    /**
-     * Returns a 4D vector with `x` and `y` coordinates of this vector and z and w coordinates equal to zero.
-     *
-     * @since v1.3.0
-     */
-    fun toVec4(): Vec4<T>
-
-    /**
-     * Returns a 4D vector with `x` and `y` coordinates of this vector, z coordinate equal to zero
-     * and the given [w] coordinates.
-     *
-     * @since v1.3.0
-     */
-    fun toVec4(w: T): Vec4<T>
+    abstract fun toVec3(z: T = ring.additiveIdentity): Vec3<T>
 
     /**
      * Returns a 4D vector with `x` and `y` coordinates of this vector and the given [z] and [w]
      * coordinates.
      */
-    fun toVec4(z: T, w: T): Vec4<T>
+    abstract fun toVec4(z: T = ring.additiveIdentity, w: T = ring.additiveIdentity): Vec4<T>
+
+    /**
+     * Returns a 2D integer vector equal to this vector.
+     *
+     * Floating point values will be rounded.
+     *
+     * @since v1.3.0
+     */
+    abstract fun toIntVector(): Vec2<Int>
+
+    /**
+     * Returns a 2D long integer vector equal to this vector.
+     *
+     * Floating point values will be rounded.
+     *
+     * @since v1.3.0
+     */
+    abstract fun toLongVector(): Vec2<Long>
 
     /**
      * Returns a 2D float vector equal to this vector.
      *
      * @since v1.3.0
      */
-    fun toFloatVector(): Vec2<Float>
+    abstract fun toFloatVector(): Vec2<Float>
 
     /**
      * Returns a 2D double-precision float vector equal to this vector.
      *
      * @since v1.3.0
      */
-    fun toDoubleVector(): Vec2<Double>
+    abstract fun toDoubleVector(): Vec2<Double>
 
     /**
      * Returns a list of coordinates of this vector.
@@ -187,6 +213,36 @@ interface Vec2<T : Number> : Vec<T> {
          * @since v1.1.0
          */
         val unitY: Vec2<Float> = Vec2(x = 0f, y = 1f)
+
+        /**
+         * Returns an instance of [Vec2] with the given [list] of coordinates.
+         *
+         * If the size of the list of coordinates is different from 2,
+         * [IllegalArgumentException] is thrown.
+         *
+         * @since v1.3.0
+         */
+        @JvmName("fromIntList")
+        fun fromList(list: List<Int>): Vec2<Int> {
+            require(list.size == SIZE)
+            val (x, y) = list
+            return Vec2(x, y)
+        }
+
+        /**
+         * Returns an instance of [Vec2] with the given [list] of coordinates.
+         *
+         * If the size of the list of coordinates is different from 2,
+         * [IllegalArgumentException] is thrown.
+         *
+         * @since v1.3.0
+         */
+        @JvmName("fromLongList")
+        fun fromList(list: List<Long>): Vec2<Long> {
+            require(list.size == SIZE)
+            val (x, y) = list
+            return Vec2(x, y)
+        }
 
         /**
          * Returns an instance of [Vec2] with the given [list] of coordinates.
@@ -245,6 +301,22 @@ interface Vec2<T : Number> : Vec<T> {
 }
 
 /**
+ * Returns a new 2D integer vector with coordinates ([x], [y]).
+ *
+ * @since v1.3.0
+ */
+@Suppress("FunctionNaming")
+fun Vec2(x: Int, y: Int): Vec2<Int> = Vec2I(x, y)
+
+/**
+ * Returns a new 2D long integer vector with coordinates ([x], [y]).
+ *
+ * @since v1.3.0
+ */
+@Suppress("FunctionNaming")
+fun Vec2(x: Long, y: Long): Vec2<Long> = Vec2L(x, y)
+
+/**
  * Returns a new 2D float vector with coordinates ([x], [y]).
  */
 @Suppress("FunctionNaming")
@@ -257,6 +329,16 @@ fun Vec2(x: Float, y: Float): Vec2<Float> = Vec2F(x, y)
  */
 @Suppress("FunctionNaming")
 fun Vec2(x: Double, y: Double): Vec2<Double> = Vec2D(x, y)
+
+/**
+ * Returns an array of coordinates of this vector.
+ */
+fun Vec2<Int>.toIntArray(): IntArray = intArrayOf(x, y)
+
+/**
+ * Returns an array of coordinates of this vector.
+ */
+fun Vec2<Long>.toLongArray(): LongArray = longArrayOf(x, y)
 
 /**
  * Returns an array of coordinates of this vector.

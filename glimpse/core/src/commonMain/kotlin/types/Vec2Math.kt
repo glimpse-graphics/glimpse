@@ -19,11 +19,17 @@ package graphics.glimpse.types
 /**
  * Returns the magnitude of the given [vector].
  */
-@Deprecated(message = "Use Vec2.magnitude() instead", replaceWith = ReplaceWith("vector.magnitude()"))
+@Deprecated(
+    message = "Use Vec2.magnitude() instead",
+    replaceWith = ReplaceWith("vector.magnitude()")
+)
 fun <T : Number> magnitude(vector: Vec2<T>): T = vector.magnitude()
 
 /**
  * Returns a unit vector in the direction of the given [vector].
  */
-@Deprecated(message = "Use Vec2.normalize() instead", replaceWith = ReplaceWith("vector.normalize()"))
+@Deprecated(
+    message = "Use Vec2.normalize() instead",
+    replaceWith = ReplaceWith("vector.normalize()")
+)
 fun <T : Number> normalize(vector: Vec2<T>): Vec2<T> = vector / vector.magnitude()
