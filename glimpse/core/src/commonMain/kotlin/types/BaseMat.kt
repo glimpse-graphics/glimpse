@@ -19,19 +19,26 @@ package graphics.glimpse.types
 /**
  * Base implementation of a square matrix with a given [dimension].
  */
-abstract class BaseMat<M : Mat<M, V>, V : Vec>(
+abstract class BaseMat<T : Number, M : Mat<T, M, V>, V : Vec<T>>(
     private val dimension: Int
-) : Mat<M, V> {
+) : Mat<T, M, V> {
 
     /**
      * Implement this property to provide elements of the matrix.
      */
-    internal abstract val elements: List<Float>
+    internal abstract val elements: List<T>
 
     /**
      * Indices of a row or a column of the matrix.
      */
     protected val indices = 0 until dimension
+
+    /**
+     * Implement this property to provide a field of numbers of type [T].
+     *
+     * @since v1.3.0
+     */
+   protected abstract val field: Field<T>
 
     /**
      * Validates the size of the matrix.
@@ -45,7 +52,7 @@ abstract class BaseMat<M : Mat<M, V>, V : Vec>(
     /**
      * Returns element of this matrix at a given [row] and a given [column][col].
      */
-    override operator fun get(row: Int, col: Int): Float {
+    override operator fun get(row: Int, col: Int): T {
         require(row in indices) { "Invalid row: $row" }
         require(col in indices) { "Invalid column: $col" }
         return elements[col * dimension + row]
@@ -56,7 +63,7 @@ abstract class BaseMat<M : Mat<M, V>, V : Vec>(
      */
     override operator fun times(other: M): M = create(
         transform { row, col ->
-            indices.map { this[row, it] * other[it, col] }.sum()
+            indices.map { field.multiply(this[row, it], other[it, col]) }.let { field.sum(it) }
         }
     )
 
@@ -64,12 +71,12 @@ abstract class BaseMat<M : Mat<M, V>, V : Vec>(
      * Implement this function to provide a way to create a new matrix of the same size
      * from a list of its [elements].
      */
-    protected abstract fun create(elements: List<Float>): M
+    protected abstract fun create(elements: List<T>): M
 
     /**
      * Transforms the matrix using a given [function].
      */
-    protected fun transform(function: (row: Int, col: Int) -> Float): List<Float> =
+    protected fun transform(function: (row: Int, col: Int) -> T): List<T> =
         indices.flatMap { col ->
             indices.map { row ->
                 function(row, col)
@@ -84,8 +91,8 @@ abstract class BaseMat<M : Mat<M, V>, V : Vec>(
         return createVector(
             indices.map { row ->
                 indices.map { col ->
-                    vectorValues[col] * get(row, col)
-                }.sum()
+                    field.multiply(vectorValues[col], get(row, col))
+                }.let { field.sum((it)) }
             }
         )
     }
@@ -94,14 +101,17 @@ abstract class BaseMat<M : Mat<M, V>, V : Vec>(
      * Implement this function to provide a way to create a new vector of the same size
      * from a list of its [elements].
      */
-    protected abstract fun createVector(elements: List<Float>): V
+    protected abstract fun createVector(elements: List<T>): V
 
     /**
      * Multiplies this matrix by a given [number].
      */
-    override operator fun times(number: Float): M = create(map { it * number })
+    override operator fun times(number: T): M = create(map { field.multiply(it, number) })
 
-    private fun map(function: (Float) -> Float): List<Float> = elements.map(function)
+    /**
+     * Transforms each element of this matrix using given [function].
+     */
+    protected fun map(function: (T) -> T): List<T> = elements.map(function)
 
     /**
      * Returns a transpose of this matrix.
@@ -111,12 +121,7 @@ abstract class BaseMat<M : Mat<M, V>, V : Vec>(
     /**
      * Returns an inverse of this matrix.
      */
-    override fun inverse(): M = adj() * (1f / det())
-
-    /**
-     * Returns an array of elements of this matrix.
-     */
-    override fun toFloatArray(): FloatArray = elements.toFloatArray()
+    override fun inverse(): M = adj() * (field.multiplicativeInverse(det()))
 
     /**
      * Returns a string representation of this matrix.
@@ -131,3 +136,13 @@ abstract class BaseMat<M : Mat<M, V>, V : Vec>(
                 .joinToString(prefix = "    ", separator = " ")
         }
 }
+
+/**
+ * Returns an array of elements of this matrix.
+ */
+fun <M : Mat<Float, M, V>, V : Vec<Float>> BaseMat<Float, M, V>.toFloatArray() = elements.toFloatArray()
+
+/**
+ * Returns an array of elements of this matrix.
+ */
+fun <M : Mat<Double, M, V>, V : Vec<Double>> BaseMat<Double, M, V>.toDoubleArray() = elements.toDoubleArray()

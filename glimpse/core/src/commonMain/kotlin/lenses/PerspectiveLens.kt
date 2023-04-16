@@ -28,7 +28,7 @@ import graphics.glimpse.types.perspective
  * field of view.
  */
 data class PerspectiveLens(
-    val fovY: Angle,
+    val fovY: Angle<Float>,
     val aspect: Float,
     val near: Float,
     val far: Float
@@ -37,5 +37,5 @@ data class PerspectiveLens(
     /**
      * Projection matrix defined by the lens.
      */
-    override val projectionMatrix: Mat4 = perspective(fovY, aspect, near, far)
+    override val projectionMatrix: Mat4<Float> = perspective(fovY, aspect, near, far)
 }

@@ -50,6 +50,13 @@ interface Buffer : GlimpseDisposable {
         fun createArrayBuffers(vararg buffersData: FloatBufferData): List<Buffer>
 
         /**
+         * Creates new buffers of vertex attributes, defined by given [buffersData].
+         *
+         * @since v1.3.0
+         */
+        fun createArrayBuffers(vararg buffersData: DoubleBufferData): List<Buffer>
+
+        /**
          * Creates new buffers of vertex array indices, defined by given [buffersData].
          */
         fun createElementArrayBuffers(vararg buffersData: IntBufferData): List<Buffer>

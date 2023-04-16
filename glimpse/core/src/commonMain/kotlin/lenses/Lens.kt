@@ -26,5 +26,5 @@ interface Lens {
     /**
      * Projection matrix defined by the lens.
      */
-    val projectionMatrix: Mat4
+    val projectionMatrix: Mat4<Float>
 }

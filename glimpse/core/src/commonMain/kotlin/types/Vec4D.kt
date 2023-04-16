@@ -16,19 +16,20 @@
 
 package graphics.glimpse.types
 
-/**
- * Creates a view matrix defined by an [eye] position, a [target] point, and an [upVector].
- */
-fun lookAt(eye: Vec3, target: Vec3, upVector: Vec3): Mat4 {
-    val forward = normalize(vector = target - eye)
-    val right = normalize(forward cross upVector)
-    val up = right cross forward
-    return Mat4(
-        listOf(
-            right.x, up.x, -forward.x, 0f,
-            right.y, up.y, -forward.y, 0f,
-            right.z, up.z, -forward.z, 0f,
-            0f, 0f, 0f, 1f
-        )
-    ) * translation(-eye)
+internal data class Vec4D(
+    override val x: Double,
+    override val y: Double,
+    override val z: Double,
+    override val w: Double
+) : Vec4<Double> {
+
+    override fun toVec2(): Vec2<Double> = Vec2(x = this.x, y = this.y)
+
+    override fun toVec3(): Vec3<Double> = Vec3(x = this.x, y = this.y, z = this.z)
+
+    override fun toFloatVector(): Vec4<Float> =
+        Vec4(x = this.x.toFloat(), y = this.y.toFloat(), z = this.z.toFloat(), w = this.w.toFloat())
+    override fun toDoubleVector(): Vec4<Double> = this
+
+    override fun toList(): List<Double> = listOf(x, y, z, w)
 }

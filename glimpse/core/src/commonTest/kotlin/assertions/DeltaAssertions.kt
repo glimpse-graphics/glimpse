@@ -20,6 +20,8 @@ import graphics.glimpse.types.Mat3
 import graphics.glimpse.types.Mat4
 import graphics.glimpse.types.Vec3
 import graphics.glimpse.types.Vec4
+import graphics.glimpse.types.toDoubleArray
+import graphics.glimpse.types.toFloatArray
 import kotlin.math.abs
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -28,6 +30,7 @@ import kotlin.test.assertTrue
  * Asserts that the [actual] value is equal to the [expected] value plus/minus [delta],
  * with an optional [message].
  */
+@JvmName("assertFloatEqualsWithDelta")
 fun assertEqualsWithDelta(
     expected: Float,
     actual: Float,
@@ -36,8 +39,26 @@ fun assertEqualsWithDelta(
 ) {
     val messagePrefix = messagePrefix(message)
     assertTrue(
-        actual = abs(x = actual - expected) < delta.delta,
-        message = "${messagePrefix}Expected <$expected \u00B1 ${delta.delta}>, actual <$actual>."
+        actual = abs(x = actual - expected) < delta.floatValue,
+        message = "${messagePrefix}Expected <$expected \u00B1 ${delta.floatValue}>, actual <$actual>."
+    )
+}
+
+/**
+ * Asserts that the [actual] value is equal to the [expected] value plus/minus [delta],
+ * with an optional [message].
+ */
+@JvmName("assertDoubleEqualsWithDelta")
+fun assertEqualsWithDelta(
+    expected: Double,
+    actual: Double,
+    delta: Delta = Delta.FINE,
+    message: String? = null
+) {
+    val messagePrefix = messagePrefix(message)
+    assertTrue(
+        actual = abs(x = actual - expected) < delta.doubleValue,
+        message = "${messagePrefix}Expected <$expected \u00B1 ${delta.doubleValue}>, actual <$actual>."
     )
 }
 
@@ -45,6 +66,7 @@ fun assertEqualsWithDelta(
  * Asserts that the [actual] values are equal to the [expected] values plus/minus [delta],
  * with an optional [message].
  */
+@JvmName("assertFloatEqualsWithDelta")
 fun assertEqualsWithDelta(
     expected: List<Float>,
     actual: List<Float>,
@@ -68,12 +90,40 @@ fun assertEqualsWithDelta(
 }
 
 /**
+ * Asserts that the [actual] values are equal to the [expected] values plus/minus [delta],
+ * with an optional [message].
+ */
+@JvmName("assertDoubleEqualsWithDelta")
+fun assertEqualsWithDelta(
+    expected: List<Double>,
+    actual: List<Double>,
+    delta: Delta = Delta.FINE,
+    message: String? = null
+) {
+    val messagePrefix = messagePrefix(message)
+    assertEquals(
+        expected = expected.size,
+        actual = actual.size,
+        message = "${messagePrefix}Different sizes"
+    )
+    for (index in expected.indices) {
+        assertEqualsWithDelta(
+            expected = expected[index],
+            actual = actual[index],
+            delta = delta,
+            message = "${messagePrefix}Different values at index <$index>"
+        )
+    }
+}
+
+/**
  * Asserts that the [actual] vector is equal to the [expected] vector plus/minus [delta]
  * (compared per coordinate), with an optional [message].
  */
+@JvmName("assertFloatEqualsWithDelta")
 fun assertEqualsWithDelta(
-    expected: Vec3,
-    actual: Vec3,
+    expected: Vec3<Float>,
+    actual: Vec3<Float>,
     delta: Delta = Delta.FINE,
     message: String? = null
 ) {
@@ -90,9 +140,30 @@ fun assertEqualsWithDelta(
  * Asserts that the [actual] vector is equal to the [expected] vector plus/minus [delta]
  * (compared per coordinate), with an optional [message].
  */
+@JvmName("assertDoubleEqualsWithDelta")
 fun assertEqualsWithDelta(
-    expected: Vec4,
-    actual: Vec4,
+    expected: Vec3<Double>,
+    actual: Vec3<Double>,
+    delta: Delta = Delta.FINE,
+    message: String? = null
+) {
+    val messagePrefix = messagePrefix(message)
+    assertEqualsWithDelta(
+        expected = expected.toDoubleArray().toList(),
+        actual = actual.toDoubleArray().toList(),
+        delta = delta,
+        message = "${messagePrefix}Vectors are different"
+    )
+}
+
+/**
+ * Asserts that the [actual] vector is equal to the [expected] vector plus/minus [delta]
+ * (compared per coordinate), with an optional [message].
+ */
+@JvmName("assertFloatEqualsWithDelta")
+fun assertEqualsWithDelta(
+    expected: Vec4<Float>,
+    actual: Vec4<Float>,
     delta: Delta = Delta.FINE,
     message: String? = null
 ) {
@@ -100,6 +171,26 @@ fun assertEqualsWithDelta(
     assertEqualsWithDelta(
         expected = expected.toFloatArray().toList(),
         actual = actual.toFloatArray().toList(),
+        delta = delta,
+        message = "${messagePrefix}Vectors are different"
+    )
+}
+
+/**
+ * Asserts that the [actual] vector is equal to the [expected] vector plus/minus [delta]
+ * (compared per coordinate), with an optional [message].
+ */
+@JvmName("assertDoubleEqualsWithDelta")
+fun assertEqualsWithDelta(
+    expected: Vec4<Double>,
+    actual: Vec4<Double>,
+    delta: Delta = Delta.FINE,
+    message: String? = null
+) {
+    val messagePrefix = messagePrefix(message)
+    assertEqualsWithDelta(
+        expected = expected.toDoubleArray().toList(),
+        actual = actual.toDoubleArray().toList(),
         delta = delta,
         message = "${messagePrefix}Vectors are different"
     )
@@ -109,9 +200,10 @@ fun assertEqualsWithDelta(
  * Asserts that the [actual] matrix is equal to the [expected] matrix plus/minus [delta]
  * (compared per element), with an optional [message].
  */
+@JvmName("assertFloatEqualsWithDelta")
 fun assertEqualsWithDelta(
-    expected: Mat3,
-    actual: Mat3,
+    expected: Mat3<Float>,
+    actual: Mat3<Float>,
     delta: Delta = Delta.FINE,
     message: String? = null
 ) {
@@ -128,9 +220,30 @@ fun assertEqualsWithDelta(
  * Asserts that the [actual] matrix is equal to the [expected] matrix plus/minus [delta]
  * (compared per element), with an optional [message].
  */
+@JvmName("assertDoubleEqualsWithDelta")
 fun assertEqualsWithDelta(
-    expected: Mat4,
-    actual: Mat4,
+    expected: Mat3<Double>,
+    actual: Mat3<Double>,
+    delta: Delta = Delta.FINE,
+    message: String? = null
+) {
+    val messagePrefix = messagePrefix(message)
+    assertEqualsWithDelta(
+        expected = expected.toDoubleArray().toList(),
+        actual = actual.toDoubleArray().toList(),
+        delta = delta,
+        message = "${messagePrefix}Matrices are different"
+    )
+}
+
+/**
+ * Asserts that the [actual] matrix is equal to the [expected] matrix plus/minus [delta]
+ * (compared per element), with an optional [message].
+ */
+@JvmName("assertFloatEqualsWithDelta")
+fun assertEqualsWithDelta(
+    expected: Mat4<Float>,
+    actual: Mat4<Float>,
     delta: Delta = Delta.FINE,
     message: String? = null
 ) {
@@ -138,6 +251,26 @@ fun assertEqualsWithDelta(
     assertEqualsWithDelta(
         expected = expected.toFloatArray().toList(),
         actual = actual.toFloatArray().toList(),
+        delta = delta,
+        message = "${messagePrefix}Matrices are different"
+    )
+}
+
+/**
+ * Asserts that the [actual] matrix is equal to the [expected] matrix plus/minus [delta]
+ * (compared per element), with an optional [message].
+ */
+@JvmName("assertDoubleEqualsWithDelta")
+fun assertEqualsWithDelta(
+    expected: Mat4<Double>,
+    actual: Mat4<Double>,
+    delta: Delta = Delta.FINE,
+    message: String? = null
+) {
+    val messagePrefix = messagePrefix(message)
+    assertEqualsWithDelta(
+        expected = expected.toDoubleArray().toList(),
+        actual = actual.toDoubleArray().toList(),
         delta = delta,
         message = "${messagePrefix}Matrices are different"
     )

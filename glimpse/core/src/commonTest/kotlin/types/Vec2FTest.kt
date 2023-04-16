@@ -16,16 +16,14 @@
 
 package graphics.glimpse.types
 
-import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertSame
 
-class Vec2Test {
+class Vec2FTest {
 
     @Test
-    @JsName(name = "GIVEN_a_vector_WHEN_u_THEN_return_x")
     fun `GIVEN a vector, WHEN u, THEN return x`() {
         val vector = Vec2(x = 7f, y = 13f)
 
@@ -35,7 +33,6 @@ class Vec2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_vector_WHEN_v_THEN_return_y")
     fun `GIVEN a vector, WHEN v, THEN return y`() {
         val vector = Vec2(x = 7f, y = 13f)
 
@@ -45,7 +42,6 @@ class Vec2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_vector_WHEN_unaryPlus_THEN_return_the_same_vector")
     fun `GIVEN a vector, WHEN unaryPlus, THEN return the same vector`() {
         val vector = Vec2(x = 7f, y = 13f)
 
@@ -55,7 +51,6 @@ class Vec2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_vector_WHEN_unaryMinus_THEN_return_the_opposite_vector")
     fun `GIVEN a vector, WHEN unaryMinus, THEN return the opposite vector`() {
         val vector = Vec2(x = 7f, y = 13f)
 
@@ -65,7 +60,6 @@ class Vec2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_two_vectors_WHEN_plus_THEN_return_sum_of_two_vectors")
     fun `GIVEN two vectors, WHEN plus, THEN return sum of two vectors`() {
         val v1 = Vec2(x = 10f, y = 20f)
         val v2 = Vec2(x = 1f, y = 2f)
@@ -76,7 +70,6 @@ class Vec2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_two_vectors_WHEN_minus_THEN_return_difference_of_two_vectors")
     fun `GIVEN two vectors, WHEN minus, THEN return difference of two vectors`() {
         val v1 = Vec2(x = 10f, y = 20f)
         val v2 = Vec2(x = 1f, y = 2f)
@@ -87,7 +80,6 @@ class Vec2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_vector_and_a_number_WHEN_times_THEN_return_product_of_the_vector_and_the_number")
     fun `GIVEN a vector and a number, WHEN times, THEN return product of the vector and the number`() {
         val vector = Vec2(x = 1f, y = 2f)
         val number = 3f
@@ -98,7 +90,6 @@ class Vec2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_vector_and_a_number_WHEN_div_THEN_return_quotient_of_the_vector_and_the_number")
     fun `GIVEN a vector and a number, WHEN div, THEN return quotient of the vector and the number`() {
         val vector = Vec2(x = 5f, y = 7f)
         val number = 2f
@@ -109,7 +100,6 @@ class Vec2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_two_vectors_WHEN_dot_THEN_return_dot_product_of_two_vectors")
     fun `GIVEN two vectors, WHEN dot, THEN return dot product of two vectors`() {
         val v1 = Vec2(x = 10f, y = 20f)
         val v2 = Vec2(x = 1f, y = 2f)
@@ -120,7 +110,6 @@ class Vec2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_vector_WHEN_atan_THEN_return_arc_tangent_of_the_vector")
     fun `GIVEN a vector, WHEN atan, THEN return arc tangent of the vector`() {
         val vector = Vec2(x = 1f, y = 1f)
 
@@ -130,7 +119,24 @@ class Vec2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_vector_WHEN_toVec3_THEN_return_the_a_3D_vector_with_z_0")
+    fun `GIVEN a vector, WHEN magnitude, THEN return vector's magnitude`() {
+        val vector = Vec2(x = 3f, y = 4f)
+
+        val result = vector.magnitude()
+
+        assertEquals(5f, result)
+    }
+
+    @Test
+    fun `GIVEN a vector, WHEN normalize, THEN return a unit vector in the same direction`() {
+        val vector = Vec2(x = 3f, y = 4f)
+
+        val result = vector.normalize()
+
+        assertEquals(Vec2(x = 0.6f, y = 0.8f), result)
+    }
+
+    @Test
     fun `GIVEN a vector, WHEN toVec3, THEN return the a 3D vector with z = 0`() {
         val vector = Vec2(x = 7f, y = 13f)
 
@@ -140,7 +146,6 @@ class Vec2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_vector_WHEN_toVec3_with_z_THEN_return_the_a_3D_vector_with_z")
     fun `GIVEN a vector, WHEN toVec3 with z, THEN return the a 3D vector with z`() {
         val vector = Vec2(x = 7f, y = 13f)
 
@@ -150,7 +155,6 @@ class Vec2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_vector_WHEN_toVec4_THEN_return_the_a_4D_vector_with_z_0_and_w_0")
     fun `GIVEN a vector, WHEN toVec4, THEN return the a 4D vector with z = 0 and w = 0`() {
         val vector = Vec2(x = 7f, y = 13f)
 
@@ -160,7 +164,6 @@ class Vec2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_vector_WHEN_toVec4_with_z_and_w_THEN_return_the_a_4D_vector_with_z_and_w")
     fun `GIVEN a vector, WHEN toVec4 with z and w, THEN return the a 4D vector with z and w`() {
         val vector = Vec2(x = 7f, y = 13f)
 
@@ -170,7 +173,6 @@ class Vec2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_vector_WHEN_toList_THEN_return_vectors_coordinates_as_list")
     fun `GIVEN a vector, WHEN toList, THEN return vector's coordinates as list`() {
         val vector = Vec2(x = 10f, y = 20f)
 
@@ -180,7 +182,6 @@ class Vec2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_vector_WHEN_toFloatArray_THEN_return_vectors_coordinates_as_array")
     fun `GIVEN a vector, WHEN toFloatArray, THEN return vector's coordinates as array`() {
         val vector = Vec2(x = 10f, y = 20f)
 
@@ -190,7 +191,6 @@ class Vec2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_list_WHEN_fromList_THEN_return_vector_with_coordinates_from_list")
     fun `GIVEN a list, WHEN fromList, THEN return vector with coordinates from list`() {
         val list = listOf(1f, 2f)
 
@@ -200,7 +200,6 @@ class Vec2Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_list_of_3_numbers_WHEN_fromList_THEN_throw_exception")
     fun `GIVEN a list of 3 numbers, WHEN fromList, THEN throw exception`() {
         val list = listOf(1f, 2f, 3f)
 
@@ -210,16 +209,12 @@ class Vec2Test {
     }
 
     @Test
-    @JsName(
-        name = "GIVEN_polar_coordinates_WHEN_fromPolarCoordinates_" +
-                "THEN_return_vector_from_polar_coordinates"
-    )
     fun `GIVEN polar coordinates, WHEN fromPolarCoordinates, THEN return vector from polar coordinates`() {
         val distance = 5f
         val angle = Angle.fromDeg(deg = 135f)
 
         val result = Vec2.fromPolarCoordinates(distance, angle)
 
-        assertEquals(Vec2(x = -3.535533906f, y = 3.535533906f), result)
+        assertEquals(Vec2(x = -3.535534f, y = 3.535534f), result)
     }
 }

@@ -32,7 +32,7 @@ abstract class BaseHudLayout(
     /**
      * Position of this layout.
      */
-    position: Vec2 = Vec2.nullVector
+    position: Vec2<Float> = Vec2.nullVector
 ) : BaseHudElement(position), HudLayout {
 
     protected val elements = mutableListOf<HudElement>()
@@ -101,7 +101,7 @@ abstract class BaseHudLayout(
      *
      * @return `true` if the event has been consumed by this layout.
      */
-    override fun handleInputEvent(position: Vec2, event: Any?): Boolean {
+    override fun handleInputEvent(position: Vec2<Float>, event: Any?): Boolean {
         if (super.handleInputEvent(position, event)) return true
 
         val relativePosition = position - this.position
@@ -116,7 +116,7 @@ abstract class BaseHudLayout(
 
     private inner class LayoutAtom(private val atom: HudAtom) : HudAtom by atom {
 
-        override val modelMatrix: Mat4
+        override val modelMatrix: Mat4<Float>
             get() = translation(position.toVec3()) * atom.modelMatrix
     }
 }

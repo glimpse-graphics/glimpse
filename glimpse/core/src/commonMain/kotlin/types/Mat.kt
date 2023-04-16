@@ -19,12 +19,12 @@ package graphics.glimpse.types
 /**
  * A common interface for square matrix implementations.
  */
-interface Mat<M : Mat<M, V>, V : Vec> {
+interface Mat<T : Number, M : Mat<T, M, V>, V : Vec<T>> {
 
     /**
      * Returns element of this matrix at a given [row] and a given [column][col].
      */
-    operator fun get(row: Int, col: Int): Float
+    operator fun get(row: Int, col: Int): T
 
     /**
      * Multiplies this matrix by the [other] matrix of the same size.
@@ -39,7 +39,7 @@ interface Mat<M : Mat<M, V>, V : Vec> {
     /**
      * Multiplies this matrix by a given [number].
      */
-    operator fun times(number: Float): M
+    operator fun times(number: T): M
 
     /**
      * Returns a transpose of this matrix.
@@ -49,7 +49,7 @@ interface Mat<M : Mat<M, V>, V : Vec> {
     /**
      * Returns a determinant of this matrix.
      */
-    fun det(): Float
+    fun det(): T
 
     /**
      * Returns an adjugate of this matrix.
@@ -60,9 +60,4 @@ interface Mat<M : Mat<M, V>, V : Vec> {
      * Returns an inverse of this matrix.
      */
     fun inverse(): M
-
-    /**
-     * Returns an array of elements of this matrix.
-     */
-    fun toFloatArray(): FloatArray
 }

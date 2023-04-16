@@ -17,14 +17,12 @@
 package graphics.glimpse.types
 
 import graphics.glimpse.assertions.assertEqualsWithDelta
-import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class Mat4Test {
+class Mat4FTest {
 
     @Test
-    @JsName(name = "GIVEN_two_matrices_WHEN_times_THEN_return_product_of_the_matrices")
     fun `GIVEN two matrices, WHEN times, THEN return product of the matrices`() {
         val m1 = Mat4(
             listOf(
@@ -59,7 +57,6 @@ class Mat4Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_matrix_and_a_vector_WHEN_times_THEN_return_product_of_the_matrix_and_the_vector")
     fun `GIVEN a matrix and a vector, WHEN times, THEN return product of the matrix and the vector`() {
         val matrix = Mat4(
             listOf(
@@ -77,7 +74,6 @@ class Mat4Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_matrix_and_a_number_WHEN_times_THEN_return_product_of_the_matrix_and_the_number")
     fun `GIVEN a matrix and a number, WHEN times, THEN return product of the matrix and the number`() {
         val matrix = Mat4(
             listOf(
@@ -105,7 +101,6 @@ class Mat4Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_matrix_WHEN_transpose_THEN_return_transposed_matrix")
     fun `GIVEN a matrix, WHEN transpose, THEN return transposed matrix`() {
         val matrix = Mat4(
             listOf(
@@ -132,7 +127,6 @@ class Mat4Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_matrix_WHEN_det_THEN_return_determinant_of_the_matrix")
     fun `GIVEN a matrix, WHEN det, THEN return determinant of the matrix`() {
         val matrix = Mat4(
             listOf(
@@ -149,7 +143,6 @@ class Mat4Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_matrix_WHEN_adj_THEN_return_adjugate_of_the_matrix")
     fun `GIVEN a matrix, WHEN adj, THEN return adjugate of the matrix`() {
         val matrix = Mat4(
             listOf(
@@ -176,7 +169,6 @@ class Mat4Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_matrix_WHEN_inverse_THEN_return_inverse_of_th_matrix")
     fun `GIVEN a matrix, WHEN inverse, THEN return inverse of th matrix`() {
         val matrix = Mat4(
             listOf(
@@ -192,10 +184,10 @@ class Mat4Test {
         assertEqualsWithDelta(
             Mat4(
                 listOf(
-                    -0.7360308285f, 0.2774566474f, 0.4624277457f, -0.1483622351f,
-                    -0.07610789981f, -0.0289017341f, 0.1184971098f, -0.01926782274f,
-                    0.5221579961f, -0.4219653179f, -0.3699421965f, 0.3853564547f,
-                    -0.05780346821f, 0.2312138728f, 0.05202312139f, -0.1791907514f
+                    -0.7360308f, 0.27745664f, 0.46242774f, -0.14836223f,
+                    -0.0761079f, -0.028901733f, 0.11849711f, -0.019267824f,
+                    0.52215797f, -0.42196533f, -0.3699422f, 0.38535646f,
+                    -0.057803467f, 0.23121387f, 0.05202312f, -0.17919075f
                 )
             ),
             result
@@ -203,7 +195,6 @@ class Mat4Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_matrix_WHEN_toFloatArray_THEN_return_matrix_coordinates_as_array")
     fun `GIVEN a matrix, WHEN toFloatArray, THEN return matrix coordinates as array`() {
         val matrix = Mat4(
             listOf(
@@ -228,7 +219,6 @@ class Mat4Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_matrix_WHEN_toMat2_THEN_return_a_2x2_matrix_from_its_augmented_matrix")
     fun `GIVEN a matrix, WHEN toMat2, THEN return a 2x2 matrix from its augmented matrix`() {
         val matrix = Mat4(
             listOf(
@@ -253,7 +243,6 @@ class Mat4Test {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_matrix_WHEN_toMat3_THEN_return_a_3x3_matrix_from_its_augmented_matrix")
     fun `GIVEN a matrix, WHEN toMat3, THEN return a 3x3 matrix from its augmented matrix`() {
         val matrix = Mat4(
             listOf(

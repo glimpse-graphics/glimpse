@@ -19,4 +19,4 @@ package graphics.glimpse.hud.shaders
 import graphics.glimpse.textures.Texture
 import graphics.glimpse.types.Mat4
 
-internal data class Hud(val mvpMatrix: Mat4, val texture: Texture)
+internal data class Hud(val mvpMatrix: Mat4<Float>, val texture: Texture)

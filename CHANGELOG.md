@@ -2,8 +2,16 @@
 
 ## [Unreleased]
 ### Added
+- `Double` buffer data wrapper: `DoubleBufferData`
+- Extension functions `VecN<Double>.toDoubleArray()`
+- Extension function `BaseMat<Double, M, V>.toDoubleArray()`
 
 ### Changed
+- **BREAKING CHANGE:** Add parameter type `T : Number` to `Angle` and `AngleRange`
+- **BREAKING CHANGE:** Add parameter type `T : Number` to `Vec` and all inheriting types
+- **BREAKING CHANGE:** Method `Vec.toFloatArray()` replaced with a set of extension functions `VecN<Float>.toFloatArray()`
+- **BREAKING CHANGE:** Add parameter type `T : Number` to `Mat` and all inheriting types
+- **BREAKING CHANGE:** Method `Mat.toFloatArray()` replaced with a set of extension functions `BaseMat<Float, M, V>.toFloatArray()`
 - Upgrade Gradle Wrapper to `8.1`
 - Dependencies:
   - Upgrade Kotlin to `1.8.20`

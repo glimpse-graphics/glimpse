@@ -33,7 +33,7 @@ import graphics.glimpse.types.Vec2
 data class BlurShader(
 
     @Uniform(name = "uScreenSize")
-    val screenSize: Vec2,
+    val screenSize: Vec2<Float>,
 
     @Sampler2D(name = "uImage")
     val image: Texture,

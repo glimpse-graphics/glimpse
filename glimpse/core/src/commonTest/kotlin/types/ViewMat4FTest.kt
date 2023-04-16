@@ -17,15 +17,13 @@
 package graphics.glimpse.types
 
 import graphics.glimpse.assertions.assertEqualsWithDelta
-import kotlin.js.JsName
 import kotlin.test.Test
 
-class ViewMat4Test {
+class ViewMat4FTest {
 
     @Test
-    @JsName(name = "GIVEN_eye_location_target_location_and_up_vector_WHEN_lookAt_THEN_should_generate_look_at_matrix")
     fun `GIVEN eye location, target location and up vector, WHEN lookAt, THEN should generate look-at matrix`() {
-        val eye = Vec3(x = 0.5f, y = 0.5f, z = 0.7071067812f)
+        val eye = Vec3(x = 0.5f, y = 0.5f, z = 0.70710677f)
         val target = Vec3(x = 0f, y = 0f, z = 0f)
         val upVector = Vec3(x = 0f, y = 0f, z = 1f)
 
@@ -34,9 +32,9 @@ class ViewMat4Test {
         assertEqualsWithDelta(
             Mat4(
                 listOf(
-                    -0.7071067812f, -0.5f, 0.5f, 0f,
-                    0.7071067812f, -0.5f, 0.5f, 0f,
-                    0f, 0.7071067812f, 0.7071067812f, 0f,
+                    -0.70710677f, -0.5f, 0.5f, 0f,
+                    0.70710677f, -0.5f, 0.5f, 0f,
+                    0f, 0.70710677f, 0.70710677f, 0f,
                     0f, 0f, -1f, 1f
                 )
             ),

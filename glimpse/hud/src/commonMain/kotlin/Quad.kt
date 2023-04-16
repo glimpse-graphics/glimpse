@@ -42,14 +42,14 @@ class Quad(
      *
      * The position is measured towards the [origin].
      */
-    position: Vec2 = Vec2.nullVector,
+    position: Vec2<Float> = Vec2.nullVector,
 
     /**
      * Origin point of this quad.
      *
      * The origin is relative to the texture, e.g. point `(0.5, 0.5)` is the middle of the quad.
      */
-    private val origin: Vec2 = Vec2(x = 0.5f, y = 0.5f)
+    private val origin: Vec2<Float> = Vec2(x = 0.5f, y = 0.5f)
 ) : BaseHudElement(position), HudAtom {
 
     /**
@@ -67,18 +67,18 @@ class Quad(
      *
      * The pivot point for this rotation is the [origin].
      */
-    var rotation: Angle = Angle.nullAngle
+    var rotation: Angle<Float> = Angle.nullAngle
 
     /**
      * Output model matrix for this quad.
      */
-    override val modelMatrix: Mat4 get() =
-        listOf(
+    override val modelMatrix: Mat4<Float>
+        get() = listOf(
             translation(position.toVec3()),
             rotationZ(rotation),
             scale(x = width, y = height),
             translation(-origin.toVec3())
-        ).reduce(Mat4::times)
+        ).reduce(Mat4<Float>::times)
 
     /**
      * Bounding box of this quad.
@@ -88,10 +88,10 @@ class Quad(
             val originSpaceMatrix = rotationZ(rotation) * scale(x = width, y = height) * translation(-origin.toVec3())
             val transformedCorners = corners.map { corner -> originSpaceMatrix * corner.toVec4(w = 1f) }
             return BoundingBox(
-                left = transformedCorners.minOf(Vec4::x),
-                right = transformedCorners.maxOf(Vec4::x),
-                top = transformedCorners.minOf(Vec4::y),
-                bottom = transformedCorners.maxOf(Vec4::y)
+                left = transformedCorners.minOf(Vec4<Float>::x),
+                right = transformedCorners.maxOf(Vec4<Float>::x),
+                top = transformedCorners.minOf(Vec4<Float>::y),
+                bottom = transformedCorners.maxOf(Vec4<Float>::y)
             )
         }
 

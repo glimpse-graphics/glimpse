@@ -57,11 +57,11 @@ data class BoundingBox(
     /**
      * Midpoint of this bounding box.
      */
-    val midpoint: Vec2 = Vec2(x = (left + right) / 2f, y = (top + bottom) / 2f)
+    val midpoint: Vec2<Float> = Vec2(x = (left + right) / 2f, y = (top + bottom) / 2f)
 
     /**
      * Returns `true` if given [point] is inside this bounding box.
      */
-    operator fun contains(point: Vec2): Boolean =
+    operator fun contains(point: Vec2<Float>): Boolean =
         point.x in left..right && point.y in top..bottom
 }

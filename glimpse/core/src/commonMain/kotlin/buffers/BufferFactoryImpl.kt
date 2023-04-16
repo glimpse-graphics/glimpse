@@ -54,6 +54,36 @@ internal class BufferFactoryImpl(private val gl: GlimpseAdapter) : Buffer.Factor
         }
     }
 
+    override fun createArrayBuffers(vararg buffersData: DoubleBufferData): List<Buffer> {
+        val buffersCount = buffersData.size
+
+        logger.debug(
+            message = buffersData.joinToString(
+                prefix = "Creating $buffersCount array buffers with data:\n\t",
+                separator = "\n\t"
+            )
+        )
+
+        val handles = IntArray(size = buffersCount)
+        gl.glGenBuffers(handles)
+
+        return buffersData.mapIndexed { index, bufferData ->
+            gl.glBindBuffer(
+                type = BufferType.ARRAY_BUFFER,
+                bufferHandle = handles[index]
+            )
+            gl.glBufferData(
+                type = BufferType.ARRAY_BUFFER,
+                data = bufferData,
+                usage = BufferUsage.STATIC_DRAW
+            )
+            BufferImpl(
+                type = BufferType.ARRAY_BUFFER,
+                handle = handles[index]
+            )
+        }
+    }
+
     override fun createElementArrayBuffers(vararg buffersData: IntBufferData): List<Buffer> {
         val buffersCount = buffersData.size
 

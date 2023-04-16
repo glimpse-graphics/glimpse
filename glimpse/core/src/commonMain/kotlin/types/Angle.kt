@@ -16,135 +16,170 @@
 
 package graphics.glimpse.types
 
-import graphics.glimpse.PI
-
 /**
  * Combined angle measure in [degrees][deg] and [radians][rad].
  */
-class Angle private constructor(
-    val deg: Float,
-    val rad: Float
-) : Comparable<Angle> {
+interface Angle<T : Number> : Comparable<Angle<T>> {
+
+    /**
+     * Angle measure in degrees.
+     */
+    val deg: T
+
+    /**
+     * Angle measure in radians.
+     */
+    val rad: T
 
     /**
      * Returns this angle.
      */
-    operator fun unaryPlus(): Angle = this
+    operator fun unaryPlus(): Angle<T>
 
     /**
      * Returns the negative of this angle.
      */
-    operator fun unaryMinus(): Angle = fromDeg(deg = -deg)
+    operator fun unaryMinus(): Angle<T>
 
     /**
      * Adds the [other] angle to this angle.
      */
-    operator fun plus(other: Angle): Angle = fromDeg(deg = this.deg + other.deg)
+    operator fun plus(other: Angle<T>): Angle<T>
 
     /**
      * Subtracts the [other] angle from this angle.
      */
-    operator fun minus(other: Angle): Angle = fromDeg(deg = this.deg - other.deg)
+    operator fun minus(other: Angle<T>): Angle<T>
 
     /**
      * Multiplies this angle by the specified [number].
      */
-    operator fun times(number: Float): Angle = fromDeg(deg = deg * number)
+    operator fun times(number: T): Angle<T>
 
     /**
      * Divides this angle by the specified [number].
      */
-    operator fun div(number: Float): Angle = fromDeg(deg = deg / number)
+    operator fun div(number: T): Angle<T>
 
     /**
      * Divides this angle by the [other] angle.
      */
-    operator fun div(other: Angle): Float = this.deg / other.deg
+    operator fun div(other: Angle<T>): T
 
     /**
      * Calculates remainder of dividing this angle by the [other] angle.
      */
-    operator fun rem(other: Angle): Angle = fromDeg(deg = this.deg % other.deg)
+    operator fun rem(other: Angle<T>): Angle<T>
 
     /**
      * Ensures that this value lies in the specified range [minimumAngle]..[maximumAngle].
      */
-    fun coerceIn(minimumAngle: Angle, maximumAngle: Angle): Angle =
-        fromDeg(deg = deg.coerceIn(minimumAngle.deg, maximumAngle.deg))
+    fun coerceIn(minimumAngle: Angle<T>, maximumAngle: Angle<T>): Angle<T>
 
     /**
      * Creates a range from this angle to the specified [other] angle.
      */
-    operator fun rangeTo(other: Angle): AngleRange = AngleRange(start = this, endInclusive = other)
+    operator fun rangeTo(other: Angle<T>): ClosedRange<Angle<T>>
 
     /**
      * Compares this angle to the specified [other] angle.
      * Returns zero if this angle is equal to the specified other angle,
      * a negative number if it's less than other, or a positive number if it's greater than other.
      */
-    override fun compareTo(other: Angle): Int = this.deg.compareTo(other.deg)
+    override fun compareTo(other: Angle<T>): Int
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || this::class != other::class) return false
+    /**
+     * Returns `Angle<Float>` with the same value as this angle.
+     */
+    fun toFloatAngle(): Angle<Float>
 
-        other as Angle
-
-        if (deg != other.deg) return false
-        if (rad != other.rad) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = deg.hashCode()
-        result = 31 * result + rad.hashCode()
-        return result
-    }
-
-    override fun toString(): String = "Angle(deg=$deg, rad=$rad)"
+    /**
+     * Returns `Angle<Double>` with the same value as this angle.
+     */
+    fun toDoubleAngle(): Angle<Double>
 
     companion object {
-        private const val STRAIGHT_ANGLE_DEG = 180.0f
 
         /**
          * Angle measure of 0 degrees.
          */
-        val nullAngle = fromDeg(deg = 0f)
+        val nullAngle: Angle<Float> = fromDeg(deg = 0)
 
         /**
          * Angle measure of 90 degrees.
          */
-        val rightAngle = fromDeg(deg = 90f)
+        val rightAngle: Angle<Float> = fromDeg(deg = 90)
 
         /**
          * Angle measure of 180 degrees.
          */
-        val straightAngle = fromDeg(deg = STRAIGHT_ANGLE_DEG)
+        val straightAngle: Angle<Float> = fromDeg(deg = 180)
 
         /**
          * Angle measure of 360 degrees.
          */
-        val fullAngle = fromDeg(deg = 360f)
+        val fullAngle: Angle<Float> = fromDeg(deg = 360)
+
+        /**
+         * Creates a new angle measure from the given measure in [degrees][deg].
+         *
+         * @since v1.3.0
+         */
+        fun fromDeg(deg: Int): Angle<Float> = AngleF.fromDeg(deg)
+
+        /**
+         * Creates a new angle measure from the given measure in [degrees][deg].
+         *
+         * @since v1.3.0
+         */
+        fun fromDeg(deg: Long): Angle<Double> = AngleD.fromDeg(deg)
 
         /**
          * Creates a new angle measure from the given measure in [degrees][deg].
          */
-        fun fromDeg(deg: Float): Angle = Angle(deg, (deg * PI / STRAIGHT_ANGLE_DEG))
+        fun fromDeg(deg: Float): Angle<Float> = AngleF.fromDeg(deg)
+
+        /**
+         * Creates a new angle measure from the given measure in [degrees][deg].
+         *
+         * @since v1.3.0
+         */
+        fun fromDeg(deg: Double): Angle<Double> = AngleD.fromDeg(deg)
 
         /**
          * Creates a new angle measure from the given measure in [radians][rad].
          */
-        fun fromRad(rad: Float): Angle = Angle((rad * STRAIGHT_ANGLE_DEG / PI), rad)
+        fun fromRad(rad: Float): Angle<Float> = AngleF.fromRad(rad)
+
+        /**
+         * Creates a new angle measure from the given measure in [radians][rad].
+         *
+         * @since v1.3.0
+         */
+        fun fromRad(rad: Double): Angle<Double> = AngleD.fromRad(rad)
 
         /**
          * Returns the arc tangent of a given [value].
          */
-        fun atan(value: Float): Angle = fromRad(kotlin.math.atan(value))
+        fun atan(value: Float): Angle<Float> = AngleF.atan(value)
+
+        /**
+         * Returns the arc tangent of a given [value].
+         *
+         * @since v1.3.0
+         */
+        fun atan(value: Double): Angle<Double> = AngleD.atan(value)
 
         /**
          * Returns the arc tangent of a given value [y]/[x].
          */
-        fun atan2(y: Float, x: Float): Angle = fromRad(kotlin.math.atan2(y, x))
+        fun atan2(y: Float, x: Float): Angle<Float> = AngleF.atan2(x, y)
+
+        /**
+         * Returns the arc tangent of a given value [y]/[x].
+         *
+         * @since v1.3.0
+         */
+        fun atan2(y: Double, x: Double): Angle<Double> = AngleD.atan2(x, y)
     }
 }

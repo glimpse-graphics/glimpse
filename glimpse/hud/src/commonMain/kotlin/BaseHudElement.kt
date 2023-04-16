@@ -26,7 +26,7 @@ abstract class BaseHudElement(
     /**
      * Position of this element.
      */
-    override var position: Vec2
+    override var position: Vec2<Float>
 ) : HudElement {
 
     /**
@@ -55,7 +55,7 @@ abstract class BaseHudElement(
      *
      * @return `true` if the event has been consumed by this element.
      */
-    override fun handleInputEvent(position: Vec2, event: Any?): Boolean {
+    override fun handleInputEvent(position: Vec2<Float>, event: Any?): Boolean {
         val relativePosition = position - this.position
         for (listener in inputEventListeners) {
             if (listener.onInputEvent(relativePosition, event)) return true

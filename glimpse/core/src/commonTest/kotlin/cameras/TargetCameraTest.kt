@@ -19,13 +19,11 @@ package graphics.glimpse.cameras
 import graphics.glimpse.assertions.assertEqualsWithDelta
 import graphics.glimpse.types.Mat4
 import graphics.glimpse.types.Vec3
-import kotlin.js.JsName
 import kotlin.test.Test
 
 class TargetCameraTest {
 
     @Test
-    @JsName(name = "GIVEN_a_TargetCamera_WHEN_viewMatrix_THEN_return_correct_matrix")
     fun `GIVEN a TargetCamera, WHEN viewMatrix, THEN return correct matrix`() {
         val eye = Vec3(x = 0.5f, y = 0.5f, z = 0.7071067812f)
         val target = Vec3.nullVector

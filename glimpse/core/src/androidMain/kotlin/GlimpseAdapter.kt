@@ -21,6 +21,7 @@ import android.opengl.GLES20
 import android.os.Build
 import graphics.glimpse.buffers.BufferType
 import graphics.glimpse.buffers.BufferUsage
+import graphics.glimpse.buffers.DoubleBufferData
 import graphics.glimpse.buffers.FloatBufferData
 import graphics.glimpse.buffers.IntBufferData
 import graphics.glimpse.framebuffers.FramebufferAttachmentType
@@ -59,7 +60,7 @@ actual class GlimpseAdapter {
     /**
      * Sets clear values for color buffers to [color] with alpha channel set to fully opaque.
      */
-    actual fun glClearColor(color: Vec3) {
+    actual fun glClearColor(color: Vec3<Float>) {
         logger.debug(message = "Setting clear color: $color")
         GLES20.glClearColor(color.r, color.g, color.b, 1f)
     }
@@ -67,7 +68,7 @@ actual class GlimpseAdapter {
     /**
      * Sets clear values for color buffers to [color].
      */
-    actual fun glClearColor(color: Vec4) {
+    actual fun glClearColor(color: Vec4<Float>) {
         logger.debug(message = "Setting clear color: $color")
         GLES20.glClearColor(color.r, color.g, color.b, color.a)
     }
@@ -149,7 +150,6 @@ actual class GlimpseAdapter {
         GLES20.glBlendFunc(sourceFactor.toInt(), destinationFactor.toInt())
     }
 
-    @Suppress("CyclomaticComplexMethod")
     private fun BlendingFactorFunction.toInt(): Int = when (this) {
         BlendingFactorFunction.ZERO -> GLES20.GL_ZERO
         BlendingFactorFunction.ONE -> GLES20.GL_ONE
@@ -172,7 +172,7 @@ actual class GlimpseAdapter {
      * [BlendingFactorFunction.ONE_MINUS_CONSTANT_COLOR], [BlendingFactorFunction.CONSTANT_ALPHA]
      * and [BlendingFactorFunction.ONE_MINUS_CONSTANT_ALPHA].
      */
-    actual fun glBlendingColor(color: Vec4) {
+    actual fun glBlendingColor(color: Vec4<Float>) {
         GLES20.glBlendColor(color.r, color.g, color.b, color.a)
     }
 
@@ -303,6 +303,20 @@ actual class GlimpseAdapter {
      * Creates a buffer of floating point values and fills it with data.
      */
     actual fun glBufferData(type: BufferType, data: FloatBufferData, usage: BufferUsage) {
+        GLES20.glBufferData(
+            type.toInt(),
+            data.sizeInBytes,
+            data.nioBuffer,
+            usage.toInt()
+        )
+    }
+
+    /**
+     * Creates a buffer of double-precision floating point values and fills it with data.
+     *
+     * @since v1.3.0
+     */
+    actual fun glBufferData(type: BufferType, data: DoubleBufferData, usage: BufferUsage) {
         GLES20.glBufferData(
             type.toInt(),
             data.sizeInBytes,
@@ -778,21 +792,21 @@ actual class GlimpseAdapter {
     /**
      * Sets [value] of 2D vector uniform variable at a given [location] for current program.
      */
-    actual fun glUniform(location: Int, value: Vec2) {
+    actual fun glUniform(location: Int, value: Vec2<Float>) {
         GLES20.glUniform2f(location, value.x, value.y)
     }
 
     /**
      * Sets [value] of 3D vector uniform variable at a given [location] for current program.
      */
-    actual fun glUniform(location: Int, value: Vec3) {
+    actual fun glUniform(location: Int, value: Vec3<Float>) {
         GLES20.glUniform3f(location, value.x, value.y, value.z)
     }
 
     /**
      * Sets [value] of 4D vector uniform variable at a given [location] for current program.
      */
-    actual fun glUniform(location: Int, value: Vec4) {
+    actual fun glUniform(location: Int, value: Vec4<Float>) {
         GLES20.glUniform4f(location, value.x, value.y, value.z, value.w)
     }
 
@@ -813,21 +827,21 @@ actual class GlimpseAdapter {
     /**
      * Sets [values] of 2D vector array uniform variable at a given [location] for current program.
      */
-    actual fun glUniform(location: Int, vararg values: Vec2) {
+    actual fun glUniform(location: Int, vararg values: Vec2<Float>) {
         GLES20.glUniform2fv(location, values.size, values.flatMap { it.toList() }.toFloatArray(), 0)
     }
 
     /**
      * Sets [values] of 3D vector array uniform variable at a given [location] for current program.
      */
-    actual fun glUniform(location: Int, vararg values: Vec3) {
+    actual fun glUniform(location: Int, vararg values: Vec3<Float>) {
         GLES20.glUniform3fv(location, values.size, values.flatMap { it.toList() }.toFloatArray(), 0)
     }
 
     /**
      * Sets [values] of 4D vector array uniform variable at a given [location] for current program.
      */
-    actual fun glUniform(location: Int, vararg values: Vec4) {
+    actual fun glUniform(location: Int, vararg values: Vec4<Float>) {
         GLES20.glUniform4fv(location, values.size, values.flatMap { it.toList() }.toFloatArray(), 0)
     }
 
@@ -836,7 +850,7 @@ actual class GlimpseAdapter {
      *
      * Optionally, if the [transpose] flag is set to `true`, transpose matrices will be set instead.
      */
-    actual fun glUniform(location: Int, vararg values: Mat2, transpose: Boolean) {
+    actual fun glUniform(location: Int, vararg values: Mat2<Float>, transpose: Boolean) {
         GLES20.glUniformMatrix2fv(
             location,
             values.size,
@@ -851,7 +865,7 @@ actual class GlimpseAdapter {
      *
      * Optionally, if the [transpose] flag is set to `true`, transpose matrices will be set instead.
      */
-    actual fun glUniform(location: Int, vararg values: Mat3, transpose: Boolean) {
+    actual fun glUniform(location: Int, vararg values: Mat3<Float>, transpose: Boolean) {
         GLES20.glUniformMatrix3fv(
             location,
             values.size,
@@ -866,7 +880,7 @@ actual class GlimpseAdapter {
      *
      * Optionally, if the [transpose] flag is set to `true`, transpose matrices will be set instead.
      */
-    actual fun glUniform(location: Int, vararg values: Mat4, transpose: Boolean) {
+    actual fun glUniform(location: Int, vararg values: Mat4<Float>, transpose: Boolean) {
         GLES20.glUniformMatrix4fv(
             location,
             values.size,

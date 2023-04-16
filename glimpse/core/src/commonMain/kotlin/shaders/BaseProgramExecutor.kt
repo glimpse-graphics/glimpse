@@ -113,7 +113,7 @@ abstract class BaseProgramExecutor<T>(
      * Sets [value] of 2D vector uniform variable with a given [name] for the [program]
      * contained in the executor.
      */
-    protected fun glUniform(gl: GlimpseAdapter, name: String, value: Vec2) {
+    protected fun glUniform(gl: GlimpseAdapter, name: String, value: Vec2<Float>) {
         gl.glUniform(getUniformLocation(gl, name), value)
     }
 
@@ -121,7 +121,7 @@ abstract class BaseProgramExecutor<T>(
      * Sets [values] of 2D vector array uniform variable with a given [name] for the [program]
      * contained in the executor.
      */
-    protected fun glUniform(gl: GlimpseAdapter, name: String, values: Array<Vec2>) {
+    protected fun glUniform(gl: GlimpseAdapter, name: String, values: Array<Vec2<Float>>) {
         @Suppress("SpreadOperator")
         gl.glUniform(getUniformLocation(gl, name), *values)
     }
@@ -130,7 +130,7 @@ abstract class BaseProgramExecutor<T>(
      * Sets [value] of 3D vector uniform variable with a given [name] for the [program]
      * contained in the executor.
      */
-    protected fun glUniform(gl: GlimpseAdapter, name: String, value: Vec3) {
+    protected fun glUniform(gl: GlimpseAdapter, name: String, value: Vec3<Float>) {
         gl.glUniform(getUniformLocation(gl, name), value)
     }
 
@@ -138,7 +138,7 @@ abstract class BaseProgramExecutor<T>(
      * Sets [values] of 3D vector array uniform variable with a given [name] for the [program]
      * contained in the executor.
      */
-    protected fun glUniform(gl: GlimpseAdapter, name: String, values: Array<Vec3>) {
+    protected fun glUniform(gl: GlimpseAdapter, name: String, values: Array<Vec3<Float>>) {
         @Suppress("SpreadOperator")
         gl.glUniform(getUniformLocation(gl, name), *values)
     }
@@ -147,7 +147,7 @@ abstract class BaseProgramExecutor<T>(
      * Sets [value] of 4D vector uniform variable with a given [name] for the [program]
      * contained in the executor.
      */
-    protected fun glUniform(gl: GlimpseAdapter, name: String, value: Vec4) {
+    protected fun glUniform(gl: GlimpseAdapter, name: String, value: Vec4<Float>) {
         gl.glUniform(getUniformLocation(gl, name), value)
     }
 
@@ -155,7 +155,7 @@ abstract class BaseProgramExecutor<T>(
      * Sets [values] of 4D vector array uniform variable with a given [name] for the [program]
      * contained in the executor.
      */
-    protected fun glUniform(gl: GlimpseAdapter, name: String, values: Array<Vec4>) {
+    protected fun glUniform(gl: GlimpseAdapter, name: String, values: Array<Vec4<Float>>) {
         @Suppress("SpreadOperator")
         gl.glUniform(getUniformLocation(gl, name), *values)
     }
@@ -164,7 +164,7 @@ abstract class BaseProgramExecutor<T>(
      * Sets [value] of 2×2 matrix uniform variable with a given [name] for the [program]
      * contained in the executor.
      */
-    protected fun glUniform(gl: GlimpseAdapter, name: String, value: Mat2) {
+    protected fun glUniform(gl: GlimpseAdapter, name: String, value: Mat2<Float>) {
         gl.glUniform(getUniformLocation(gl, name), value)
     }
 
@@ -172,7 +172,7 @@ abstract class BaseProgramExecutor<T>(
      * Sets [values] of 2×2 matrix array uniform variable with a given [name] for the [program]
      * contained in the executor.
      */
-    protected fun glUniform(gl: GlimpseAdapter, name: String, values: Array<Mat2>) {
+    protected fun glUniform(gl: GlimpseAdapter, name: String, values: Array<Mat2<Float>>) {
         @Suppress("SpreadOperator")
         gl.glUniform(getUniformLocation(gl, name), *values)
     }
@@ -181,7 +181,7 @@ abstract class BaseProgramExecutor<T>(
      * Sets [value] of 3×3 matrix uniform variable with a given [name] for the [program]
      * contained in the executor.
      */
-    protected fun glUniform(gl: GlimpseAdapter, name: String, value: Mat3) {
+    protected fun glUniform(gl: GlimpseAdapter, name: String, value: Mat3<Float>) {
         gl.glUniform(getUniformLocation(gl, name), value)
     }
 
@@ -189,7 +189,7 @@ abstract class BaseProgramExecutor<T>(
      * Sets [values] of 3×3 matrix array uniform variable with a given [name] for the [program]
      * contained in the executor.
      */
-    protected fun glUniform(gl: GlimpseAdapter, name: String, values: Array<Mat3>) {
+    protected fun glUniform(gl: GlimpseAdapter, name: String, values: Array<Mat3<Float>>) {
         @Suppress("SpreadOperator")
         gl.glUniform(getUniformLocation(gl, name), *values)
     }
@@ -198,7 +198,7 @@ abstract class BaseProgramExecutor<T>(
      * Sets [value] of 4×4 matrix uniform variable with a given [name] for the [program]
      * contained in the executor.
      */
-    protected fun glUniform(gl: GlimpseAdapter, name: String, value: Mat4) {
+    protected fun glUniform(gl: GlimpseAdapter, name: String, value: Mat4<Float>) {
         gl.glUniform(getUniformLocation(gl, name), value)
     }
 
@@ -206,7 +206,7 @@ abstract class BaseProgramExecutor<T>(
      * Sets [values] of 4×4 matrix array uniform variable with a given [name] for the [program]
      * contained in the executor.
      */
-    protected fun glUniform(gl: GlimpseAdapter, name: String, values: Array<Mat4>) {
+    protected fun glUniform(gl: GlimpseAdapter, name: String, values: Array<Mat4<Float>>) {
         @Suppress("SpreadOperator")
         gl.glUniform(getUniformLocation(gl, name), *values)
     }

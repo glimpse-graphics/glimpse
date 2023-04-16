@@ -26,7 +26,7 @@ import graphics.glimpse.types.Vec2
  */
 class QuadBuilder internal constructor(
     private val texture: Texture,
-    private val position: Vec2
+    private val position: Vec2<Float>
 ) {
 
     /**
@@ -49,7 +49,7 @@ class QuadBuilder internal constructor(
     /**
      * Rotation of the quad.
      */
-    var rotation: Angle = Angle.nullAngle
+    var rotation: Angle<Float> = Angle.nullAngle
 
     internal fun build(): Quad =
         Quad(texture, position, origin).apply {

@@ -19,37 +19,43 @@ package graphics.glimpse.types
 /**
  * A 2×2 matrix.
  */
-data class Mat2(override val elements: List<Float>) : BaseMat<Mat2, Vec2>(MATRIX_DIMENSION) {
-
-    init { validate() }
-
-    /**
-     * Returns a new 2×2 matrix with the given [elements].
-     */
-    override fun create(elements: List<Float>): Mat2 = Mat2(elements)
-
-    /**
-     * Returns a new 2D vector with the given [elements].
-     */
-    override fun createVector(elements: List<Float>): Vec2 = Vec2.fromList(elements)
+abstract class Mat2<T : Number> : BaseMat<T, Mat2<T>, Vec2<T>>(MATRIX_DIMENSION) {
 
     /**
      * Returns a determinant of this matrix.
      */
-    override fun det(): Float =
-        elements[0] * @Suppress("MagicNumber") elements[3] - elements[1] * elements[2]
+    @Suppress("MagicNumber")
+    override fun det(): T =
+        field.subtract(
+            field.multiply(elements[0], elements[3]),
+            field.multiply(elements[1], elements[2])
+        )
 
     /**
      * Returns an adjugate of this matrix.
      */
-    override fun adj(): Mat2 =
-        @Suppress("MagicNumber")
-        Mat2(listOf(elements[3], -elements[1], -elements[2], elements[0]))
+    @Suppress("MagicNumber")
+    override fun adj(): Mat2<T> =
+        create(
+            listOf(
+                elements[3], field.additiveInverse(elements[1]),
+                field.additiveInverse(elements[2]), elements[0]
+            )
+        )
 
     /**
-     * Returns a string representation of this matrix.
+     * Returns a 2×2 float matrix equal to this matrix.
+     *
+     * @since v1.3.0
      */
-    override fun toString(): String = toString(className = "Mat2")
+    abstract fun toFloatMatrix(): Mat2<Float>
+
+    /**
+     * Returns a 2×2 double-precision float matrix equal to this matrix.
+     *
+     * @since v1.3.0
+     */
+    abstract fun toDoubleMatrix(): Mat2<Double>
 
     companion object {
         private const val MATRIX_DIMENSION = 2
@@ -57,6 +63,20 @@ data class Mat2(override val elements: List<Float>) : BaseMat<Mat2, Vec2>(MATRIX
         /**
          * A 2×2 identity matrix.
          */
-        val identity: Mat2 = Mat2(listOf(1f, 0f, 0f, 1f))
+        val identity: Mat2<Float> = Mat2(listOf(1f, 0f, 0f, 1f))
     }
 }
+
+/**
+ * Returns a new 2×2 float matrix.
+ */
+@Suppress("FunctionNaming")
+@JvmName("FloatMat2")
+fun Mat2(elements: List<Float>): Mat2<Float> = Mat2F(elements)
+
+/**
+ * Returns a new double-precision 2×2 float matrix.
+ */
+@Suppress("FunctionNaming")
+@JvmName("DoubleMat2")
+fun Mat2(elements: List<Double>): Mat2<Double> = Mat2D(elements)

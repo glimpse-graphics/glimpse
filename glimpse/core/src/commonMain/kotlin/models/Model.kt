@@ -32,5 +32,5 @@ interface Model {
     /**
      * Model transformation matrix.
      */
-    val modelMatrix: Mat4
+    val modelMatrix: Mat4<Float>
 }

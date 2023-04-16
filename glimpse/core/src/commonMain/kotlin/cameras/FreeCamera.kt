@@ -33,28 +33,28 @@ data class FreeCamera(
     /**
      * Position of the camera eye.
      */
-    override val eye: Vec3,
+    override val eye: Vec3<Float>,
 
     /**
      * Camera roll angle (clockwise/anticlockwise rotation of the camera eye).
      */
-    val roll: Angle,
+    val roll: Angle<Float>,
 
     /**
      * Camera pitch angle (point upwards/downwards).
      */
-    val pitch: Angle,
+    val pitch: Angle<Float>,
 
     /**
      * Camera yaw angle (camera heading rotation)
      */
-    val yaw: Angle
+    val yaw: Angle<Float>
 ) : Camera {
 
     /**
      * View matrix defined by the camera.
      */
-    override val viewMatrix: Mat4 = listOf(
+    override val viewMatrix: Mat4<Float> = listOf(
         initialMatrix,
         rotationX(-roll),
         rotationY(pitch),

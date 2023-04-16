@@ -29,21 +29,21 @@ data class TargetCamera(
     /**
      * Position of the camera eye.
      */
-    override val eye: Vec3,
+    override val eye: Vec3<Float>,
 
     /**
      * Position of the camera target.
      */
-    val target: Vec3,
+    val target: Vec3<Float>,
 
     /**
      * Up-vector preserved for the camera.
      */
-    val upVector: Vec3 = Vec3.unitZ
+    val upVector: Vec3<Float> = Vec3.unitZ
 ) : Camera {
 
     /**
      * View matrix defined by the camera.
      */
-    override val viewMatrix: Mat4 = lookAt(eye, target, upVector)
+    override val viewMatrix: Mat4<Float> = lookAt(eye, target, upVector)
 }

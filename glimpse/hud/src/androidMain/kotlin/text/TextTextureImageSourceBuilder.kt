@@ -40,7 +40,7 @@ actual class TextTextureImageSourceBuilder {
 
     private var font: Font = Font.DEFAULT
 
-    private var color: Vec4 = Vec4(x = 1f, y = 1f, z = 1f, w = 1f)
+    private var color: Vec4<Float> = Vec4(x = 1f, y = 1f, z = 1f, w = 1f)
 
     private var paddingLeft: Int = 0
     private var paddingRight: Int = 0
@@ -69,7 +69,7 @@ actual class TextTextureImageSourceBuilder {
     /**
      * Will build a texture source containing text drawn with given [color].
      */
-    actual fun withColor(color: Vec4): TextTextureImageSourceBuilder {
+    actual fun withColor(color: Vec4<Float>): TextTextureImageSourceBuilder {
         this.color = color
         return this
     }

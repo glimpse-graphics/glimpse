@@ -16,15 +16,14 @@
 
 package graphics.glimpse.types
 
-import kotlin.math.sqrt
-
 /**
  * Returns the magnitude of the given [vector].
  */
-fun magnitude(vector: Vec2): Float =
-    sqrt((vector.x * vector.x + vector.y * vector.y))
+@Deprecated(message = "Use Vec2.magnitude() instead", replaceWith = ReplaceWith("vector.magnitude()"))
+fun <T : Number> magnitude(vector: Vec2<T>): T = vector.magnitude()
 
 /**
  * Returns a unit vector in the direction of the given [vector].
  */
-fun normalize(vector: Vec2): Vec2 = vector / magnitude(vector)
+@Deprecated(message = "Use Vec2.normalize() instead", replaceWith = ReplaceWith("vector.normalize()"))
+fun <T : Number> normalize(vector: Vec2<T>): Vec2<T> = vector / vector.magnitude()

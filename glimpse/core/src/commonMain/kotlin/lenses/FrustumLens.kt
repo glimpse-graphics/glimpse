@@ -37,5 +37,5 @@ data class FrustumLens(
     /**
      * Projection matrix defined by the lens.
      */
-    override val projectionMatrix: Mat4 = frustum(left, right, bottom, top, near, far)
+    override val projectionMatrix: Mat4<Float> = frustum(left, right, bottom, top, near, far)
 }

@@ -20,13 +20,11 @@ import graphics.glimpse.assertions.assertEqualsWithDelta
 import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Mat4
 import graphics.glimpse.types.Vec3
-import kotlin.js.JsName
 import kotlin.test.Test
 
 class RelativeTargetCameraTest {
 
     @Test
-    @JsName(name = "GIVEN_a_RelativeTargetCamera_WHEN_eye_THEN_return_correct_eye_position")
     fun `GIVEN a RelativeTargetCamera, WHEN eye, THEN return correct eye position`() {
         val target = Vec3.nullVector
         val distance = 1.0f
@@ -40,7 +38,6 @@ class RelativeTargetCameraTest {
     }
 
     @Test
-    @JsName(name = "GIVEN_a_RelativeTargetCamera_WHEN_viewMatrix_THEN_return_correct_matrix")
     fun `GIVEN a RelativeTargetCamera, WHEN viewMatrix, THEN return correct matrix`() {
         val target = Vec3.nullVector
         val distance = 1.0f

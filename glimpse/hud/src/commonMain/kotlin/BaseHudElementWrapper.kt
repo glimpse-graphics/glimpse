@@ -32,7 +32,7 @@ abstract class BaseHudElementWrapper(
     /**
      * Position of the wrapped element.
      */
-    override var position: Vec2
+    override var position: Vec2<Float>
         get() = element.position
         set(value) {
             element.position = value
@@ -78,6 +78,6 @@ abstract class BaseHudElementWrapper(
      *
      * @return `true` if the event has been consumed by the wrapped element.
      */
-    override fun handleInputEvent(position: Vec2, event: Any?): Boolean =
+    override fun handleInputEvent(position: Vec2<Float>, event: Any?): Boolean =
         element.handleInputEvent(position, event)
 }

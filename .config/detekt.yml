@@ -1,6 +1,6 @@
 # Allow bigger complexity in utility classes:
 complexity:
-  ComplexMethod:
+  CyclomaticComplexMethod:
     ignoreSimpleWhenEntries: true
   LongParameterList:
     functionThreshold: 7
@@ -8,6 +8,8 @@ complexity:
   TooManyFunctions:
     thresholdInFiles: 30
     thresholdInClasses: 30
+    thresholdInInterfaces: 30
+    thresholdInObjects: 30
 naming:
   FunctionNaming:
     ignoreAnnotated: [ Composable ]

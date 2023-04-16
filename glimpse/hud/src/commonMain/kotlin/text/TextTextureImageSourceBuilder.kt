@@ -39,7 +39,7 @@ expect class TextTextureImageSourceBuilder constructor() {
     /**
      * Will build a texture source containing text drawn with given [color].
      */
-    fun withColor(color: Vec4): TextTextureImageSourceBuilder
+    fun withColor(color: Vec4<Float>): TextTextureImageSourceBuilder
 
     /**
      * Will build a texture source containing text with given padding, equal on [all] sides.

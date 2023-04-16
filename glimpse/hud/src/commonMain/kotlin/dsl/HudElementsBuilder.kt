@@ -19,9 +19,9 @@ package graphics.glimpse.hud.dsl
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.GlimpseDisposableContainer
 import graphics.glimpse.hud.HudElement
-import graphics.glimpse.hud.TransformationWrapper
 import graphics.glimpse.hud.Quad
 import graphics.glimpse.hud.Space
+import graphics.glimpse.hud.TransformationWrapper
 import graphics.glimpse.hud.VisibilityWrapper
 import graphics.glimpse.hud.layouts.Alignment
 import graphics.glimpse.hud.layouts.ColumnLayout
@@ -63,7 +63,7 @@ interface HudElementsBuilder {
      */
     fun quad(
         texture: Texture,
-        position: Vec2 = Vec2.nullVector,
+        position: Vec2<Float> = Vec2.nullVector,
         onInputEvent: ((event: Any?) -> Boolean)? = null,
         init: QuadBuilder.() -> Unit = {}
     ): Quad
@@ -74,11 +74,11 @@ interface HudElementsBuilder {
     fun text(
         text: String,
         font: Font = Font.DEFAULT,
-        color: Vec4 = Vec4(x = 1f, y = 1f, z = 1f, w = 1f),
+        color: Vec4<Float> = Vec4(x = 1f, y = 1f, z = 1f, w = 1f),
         padding: Padding = Padding(),
         width: Int = 0,
         height: Int = 0,
-        position: Vec2 = Vec2.nullVector,
+        position: Vec2<Float> = Vec2.nullVector,
         onInputEvent: ((event: Any?) -> Boolean)? = null,
         init: QuadBuilder.() -> Unit = {}
     ): Quad
@@ -95,7 +95,7 @@ interface HudElementsBuilder {
      * Creates a column layout.
      */
     fun column(
-        position: Vec2 = Vec2.nullVector,
+        position: Vec2<Float> = Vec2.nullVector,
         alignment: HorizontalAlignment = HorizontalAlignment.Center,
         spacing: Float = 0f,
         onInputEvent: ((event: Any?) -> Boolean)? = null,
@@ -106,7 +106,7 @@ interface HudElementsBuilder {
      * Creates a row layout.
      */
     fun row(
-        position: Vec2 = Vec2.nullVector,
+        position: Vec2<Float> = Vec2.nullVector,
         alignment: VerticalAlignment = VerticalAlignment.Center,
         spacing: Float = 0f,
         onInputEvent: ((event: Any?) -> Boolean)? = null,
@@ -117,7 +117,7 @@ interface HudElementsBuilder {
      * Creates a stack layout.
      */
     fun stack(
-        position: Vec2 = Vec2.nullVector,
+        position: Vec2<Float> = Vec2.nullVector,
         alignment: Alignment = Alignment.Center,
         onInputEvent: ((event: Any?) -> Boolean)? = null,
         init: HudElementsBuilder.() -> Unit
@@ -127,7 +127,7 @@ interface HudElementsBuilder {
      * Creates a table layout
      */
     fun table(
-        position: Vec2 = Vec2.nullVector,
+        position: Vec2<Float> = Vec2.nullVector,
         columns: List<TableLayout.Column>,
         columnsSpacing: Float = 0f,
         rowsSpacing: Float = 0f,
@@ -147,9 +147,9 @@ interface HudElementsBuilder {
      * Transforms an element defined in the [init] block.
      */
     fun withTransformation(
-        translation: () -> Vec2 = { Vec2.nullVector },
-        rotation: () -> Angle = { Angle.nullAngle },
-        scale: () -> Vec2 = { Vec2(x = 1f, y = 1f) },
+        translation: () -> Vec2<Float> = { Vec2.nullVector },
+        rotation: () -> Angle<Float> = { Angle.nullAngle },
+        scale: () -> Vec2<Float> = { Vec2(x = 1f, y = 1f) },
         init: HudElementsBuilder.() -> Unit
     ): TransformationWrapper
 }

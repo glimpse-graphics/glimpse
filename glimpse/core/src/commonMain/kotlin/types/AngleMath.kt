@@ -19,14 +19,29 @@ package graphics.glimpse.types
 /**
  * Computes the sine of the specified [angle].
  */
-fun sin(angle: Angle): Float = kotlin.math.sin(angle.rad)
+fun sin(angle: Angle<Float>): Float = kotlin.math.sin(angle.rad)
+
+/**
+ * Computes the sine of the specified [angle].
+ */
+fun sin(angle: Angle<Double>): Double = kotlin.math.sin(angle.rad)
 
 /**
  * Computes the cosine of the specified [angle].
  */
-fun cos(angle: Angle): Float = kotlin.math.cos(angle.rad)
+fun cos(angle: Angle<Float>): Float = kotlin.math.cos(angle.rad)
+
+/**
+ * Computes the cosine of the specified [angle].
+ */
+fun cos(angle: Angle<Double>): Double = kotlin.math.cos(angle.rad)
 
 /**
  * Computes the tangent of the specified [angle].
  */
-fun tan(angle: Angle): Float = kotlin.math.tan(angle.rad)
+fun tan(angle: Angle<Float>): Float = kotlin.math.tan(angle.rad)
+
+/**
+ * Computes the tangent of the specified [angle].
+ */
+fun tan(angle: Angle<Double>): Double = kotlin.math.tan(angle.rad)

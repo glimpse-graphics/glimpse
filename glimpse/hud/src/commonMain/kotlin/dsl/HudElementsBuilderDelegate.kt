@@ -78,7 +78,7 @@ class HudElementsBuilderDelegate(
      */
     override fun quad(
         texture: Texture,
-        position: Vec2,
+        position: Vec2<Float>,
         onInputEvent: ((event: Any?) -> Boolean)?,
         init: QuadBuilder.() -> Unit
     ): Quad = element(
@@ -103,11 +103,11 @@ class HudElementsBuilderDelegate(
     override fun text(
         text: String,
         font: Font,
-        color: Vec4,
+        color: Vec4<Float>,
         padding: Padding,
         width: Int,
         height: Int,
-        position: Vec2,
+        position: Vec2<Float>,
         onInputEvent: ((event: Any?) -> Boolean)?,
         init: QuadBuilder.() -> Unit
     ): Quad = quad(
@@ -143,7 +143,7 @@ class HudElementsBuilderDelegate(
      * Creates a column layout.
      */
     override fun column(
-        position: Vec2,
+        position: Vec2<Float>,
         alignment: HorizontalAlignment,
         spacing: Float,
         onInputEvent: ((event: Any?) -> Boolean)?,
@@ -159,7 +159,7 @@ class HudElementsBuilderDelegate(
      * Creates a row layout.
      */
     override fun row(
-        position: Vec2,
+        position: Vec2<Float>,
         alignment: VerticalAlignment,
         spacing: Float,
         onInputEvent: ((event: Any?) -> Boolean)?,
@@ -175,7 +175,7 @@ class HudElementsBuilderDelegate(
      * Creates a stack layout.
      */
     override fun stack(
-        position: Vec2,
+        position: Vec2<Float>,
         alignment: Alignment,
         onInputEvent: ((event: Any?) -> Boolean)?,
         init: HudElementsBuilder.() -> Unit
@@ -190,7 +190,7 @@ class HudElementsBuilderDelegate(
      * Creates a table layout
      */
     override fun table(
-        position: Vec2,
+        position: Vec2<Float>,
         columns: List<TableLayout.Column>,
         columnsSpacing: Float,
         rowsSpacing: Float,
@@ -219,9 +219,9 @@ class HudElementsBuilderDelegate(
      * Transforms an element defined in the [init] block.
      */
     override fun withTransformation(
-        translation: () -> Vec2,
-        rotation: () -> Angle,
-        scale: () -> Vec2,
+        translation: () -> Vec2<Float>,
+        rotation: () -> Angle<Float>,
+        scale: () -> Vec2<Float>,
         init: HudElementsBuilder.() -> Unit
     ): TransformationWrapper = element(
         TransformationWrapperBuilder(this, translation, rotation, scale)

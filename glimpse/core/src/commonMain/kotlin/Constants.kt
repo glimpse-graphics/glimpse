@@ -19,4 +19,4 @@ package graphics.glimpse
 /**
  * Archimedes' constant (π).
  */
-internal const val PI = 3.14159265359f
+internal const val PI = 3.1415927f

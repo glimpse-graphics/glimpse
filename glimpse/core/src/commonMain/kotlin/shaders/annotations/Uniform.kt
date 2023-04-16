@@ -21,8 +21,8 @@ package graphics.glimpse.shaders.annotations
  *
  * Supports properties of types:
  * - numbers: `Boolean` (since v1.1.0), `Int`, `Float`,
- * - vectors: `Vec2`, `Vec3`, `Vec4`,
- * - matrices: `Mat2`, `Mat3`, `Mat4`,
+ * - vectors: `Vec2<Float>`, `Vec3<Float>`, `Vec4<Float>`,
+ * - matrices: `Mat2<Float>`, `Mat3<Float>`, `Mat4<Float>`,
  * - arrays of these types.
  *
  * Since v1.2.0, no longer supports properties of type `Texture`.
