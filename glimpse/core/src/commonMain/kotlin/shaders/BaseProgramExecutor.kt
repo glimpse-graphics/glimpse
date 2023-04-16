@@ -17,6 +17,8 @@
 package graphics.glimpse.shaders
 
 import graphics.glimpse.GlimpseAdapter
+import graphics.glimpse.buffers.FloatUniformBuffer
+import graphics.glimpse.buffers.IntUniformBuffer
 import graphics.glimpse.types.Mat2
 import graphics.glimpse.types.Mat3
 import graphics.glimpse.types.Mat4
@@ -28,6 +30,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 /**
  * Base for generated [ProgramExecutor] implementations.
  */
+@Suppress("TooManyFunctions")
 abstract class BaseProgramExecutor<T>(
     private val program: Program
 ) : ProgramExecutor<T> {
@@ -297,6 +300,22 @@ abstract class BaseProgramExecutor<T>(
     protected fun glUniform(gl: GlimpseAdapter, name: String, values: Array<Mat4<Float>>) {
         @Suppress("SpreadOperator")
         gl.glUniform(getUniformLocation(gl, name), *values)
+    }
+
+    /**
+     * Sets integer data [buffer] uniform variable with a given [name] for the [program]
+     * contained in the executor.
+     */
+    protected fun glUniform(gl: GlimpseAdapter, name: String, buffer: IntUniformBuffer) {
+        gl.glUniform(getUniformLocation(gl, name), buffer)
+    }
+
+    /**
+     * Sets floating point data [buffer] uniform variable with a given [name] for the [program]
+     * contained in the executor.
+     */
+    protected fun glUniform(gl: GlimpseAdapter, name: String, buffer: FloatUniformBuffer) {
+        gl.glUniform(getUniformLocation(gl, name), buffer)
     }
 
     /**

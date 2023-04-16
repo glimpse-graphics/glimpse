@@ -10,6 +10,7 @@ complexity:
     thresholdInClasses: 30
     thresholdInInterfaces: 30
     thresholdInObjects: 30
+    ignorePrivate: true
 naming:
   FunctionNaming:
     ignoreAnnotated: [ Composable ]

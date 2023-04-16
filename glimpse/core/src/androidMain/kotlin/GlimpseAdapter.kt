@@ -23,7 +23,10 @@ import graphics.glimpse.buffers.BufferType
 import graphics.glimpse.buffers.BufferUsage
 import graphics.glimpse.buffers.DoubleBufferData
 import graphics.glimpse.buffers.FloatBufferData
+import graphics.glimpse.buffers.FloatUniformBuffer
 import graphics.glimpse.buffers.IntBufferData
+import graphics.glimpse.buffers.IntUniformBuffer
+import graphics.glimpse.buffers.UniformBufferDataElementType
 import graphics.glimpse.framebuffers.FramebufferAttachmentType
 import graphics.glimpse.framebuffers.FramebufferStatus
 import graphics.glimpse.logging.GlimpseLogger
@@ -968,6 +971,55 @@ actual class GlimpseAdapter {
             values.flatMap { it.elements }.toFloatArray(),
             0
         )
+    }
+
+    /**
+     * Sets integer [buffer] uniform variable at a given [location] for current program.
+     *
+     * @since v1.3.0
+     */
+    actual fun glUniform(location: Int, buffer: IntUniformBuffer) {
+        val elementSize = buffer.elementType.size * Int.SIZE_BYTES
+        val elementsCount = buffer.data.sizeInBytes / elementSize
+        when (buffer.elementType) {
+            UniformBufferDataElementType.NUMBER ->
+                GLES20.glUniform1iv(location, elementsCount, buffer.data.nioBuffer)
+            UniformBufferDataElementType.VEC2 ->
+                GLES20.glUniform2iv(location, elementsCount, buffer.data.nioBuffer)
+            UniformBufferDataElementType.VEC3 ->
+                GLES20.glUniform3iv(location, elementsCount, buffer.data.nioBuffer)
+            UniformBufferDataElementType.VEC4 ->
+                GLES20.glUniform4iv(location, elementsCount, buffer.data.nioBuffer)
+            else -> throw UnsupportedOperationException(
+                "Matrix elements of uniform buffer data not supported for integer numbers"
+            )
+        }
+    }
+
+    /**
+     * Sets floating point [buffer] uniform variable at a given [location] for current program.
+     *
+     * @since v1.3.0
+     */
+    actual fun glUniform(location: Int, buffer: FloatUniformBuffer) {
+        val elementSize = buffer.elementType.size * Float.SIZE_BYTES
+        val elementsCount = buffer.data.sizeInBytes / elementSize
+        when (buffer.elementType) {
+            UniformBufferDataElementType.NUMBER ->
+                GLES20.glUniform1fv(location, elementsCount, buffer.data.nioBuffer)
+            UniformBufferDataElementType.VEC2 ->
+                GLES20.glUniform2fv(location, elementsCount, buffer.data.nioBuffer)
+            UniformBufferDataElementType.VEC3 ->
+                GLES20.glUniform3fv(location, elementsCount, buffer.data.nioBuffer)
+            UniformBufferDataElementType.VEC4 ->
+                GLES20.glUniform4fv(location, elementsCount, buffer.data.nioBuffer)
+            UniformBufferDataElementType.MAT2 ->
+                GLES20.glUniformMatrix2fv(location, elementsCount, false, buffer.data.nioBuffer)
+            UniformBufferDataElementType.MAT3 ->
+                GLES20.glUniformMatrix3fv(location, elementsCount, false, buffer.data.nioBuffer)
+            UniformBufferDataElementType.MAT4 ->
+                GLES20.glUniformMatrix4fv(location, elementsCount, false, buffer.data.nioBuffer)
+        }
     }
 
     /**
