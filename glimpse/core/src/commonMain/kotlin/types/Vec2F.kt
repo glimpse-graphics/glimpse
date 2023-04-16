@@ -16,43 +16,30 @@
 
 package graphics.glimpse.types
 
+import kotlin.math.roundToInt
+import kotlin.math.roundToLong
 import kotlin.math.sqrt
 
 internal data class Vec2F(
     override val x: Float,
     override val y: Float
-) : Vec2<Float> {
+) : Vec2<Float>() {
 
-    override operator fun unaryPlus(): Vec2F = this
+    override val ring: Ring<Float> get() = FloatRing
 
-    override operator fun unaryMinus(): Vec2F = Vec2F(x = -this.x, y = -this.y)
-
-    override operator fun plus(other: Vec2<Float>): Vec2F = Vec2F(x = this.x + other.x, y = this.y + other.y)
-
-    override operator fun minus(other: Vec2<Float>): Vec2F = Vec2F(x = this.x - other.x, y = this.y - other.y)
-
-    override operator fun times(number: Float): Vec2F = Vec2F(x = this.x * number, y = this.y * number)
-
-    override operator fun div(number: Float): Vec2F = Vec2F(x = this.x / number, y = this.y / number)
-
-    override infix fun dot(other: Vec2<Float>): Float =
-        (this.toList() zip other.toList()).map { (a, b) -> a * b }.sum()
+    override fun create(x: Float, y: Float): Vec2<Float> = Vec2(x = x, y = y)
 
     override fun atan(): Angle<Float> = Angle.atan2(y, x)
 
     override fun magnitude(): Float = sqrt((this.x * this.x + this.y * this.y))
 
-    override fun normalize(): Vec2<Float> = this / this.magnitude()
-
-    override fun toVec3(): Vec3<Float> = toVec3(z = 0f)
     override fun toVec3(z: Float): Vec3<Float> = Vec3(x = this.x, y = this.y, z = z)
-
-    override fun toVec4(): Vec4<Float> = toVec4(w = 0f)
-    override fun toVec4(w: Float): Vec4<Float> = toVec4(z = 0f, w = w)
     override fun toVec4(z: Float, w: Float): Vec4<Float> = Vec4(x = this.x, y = this.y, z = z, w = w)
 
+    override fun toIntVector(): Vec2<Int> = Vec2(x = this.x.roundToInt(), y = this.y.roundToInt())
+    override fun toLongVector(): Vec2<Long> = Vec2(x = this.x.roundToLong(), y = this.y.roundToLong())
     override fun toFloatVector(): Vec2<Float> = this
     override fun toDoubleVector(): Vec2<Double> = Vec2(x = this.x.toDouble(), y = this.y.toDouble())
 
-    override fun toList(): List<Float> = listOf(x, y)
+    override fun toString(): String = toString(className = "Vec2")
 }

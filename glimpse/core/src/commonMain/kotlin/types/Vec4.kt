@@ -16,27 +16,32 @@
 
 package graphics.glimpse.types
 
-interface Vec4<T : Number> : Vec<T> {
+/**
+ * 4D vector with coordinates ([x], [y], [z], [w]).
+ *
+ * Can also be used to specify RGBA color values.
+ */
+abstract class Vec4<T : Number> : BaseVec<T>() {
 
     /**
      * X coordinate of this vector.
      */
-    val x: T
+    abstract val x: T
 
     /**
      * Y coordinate of this vector.
      */
-    val y: T
+    abstract val y: T
 
     /**
      * Z coordinate of this vector.
      */
-    val z: T
+    abstract val z: T
 
     /**
      * W coordinate of this vector.
      */
-    val w: T
+    abstract val w: T
 
     /**
      * Red channel of RGBA color.
@@ -61,50 +66,98 @@ interface Vec4<T : Number> : Vec<T> {
     /**
      * First component of this vector.
      */
-    operator fun component1(): T
+    abstract operator fun component1(): T
 
     /**
      * Second component of this vector.
      */
-    operator fun component2(): T
+    abstract operator fun component2(): T
 
     /**
      * Third component of this vector.
      */
-    operator fun component3(): T
+    abstract operator fun component3(): T
 
     /**
      * Fourth component of this vector.
      */
-    operator fun component4(): T
+    abstract operator fun component4(): T
 
     /**
      * Returns a 2D vector with `x` and `y` coordinates of this vector.
      */
-    fun toVec2(): Vec2<T>
+    abstract fun toVec2(): Vec2<T>
 
     /**
      * Returns a 3D vector with `x`, `y` and `z` coordinates of this vector.
      */
-    fun toVec3(): Vec3<T>
+    abstract fun toVec3(): Vec3<T>
 
     /**
-     * Returns a 2D float vector equal to this vector.
+     * Returns a 4D integer vector equal to this vector.
+     *
+     * Floating point values will be rounded.
      *
      * @since v1.3.0
      */
-    fun toFloatVector(): Vec4<Float>
+    abstract fun toIntVector(): Vec4<Int>
 
     /**
-     * Returns a 2D double-precision float vector equal to this vector.
+     * Returns a 4D long integer vector equal to this vector.
+     *
+     * Floating point values will be rounded.
      *
      * @since v1.3.0
      */
-    fun toDoubleVector(): Vec4<Double>
+    abstract fun toLongVector(): Vec4<Long>
+
+    /**
+     * Returns a 4D float vector equal to this vector.
+     *
+     * @since v1.3.0
+     */
+    abstract fun toFloatVector(): Vec4<Float>
+
+    /**
+     * Returns a 4D double-precision float vector equal to this vector.
+     *
+     * @since v1.3.0
+     */
+    abstract fun toDoubleVector(): Vec4<Double>
 
     companion object {
 
         private const val SIZE = 4
+
+        /**
+         * Returns an instance of [Vec4] with the given [list] of coordinates.
+         *
+         * If the size of the list of coordinates is different from 4, [IllegalArgumentException]
+         * is thrown.
+         *
+         * @since v1.3.0
+         */
+        @JvmName("fromIntList")
+        fun fromList(list: List<Int>): Vec4<Int> {
+            require(list.size == SIZE)
+            val (x, y, z, w) = list
+            return Vec4(x, y, z, w)
+        }
+
+        /**
+         * Returns an instance of [Vec4] with the given [list] of coordinates.
+         *
+         * If the size of the list of coordinates is different from 4, [IllegalArgumentException]
+         * is thrown.
+         *
+         * @since v1.3.0
+         */
+        @JvmName("fromLongList")
+        fun fromList(list: List<Long>): Vec4<Long> {
+            require(list.size == SIZE)
+            val (x, y, z, w) = list
+            return Vec4(x, y, z, w)
+        }
 
         /**
          * Returns an instance of [Vec4] with the given [list] of coordinates.
@@ -137,6 +190,22 @@ interface Vec4<T : Number> : Vec<T> {
 }
 
 /**
+ * Returns a new 4D integer vector with coordinates ([x], [y], [z], [w]).
+ *
+ * @since v1.3.0
+ */
+@Suppress("FunctionNaming")
+fun Vec4(x: Int, y: Int, z: Int, w: Int): Vec4<Int> = Vec4I(x, y, z, w)
+
+/**
+ * Returns a new 4D long integer vector with coordinates ([x], [y], [z], [w]).
+ *
+ * @since v1.3.0
+ */
+@Suppress("FunctionNaming")
+fun Vec4(x: Long, y: Long, z: Long, w: Long): Vec4<Long> = Vec4L(x, y, z, w)
+
+/**
  * Returns a new 4D float vector with coordinates ([x], [y], [z], [w]).
  */
 @Suppress("FunctionNaming")
@@ -149,6 +218,16 @@ fun Vec4(x: Float, y: Float, z: Float, w: Float): Vec4<Float> = Vec4F(x, y, z, w
  */
 @Suppress("FunctionNaming")
 fun Vec4(x: Double, y: Double, z: Double, w: Double): Vec4<Double> = Vec4D(x, y, z, w)
+
+/**
+ * Returns an array of coordinates of this vector.
+ */
+fun Vec4<Int>.toIntArray(): IntArray = intArrayOf(x, y, z, w)
+
+/**
+ * Returns an array of coordinates of this vector.
+ */
+fun Vec4<Long>.toLongArray(): LongArray = longArrayOf(x, y, z, w)
 
 /**
  * Returns an array of coordinates of this vector.

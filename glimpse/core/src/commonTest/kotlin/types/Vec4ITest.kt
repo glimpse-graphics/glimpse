@@ -20,92 +20,92 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
-class Vec4FTest {
+class Vec4ITest {
 
     @Test
     fun `GIVEN a vector, WHEN r, THEN return x`() {
-        val vector = Vec4(x = 7f, y = 13f, z = 29f, w = 31f)
+        val vector = Vec4(x = 7, y = 13, z = 29, w = 31)
 
         val result = vector.r
 
-        assertEquals(7f, result)
+        assertEquals(7, result)
     }
 
     @Test
     fun `GIVEN a vector, WHEN g, THEN return y`() {
-        val vector = Vec4(x = 7f, y = 13f, z = 29f, w = 31f)
+        val vector = Vec4(x = 7, y = 13, z = 29, w = 31)
 
         val result = vector.g
 
-        assertEquals(13f, result)
+        assertEquals(13, result)
     }
 
     @Test
     fun `GIVEN a vector, WHEN b, THEN return z`() {
-        val vector = Vec4(x = 7f, y = 13f, z = 29f, w = 31f)
+        val vector = Vec4(x = 7, y = 13, z = 29, w = 31)
 
         val result = vector.b
 
-        assertEquals(29f, result)
+        assertEquals(29, result)
     }
 
     @Test
     fun `GIVEN a vector, WHEN a, THEN return w`() {
-        val vector = Vec4(x = 7f, y = 13f, z = 29f, w = 31f)
+        val vector = Vec4(x = 7, y = 13, z = 29, w = 31)
 
         val result = vector.a
 
-        assertEquals(31f, result)
+        assertEquals(31, result)
     }
 
     @Test
     fun `GIVEN a vector, WHEN toVec2, THEN return the a 2D vector`() {
-        val vector = Vec4(x = 7f, y = 13f, z = 29f, w = 31f)
+        val vector = Vec4(x = 7, y = 13, z = 29, w = 31)
 
         val result = vector.toVec2()
 
-        assertEquals(Vec2(x = 7f, y = 13f), result)
+        assertEquals(Vec2(x = 7, y = 13), result)
     }
 
     @Test
     fun `GIVEN a vector, WHEN toVec4, THEN return the a 3D vector`() {
-        val vector = Vec4(x = 7f, y = 13f, z = 29f, w = 31f)
+        val vector = Vec4(x = 7, y = 13, z = 29, w = 31)
 
         val result = vector.toVec3()
 
-        assertEquals(Vec3(x = 7f, y = 13f, z = 29f), result)
+        assertEquals(Vec3(x = 7, y = 13, z = 29), result)
     }
 
     @Test
     fun `GIVEN a vector, WHEN toList, THEN return vector's coordinates as list`() {
-        val vector = Vec4(x = 10f, y = 20f, z = 30f, w = 40f)
+        val vector = Vec4(x = 10, y = 20, z = 30, w = 40)
 
         val result = vector.toList()
 
-        assertEquals(listOf(10f, 20f, 30f, 40f), result)
+        assertEquals(listOf(10, 20, 30, 40), result)
     }
 
     @Test
-    fun `GIVEN a vector, WHEN toFloatArray, THEN return vector's coordinates as array`() {
-        val vector = Vec4(x = 10f, y = 20f, z = 30f, w = 40f)
+    fun `GIVEN a vector, WHEN toIntArray, THEN return vector's coordinates as array`() {
+        val vector = Vec4(x = 10, y = 20, z = 30, w = 40)
 
-        val result = vector.toFloatArray()
+        val result = vector.toIntArray()
 
-        assertEquals(listOf(10f, 20f, 30f, 40f), result.toList())
+        assertEquals(listOf(10, 20, 30, 40), result.toList())
     }
 
     @Test
     fun `GIVEN a list, WHEN fromList, THEN return vector with coordinates from list`() {
-        val list = listOf(1f, 2f, 3f, 4f)
+        val list = listOf(1, 2, 3, 4)
 
         val result = Vec4.fromList(list)
 
-        assertEquals(Vec4(x = 1f, y = 2f, z = 3f, w = 4f), result)
+        assertEquals(Vec4(x = 1, y = 2, z = 3, w = 4), result)
     }
 
     @Test
     fun `GIVEN a list of 3 numbers, WHEN fromList, THEN throw exception`() {
-        val list = listOf(1f, 2f, 3f)
+        val list = listOf(1, 2, 3)
 
         assertFailsWith<IllegalArgumentException> {
             Vec4.fromList(list)

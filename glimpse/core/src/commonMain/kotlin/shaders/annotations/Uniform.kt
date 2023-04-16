@@ -20,8 +20,8 @@ package graphics.glimpse.shaders.annotations
  * Marks a uniform variable property in [ShaderParams]-annotated class.
  *
  * Supports properties of types:
- * - numbers: `Boolean` (since v1.1.0), `Int`, `Float`,
- * - vectors: `Vec2<Float>`, `Vec3<Float>`, `Vec4<Float>`,
+ * - numbers: `Boolean`, `Int`, `Float`,
+ * - vectors: `Vec2<Int>`, `Vec3<Int>`, `Vec4<Int>`, `Vec2<Float>`, `Vec3<Float>`, `Vec4<Float>`,
  * - matrices: `Mat2<Float>`, `Mat3<Float>`, `Mat4<Float>`,
  * - arrays of these types.
  *

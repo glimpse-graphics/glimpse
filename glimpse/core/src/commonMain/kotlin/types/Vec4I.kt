@@ -16,30 +16,27 @@
 
 package graphics.glimpse.types
 
-import kotlin.math.roundToInt
-import kotlin.math.roundToLong
+internal data class Vec4I(
+    override val x: Int,
+    override val y: Int,
+    override val z: Int,
+    override val w: Int
+) : Vec4<Int>() {
 
-internal data class Vec4D(
-    override val x: Double,
-    override val y: Double,
-    override val z: Double,
-    override val w: Double
-) : Vec4<Double>() {
+    override val ring: Ring<Int> get() = IntRing
 
-    override val ring: Ring<Double> get() = DoubleRing
+    override fun toVec2(): Vec2<Int> = Vec2(x = this.x, y = this.y)
+    override fun toVec3(): Vec3<Int> = Vec3(x = this.x, y = this.y, z = this.z)
 
-    override fun toVec2(): Vec2<Double> = Vec2(x = this.x, y = this.y)
-    override fun toVec3(): Vec3<Double> = Vec3(x = this.x, y = this.y, z = this.z)
-
-    override fun toIntVector(): Vec4<Int> =
-        Vec4(x = this.x.roundToInt(), y = this.y.roundToInt(), z = this.z.roundToInt(), w = this.w.roundToInt())
+    override fun toIntVector(): Vec4<Int> = this
     override fun toLongVector(): Vec4<Long> =
-        Vec4(x = this.x.roundToLong(), y = this.y.roundToLong(), z = this.z.roundToLong(), w = this.w.roundToLong())
+        Vec4(x = this.x.toLong(), y = this.y.toLong(), z = this.z.toLong(), w = this.w.toLong())
     override fun toFloatVector(): Vec4<Float> =
         Vec4(x = this.x.toFloat(), y = this.y.toFloat(), z = this.z.toFloat(), w = this.w.toFloat())
-    override fun toDoubleVector(): Vec4<Double> = this
+    override fun toDoubleVector(): Vec4<Double> =
+        Vec4(x = this.x.toDouble(), y = this.y.toDouble(), z = this.z.toDouble(), w = this.w.toDouble())
 
-    override fun toList(): List<Double> = listOf(x, y, z, w)
+    override fun toList(): List<Int> = listOf(x, y, z, w)
 
     override fun toString(): String = toString(className = "Vec4")
 }

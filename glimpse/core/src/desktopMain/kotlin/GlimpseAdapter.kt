@@ -771,13 +771,16 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     /**
      * Sets [value] of boolean uniform variable at a given [location] for current program.
      *
-     * A boolean uniform is converted to an integer value of `GL_TRUE` or `GL_FALSE`.
+     * A boolean value is converted to an integer value of `GL_TRUE` or `GL_FALSE`.
      *
      * @since v1.1.0
      */
     actual fun glUniform(location: Int, value: Boolean) {
-        gles.glUniform1i(location, if (value) GL2ES2.GL_TRUE else GL2ES2.GL_FALSE)
+        gles.glUniform1i(location, value.toInt())
     }
+
+    private fun Boolean.toInt(): Int =
+        if (this) GL2ES2.GL_TRUE else GL2ES2.GL_FALSE
 
     /**
      * Sets [value] of integer uniform variable at a given [location] for current program.
@@ -795,23 +798,67 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
 
     /**
      * Sets [value] of 2D vector uniform variable at a given [location] for current program.
+     *
+     * @since v1.3.0
      */
+    @JvmName("glUniform2i")
+    actual fun glUniform(location: Int, value: Vec2<Int>) {
+        gles.glUniform2i(location, value.x, value.y)
+    }
+
+    /**
+     * Sets [value] of 2D vector uniform variable at a given [location] for current program.
+     */
+    @JvmName("glUniform2f")
     actual fun glUniform(location: Int, value: Vec2<Float>) {
         gles.glUniform2f(location, value.x, value.y)
     }
 
     /**
      * Sets [value] of 3D vector uniform variable at a given [location] for current program.
+     *
+     * @since v1.3.0
      */
+    @JvmName("glUniform3i")
+    actual fun glUniform(location: Int, value: Vec3<Int>) {
+        gles.glUniform3i(location, value.x, value.y, value.z)
+    }
+
+    /**
+     * Sets [value] of 3D vector uniform variable at a given [location] for current program.
+     */
+    @JvmName("glUniform3f")
     actual fun glUniform(location: Int, value: Vec3<Float>) {
         gles.glUniform3f(location, value.x, value.y, value.z)
     }
 
     /**
      * Sets [value] of 4D vector uniform variable at a given [location] for current program.
+     *
+     * @since v1.3.0
      */
+    @JvmName("glUniform4i")
+    actual fun glUniform(location: Int, value: Vec4<Int>) {
+        gles.glUniform4i(location, value.x, value.y, value.z, value.w)
+    }
+
+    /**
+     * Sets [value] of 4D vector uniform variable at a given [location] for current program.
+     */
+    @JvmName("glUniform4f")
     actual fun glUniform(location: Int, value: Vec4<Float>) {
         gles.glUniform4f(location, value.x, value.y, value.z, value.w)
+    }
+
+    /**
+     * Sets [values] of boolean array uniform variable at a given [location] for current program.
+     *
+     * A boolean value is converted to an integer value of `GL_TRUE` or `GL_FALSE`.
+     *
+     * @since v1.3.0
+     */
+    actual fun glUniform(location: Int, vararg values: Boolean) {
+        gles.glUniform1iv(location, values.size, values.map { value -> value.toInt() }.toIntArray(), 0)
     }
 
     /**
@@ -830,21 +877,54 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
 
     /**
      * Sets [values] of 2D vector array uniform variable at a given [location] for current program.
+     *
+     * @since v1.3.0
      */
+    @JvmName("glUniform2iv")
+    actual fun glUniform(location: Int, vararg values: Vec2<Int>) {
+        gles.glUniform2iv(location, values.size, values.flatMap { it.toList() }.toIntArray(), 0)
+    }
+
+    /**
+     * Sets [values] of 2D vector array uniform variable at a given [location] for current program.
+     */
+    @JvmName("glUniform2fv")
     actual fun glUniform(location: Int, vararg values: Vec2<Float>) {
         gles.glUniform2fv(location, values.size, values.flatMap { it.toList() }.toFloatArray(), 0)
     }
 
     /**
      * Sets [values] of 3D vector array uniform variable at a given [location] for current program.
+     *
+     * @since v1.3.0
      */
+    @JvmName("glUniform3iv")
+    actual fun glUniform(location: Int, vararg values: Vec3<Int>) {
+        gles.glUniform3iv(location, values.size, values.flatMap { it.toList() }.toIntArray(), 0)
+    }
+
+    /**
+     * Sets [values] of 3D vector array uniform variable at a given [location] for current program.
+     */
+    @JvmName("glUniform3fv")
     actual fun glUniform(location: Int, vararg values: Vec3<Float>) {
         gles.glUniform3fv(location, values.size, values.flatMap { it.toList() }.toFloatArray(), 0)
     }
 
     /**
      * Sets [values] of 4D vector array uniform variable at a given [location] for current program.
+     *
+     * @since v1.3.0
      */
+    @JvmName("glUniform4iv")
+    actual fun glUniform(location: Int, vararg values: Vec4<Int>) {
+        gles.glUniform4iv(location, values.size, values.flatMap { it.toList() }.toIntArray(), 0)
+    }
+
+    /**
+     * Sets [values] of 4D vector array uniform variable at a given [location] for current program.
+     */
+    @JvmName("glUniform4fv")
     actual fun glUniform(location: Int, vararg values: Vec4<Float>) {
         gles.glUniform4fv(location, values.size, values.flatMap { it.toList() }.toFloatArray(), 0)
     }

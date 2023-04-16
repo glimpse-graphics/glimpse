@@ -3,8 +3,15 @@
 ## [Unreleased]
 ### Added
 - `Double` buffer data wrapper: `DoubleBufferData`
+- Vectors containing `Int` numbers
+- Vectors containing `Long` numbers
+- Vectors containing `Double` numbers
+- Matrices containing `Double` numbers
+- Extension functions `VecN<Int>.toIntArray()`
+- Extension functions `VecN<Long>.toLongArray()`
 - Extension functions `VecN<Double>.toDoubleArray()`
 - Extension function `BaseMat<Double, M, V>.toDoubleArray()`
+- Add support for `Int` vectors to `@Uniform` annotation
 
 ### Changed
 - **BREAKING CHANGE:** Add parameter type `T : Number` to `Angle` and `AngleRange`

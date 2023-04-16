@@ -16,6 +16,7 @@
 
 package graphics.glimpse.types
 
+import graphics.glimpse.assertions.assertEqualsWithDelta
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -143,7 +144,7 @@ class Vec3FTest {
 
         val result = vector.normalize()
 
-        assertEquals(Vec3(x = 0.23076923f, y = 0.30769232f, z = 0.9230769f), result)
+        assertEqualsWithDelta(Vec3(x = 0.23076923f, y = 0.30769232f, z = 0.9230769f), result)
     }
 
     @Test
@@ -204,7 +205,7 @@ class Vec3FTest {
     fun `GIVEN a list of 2 numbers, WHEN fromList, THEN throw exception`() {
         val list = listOf(1f, 2f)
 
-        assertFailsWith(IllegalArgumentException::class) {
+        assertFailsWith<IllegalArgumentException> {
             Vec3.fromList(list)
         }
     }
