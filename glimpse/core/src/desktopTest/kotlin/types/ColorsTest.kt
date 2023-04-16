@@ -25,20 +25,38 @@ import kotlin.test.assertEquals
 class ColorsTest {
 
     @Test
-    fun `GIVEN color, WHEN Vec3, THEN return Vec3 for that color`() {
+    fun `GIVEN color, WHEN toVec3, THEN return Vec3 for that color`() {
         val color = Color(0.1f, 0.2f, 0.3f, 0.4f)
 
-        val result = Vec3(color)
+        val result = color.toVec3()
 
         assertEquals(Vec3(x = 0.1f, y = 0.2f, z = 0.3f), result)
     }
 
     @Test
-    fun `GIVEN color, WHEN Vec4, THEN return Vec4 for that color`() {
+    fun `GIVEN color, WHEN toVec4, THEN return Vec4 for that color`() {
         val color = Color(0.1f, 0.2f, 0.3f, 0.4f)
 
-        val result = Vec4(color)
+        val result = color.toVec4()
 
         assertEquals(Vec4(x = 0.1f, y = 0.2f, z = 0.3f, w = 0.4f), result)
+    }
+
+    @Test
+    fun `GIVEN Vec3, WHEN toColor, THEN return color for that Vec3`() {
+        val vector = Vec3(x = 0.1f, y = 0.2f, z = 0.3f)
+
+        val result = vector.toColor()
+
+        assertEquals(Color(0.1f, 0.2f, 0.3f, 1f), result)
+    }
+
+    @Test
+    fun `GIVEN Vec4, WHEN toColor, THEN return color for that Vec4`() {
+        val vector = Vec4(x = 0.1f, y = 0.2f, z = 0.3f, w = 0.4f)
+
+        val result = vector.toColor()
+
+        assertEquals(Color(0.1f, 0.2f, 0.3f, 0.4f), result)
     }
 }

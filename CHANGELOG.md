@@ -15,6 +15,9 @@
 - Buffers for uniform data: `IntUniformBuffer`, `FloatUniformBuffer`
 - Add support for `IntUniformBuffer` and `FloatUniformBuffer` to `@Uniform` annotation
 - Add `Vec2.cross(Vec2): Vec3` method
+- Methods: `Vec2.magnitude()`, `Vec3.magnitude()`, `Vec2.normalize()`, `Vec3.normalize()`
+- Extension functions: `Color.toVec3()`, `Color.toVec4()`, `Int.toVec3()`, `Int.toVec4()`
+- Extension functions: `Vec3.toColor()`, `Vec4.toColor()`, `Vec3.toColorInt()`, `vec4.toColorInt()`, `Vec3.toComposeColor()`, `Vec4.toComposeColor()`
 
 ### Changed
 - **BREAKING CHANGE:** Add parameter type `T : Number` to `Angle` and `AngleRange`
@@ -44,6 +47,8 @@
   - Upgrade `org.jetbrains.dokka` to `1.8.10`
 
 ### Deprecated
+- Functions: `magnitude(Vec2)`, `magnitude(Vec3)`, `normalize(Vec2)`, `normalize(Vec3)`
+- Functions: `Vec3(Color)`, `Vec4(Color)`, `Vec3(@ColorInt Int)`, `Vec4(@ColorInt Int)`
 
 ### Removed
 - Method `ProgramExecutor.dispose()` without parameters
