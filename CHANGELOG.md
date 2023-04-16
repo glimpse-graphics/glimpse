@@ -12,6 +12,7 @@
 - Extension functions `VecN<Double>.toDoubleArray()`
 - Extension function `BaseMat<Double, M, V>.toDoubleArray()`
 - Add support for `Int` vectors to `@Uniform` annotation
+- Add `Vec2.cross(Vec2): Vec3` method
 
 ### Changed
 - **BREAKING CHANGE:** Add parameter type `T : Number` to `Angle` and `AngleRange`

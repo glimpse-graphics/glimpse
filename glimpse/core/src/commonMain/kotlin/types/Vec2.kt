@@ -121,6 +121,15 @@ abstract class Vec2<T : Number> : BaseVec<T>() {
         (this.toList() zip other.toList()).map { (a, b) -> ring.multiply(a, b) }.let { ring.sum(it) }
 
     /**
+     * Calculates cross product of this vector and the [other] vector.
+     *
+     * Cross product of two 2D vectors is always a 3D vector in the direction of Z axis.
+     *
+     * @since v1.3.0
+     */
+    abstract infix fun cross(other: Vec2<T>): Vec3<T>
+
+    /**
      * Returns the arc tangent of value [y]/[x] for this vector.
      *
      * @since v1.1.0

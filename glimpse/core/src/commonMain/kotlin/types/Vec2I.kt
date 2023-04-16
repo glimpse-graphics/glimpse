@@ -25,6 +25,9 @@ internal data class Vec2I(
 
     override fun create(x: Int, y: Int): Vec2<Int> = Vec2(x = x, y = y)
 
+    override fun cross(other: Vec2<Int>): Vec3<Int> =
+        Vec3(x = 0, y = 0, z = this.x * other.y - this.y * other.x)
+
     override fun atan(): Angle<Int> = throw UnsupportedOperationException("Cannot calculate atan for integer vector")
 
     override fun magnitude(): Int = throw UnsupportedOperationException("Cannot calculate magnitude of integer vector")

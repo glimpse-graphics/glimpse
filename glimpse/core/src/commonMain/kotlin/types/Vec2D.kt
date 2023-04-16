@@ -29,6 +29,9 @@ internal data class Vec2D(
 
     override fun create(x: Double, y: Double): Vec2<Double> = Vec2(x = x, y = y)
 
+    override fun cross(other: Vec2<Double>): Vec3<Double> =
+        Vec3(x = 0.0, y = 0.0, z = this.x * other.y - this.y * other.x)
+
     override fun atan(): Angle<Double> = Angle.atan2(y, x)
 
     override fun magnitude(): Double = sqrt((this.x * this.x + this.y * this.y))
