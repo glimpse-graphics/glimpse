@@ -23,7 +23,8 @@ package graphics.glimpse.shaders.annotations
  * - numbers: `Boolean`, `Int`, `Float`,
  * - vectors: `Vec2<Int>`, `Vec3<Int>`, `Vec4<Int>`, `Vec2<Float>`, `Vec3<Float>`, `Vec4<Float>`,
  * - matrices: `Mat2<Float>`, `Mat3<Float>`, `Mat4<Float>`,
- * - arrays of these types.
+ * - arrays of these types,
+ * - buffers: `IntUniformBuffer`, `FloatUniformBuffer`.
  *
  * Since v1.2.0, no longer supports properties of type `Texture`.
  * Use [@Sampler2D][Sampler2D] instead.

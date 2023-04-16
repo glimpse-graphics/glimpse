@@ -12,6 +12,8 @@
 - Extension functions `VecN<Double>.toDoubleArray()`
 - Extension function `BaseMat<Double, M, V>.toDoubleArray()`
 - Add support for `Int` vectors to `@Uniform` annotation
+- Buffers for uniform data: `IntUniformBuffer`, `FloatUniformBuffer`
+- Add support for `IntUniformBuffer` and `FloatUniformBuffer` to `@Uniform` annotation
 - Add `Vec2.cross(Vec2): Vec3` method
 
 ### Changed

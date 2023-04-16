@@ -20,7 +20,9 @@ import graphics.glimpse.buffers.BufferType
 import graphics.glimpse.buffers.BufferUsage
 import graphics.glimpse.buffers.DoubleBufferData
 import graphics.glimpse.buffers.FloatBufferData
+import graphics.glimpse.buffers.FloatUniformBuffer
 import graphics.glimpse.buffers.IntBufferData
+import graphics.glimpse.buffers.IntUniformBuffer
 import graphics.glimpse.framebuffers.FramebufferAttachmentType
 import graphics.glimpse.framebuffers.FramebufferStatus
 import graphics.glimpse.shaders.ShaderType
@@ -563,6 +565,20 @@ expect class GlimpseAdapter {
      * Optionally, if the [transpose] flag is set to `true`, transpose matrices will be set instead.
      */
     fun glUniform(location: Int, vararg values: Mat4<Float>, transpose: Boolean = false)
+
+    /**
+     * Sets integer [buffer] uniform variable at a given [location] for current program.
+     *
+     * @since v1.3.0
+     */
+    fun glUniform(location: Int, buffer: IntUniformBuffer)
+
+    /**
+     * Sets floating point [buffer] uniform variable at a given [location] for current program.
+     *
+     * @since v1.3.0
+     */
+    fun glUniform(location: Int, buffer: FloatUniformBuffer)
 
     /**
      * Enables vertex attributes array at a given [location] for current program.
