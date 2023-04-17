@@ -25,7 +25,7 @@ package graphics.glimpse.types
     message = "Use Vec3.magnitude() instead",
     replaceWith = ReplaceWith("vector.magnitude()")
 )
-fun <T : Number> magnitude(vector: Vec3<T>): T = vector.magnitude()
+fun <T> magnitude(vector: Vec3<T>): T where T : Number, T : Comparable<T> = vector.magnitude()
 
 /**
  * Returns a unit vector in the direction of the given [vector].
@@ -36,4 +36,4 @@ fun <T : Number> magnitude(vector: Vec3<T>): T = vector.magnitude()
     message = "Use Vec3.normalize() instead",
     replaceWith = ReplaceWith("vector.normalize()")
 )
-fun <T : Number> normalize(vector: Vec3<T>): Vec3<T> = vector / vector.magnitude()
+fun <T> normalize(vector: Vec3<T>): Vec3<T> where T : Number, T : Comparable<T> = vector / vector.magnitude()

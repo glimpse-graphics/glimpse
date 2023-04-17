@@ -19,7 +19,7 @@ package graphics.glimpse.types
 /**
  * A common interface for square matrix implementations.
  */
-interface Mat<T : Number, M : Mat<T, M, V>, V : Vec<T>> {
+interface Mat<T, M : Mat<T, M, V>, V : Vec<T>> where T : Number, T : Comparable<T> {
 
     /**
      * Returns element of this matrix at a given [row] and a given [column][col].

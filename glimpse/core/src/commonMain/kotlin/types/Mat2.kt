@@ -16,46 +16,72 @@
 
 package graphics.glimpse.types
 
+import kotlin.reflect.KClass
+
 /**
  * A 2×2 matrix.
  */
-abstract class Mat2<T : Number> : BaseMat<T, Mat2<T>, Vec2<T>>(MATRIX_DIMENSION) {
+data class Mat2<T>(
+
+    /**
+     * Elements of this matrix.
+     */
+    override val elements: List<T>,
+
+    /**
+     * Type of matrix elements.
+     *
+     * @since v1.3.0
+     */
+    override val type: KClass<T>
+
+) : BaseMat<T, Mat2<T>, Vec2<T>>(
+    dimension = MATRIX_DIMENSION
+) where T : Number, T : Comparable<T> {
+
+    init { validate() }
+
+    /**
+     * Returns a 2×2 matrix with given [elements].
+     */
+    override fun create(elements: List<T>): Mat2<T> =
+        copy(elements = elements)
+
+    /**
+     * Returns a 2D vector with given [coordinates].
+     */
+    override fun createVector(coordinates: List<T>): Vec2<T> =
+        Vec2.fromList(coordinates, type = this.type)
 
     /**
      * Returns a determinant of this matrix.
      */
     @Suppress("MagicNumber")
     override fun det(): T =
-        field.subtract(
-            field.multiply(elements[0], elements[3]),
-            field.multiply(elements[1], elements[2])
-        )
+        elements[0] * elements[3] - elements[1] * elements[2]
 
     /**
      * Returns an adjugate of this matrix.
      */
     @Suppress("MagicNumber")
     override fun adj(): Mat2<T> =
-        create(
-            listOf(
-                elements[3], field.additiveInverse(elements[1]),
-                field.additiveInverse(elements[2]), elements[0]
-            )
-        )
+        copy(elements = listOf(elements[3], -elements[1], -elements[2], elements[0]))
 
     /**
      * Returns a 2×2 float matrix equal to this matrix.
      *
      * @since v1.3.0
      */
-    abstract fun toFloatMatrix(): Mat2<Float>
+    fun toFloatMatrix(): Mat2<Float> =
+        Mat2(elements = this.elements.map { it.toFloat() }, type = Float::class)
 
     /**
      * Returns a 2×2 double-precision float matrix equal to this matrix.
      *
      * @since v1.3.0
      */
-    abstract fun toDoubleMatrix(): Mat2<Double>
+    fun toDoubleMatrix(): Mat2<Double> =
+        Mat2(elements = this.elements.map { it.toDouble() }, type = Double::class)
 
     companion object {
         private const val MATRIX_DIMENSION = 2
@@ -68,15 +94,10 @@ abstract class Mat2<T : Number> : BaseMat<T, Mat2<T>, Vec2<T>>(MATRIX_DIMENSION)
 }
 
 /**
- * Returns a new 2×2 float matrix.
+ * Returns a new 2×2 matrix from given [elements].
+ *
+ * @since v1.3.0
  */
 @Suppress("FunctionNaming")
-@JvmName("FloatMat2")
-fun Mat2(elements: List<Float>): Mat2<Float> = Mat2F(elements)
-
-/**
- * Returns a new double-precision 2×2 float matrix.
- */
-@Suppress("FunctionNaming")
-@JvmName("DoubleMat2")
-fun Mat2(elements: List<Double>): Mat2<Double> = Mat2D(elements)
+inline fun <reified T> Mat2(elements: List<T>): Mat2<T> where T : Number, T : Comparable<T> =
+    Mat2(elements = elements, type = T::class)

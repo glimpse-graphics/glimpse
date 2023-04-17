@@ -16,35 +16,65 @@
 
 package graphics.glimpse.types
 
+import kotlin.reflect.KClass
+
 /**
  * A 4×4 matrix.
  */
-abstract class Mat4<T : Number> : BaseMat<T, Mat4<T>, Vec4<T>>(MATRIX_DIMENSION) {
+data class Mat4<T>(
+
+    /**
+     * Elements of this matrix.
+     */
+    override val elements: List<T>,
+
+    /**
+     * Type of matrix elements.
+     *
+     * @since v1.3.0
+     */
+    override val type: KClass<T>
+
+) : BaseMat<T, Mat4<T>, Vec4<T>>(
+    dimension = MATRIX_DIMENSION
+) where T : Number, T : Comparable<T> {
 
     private val comatrix: Mat4<T> by lazy {
         create(transform { row, col -> cofactor(row, col) })
     }
 
+    init { validate() }
+
+    /**
+     * Returns a 4×4 matrix with given [elements].
+     */
+    override fun create(elements: List<T>): Mat4<T> =
+        copy(elements = elements)
+
+    /**
+     * Returns a 3D vector with given [coordinates].
+     */
+    override fun createVector(coordinates: List<T>): Vec4<T> =
+        Vec4.fromList(coordinates, type = this.type)
+
     /**
      * Returns a determinant of this matrix.
      */
     override fun det(): T =
-        indices.map { col -> field.multiply(this[0, col], cofactor(row = 0, col)) }.let { field.sum(it) }
+        indices.map { col -> this[0, col] * cofactor(row = 0, col) }.sum(this.type)
 
     private fun cofactor(row: Int, col: Int): T =
-        field.multiply(
-            minor(row = row, col = col),
-            if ((row + col) % 2 == 0) field.multiplicativeIdentity
-            else field.additiveInverse(field.multiplicativeIdentity)
-        )
+        minor(row = row, col = col) * (if ((row + col) % 2 == 0) one(this.type) else -one(this.type))
 
     private fun minor(row: Int, col: Int): T = submatrix(row, col).det()
 
-    /**
-     * Implement this method to provide a submatrix without given
-     * [row][withoutRow] and [column][withoutCol].
-     */
-    protected abstract fun submatrix(withoutRow: Int, withoutCol: Int): Mat3<T>
+    private fun submatrix(withoutRow: Int, withoutCol: Int): Mat3<T> =
+        Mat3(
+            elements = indices.flatMap { col -> indices.map { row -> row to col } }
+                .filter { (row, col) -> row != withoutRow && col != withoutCol }
+                .map { (row, col) -> this[row, col] },
+            type = this.type
+        )
 
     /**
      * Returns an adjugate of this matrix.
@@ -56,14 +86,16 @@ abstract class Mat4<T : Number> : BaseMat<T, Mat4<T>, Vec4<T>>(MATRIX_DIMENSION)
      *
      * @since v1.3.0
      */
-    abstract fun toFloatMatrix(): Mat4<Float>
+    fun toFloatMatrix(): Mat4<Float> =
+        Mat4(elements = this.elements.map { it.toFloat() }, type = Float::class)
 
     /**
      * Returns a 4×4 double-precision float matrix equal to this matrix.
      *
      * @since v1.3.0
      */
-    abstract fun toDoubleMatrix(): Mat4<Double>
+    fun toDoubleMatrix(): Mat4<Double> =
+        Mat4(elements = this.elements.map { it.toDouble() }, type = Double::class)
 
     /**
      * Returns a 2×2 submatrix of this matrix, obtained by deleting the last two rows and the last two columns
@@ -100,15 +132,10 @@ abstract class Mat4<T : Number> : BaseMat<T, Mat4<T>, Vec4<T>>(MATRIX_DIMENSION)
 }
 
 /**
- * Returns a new 4×4 float matrix.
+ * Returns a new 4×4 matrix from given [elements].
+ *
+ * @since v1.3.0
  */
 @Suppress("FunctionNaming")
-@JvmName("FloatMat4")
-fun Mat4(elements: List<Float>): Mat4<Float> = Mat4F(elements)
-
-/**
- * Returns a double-precision new 4×4 float matrix.
- */
-@Suppress("FunctionNaming")
-@JvmName("DoubleMat4")
-fun Mat4(elements: List<Double>): Mat4<Double> = Mat4D(elements)
+inline fun <reified T> Mat4(elements: List<T>): Mat4<T> where T : Number, T : Comparable<T> =
+    Mat4(elements = elements, type = T::class)

@@ -17,31 +17,49 @@
 package graphics.glimpse.types
 
 /**
- * Computes the sine of the specified [angle].
+ * Computes the sine of the given [angle].
  */
-fun sin(angle: Angle<Float>): Float = kotlin.math.sin(angle.rad)
+fun <T> sin(angle: Angle<T>): T where T : Number, T : Comparable<T> =
+    kotlin.math.sin(angle.rad.toDouble()).run {
+        when (angle.rad) {
+            is Byte -> toInt().toByte()
+            is Short -> toInt().toShort()
+            is Int -> toInt()
+            is Long -> toLong()
+            is Float -> toFloat()
+            is Double -> toDouble()
+            else -> throw UnsupportedOperationException("Sine not defined for type ${this::class.simpleName}")
+        }
+    } as T
 
 /**
- * Computes the sine of the specified [angle].
+ * Computes the cosine of the given [angle].
  */
-fun sin(angle: Angle<Double>): Double = kotlin.math.sin(angle.rad)
+fun <T> cos(angle: Angle<T>): T where T : Number, T : Comparable<T> =
+    kotlin.math.cos(angle.rad.toDouble()).run {
+        when (angle.rad) {
+            is Byte -> toInt().toByte()
+            is Short -> toInt().toShort()
+            is Int -> toInt()
+            is Long -> toLong()
+            is Float -> toFloat()
+            is Double -> toDouble()
+            else -> throw UnsupportedOperationException("Sine not defined for type ${this::class.simpleName}")
+        }
+    } as T
 
 /**
- * Computes the cosine of the specified [angle].
+ * Computes the tangent of the given [angle].
  */
-fun cos(angle: Angle<Float>): Float = kotlin.math.cos(angle.rad)
-
-/**
- * Computes the cosine of the specified [angle].
- */
-fun cos(angle: Angle<Double>): Double = kotlin.math.cos(angle.rad)
-
-/**
- * Computes the tangent of the specified [angle].
- */
-fun tan(angle: Angle<Float>): Float = kotlin.math.tan(angle.rad)
-
-/**
- * Computes the tangent of the specified [angle].
- */
-fun tan(angle: Angle<Double>): Double = kotlin.math.tan(angle.rad)
+fun <T> tan(angle: Angle<T>): T where T : Number, T : Comparable<T> =
+    kotlin.math.tan(angle.rad.toDouble()).run {
+        when (angle.rad) {
+            is Byte -> toInt().toByte()
+            is Short -> toInt().toShort()
+            is Int -> toInt()
+            is Long -> toLong()
+            is Float -> toFloat()
+            is Double -> toDouble()
+            else -> throw UnsupportedOperationException("Sine not defined for type ${this::class.simpleName}")
+        }
+    } as T

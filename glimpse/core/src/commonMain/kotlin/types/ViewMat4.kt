@@ -16,17 +16,19 @@
 
 package graphics.glimpse.types
 
-internal data class Mat2D(override val elements: List<Double>) : Mat2<Double>() {
-
-    override val field: Field<Double> get() = DoubleField
-
-    init { validate() }
-
-    override fun create(elements: List<Double>): Mat2D = Mat2D(elements)
-    override fun createVector(elements: List<Double>): Vec2<Double> = Vec2.fromList(elements)
-
-    override fun toFloatMatrix(): Mat2<Float> = Mat2(elements.map { it.toFloat() })
-    override fun toDoubleMatrix(): Mat2<Double> = this
-
-    override fun toString(): String = toString(className = "Mat2")
+/**
+ * Creates a view matrix defined by an [eye] position, a [target] point, and an [upVector].
+ */
+inline fun <reified T> lookAt(eye: Vec3<T>, target: Vec3<T>, upVector: Vec3<T>): Mat4<T> where T : Number, T : Comparable<T> {
+    val forward = (target - eye).normalize()
+    val right = (forward cross upVector).normalize()
+    val up = right cross forward
+    return Mat4(
+        listOf(
+            right.x, up.x, -forward.x, zero(),
+            right.y, up.y, -forward.y, zero(),
+            right.z, up.z, -forward.z, zero(),
+            zero(), zero(), zero(), one()
+        )
+    ) * translation(-eye)
 }

@@ -16,6 +16,7 @@
 
 package graphics.glimpse.types
 
+import graphics.glimpse.assertions.assertEqualsWithDelta
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -38,7 +39,7 @@ class AngleFTest {
 
         val result = -angle
 
-        assertEquals(Angle.fromRad(rad = -1f), result)
+        assertEqualsWithDelta(Angle.fromRad(rad = -1f), result)
     }
 
     @Test
@@ -48,7 +49,7 @@ class AngleFTest {
 
         val result = angle1 + angle2
 
-        assertEquals(Angle.fromRad(rad = 3.5f), result)
+        assertEqualsWithDelta(Angle.fromRad(rad = 3.5f), result)
     }
 
     @Test
@@ -58,7 +59,7 @@ class AngleFTest {
 
         val result = angle1 - angle2
 
-        assertEquals(Angle.fromRad(rad = 0.5f), result)
+        assertEqualsWithDelta(Angle.fromRad(rad = 0.5f), result)
     }
 
     @Test
@@ -68,7 +69,7 @@ class AngleFTest {
 
         val result = angle * number
 
-        assertEquals(Angle.fromRad(rad = 6f), result)
+        assertEqualsWithDelta(Angle.fromRad(rad = 6f), result)
     }
 
     @Test
@@ -78,7 +79,7 @@ class AngleFTest {
 
         val result = angle / number
 
-        assertEquals(Angle.fromRad(rad = 1.5f), result)
+        assertEqualsWithDelta(Angle.fromRad(rad = 1.5f), result)
     }
 
     @Test
@@ -88,7 +89,7 @@ class AngleFTest {
 
         val result = angle1 / angle2
 
-        assertEquals(2f, result)
+        assertEqualsWithDelta(2f, result)
     }
 
     @Test
@@ -98,7 +99,7 @@ class AngleFTest {
 
         val result = angle1 % angle2
 
-        assertEquals(Angle.fromRad(rad = 1f), result)
+        assertEqualsWithDelta(Angle.fromRad(rad = 1f), result)
     }
 
     @Test
@@ -111,9 +112,9 @@ class AngleFTest {
         val result2 = angle2.coerceIn(Angle.rightAngle, Angle.straightAngle)
         val result3 = angle3.coerceIn(Angle.rightAngle, Angle.straightAngle)
 
-        assertEquals(Angle.rightAngle, result1)
-        assertEquals(angle2, result2)
-        assertEquals(Angle.straightAngle, result3)
+        assertEqualsWithDelta(Angle.rightAngle, result1)
+        assertEqualsWithDelta(angle2, result2)
+        assertEqualsWithDelta(Angle.straightAngle, result3)
     }
 
     @Test
@@ -138,20 +139,20 @@ class AngleFTest {
     fun `GIVEN null Angle, WHEN sin, THEN return 0`() {
         val result = sin(Angle.nullAngle)
 
-        assertEquals(0f, result)
+        assertEqualsWithDelta(0f, result)
     }
 
     @Test
     fun `GIVEN null Angle, WHEN cos, THEN return 1`() {
         val result = cos(Angle.nullAngle)
 
-        assertEquals(1f, result)
+        assertEqualsWithDelta(1f, result)
     }
 
     @Test
     fun `GIVEN null Angle, WHEN tan, THEN return 0`() {
         val result = tan(Angle.nullAngle)
 
-        assertEquals(0f, result)
+        assertEqualsWithDelta(0f, result)
     }
 }
