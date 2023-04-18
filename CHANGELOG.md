@@ -28,7 +28,7 @@
 - Upgrade Gradle Wrapper to `8.1`
 - Dependencies:
   - Upgrade Kotlin to `1.8.20`
-  - Upgrade KSP to `1.8.20-1.0.10`
+  - Upgrade KSP to `1.8.20-1.0.11`
   - Upgrade JetBrains Compose for Desktop to `1.4.0`
   - Upgrade Android Gradle Plugin to `7.4.2`
   - Upgrade JogAmp to `2.4.0`
