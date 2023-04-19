@@ -108,13 +108,13 @@ class AngleDTest {
         val angle2 = Angle.fromDeg(deg = 105.0)
         val angle3 = Angle.fromDeg(deg = 185.0)
 
-        val result1 = angle1.coerceIn(Angle.rightAngle.toDoubleAngle(), Angle.straightAngle.toDoubleAngle())
-        val result2 = angle2.coerceIn(Angle.rightAngle.toDoubleAngle(), Angle.straightAngle.toDoubleAngle())
-        val result3 = angle3.coerceIn(Angle.rightAngle.toDoubleAngle(), Angle.straightAngle.toDoubleAngle())
+        val result1 = angle1.coerceIn(Angle.rightAngle<Double>(), Angle.straightAngle<Double>())
+        val result2 = angle2.coerceIn(Angle.rightAngle<Double>(), Angle.straightAngle<Double>())
+        val result3 = angle3.coerceIn(Angle.rightAngle<Double>(), Angle.straightAngle<Double>())
 
-        assertEqualsWithDelta(Angle.rightAngle.toDoubleAngle(), result1)
+        assertEqualsWithDelta(Angle.rightAngle<Double>(), result1)
         assertEqualsWithDelta(angle2, result2)
-        assertEqualsWithDelta(Angle.straightAngle.toDoubleAngle(), result3)
+        assertEqualsWithDelta(Angle.straightAngle<Double>(), result3)
     }
 
     @Test
@@ -137,21 +137,21 @@ class AngleDTest {
 
     @Test
     fun `GIVEN null Angle, WHEN sin, THEN return 0`() {
-        val result = sin(Angle.nullAngle.toDoubleAngle())
+        val result = sin(Angle.nullAngle<Double>())
 
         assertEqualsWithDelta(0.0, result)
     }
 
     @Test
     fun `GIVEN null Angle, WHEN cos, THEN return 1`() {
-        val result = cos(Angle.nullAngle.toDoubleAngle())
+        val result = cos(Angle.nullAngle<Double>())
 
         assertEqualsWithDelta(1.0, result)
     }
 
     @Test
     fun `GIVEN null Angle, WHEN tan, THEN return 0`() {
-        val result = tan(Angle.nullAngle.toDoubleAngle())
+        val result = tan(Angle.nullAngle<Double>())
 
         assertEqualsWithDelta(0.0, result)
     }

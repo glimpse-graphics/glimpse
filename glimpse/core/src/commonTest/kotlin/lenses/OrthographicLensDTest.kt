@@ -14,23 +14,26 @@
  * limitations under the License.
  */
 
-package graphics.glimpse.cameras
+package graphics.glimpse.lenses
 
+import graphics.glimpse.assertions.assertEqualsWithDelta
 import graphics.glimpse.types.Mat4
-import graphics.glimpse.types.Vec3
+import kotlin.test.Test
 
-/**
- * An interface for a camera.
- */
-interface Camera<T> where T : Number, T : Comparable<T> {
+class OrthographicLensDTest {
 
-    /**
-     * Position of the camera eye.
-     */
-    val eye: Vec3<T>
+    @Test
+    fun `GIVEN a OrthographicLens, WHEN projectionMatrix, THEN return correct matrix`() {
+        val left = -1.0
+        val right = 1.0
+        val bottom = -1.0
+        val top = 1.0
+        val near = 1.0
+        val far = -1.0
+        val lens = OrthographicLens(left, right, bottom, top, near, far)
 
-    /**
-     * View matrix defined by the camera.
-     */
-    val viewMatrix: Mat4<T>
+        val result = lens.projectionMatrix
+
+        assertEqualsWithDelta(Mat4.identity(), result)
+    }
 }

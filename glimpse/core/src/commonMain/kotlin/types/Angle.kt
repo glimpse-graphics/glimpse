@@ -17,6 +17,7 @@
 package graphics.glimpse.types
 
 import kotlin.math.PI
+import kotlin.reflect.KClass
 
 /**
  * Combined angle measure in [degrees][deg] and [radians][rad].
@@ -129,26 +130,118 @@ class Angle<T> private constructor(
         /**
          * Angle measure of 0 degrees.
          */
+        @Deprecated(
+            message = "Use Angle.nullAngle() instead.",
+            replaceWith = ReplaceWith(expression = "Angle.nullAngle<Float>()")
+        )
         val nullAngle: Angle<Float> =
             fromDeg(deg = 0)
 
         /**
          * Angle measure of 90 degrees.
          */
+        @Deprecated(
+            message = "Use Angle.rightAngle() instead.",
+            replaceWith = ReplaceWith(expression = "Angle.rightAngle<Float>()")
+        )
         val rightAngle: Angle<Float> =
             fromDeg(deg = 90)
 
         /**
          * Angle measure of 180 degrees.
          */
+        @Deprecated(
+            message = "Use Angle.straightAngle() instead.",
+            replaceWith = ReplaceWith(expression = "Angle.straightAngle<Float>()")
+        )
         val straightAngle: Angle<Float> =
             fromDeg(deg = 180)
 
         /**
          * Angle measure of 360 degrees.
          */
+        @Deprecated(
+            message = "Use Angle.fullAngle() instead.",
+            replaceWith = ReplaceWith(expression = "Angle.fullAngle<Float>()")
+        )
         val fullAngle: Angle<Float> =
             fromDeg(deg = 360)
+
+        /**
+         * Returns angle measure of 0 degrees.
+         *
+         * @since v1.3.0
+         */
+        inline fun <reified T> nullAngle(): Angle<T> where T : Number, T : Comparable<T> =
+            nullAngle(T::class)
+
+        /**
+         * Returns angle measure of 0 degrees.
+         *
+         * @since v1.3.0
+         */
+        fun <T> nullAngle(type: KClass<T>): Angle<T> where T : Number, T : Comparable<T> =
+            Angle(deg = zero(type = type), rad = zero(type = type))
+
+        /**
+         * Returns angle measure of 90 degrees.
+         *
+         * @since v1.3.0
+         */
+        inline fun <reified T> rightAngle(): Angle<T> where T : Number, T : Comparable<T> =
+            rightAngle(T::class)
+
+        /**
+         * Returns angle measure of 90 degrees.
+         *
+         * @since v1.3.0
+         */
+        fun <T> rightAngle(type: KClass<T>): Angle<T> where T : Number, T : Comparable<T> =
+            when (type) {
+                Float::class -> fromDeg(deg = 90f)
+                Double::class -> fromDeg(deg = 90.0)
+                else -> throw UnsupportedOperationException("Angles of type ${type.simpleName} are not supported.")
+            } as Angle<T>
+
+        /**
+         * Returns angle measure of 180 degrees.
+         *
+         * @since v1.3.0
+         */
+        inline fun <reified T> straightAngle(): Angle<T> where T : Number, T : Comparable<T> =
+            straightAngle(T::class)
+
+        /**
+         * Returns angle measure of 180 degrees.
+         *
+         * @since v1.3.0
+         */
+        fun <T> straightAngle(type: KClass<T>): Angle<T> where T : Number, T : Comparable<T> =
+            when (type) {
+                Float::class -> fromDeg(deg = 180f)
+                Double::class -> fromDeg(deg = 180.0)
+                else -> throw UnsupportedOperationException("Angles of type ${type.simpleName} are not supported.")
+            } as Angle<T>
+
+        /**
+         * Returns angle measure of 360 degrees.
+         *
+         * @since v1.3.0
+         */
+        inline fun <reified T> fullAngle(): Angle<T> where T : Number, T : Comparable<T> =
+            straightAngle(T::class)
+
+        /**
+         * Returns angle measure of 360 degrees.
+         *
+         * @since v1.3.0
+         */
+        fun <T> fullAngle(type: KClass<T>): Angle<T> where T : Number, T : Comparable<T> =
+            when (type) {
+                Float::class -> fromDeg(deg = 360f)
+                Double::class -> fromDeg(deg = 360.0)
+                else -> throw UnsupportedOperationException("Angles of type ${type.simpleName} are not supported.")
+            } as Angle<T>
 
         /**
          * Creates a new angle measure from the given measure in [degrees][deg].

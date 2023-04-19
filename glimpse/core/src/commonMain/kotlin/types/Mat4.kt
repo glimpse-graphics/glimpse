@@ -120,6 +120,10 @@ data class Mat4<T>(
         /**
          * A 4×4 identity matrix.
          */
+        @Deprecated(
+            message = "Use Mat4.identity() instead.",
+            replaceWith = ReplaceWith(expression = "Mat4.identity<Float>()")
+        )
         val identity: Mat4<Float> = Mat4(
             listOf(
                 1f, 0f, 0f, 0f,
@@ -128,6 +132,33 @@ data class Mat4<T>(
                 0f, 0f, 0f, 1f
             )
         )
+
+        /**
+         * Returns a 4×4 identity matrix.
+         *
+         * @since v1.3.0
+         */
+        inline fun <reified T> identity(): Mat4<T> where T : Number, T : Comparable<T> =
+            identity(T::class)
+
+        /**
+         * Returns a 4×4 identity matrix with elements of given [type].
+         *
+         * @since v1.3.0
+         */
+        fun <T> identity(type: KClass<T>): Mat4<T> where T : Number, T : Comparable<T> {
+            val zero = zero(type)
+            val one = one(type)
+            return Mat4(
+                elements = listOf(
+                    one, zero, zero, zero,
+                    zero, one, zero, zero,
+                    zero, zero, one, zero,
+                    zero, zero, zero, one
+                ),
+                type = type
+            )
+        }
     }
 }
 

@@ -22,7 +22,7 @@ import graphics.glimpse.types.Vec2
 
 internal class StackLayoutBuilder(
     parent: HudElementsBuilder,
-    private val position: Vec2<Float> = Vec2.nullVector,
+    private val position: Vec2<Float> = Vec2.nullVector(),
     private val alignment: Alignment = Alignment.Center,
     private val delegate: HudElementsBuilderDelegate = HudElementsBuilderDelegate(parent)
 ) : HudElementsBuilder by delegate {

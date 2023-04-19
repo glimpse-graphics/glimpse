@@ -191,22 +191,105 @@ data class Vec3<T>(
         /**
          * A null vector.
          */
+        @Deprecated(
+            message = "Use Vec3.nullVector() instead.",
+            replaceWith = ReplaceWith(expression = "Vec3.nullVector<Float>()")
+        )
         val nullVector: Vec3<Float> = Vec3(x = 0f, y = 0f, z = 0f)
 
         /**
          * A standard unit vector in the direction of X axis.
          */
+        @Deprecated(
+            message = "Use Vec3.unitX() instead.",
+            replaceWith = ReplaceWith(expression = "Vec3.unitX<Float>()")
+        )
         val unitX: Vec3<Float> = Vec3(x = 1f, y = 0f, z = 0f)
 
         /**
          * A standard unit vector in the direction of Y axis.
          */
+        @Deprecated(
+            message = "Use Vec3.unitY() instead.",
+            replaceWith = ReplaceWith(expression = "Vec3.unitY<Float>()")
+        )
         val unitY: Vec3<Float> = Vec3(x = 0f, y = 1f, z = 0f)
 
         /**
          * A standard unit vector in the direction of Z axis.
          */
+        @Deprecated(
+            message = "Use Vec3.unitZ() instead.",
+            replaceWith = ReplaceWith(expression = "Vec3.unitZ<Float>()")
+        )
         val unitZ: Vec3<Float> = Vec3(x = 0f, y = 0f, z = 1f)
+
+        /**
+         * Returns a null vector.
+         *
+         * @since v1.3.0
+         */
+        inline fun <reified T> nullVector(): Vec3<T> where T : Number, T : Comparable<T> =
+            nullVector(T::class)
+
+        /**
+         * Returns a null vector with coordinates of given [type].
+         *
+         * @since v1.3.0
+         */
+        fun <T> nullVector(type: KClass<T>): Vec3<T> where T : Number, T : Comparable<T> =
+            Vec3(x = zero(type), y = zero(type), z = zero(type), type = type)
+
+        /**
+         * Returns a standard unit vector in the direction of X axis.
+         *
+         * @since v1.3.0
+         */
+        inline fun <reified T> unitX(): Vec3<T> where T : Number, T : Comparable<T> =
+            unitX(T::class)
+
+        /**
+         * Returns a standard unit vector in the direction of X axis
+         * with coordinates of given [type].
+         *
+         * @since v1.3.0
+         */
+        fun <T> unitX(type: KClass<T>): Vec3<T> where T : Number, T : Comparable<T> =
+            Vec3(x = one(type), y = zero(type), z = zero(type), type = type)
+
+        /**
+         * Returns a standard unit vector in the direction of Y axis.
+         *
+         * @since v1.3.0
+         */
+        inline fun <reified T> unitY(): Vec3<T> where T : Number, T : Comparable<T> =
+            unitY(T::class)
+
+        /**
+         * Returns a standard unit vector in the direction of Y axis
+         * with coordinates of given [type].
+         *
+         * @since v1.3.0
+         */
+        fun <T> unitY(type: KClass<T>): Vec3<T> where T : Number, T : Comparable<T> =
+            Vec3(x = zero(type), y = one(type), z = zero(type), type = type)
+
+        /**
+         * Returns a standard unit vector in the direction of Z axis.
+         *
+         * @since v1.3.0
+         */
+        inline fun <reified T> unitZ(): Vec3<T> where T : Number, T : Comparable<T> =
+            unitZ(T::class)
+
+        /**
+         * Returns a standard unit vector in the direction of Z axis
+         * with coordinates of given [type].
+         *
+         * @since v1.3.0
+         */
+        fun <T> unitZ(type: KClass<T>): Vec3<T> where T : Number, T : Comparable<T> =
+            Vec3(x = zero(type), y = zero(type), z = one(type), type = type)
 
         /**
          * Returns an instance of [Vec3] with the given [list] of coordinates of given [type].

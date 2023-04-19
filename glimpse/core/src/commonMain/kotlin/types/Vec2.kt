@@ -191,13 +191,17 @@ data class Vec2<T>(
 
     companion object {
 
-        internal const val SIZE = 2
+        private const val SIZE = 2
 
         /**
          * A null vector.
          *
          * @since v1.1.0
          */
+        @Deprecated(
+            message = "Use Vec2.nullVector() instead.",
+            replaceWith = ReplaceWith(expression = "Vec2.nullVector<Float>()")
+        )
         val nullVector: Vec2<Float> = Vec2(x = 0f, y = 0f)
 
         /**
@@ -205,6 +209,10 @@ data class Vec2<T>(
          *
          * @since v1.1.0
          */
+        @Deprecated(
+            message = "Use Vec2.unitX() instead.",
+            replaceWith = ReplaceWith(expression = "Vec2.unitX<Float>()")
+        )
         val unitX: Vec2<Float> = Vec2(x = 1f, y = 0f)
 
         /**
@@ -212,7 +220,61 @@ data class Vec2<T>(
          *
          * @since v1.1.0
          */
+        @Deprecated(
+            message = "Use Vec2.unitY() instead.",
+            replaceWith = ReplaceWith(expression = "Vec2.unitY<Float>()")
+        )
         val unitY: Vec2<Float> = Vec2(x = 0f, y = 1f)
+
+        /**
+         * Returns a null vector.
+         *
+         * @since v1.3.0
+         */
+        inline fun <reified T> nullVector(): Vec2<T> where T : Number, T : Comparable<T> =
+            nullVector(T::class)
+
+        /**
+         * Returns a null vector with coordinates of given [type].
+         *
+         * @since v1.3.0
+         */
+        fun <T> nullVector(type: KClass<T>): Vec2<T> where T : Number, T : Comparable<T> =
+            Vec2(x = zero(type), y = zero(type), type = type)
+
+        /**
+         * Returns a standard unit vector in the direction of X axis.
+         *
+         * @since v1.3.0
+         */
+        inline fun <reified T> unitX(): Vec2<T> where T : Number, T : Comparable<T> =
+            unitX(T::class)
+
+        /**
+         * Returns a standard unit vector in the direction of X axis
+         * with coordinates of given [type].
+         *
+         * @since v1.3.0
+         */
+        fun <T> unitX(type: KClass<T>): Vec2<T> where T : Number, T : Comparable<T> =
+            Vec2(x = one(type), y = zero(type), type = type)
+
+        /**
+         * Returns a standard unit vector in the direction of Y axis.
+         *
+         * @since v1.3.0
+         */
+        inline fun <reified T> unitY(): Vec2<T> where T : Number, T : Comparable<T> =
+            unitY(T::class)
+
+        /**
+         * Returns a standard unit vector in the direction of Y axis
+         * with coordinates of given [type].
+         *
+         * @since v1.3.0
+         */
+        fun <T> unitY(type: KClass<T>): Vec2<T> where T : Number, T : Comparable<T> =
+            Vec2(x = zero(type), y = one(type), type = type)
 
         /**
          * Returns an instance of [Vec2] with the given [list] of coordinates of given [type].

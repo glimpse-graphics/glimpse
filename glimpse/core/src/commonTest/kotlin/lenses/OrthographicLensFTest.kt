@@ -20,7 +20,7 @@ import graphics.glimpse.assertions.assertEqualsWithDelta
 import graphics.glimpse.types.Mat4
 import kotlin.test.Test
 
-class OrthographicLensTest {
+class OrthographicLensFTest {
 
     @Test
     fun `GIVEN a OrthographicLens, WHEN projectionMatrix, THEN return correct matrix`() {
@@ -34,6 +34,6 @@ class OrthographicLensTest {
 
         val result = lens.projectionMatrix
 
-        assertEqualsWithDelta(Mat4.identity, result)
+        assertEqualsWithDelta(Mat4.identity(), result)
     }
 }

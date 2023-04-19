@@ -66,13 +66,13 @@ class TriangleCallback(
 
     private var size = Vec2(x = 1f, y = 1f)
 
-    private var lens: Lens = PerspectiveLens(fovY, aspect = 1f, NEAR, FAR)
+    private var lens: Lens<Float> = PerspectiveLens(fovY, aspect = 1f, NEAR, FAR)
 
-    private val camera: Camera = FreeCamera(
+    private val camera: Camera<Float> = FreeCamera(
         eye = Vec3(x = 0f, y = 0f, z = 2f),
-        roll = Angle.nullAngle,
-        pitch = -Angle.rightAngle,
-        yaw = Angle.rightAngle
+        roll = Angle.nullAngle(),
+        pitch = -Angle.rightAngle<Float>(),
+        yaw = Angle.rightAngle()
     )
 
     /**
@@ -212,7 +212,7 @@ class TriangleCallback(
     }
 
     companion object {
-        private val fovY = Angle.rightAngle
+        private val fovY = Angle.rightAngle<Float>()
         private const val NEAR = .1f
         private const val FAR = 10f
 

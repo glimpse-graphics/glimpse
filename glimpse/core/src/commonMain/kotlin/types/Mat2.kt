@@ -89,7 +89,30 @@ data class Mat2<T>(
         /**
          * A 2×2 identity matrix.
          */
+        @Deprecated(
+            message = "Use Mat2.identity() instead.",
+            replaceWith = ReplaceWith(expression = "Mat2.identity<Float>()")
+        )
         val identity: Mat2<Float> = Mat2(listOf(1f, 0f, 0f, 1f))
+
+        /**
+         * Returns a 2×2 identity matrix.
+         *
+         * @since v1.3.0
+         */
+        inline fun <reified T> identity(): Mat2<T> where T : Number, T : Comparable<T> =
+            identity(T::class)
+
+        /**
+         * Returns a 2×2 identity matrix with elements of given [type].
+         *
+         * @since v1.3.0
+         */
+        fun <T> identity(type: KClass<T>): Mat2<T> where T : Number, T : Comparable<T> {
+            val zero = zero(type)
+            val one = one(type)
+            return Mat2(elements = listOf(one, zero, zero, one), type = type)
+        }
     }
 }
 

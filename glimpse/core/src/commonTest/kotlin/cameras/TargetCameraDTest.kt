@@ -14,32 +14,30 @@
  * limitations under the License.
  */
 
-package graphics.glimpse.lenses
+package graphics.glimpse.cameras
 
 import graphics.glimpse.assertions.assertEqualsWithDelta
-import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Mat4
+import graphics.glimpse.types.Vec3
 import kotlin.test.Test
 
-class PerspectiveLensTest {
+class TargetCameraDTest {
 
     @Test
-    fun `GIVEN a PerspectiveLens, WHEN projectionMatrix, THEN return correct matrix`() {
-        val fovY = Angle.rightAngle
-        val aspect = 2f
-        val near = 1f
-        val far = 10f
-        val lens = PerspectiveLens(fovY, aspect, near, far)
+    fun `GIVEN a TargetCamera, WHEN viewMatrix, THEN return correct matrix`() {
+        val eye = Vec3(x = 0.5, y = 0.5, z = 0.7071067811865475)
+        val target = Vec3.nullVector<Double>()
+        val camera = TargetCamera(eye, target)
 
-        val result = lens.projectionMatrix
+        val result = camera.viewMatrix
 
         assertEqualsWithDelta(
             Mat4(
                 listOf(
-                    0.5f, 0f, 0f, 0f,
-                    0f, 1f, 0f, 0f,
-                    0f, 0f, -1.22222222f, -1f,
-                    0f, 0f, -2.22222222f, 0f
+                    -0.7071067811865475, -0.5, 0.5, 0.0,
+                    0.7071067811865475, -0.5, 0.5, 0.0,
+                    0.0, 0.7071067811865475, 0.7071067811865475, 0.0,
+                    0.0, 0.0, -1.0, 1.0
                 )
             ),
             result

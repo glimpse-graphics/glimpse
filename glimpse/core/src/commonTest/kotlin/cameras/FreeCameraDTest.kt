@@ -14,33 +14,33 @@
  * limitations under the License.
  */
 
-package graphics.glimpse.lenses
+package graphics.glimpse.cameras
 
 import graphics.glimpse.assertions.assertEqualsWithDelta
+import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Mat4
+import graphics.glimpse.types.Vec3
 import kotlin.test.Test
 
-class FrustumLensTest {
+class FreeCameraDTest {
 
     @Test
-    fun `GIVEN a FrustumLens, WHEN projectionMatrix, THEN return correct matrix`() {
-        val left = -2f
-        val right = 2f
-        val bottom = -1f
-        val top = 1f
-        val near = 1f
-        val far = 10f
-        val lens = FrustumLens(left, right, bottom, top, near, far)
+    fun `GIVEN a FreeCamera, WHEN viewMatrix, THEN return correct matrix`() {
+        val eye = Vec3(x = 0.5, y = 0.5, z = 0.7071067811865475)
+        val roll = Angle.nullAngle<Double>()
+        val pitch = Angle.fromDeg(deg = -45.0)
+        val yaw = Angle.fromDeg(deg = 225.0)
+        val camera = FreeCamera(eye, roll, pitch, yaw)
 
-        val result = lens.projectionMatrix
+        val result = camera.viewMatrix
 
         assertEqualsWithDelta(
             Mat4(
                 listOf(
-                    0.5f, 0f, 0f, 0f,
-                    0f, 1f, 0f, 0f,
-                    0f, 0f, -1.22222222f, -1f,
-                    0f, 0f, -2.22222222f, 0f
+                    -0.7071067811865475, -0.5, 0.5, 0.0,
+                    0.7071067811865475, -0.5, 0.5, 0.0,
+                    0.0, 0.7071067811865475, 0.7071067811865475, 0.0,
+                    0.0, 0.0, -1.0, 1.0
                 )
             ),
             result

@@ -114,7 +114,33 @@ data class Mat3<T>(
         /**
          * A 3×3 identity matrix.
          */
+        @Deprecated(
+            message = "Use Mat3.identity() instead.",
+            replaceWith = ReplaceWith(expression = "Mat3.identity<Float>()")
+        )
         val identity: Mat3<Float> = Mat3(listOf(1f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 1f))
+
+        /**
+         * Returns a 3×3 identity matrix.
+         *
+         * @since v1.3.0
+         */
+        inline fun <reified T> identity(): Mat3<T> where T : Number, T : Comparable<T> =
+            identity(T::class)
+
+        /**
+         * Returns a 3×3 identity matrix with elements of given [type].
+         *
+         * @since v1.3.0
+         */
+        fun <T> identity(type: KClass<T>): Mat3<T> where T : Number, T : Comparable<T> {
+            val zero = zero(type)
+            val one = one(type)
+            return Mat3(
+                elements = listOf(one, zero, zero, zero, one, zero, zero, zero, one),
+                type = type
+            )
+        }
     }
 }
 
