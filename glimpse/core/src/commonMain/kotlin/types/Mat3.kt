@@ -16,35 +16,65 @@
 
 package graphics.glimpse.types
 
+import kotlin.reflect.KClass
+
 /**
  * A 3×3 matrix.
  */
-abstract class Mat3<T : Number> : BaseMat<T, Mat3<T>, Vec3<T>>(MATRIX_DIMENSION) {
+data class Mat3<T>(
+
+    /**
+     * Elements of this matrix.
+     */
+    override val elements: List<T>,
+
+    /**
+     * Type of matrix elements.
+     *
+     * @since v1.3.0
+     */
+    override val type: KClass<T>
+
+) : BaseMat<T, Mat3<T>, Vec3<T>>(
+    dimension = MATRIX_DIMENSION
+) where T : Number, T : Comparable<T> {
 
     private val comatrix: Mat3<T> by lazy {
         create(transform { row, col -> cofactor(row, col) })
     }
 
+    init { validate() }
+
+    /**
+     * Returns a 3×3 matrix with given [elements].
+     */
+    override fun create(elements: List<T>): Mat3<T> =
+        copy(elements = elements)
+
+    /**
+     * Returns a 3D vector with given [coordinates].
+     */
+    override fun createVector(coordinates: List<T>): Vec3<T> =
+        Vec3.fromList(coordinates, type = this.type)
+
     /**
      * Returns a determinant of this matrix.
      */
     override fun det(): T =
-        indices.map { col -> field.multiply(this[0, col], cofactor(row = 0, col)) }.let { field.sum(it) }
+        indices.map { col -> this[0, col] * cofactor(row = 0, col) }.sum(this.type)
 
     private fun cofactor(row: Int, col: Int): T =
-        field.multiply(
-            minor(row = row, col = col),
-            if ((row + col) % 2 == 0) field.multiplicativeIdentity
-            else field.additiveInverse(field.multiplicativeIdentity)
-        )
+        minor(row = row, col = col) * (if ((row + col) % 2 == 0) one(this.type) else -one(this.type))
 
     private fun minor(row: Int, col: Int): T = submatrix(row, col).det()
 
-    /**
-     * Implement this method to provide a submatrix without given
-     * [row][withoutRow] and [column][withoutCol].
-     */
-    protected abstract fun submatrix(withoutRow: Int, withoutCol: Int): Mat2<T>
+    private fun submatrix(withoutRow: Int, withoutCol: Int): Mat2<T> =
+        Mat2(
+            elements = indices.flatMap { col -> indices.map { row -> row to col } }
+                .filter { (row, col) -> row != withoutRow && col != withoutCol }
+                .map { (row, col) -> this[row, col] },
+            type = this.type
+        )
 
     /**
      * Returns an adjugate of this matrix.
@@ -56,14 +86,16 @@ abstract class Mat3<T : Number> : BaseMat<T, Mat3<T>, Vec3<T>>(MATRIX_DIMENSION)
      *
      * @since v1.3.0
      */
-    abstract fun toFloatMatrix(): Mat3<Float>
+    fun toFloatMatrix(): Mat3<Float> =
+        Mat3(elements = this.elements.map { it.toFloat() }, type = Float::class)
 
     /**
      * Returns a 3×3 double-precision float matrix equal to this matrix.
      *
      * @since v1.3.0
      */
-    abstract fun toDoubleMatrix(): Mat3<Double>
+    fun toDoubleMatrix(): Mat3<Double> =
+        Mat3(elements = this.elements.map { it.toDouble() }, type = Double::class)
 
     /**
      * Returns a 2×2 submatrix of this matrix, obtained by deleting the last row and the last column
@@ -82,20 +114,41 @@ abstract class Mat3<T : Number> : BaseMat<T, Mat3<T>, Vec3<T>>(MATRIX_DIMENSION)
         /**
          * A 3×3 identity matrix.
          */
+        @Deprecated(
+            message = "Use Mat3.identity() instead.",
+            replaceWith = ReplaceWith(expression = "Mat3.identity<Float>()")
+        )
         val identity: Mat3<Float> = Mat3(listOf(1f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 1f))
+
+        /**
+         * Returns a 3×3 identity matrix.
+         *
+         * @since v1.3.0
+         */
+        inline fun <reified T> identity(): Mat3<T> where T : Number, T : Comparable<T> =
+            identity(T::class)
+
+        /**
+         * Returns a 3×3 identity matrix with elements of given [type].
+         *
+         * @since v1.3.0
+         */
+        fun <T> identity(type: KClass<T>): Mat3<T> where T : Number, T : Comparable<T> {
+            val zero = zero(type)
+            val one = one(type)
+            return Mat3(
+                elements = listOf(one, zero, zero, zero, one, zero, zero, zero, one),
+                type = type
+            )
+        }
     }
 }
 
 /**
- * Returns a new 3×3 float matrix.
+ * Returns a new 3×3 matrix from given [elements].
+ *
+ * @since v1.3.0
  */
 @Suppress("FunctionNaming")
-@JvmName("FloatMat3")
-fun Mat3(elements: List<Float>): Mat3<Float> = Mat3F(elements)
-
-/**
- * Returns a double-precision new 3×3 float matrix.
- */
-@Suppress("FunctionNaming")
-@JvmName("DoubleMat3")
-fun Mat3(elements: List<Double>): Mat3<Double> = Mat3D(elements)
+inline fun <reified T> Mat3(elements: List<T>): Mat3<T> where T : Number, T : Comparable<T> =
+    Mat3(elements = elements, type = T::class)

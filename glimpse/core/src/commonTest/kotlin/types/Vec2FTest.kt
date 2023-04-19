@@ -16,8 +16,8 @@
 
 package graphics.glimpse.types
 
+import graphics.glimpse.assertions.assertEqualsWithDelta
 import kotlin.test.Test
-import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertSame
 
@@ -29,7 +29,7 @@ class Vec2FTest {
 
         val result = vector.u
 
-        assertEquals(7f, result)
+        assertEqualsWithDelta(7f, result)
     }
 
     @Test
@@ -38,7 +38,7 @@ class Vec2FTest {
 
         val result = vector.v
 
-        assertEquals(13f, result)
+        assertEqualsWithDelta(13f, result)
     }
 
     @Test
@@ -56,7 +56,7 @@ class Vec2FTest {
 
         val result = -vector
 
-        assertEquals(Vec2(x = -7f, y = -13f), result)
+        assertEqualsWithDelta(Vec2(x = -7f, y = -13f), result)
     }
 
     @Test
@@ -66,7 +66,7 @@ class Vec2FTest {
 
         val result = v1 + v2
 
-        assertEquals(Vec2(x = 11f, y = 22f), result)
+        assertEqualsWithDelta(Vec2(x = 11f, y = 22f), result)
     }
 
     @Test
@@ -76,7 +76,7 @@ class Vec2FTest {
 
         val result = v1 - v2
 
-        assertEquals(Vec2(x = 9f, y = 18f), result)
+        assertEqualsWithDelta(Vec2(x = 9f, y = 18f), result)
     }
 
     @Test
@@ -86,7 +86,7 @@ class Vec2FTest {
 
         val result = vector * number
 
-        assertEquals(Vec2(x = 3f, y = 6f), result)
+        assertEqualsWithDelta(Vec2(x = 3f, y = 6f), result)
     }
 
     @Test
@@ -96,7 +96,7 @@ class Vec2FTest {
 
         val result = vector / number
 
-        assertEquals(Vec2(x = 2.5f, y = 3.5f), result)
+        assertEqualsWithDelta(Vec2(x = 2.5f, y = 3.5f), result)
     }
 
     @Test
@@ -106,7 +106,7 @@ class Vec2FTest {
 
         val result = v1 dot v2
 
-        assertEquals(50f, result)
+        assertEqualsWithDelta(50f, result)
     }
 
     @Test
@@ -116,7 +116,7 @@ class Vec2FTest {
 
         val result = v1 cross v2
 
-        assertEquals(Vec3(x = 0f, y = 0f, z = -4f), result)
+        assertEqualsWithDelta(Vec3(x = 0f, y = 0f, z = -4f), result)
     }
 
     @Test
@@ -125,7 +125,7 @@ class Vec2FTest {
 
         val result = vector.atan()
 
-        assertEquals(Angle.fromDeg(deg = 45f), result)
+        assertEqualsWithDelta(Angle.fromDeg(deg = 45f), result)
     }
 
     @Test
@@ -134,7 +134,7 @@ class Vec2FTest {
 
         val result = vector.magnitude()
 
-        assertEquals(5f, result)
+        assertEqualsWithDelta(5f, result)
     }
 
     @Test
@@ -143,7 +143,7 @@ class Vec2FTest {
 
         val result = vector.normalize()
 
-        assertEquals(Vec2(x = 0.6f, y = 0.8f), result)
+        assertEqualsWithDelta(Vec2(x = 0.6f, y = 0.8f), result)
     }
 
     @Test
@@ -152,7 +152,7 @@ class Vec2FTest {
 
         val result = vector.toVec3()
 
-        assertEquals(Vec3(x = 7f, y = 13f, z = 0f), result)
+        assertEqualsWithDelta(Vec3(x = 7f, y = 13f, z = 0f), result)
     }
 
     @Test
@@ -161,7 +161,7 @@ class Vec2FTest {
 
         val result = vector.toVec3(z = 29f)
 
-        assertEquals(Vec3(x = 7f, y = 13f, z = 29f), result)
+        assertEqualsWithDelta(Vec3(x = 7f, y = 13f, z = 29f), result)
     }
 
     @Test
@@ -170,7 +170,7 @@ class Vec2FTest {
 
         val result = vector.toVec4()
 
-        assertEquals(Vec4(x = 7f, y = 13f, z = 0f, w = 0f), result)
+        assertEqualsWithDelta(Vec4(x = 7f, y = 13f, z = 0f, w = 0f), result)
     }
 
     @Test
@@ -179,7 +179,7 @@ class Vec2FTest {
 
         val result = vector.toVec4(z = 29f, w = 31f)
 
-        assertEquals(Vec4(x = 7f, y = 13f, z = 29f, w = 31f), result)
+        assertEqualsWithDelta(Vec4(x = 7f, y = 13f, z = 29f, w = 31f), result)
     }
 
     @Test
@@ -188,7 +188,7 @@ class Vec2FTest {
 
         val result = vector.toList()
 
-        assertEquals(listOf(10f, 20f), result)
+        assertEqualsWithDelta(listOf(10f, 20f), result)
     }
 
     @Test
@@ -197,7 +197,7 @@ class Vec2FTest {
 
         val result = vector.toFloatArray()
 
-        assertEquals(listOf(10f, 20f), result.toList())
+        assertEqualsWithDelta(listOf(10f, 20f), result.toList())
     }
 
     @Test
@@ -206,7 +206,7 @@ class Vec2FTest {
 
         val result = Vec2.fromList(list)
 
-        assertEquals(Vec2(x = 1f, y = 2f), result)
+        assertEqualsWithDelta(Vec2(x = 1f, y = 2f), result)
     }
 
     @Test
@@ -225,6 +225,6 @@ class Vec2FTest {
 
         val result = Vec2.fromPolarCoordinates(distance, angle)
 
-        assertEquals(Vec2(x = -3.535534f, y = 3.535534f), result)
+        assertEqualsWithDelta(Vec2(x = -3.535534f, y = 3.535534f), result)
     }
 }

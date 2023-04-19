@@ -16,27 +16,37 @@
 
 package graphics.glimpse.types
 
+import kotlin.reflect.KClass
+
 /**
  * 3D vector with coordinates ([x], [y], [z]).
  *
  * Can also be used to specify RGB color values.
  */
-abstract class Vec3<T : Number> : BaseVec<T>() {
+data class Vec3<T>(
 
     /**
      * X coordinate of this vector.
      */
-    abstract val x: T
+    val x: T,
 
     /**
      * Y coordinate of this vector.
      */
-    abstract val y: T
+    val y: T,
 
     /**
      * Z coordinate of this vector.
      */
-    abstract val z: T
+    val z: T,
+
+    /**
+     * Type of vector coordinates.
+     *
+     * @since v1.3.0
+     */
+    val type: KClass<T>
+) : Vec<T> where T : Number, T : Comparable<T> {
 
     /**
      * Red channel of RGB color.
@@ -54,28 +64,6 @@ abstract class Vec3<T : Number> : BaseVec<T>() {
     val b: T get() = z
 
     /**
-     * First component of this vector.
-     */
-    abstract operator fun component1(): T
-
-    /**
-     * Second component of this vector.
-     */
-    abstract operator fun component2(): T
-
-    /**
-     * Third component of this vector.
-     */
-    abstract operator fun component3(): T
-
-    /**
-     * Implement this function to provide a way to create a new vector.
-     *
-     * @since v1.3.0
-     */
-    protected abstract fun create(x: T, y: T, z: T): Vec3<T>
-
-    /**
      * Returns this vector.
      */
     operator fun unaryPlus(): Vec3<T> = this
@@ -84,68 +72,46 @@ abstract class Vec3<T : Number> : BaseVec<T>() {
      * Returns a vector opposite to this vector.
      */
     operator fun unaryMinus(): Vec3<T> =
-        create(
-            x = ring.additiveInverse(this.x),
-            y = ring.additiveInverse(this.y),
-            z = ring.additiveInverse(this.z)
-        )
+        copy(x = -this.x, y = -this.y, z = -this.z)
 
     /**
      * Adds the [other] vector to this vector.
      */
     operator fun plus(other: Vec3<T>): Vec3<T> =
-        create(
-            x = ring.add(this.x, other.x),
-            y = ring.add(this.y, other.y),
-            z = ring.add(this.z, other.z)
-        )
+        copy(x = this.x + other.x, y = this.y + other.y, z = this.z + other.z)
 
     /**
      * Subtracts the [other] vector from this vector.
      */
     operator fun minus(other: Vec3<T>): Vec3<T> =
-        create(
-            x = ring.subtract(this.x, other.x),
-            y = ring.subtract(this.y, other.y),
-            z = ring.subtract(this.z, other.z)
-        )
+        copy(x = this.x - other.x, y = this.y - other.y, z = this.z - other.z)
 
     /**
      * Multiplies this vector by the specified [number].
      */
     operator fun times(number: T): Vec3<T> =
-        create(
-            x = ring.multiply(this.x, number),
-            y = ring.multiply(this.y, number),
-            z = ring.multiply(this.z, number)
-        )
+        copy(x = this.x * number, y = this.y * number, z = this.z * number)
 
     /**
      * Divides this vector by the specified [number].
      */
     operator fun div(number: T): Vec3<T> =
-        (ring as? Field<T>)?.let { field ->
-            create(
-                x = field.divide(this.x, number),
-                y = field.divide(this.y, number),
-                z = field.divide(this.z, number)
-            )
-        } ?: throw UnsupportedOperationException("${ring::class.simpleName} is not a field")
+        copy(x = this.x / number, y = this.y / number, z = this.z / number)
 
     /**
      * Calculates dot product of this vector and the [other] vector.
      */
     infix fun dot(other: Vec3<T>): T =
-        (this.toList() zip other.toList()).map { (a, b) -> ring.multiply(a, b) }.let { ring.sum(it) }
+        (this.toList() zip other.toList()).map { (a, b) -> a * b }.sum(this.type)
 
     /**
      * Calculates cross product of this vector and the [other] vector.
      */
     infix fun cross(other: Vec3<T>): Vec3<T> =
-        create(
-            x = ring.subtract(ring.multiply(this.y, other.z), ring.multiply(this.z, other.y)),
-            y = ring.subtract(ring.multiply(this.z, other.x), ring.multiply(this.x, other.z)),
-            z = ring.subtract(ring.multiply(this.x, other.y), ring.multiply(this.y, other.x))
+        copy(
+            x = this.y * other.z - this.z * other.y,
+            y = this.z * other.x - this.x * other.z,
+            z = this.x * other.y - this.y * other.x
         )
 
     /**
@@ -153,25 +119,29 @@ abstract class Vec3<T : Number> : BaseVec<T>() {
      *
      * @since v1.3.0
      */
-    abstract fun magnitude(): T
+    fun magnitude(): T =
+        sqrt(x = this.x * this.x + this.y * this.y + this.z * this.z)
 
     /**
      * Returns a unit vector in the direction of this vector.
      *
      * @since v1.3.0
      */
-    fun normalize(): Vec3<T> = this / this.magnitude()
+    fun normalize(): Vec3<T> =
+        this / this.magnitude()
 
     /**
      * Returns a 2D vector with `x` and `y` coordinates of this vector.
      */
-    abstract fun toVec2(): Vec2<T>
+    fun toVec2(): Vec2<T> =
+        Vec2(x = this.x, y = this.y, type = this.type)
 
     /**
      * Returns a 4D vector with `x`, `y` and `z coordinates of this vector and the given [w]
      * coordinate.
      */
-    abstract fun toVec4(w: T = ring.additiveIdentity): Vec4<T>
+    fun toVec4(w: T = zero(this.type)): Vec4<T> =
+        Vec4(x = this.x, y = this.y, z = this.z, w = w, type = this.type)
 
     /**
      * Returns a 3D integer vector equal to this vector.
@@ -180,7 +150,8 @@ abstract class Vec3<T : Number> : BaseVec<T>() {
      *
      * @since v1.3.0
      */
-    abstract fun toIntVector(): Vec3<Int>
+    fun toIntVector(): Vec3<Int> =
+        Vec3(x = this.x.toInt(), y = this.y.toInt(), z = this.z.toInt(), type = Int::class)
 
     /**
      * Returns a 3D long integer vector equal to this vector.
@@ -189,21 +160,29 @@ abstract class Vec3<T : Number> : BaseVec<T>() {
      *
      * @since v1.3.0
      */
-    abstract fun toLongVector(): Vec3<Long>
+    fun toLongVector(): Vec3<Long> =
+        Vec3(x = this.x.toLong(), y = this.y.toLong(), z = this.z.toLong(), type = Long::class)
 
     /**
      * Returns a 3D float vector equal to this vector.
      *
      * @since v1.3.0
      */
-    abstract fun toFloatVector(): Vec3<Float>
+    fun toFloatVector(): Vec3<Float> =
+        Vec3(x = this.x.toFloat(), y = this.y.toFloat(), z = this.z.toFloat(), type = Float::class)
 
     /**
      * Returns a 3D double-precision float vector equal to this vector.
      *
      * @since v1.3.0
      */
-    abstract fun toDoubleVector(): Vec3<Double>
+    fun toDoubleVector(): Vec3<Double> =
+        Vec3(x = this.x.toDouble(), y = this.y.toDouble(), z = this.z.toDouble(), type = Double::class)
+
+    /**
+     * Returns a list of coordinates of this vector.
+     */
+    override fun toList(): List<T> = listOf(x, y, z)
 
     companion object {
 
@@ -212,22 +191,119 @@ abstract class Vec3<T : Number> : BaseVec<T>() {
         /**
          * A null vector.
          */
+        @Deprecated(
+            message = "Use Vec3.nullVector() instead.",
+            replaceWith = ReplaceWith(expression = "Vec3.nullVector<Float>()")
+        )
         val nullVector: Vec3<Float> = Vec3(x = 0f, y = 0f, z = 0f)
 
         /**
          * A standard unit vector in the direction of X axis.
          */
+        @Deprecated(
+            message = "Use Vec3.unitX() instead.",
+            replaceWith = ReplaceWith(expression = "Vec3.unitX<Float>()")
+        )
         val unitX: Vec3<Float> = Vec3(x = 1f, y = 0f, z = 0f)
 
         /**
          * A standard unit vector in the direction of Y axis.
          */
+        @Deprecated(
+            message = "Use Vec3.unitY() instead.",
+            replaceWith = ReplaceWith(expression = "Vec3.unitY<Float>()")
+        )
         val unitY: Vec3<Float> = Vec3(x = 0f, y = 1f, z = 0f)
 
         /**
          * A standard unit vector in the direction of Z axis.
          */
+        @Deprecated(
+            message = "Use Vec3.unitZ() instead.",
+            replaceWith = ReplaceWith(expression = "Vec3.unitZ<Float>()")
+        )
         val unitZ: Vec3<Float> = Vec3(x = 0f, y = 0f, z = 1f)
+
+        /**
+         * Returns a null vector.
+         *
+         * @since v1.3.0
+         */
+        inline fun <reified T> nullVector(): Vec3<T> where T : Number, T : Comparable<T> =
+            nullVector(T::class)
+
+        /**
+         * Returns a null vector with coordinates of given [type].
+         *
+         * @since v1.3.0
+         */
+        fun <T> nullVector(type: KClass<T>): Vec3<T> where T : Number, T : Comparable<T> =
+            Vec3(x = zero(type), y = zero(type), z = zero(type), type = type)
+
+        /**
+         * Returns a standard unit vector in the direction of X axis.
+         *
+         * @since v1.3.0
+         */
+        inline fun <reified T> unitX(): Vec3<T> where T : Number, T : Comparable<T> =
+            unitX(T::class)
+
+        /**
+         * Returns a standard unit vector in the direction of X axis
+         * with coordinates of given [type].
+         *
+         * @since v1.3.0
+         */
+        fun <T> unitX(type: KClass<T>): Vec3<T> where T : Number, T : Comparable<T> =
+            Vec3(x = one(type), y = zero(type), z = zero(type), type = type)
+
+        /**
+         * Returns a standard unit vector in the direction of Y axis.
+         *
+         * @since v1.3.0
+         */
+        inline fun <reified T> unitY(): Vec3<T> where T : Number, T : Comparable<T> =
+            unitY(T::class)
+
+        /**
+         * Returns a standard unit vector in the direction of Y axis
+         * with coordinates of given [type].
+         *
+         * @since v1.3.0
+         */
+        fun <T> unitY(type: KClass<T>): Vec3<T> where T : Number, T : Comparable<T> =
+            Vec3(x = zero(type), y = one(type), z = zero(type), type = type)
+
+        /**
+         * Returns a standard unit vector in the direction of Z axis.
+         *
+         * @since v1.3.0
+         */
+        inline fun <reified T> unitZ(): Vec3<T> where T : Number, T : Comparable<T> =
+            unitZ(T::class)
+
+        /**
+         * Returns a standard unit vector in the direction of Z axis
+         * with coordinates of given [type].
+         *
+         * @since v1.3.0
+         */
+        fun <T> unitZ(type: KClass<T>): Vec3<T> where T : Number, T : Comparable<T> =
+            Vec3(x = zero(type), y = zero(type), z = one(type), type = type)
+
+        /**
+         * Returns an instance of [Vec3] with the given [list] of coordinates of given [type].
+         *
+         * If the size of the list of coordinates is different from 3, [IllegalArgumentException]
+         * is thrown.
+         *
+         * @since v1.3.0
+         */
+        fun <T> fromList(list: List<T>, type: KClass<T>): Vec3<T> where T : Number, T : Comparable<T> {
+            require(list.size == SIZE)
+            val (x, y, z) = list
+            return Vec3(x, y, z, type)
+        }
 
         /**
          * Returns an instance of [Vec3] with the given [list] of coordinates.
@@ -291,6 +367,22 @@ abstract class Vec3<T : Number> : BaseVec<T>() {
          * Returns a 3D vector defined by its spherical coordinates: radial [distance], [longitude]
          * and [latitude].
          */
+        fun <T> fromSphericalCoordinates(
+            distance: T,
+            longitude: Angle<T>,
+            latitude: Angle<T>,
+            type: KClass<T>
+        ): Vec3<T> where T : Number, T : Comparable<T> = Vec3(
+            x = distance * cos(longitude) * cos(latitude),
+            y = distance * sin(longitude) * cos(latitude),
+            z = distance * sin(latitude),
+            type = type
+        )
+
+        /**
+         * Returns a 3D vector defined by its spherical coordinates: radial [distance], [longitude]
+         * and [latitude].
+         */
         fun fromSphericalCoordinates(
             distance: Float,
             longitude: Angle<Float>,
@@ -320,34 +412,13 @@ abstract class Vec3<T : Number> : BaseVec<T>() {
 }
 
 /**
- * Returns a new 3D integer vector with coordinates ([x], [y], [z]).
+ * Returns a new 3D vector with coordinates ([x], [y], [z]).
  *
  * @since v1.3.0
  */
 @Suppress("FunctionNaming")
-fun Vec3(x: Int, y: Int, z: Int): Vec3<Int> = Vec3I(x, y, z)
-
-/**
- * Returns a new 3D long integer vector with coordinates ([x], [y], [z]).
- *
- * @since v1.3.0
- */
-@Suppress("FunctionNaming")
-fun Vec3(x: Long, y: Long, z: Long): Vec3<Long> = Vec3L(x, y, z)
-
-/**
- * Returns a new 3D float vector with coordinates ([x], [y], [z]).
- */
-@Suppress("FunctionNaming")
-fun Vec3(x: Float, y: Float, z: Float): Vec3<Float> = Vec3F(x, y, z)
-
-/**
- * Returns a new 3D double-precision float vector with coordinates ([x], [y], [z]).
- *
- * @since v1.3.0
- */
-@Suppress("FunctionNaming")
-fun Vec3(x: Double, y: Double, z: Double): Vec3<Double> = Vec3D(x, y, z)
+inline fun <reified T> Vec3(x: T, y: T, z: T): Vec3<T> where T : Number, T : Comparable<T> =
+    Vec3(x = x, y = y, z = z, type = T::class)
 
 /**
  * Returns an array of coordinates of this vector.

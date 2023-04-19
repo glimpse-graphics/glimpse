@@ -22,15 +22,15 @@ import graphics.glimpse.types.Vec3
 /**
  * An interface for a camera.
  */
-interface Camera {
+interface Camera<T> where T : Number, T : Comparable<T> {
 
     /**
      * Position of the camera eye.
      */
-    val eye: Vec3<Float>
+    val eye: Vec3<T>
 
     /**
      * View matrix defined by the camera.
      */
-    val viewMatrix: Mat4<Float>
+    val viewMatrix: Mat4<T>
 }

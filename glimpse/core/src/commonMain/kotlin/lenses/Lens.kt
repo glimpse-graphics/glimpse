@@ -21,10 +21,10 @@ import graphics.glimpse.types.Mat4
 /**
  * An interface for a lens.
  */
-interface Lens {
+interface Lens<T> where T : Number, T : Comparable<T> {
 
     /**
      * Projection matrix defined by the lens.
      */
-    val projectionMatrix: Mat4<Float>
+    val projectionMatrix: Mat4<T>
 }

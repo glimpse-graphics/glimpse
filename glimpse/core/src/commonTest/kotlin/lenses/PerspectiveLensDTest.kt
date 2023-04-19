@@ -21,14 +21,14 @@ import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Mat4
 import kotlin.test.Test
 
-class PerspectiveLensTest {
+class PerspectiveLensDTest {
 
     @Test
     fun `GIVEN a PerspectiveLens, WHEN projectionMatrix, THEN return correct matrix`() {
-        val fovY = Angle.rightAngle
-        val aspect = 2f
-        val near = 1f
-        val far = 10f
+        val fovY = Angle.rightAngle<Double>()
+        val aspect = 2.0
+        val near = 1.0
+        val far = 10.0
         val lens = PerspectiveLens(fovY, aspect, near, far)
 
         val result = lens.projectionMatrix
@@ -36,10 +36,10 @@ class PerspectiveLensTest {
         assertEqualsWithDelta(
             Mat4(
                 listOf(
-                    0.5f, 0f, 0f, 0f,
-                    0f, 1f, 0f, 0f,
-                    0f, 0f, -1.22222222f, -1f,
-                    0f, 0f, -2.22222222f, 0f
+                    0.5, 0.0, 0.0, 0.0,
+                    0.0, 1.0, 0.0, 0.0,
+                    0.0, 0.0, -1.222222222222222, -1.0,
+                    0.0, 0.0, -2.222222222222222, 0.0
                 )
             ),
             result

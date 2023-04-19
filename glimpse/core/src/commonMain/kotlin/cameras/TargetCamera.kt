@@ -19,31 +19,34 @@ package graphics.glimpse.cameras
 import graphics.glimpse.types.Mat4
 import graphics.glimpse.types.Vec3
 import graphics.glimpse.types.lookAt
+import kotlin.reflect.KClass
 
 /**
  * A camera located in the [eye] position and pointed at the given [target],
  * while preserving the defined [upVector].
  */
-data class TargetCamera(
+data class TargetCamera<T>(
 
     /**
      * Position of the camera eye.
      */
-    override val eye: Vec3<Float>,
+    override val eye: Vec3<T>,
 
     /**
      * Position of the camera target.
      */
-    val target: Vec3<Float>,
+    val target: Vec3<T> = Vec3.nullVector(eye.type),
 
     /**
      * Up-vector preserved for the camera.
      */
-    val upVector: Vec3<Float> = Vec3.unitZ
-) : Camera {
+    val upVector: Vec3<T> = Vec3.unitZ(eye.type)
+) : Camera<T> where T : Number, T : Comparable<T> {
+
+    private val type: KClass<T> get() = eye.type
 
     /**
      * View matrix defined by the camera.
      */
-    override val viewMatrix: Mat4<Float> = lookAt(eye, target, upVector)
+    override val viewMatrix: Mat4<T> = lookAt(eye, target, upVector, this.type)
 }

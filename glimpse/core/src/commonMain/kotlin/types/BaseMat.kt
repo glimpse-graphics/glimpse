@@ -16,12 +16,21 @@
 
 package graphics.glimpse.types
 
+import kotlin.reflect.KClass
+
 /**
  * Base implementation of a square matrix with a given [dimension].
  */
-abstract class BaseMat<T : Number, M : Mat<T, M, V>, V : Vec<T>>(
+abstract class BaseMat<T, M : Mat<T, M, V>, V : Vec<T>>(
     private val dimension: Int
-) : Mat<T, M, V> {
+) : Mat<T, M, V> where T : Number, T : Comparable<T> {
+
+    /**
+     * Type of matrix elements.
+     *
+     * @since v1.3.0
+     */
+    abstract val type: KClass<T>
 
     /**
      * Implement this property to provide elements of the matrix.
@@ -32,13 +41,6 @@ abstract class BaseMat<T : Number, M : Mat<T, M, V>, V : Vec<T>>(
      * Indices of a row or a column of the matrix.
      */
     protected val indices = 0 until dimension
-
-    /**
-     * Implement this property to provide a field of numbers of type [T].
-     *
-     * @since v1.3.0
-     */
-   protected abstract val field: Field<T>
 
     /**
      * Validates the size of the matrix.
@@ -63,7 +65,7 @@ abstract class BaseMat<T : Number, M : Mat<T, M, V>, V : Vec<T>>(
      */
     override operator fun times(other: M): M = create(
         transform { row, col ->
-            indices.map { field.multiply(this[row, it], other[it, col]) }.let { field.sum(it) }
+            indices.map { this[row, it] * other[it, col] }.sum(this.type)
         }
     )
 
@@ -91,27 +93,24 @@ abstract class BaseMat<T : Number, M : Mat<T, M, V>, V : Vec<T>>(
         return createVector(
             indices.map { row ->
                 indices.map { col ->
-                    field.multiply(vectorValues[col], get(row, col))
-                }.let { field.sum((it)) }
+                    vectorValues[col] * get(row, col)
+                }.sum(this.type)
             }
         )
     }
 
     /**
      * Implement this function to provide a way to create a new vector of the same size
-     * from a list of its [elements].
+     * from a list of its [coordinates].
      */
-    protected abstract fun createVector(elements: List<T>): V
+    protected abstract fun createVector(coordinates: List<T>): V
 
     /**
      * Multiplies this matrix by a given [number].
      */
-    override operator fun times(number: T): M = create(map { field.multiply(it, number) })
+    override operator fun times(number: T): M = create(map { it * number })
 
-    /**
-     * Transforms each element of this matrix using given [function].
-     */
-    protected fun map(function: (T) -> T): List<T> = elements.map(function)
+    private fun map(function: (T) -> T): List<T> = elements.map(function)
 
     /**
      * Returns a transpose of this matrix.
@@ -121,14 +120,14 @@ abstract class BaseMat<T : Number, M : Mat<T, M, V>, V : Vec<T>>(
     /**
      * Returns an inverse of this matrix.
      */
-    override fun inverse(): M = adj() * (field.multiplicativeInverse(det()))
+    override fun inverse(): M = adj() * (one(this.type) / det())
 
     /**
      * Returns a string representation of this matrix.
      */
-    protected fun toString(className: String): String =
+    override fun toString(): String =
         indices.joinToString(
-            prefix = "$className(data=[\n",
+            prefix = "Mat$dimension(data=[\n",
             separator = "\n",
             postfix = "\n])"
         ) { row ->

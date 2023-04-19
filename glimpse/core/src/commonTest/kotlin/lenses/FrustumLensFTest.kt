@@ -20,20 +20,30 @@ import graphics.glimpse.assertions.assertEqualsWithDelta
 import graphics.glimpse.types.Mat4
 import kotlin.test.Test
 
-class OrthographicLensTest {
+class FrustumLensFTest {
 
     @Test
-    fun `GIVEN a OrthographicLens, WHEN projectionMatrix, THEN return correct matrix`() {
-        val left = -1f
-        val right = 1f
+    fun `GIVEN a FrustumLens, WHEN projectionMatrix, THEN return correct matrix`() {
+        val left = -2f
+        val right = 2f
         val bottom = -1f
         val top = 1f
         val near = 1f
-        val far = -1f
-        val lens = OrthographicLens(left, right, bottom, top, near, far)
+        val far = 10f
+        val lens = FrustumLens(left, right, bottom, top, near, far)
 
         val result = lens.projectionMatrix
 
-        assertEqualsWithDelta(Mat4.identity, result)
+        assertEqualsWithDelta(
+            Mat4(
+                listOf(
+                    0.5f, 0f, 0f, 0f,
+                    0f, 1f, 0f, 0f,
+                    0f, 0f, -1.2222222f, -1f,
+                    0f, 0f, -2.2222223f, 0f
+                )
+            ),
+            result
+        )
     }
 }

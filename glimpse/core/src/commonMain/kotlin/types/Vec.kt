@@ -19,7 +19,7 @@ package graphics.glimpse.types
 /**
  * A common interface for vector implementations.
  */
-interface Vec<T : Number> {
+interface Vec<T> where T : Number, T : Comparable<T> {
 
     /**
      * Returns a list of coordinates of this vector.

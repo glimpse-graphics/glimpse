@@ -21,12 +21,12 @@ import graphics.glimpse.types.Mat4
 import graphics.glimpse.types.Vec3
 import kotlin.test.Test
 
-class TargetCameraTest {
+class TargetCameraDTest {
 
     @Test
     fun `GIVEN a TargetCamera, WHEN viewMatrix, THEN return correct matrix`() {
-        val eye = Vec3(x = 0.5f, y = 0.5f, z = 0.7071067812f)
-        val target = Vec3.nullVector
+        val eye = Vec3(x = 0.5, y = 0.5, z = 0.7071067811865475)
+        val target = Vec3.nullVector<Double>()
         val camera = TargetCamera(eye, target)
 
         val result = camera.viewMatrix
@@ -34,10 +34,10 @@ class TargetCameraTest {
         assertEqualsWithDelta(
             Mat4(
                 listOf(
-                    -0.7071067812f, -0.5f, 0.5f, 0f,
-                    0.7071067812f, -0.5f, 0.5f, 0f,
-                    0f, 0.7071067812f, 0.7071067812f, 0f,
-                    0f, 0f, -1f, 1f
+                    -0.7071067811865475, -0.5, 0.5, 0.0,
+                    0.7071067811865475, -0.5, 0.5, 0.0,
+                    0.0, 0.7071067811865475, 0.7071067811865475, 0.0,
+                    0.0, 0.0, -1.0, 1.0
                 )
             ),
             result

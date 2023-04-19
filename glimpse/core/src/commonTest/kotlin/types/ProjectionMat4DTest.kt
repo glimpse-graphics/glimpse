@@ -54,7 +54,7 @@ class ProjectionMat4DTest {
 
     @Test
     fun `GIVEN an angle, ratio and 2 numbers, WHEN perspective, THEN should generate perspective projection matrix`() {
-        val angle = Angle.rightAngle.toDoubleAngle()
+        val angle = Angle.rightAngle<Double>()
         val aspect = 2.0
         val near = 1.0
         val far = 10.0
@@ -92,6 +92,6 @@ class ProjectionMat4DTest {
             far = far
         )
 
-        assertEqualsWithDelta(Mat4.identity.toDoubleMatrix(), result)
+        assertEqualsWithDelta(Mat4.identity(), result)
     }
 }

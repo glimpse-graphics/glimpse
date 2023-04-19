@@ -16,6 +16,7 @@
 
 package graphics.glimpse.assertions
 
+import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Mat3
 import graphics.glimpse.types.Mat4
 import graphics.glimpse.types.Vec2
@@ -59,6 +60,52 @@ fun assertEqualsWithDelta(
     val messagePrefix = messagePrefix(message)
     assertTrue(
         actual = abs(x = actual - expected) < delta.doubleValue,
+        message = "${messagePrefix}Expected <$expected \u00B1 ${delta.doubleValue}>, actual <$actual>."
+    )
+}
+
+/**
+ * Asserts that the [actual] value is equal to the [expected] value plus/minus [delta],
+ * with an optional [message].
+ */
+@JvmName("assertFloatEqualsWithDelta")
+fun assertEqualsWithDelta(
+    expected: Angle<Float>,
+    actual: Angle<Float>,
+    delta: Delta = Delta.MEDIUM,
+    message: String? = null
+) {
+    val messagePrefix = messagePrefix(message)
+    val difference = actual - expected
+    assertTrue(
+        actual = abs(x = difference.deg) < delta.floatValue,
+        message = "${messagePrefix}Expected <$expected \u00B1 ${delta.floatValue}>, actual <$actual>."
+    )
+    assertTrue(
+        actual = abs(x = difference.rad) < delta.floatValue,
+        message = "${messagePrefix}Expected <$expected \u00B1 ${delta.floatValue}>, actual <$actual>."
+    )
+}
+
+/**
+ * Asserts that the [actual] value is equal to the [expected] value plus/minus [delta],
+ * with an optional [message].
+ */
+@JvmName("assertDoubleEqualsWithDelta")
+fun assertEqualsWithDelta(
+    expected: Angle<Double>,
+    actual: Angle<Double>,
+    delta: Delta = Delta.MEDIUM,
+    message: String? = null
+) {
+    val messagePrefix = messagePrefix(message)
+    val difference = actual - expected
+    assertTrue(
+        actual = abs(x = difference.deg) < delta.doubleValue,
+        message = "${messagePrefix}Expected <$expected \u00B1 ${delta.doubleValue}>, actual <$actual>."
+    )
+    assertTrue(
+        actual = abs(x = difference.rad) < delta.doubleValue,
         message = "${messagePrefix}Expected <$expected \u00B1 ${delta.doubleValue}>, actual <$actual>."
     )
 }

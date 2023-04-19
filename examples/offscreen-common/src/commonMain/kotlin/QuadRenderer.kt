@@ -47,13 +47,13 @@ class QuadRenderer(
     override val width: Int = IMAGE_SIZE
     override val height: Int = IMAGE_SIZE
 
-    private val lens: Lens = PerspectiveLens(fovY, aspect = 1f, NEAR, FAR)
+    private val lens: Lens<Float> = PerspectiveLens(fovY, aspect = 1f, NEAR, FAR)
 
-    private val camera: Camera = FreeCamera(
+    private val camera: Camera<Float> = FreeCamera(
         eye = Vec3(x = 0f, y = 0f, z = 2f),
-        roll = Angle.nullAngle,
-        pitch = -Angle.rightAngle,
-        yaw = Angle.rightAngle
+        roll = Angle.nullAngle(),
+        pitch = -Angle.rightAngle<Float>(),
+        yaw = Angle.rightAngle()
     )
 
     /**
@@ -95,8 +95,8 @@ class QuadRenderer(
         val params = QuadShader(
             projectionMatrix = lens.projectionMatrix,
             viewMatrix = camera.viewMatrix,
-            modelMatrix = Mat4.identity,
-            normalMatrix = Mat3.identity,
+            modelMatrix = Mat4.identity(),
+            normalMatrix = Mat3.identity(),
             texture = textures[0],
             normalMap = textures[1]
         )
@@ -128,7 +128,7 @@ class QuadRenderer(
          */
         const val IMAGE_SIZE = 600
 
-        private val fovY = Angle.rightAngle
+        private val fovY = Angle.rightAngle<Float>()
         private const val NEAR = .1f
         private const val FAR = 10f
     }

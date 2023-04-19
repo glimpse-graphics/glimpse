@@ -94,9 +94,9 @@ class Vec2LTest {
         val vector = Vec2(x = 5L, y = 7L)
         val number = 2L
 
-        assertFailsWith<UnsupportedOperationException> {
-            vector / number
-        }
+        val result = vector / number
+
+        assertEquals(Vec2(x = 2L, y = 3L), result)
     }
 
     @Test

@@ -18,22 +18,40 @@ package graphics.glimpse.lenses
 
 import graphics.glimpse.types.Mat4
 import graphics.glimpse.types.orthographic
+import graphics.glimpse.types.unaryMinus
+import kotlin.reflect.KClass
 
 /**
  * A lens for an orthographic (parallel) projection defined by a given set
  * of clipping planes: [left], [right], [bottom], [top], [near] and [far].
  */
-data class OrthographicLens(
-    val left: Float,
-    val right: Float = -left,
-    val bottom: Float,
-    val top: Float = -bottom,
-    val near: Float,
-    val far: Float
-) : Lens {
+data class OrthographicLens<T>(
+    val left: T,
+    val right: T = -left,
+    val bottom: T,
+    val top: T = -bottom,
+    val near: T,
+    val far: T,
+    val type: KClass<T>
+) : Lens<T> where T : Number, T : Comparable<T> {
 
     /**
      * Projection matrix defined by the lens.
      */
-    override val projectionMatrix: Mat4<Float> = orthographic(left, right, bottom, top, near, far)
+    override val projectionMatrix: Mat4<T> = orthographic(left, right, bottom, top, near, far, this.type)
 }
+
+/**
+ * Returns a new lens for an orthographic (parallel) projection defined by a given set
+ * of clipping planes: [left], [right], [bottom], [top], [near] and [far].
+ */
+@Suppress("FunctionNaming")
+inline fun <reified T> OrthographicLens(
+    left: T,
+    right: T = -left,
+    bottom: T,
+    top: T = -bottom,
+    near: T,
+    far: T
+) : OrthographicLens<T> where T : Number, T : Comparable<T> =
+    OrthographicLens(left, right, bottom, top, near, far, T::class)

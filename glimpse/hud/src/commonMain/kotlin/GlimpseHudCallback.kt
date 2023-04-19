@@ -67,7 +67,7 @@ class GlimpseHudCallback(
     private lateinit var quadMesh: Mesh
     private lateinit var programExecutor: HudProgramExecutor
 
-    private var lens: OrthographicLens =
+    private var lens: OrthographicLens<Float> =
         OrthographicLens(left = 0f, right = 1f, bottom = 1f, top = 0f, near = -1f, far = 1f)
 
     /**
@@ -188,7 +188,12 @@ class GlimpseHudCallback(
 
         private val quadData = listOf(0f, 0f, 0f, 1f, 1f, 1f, 1f, 0f)
 
-        private val camera: Camera =
-            FreeCamera(eye = Vec3.nullVector, roll = Angle.nullAngle, pitch = -Angle.rightAngle, yaw = Angle.rightAngle)
+        private val camera: Camera<Float> =
+            FreeCamera(
+                eye = Vec3.nullVector(),
+                roll = Angle.nullAngle(),
+                pitch = -Angle.rightAngle<Float>(),
+                yaw = Angle.rightAngle()
+            )
     }
 }

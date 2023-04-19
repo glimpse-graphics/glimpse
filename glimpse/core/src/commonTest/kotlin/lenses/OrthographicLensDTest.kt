@@ -14,19 +14,26 @@
  * limitations under the License.
  */
 
-package graphics.glimpse.types
+package graphics.glimpse.lenses
 
-internal data class Mat2D(override val elements: List<Double>) : Mat2<Double>() {
+import graphics.glimpse.assertions.assertEqualsWithDelta
+import graphics.glimpse.types.Mat4
+import kotlin.test.Test
 
-    override val field: Field<Double> get() = DoubleField
+class OrthographicLensDTest {
 
-    init { validate() }
+    @Test
+    fun `GIVEN a OrthographicLens, WHEN projectionMatrix, THEN return correct matrix`() {
+        val left = -1.0
+        val right = 1.0
+        val bottom = -1.0
+        val top = 1.0
+        val near = 1.0
+        val far = -1.0
+        val lens = OrthographicLens(left, right, bottom, top, near, far)
 
-    override fun create(elements: List<Double>): Mat2D = Mat2D(elements)
-    override fun createVector(elements: List<Double>): Vec2<Double> = Vec2.fromList(elements)
+        val result = lens.projectionMatrix
 
-    override fun toFloatMatrix(): Mat2<Float> = Mat2(elements.map { it.toFloat() })
-    override fun toDoubleMatrix(): Mat2<Double> = this
-
-    override fun toString(): String = toString(className = "Mat2")
+        assertEqualsWithDelta(Mat4.identity(), result)
+    }
 }

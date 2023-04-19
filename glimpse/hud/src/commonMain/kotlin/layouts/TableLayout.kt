@@ -29,7 +29,7 @@ class TableLayout(
     /**
      * Position of this layout.
      */
-    position: Vec2<Float> = Vec2.nullVector,
+    position: Vec2<Float> = Vec2.nullVector(),
 
     /**
      * Configuration of columns in this table layout.

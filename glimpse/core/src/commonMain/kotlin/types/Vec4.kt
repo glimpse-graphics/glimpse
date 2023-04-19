@@ -16,32 +16,42 @@
 
 package graphics.glimpse.types
 
+import kotlin.reflect.KClass
+
 /**
  * 4D vector with coordinates ([x], [y], [z], [w]).
  *
  * Can also be used to specify RGBA color values.
  */
-abstract class Vec4<T : Number> : BaseVec<T>() {
+data class Vec4<T>(
 
     /**
      * X coordinate of this vector.
      */
-    abstract val x: T
+    val x: T,
 
     /**
      * Y coordinate of this vector.
      */
-    abstract val y: T
+    val y: T,
 
     /**
      * Z coordinate of this vector.
      */
-    abstract val z: T
+    val z: T,
 
     /**
      * W coordinate of this vector.
      */
-    abstract val w: T
+    val w: T,
+
+    /**
+     * Type of vector coordinates.
+     *
+     * @since v1.3.0
+     */
+    val type: KClass<T>
+) : Vec<T> where T : Number, T : Comparable<T> {
 
     /**
      * Red channel of RGBA color.
@@ -64,34 +74,16 @@ abstract class Vec4<T : Number> : BaseVec<T>() {
     val a: T get() = w
 
     /**
-     * First component of this vector.
-     */
-    abstract operator fun component1(): T
-
-    /**
-     * Second component of this vector.
-     */
-    abstract operator fun component2(): T
-
-    /**
-     * Third component of this vector.
-     */
-    abstract operator fun component3(): T
-
-    /**
-     * Fourth component of this vector.
-     */
-    abstract operator fun component4(): T
-
-    /**
      * Returns a 2D vector with `x` and `y` coordinates of this vector.
      */
-    abstract fun toVec2(): Vec2<T>
+    fun toVec2(): Vec2<T> =
+        Vec2(x = this.x, y = this.y, type = this.type)
 
     /**
      * Returns a 3D vector with `x`, `y` and `z` coordinates of this vector.
      */
-    abstract fun toVec3(): Vec3<T>
+    fun toVec3(): Vec3<T> =
+        Vec3(x = this.x, y = this.y, z = this.z, type = this.type)
 
     /**
      * Returns a 4D integer vector equal to this vector.
@@ -100,7 +92,14 @@ abstract class Vec4<T : Number> : BaseVec<T>() {
      *
      * @since v1.3.0
      */
-    abstract fun toIntVector(): Vec4<Int>
+    fun toIntVector(): Vec4<Int> =
+        Vec4(
+            x = this.x.toInt(),
+            y = this.y.toInt(),
+            z = this.z.toInt(),
+            w = this.w.toInt(),
+            type = Int::class
+        )
 
     /**
      * Returns a 4D long integer vector equal to this vector.
@@ -109,25 +108,65 @@ abstract class Vec4<T : Number> : BaseVec<T>() {
      *
      * @since v1.3.0
      */
-    abstract fun toLongVector(): Vec4<Long>
+    fun toLongVector(): Vec4<Long> =
+        Vec4(
+            x = this.x.toLong(),
+            y = this.y.toLong(),
+            z = this.z.toLong(),
+            w = this.w.toLong(),
+            type = Long::class
+        )
 
     /**
      * Returns a 4D float vector equal to this vector.
      *
      * @since v1.3.0
      */
-    abstract fun toFloatVector(): Vec4<Float>
+    fun toFloatVector(): Vec4<Float> =
+        Vec4(
+            x = this.x.toFloat(),
+            y = this.y.toFloat(),
+            z = this.z.toFloat(),
+            w = this.w.toFloat(),
+            type = Float::class
+        )
 
     /**
      * Returns a 4D double-precision float vector equal to this vector.
      *
      * @since v1.3.0
      */
-    abstract fun toDoubleVector(): Vec4<Double>
+    fun toDoubleVector(): Vec4<Double> =
+        Vec4(
+            x = this.x.toDouble(),
+            y = this.y.toDouble(),
+            z = this.z.toDouble(),
+            w = this.w.toDouble(),
+            type = Double::class
+        )
+
+    /**
+     * Returns a list of coordinates of this vector.
+     */
+    override fun toList(): List<T> = listOf(x, y, z, w)
 
     companion object {
 
         private const val SIZE = 4
+
+        /**
+         * Returns an instance of [Vec4] with the given [list] of coordinates of given [type].
+         *
+         * If the size of the list of coordinates is different from 4, [IllegalArgumentException]
+         * is thrown.
+         *
+         * @since v1.3.0
+         */
+        fun <T> fromList(list: List<T>, type: KClass<T>): Vec4<T> where T : Number, T : Comparable<T> {
+            require(list.size == SIZE)
+            val (x, y, z, w) = list
+            return Vec4(x, y, z, w, type)
+        }
 
         /**
          * Returns an instance of [Vec4] with the given [list] of coordinates.
@@ -190,34 +229,13 @@ abstract class Vec4<T : Number> : BaseVec<T>() {
 }
 
 /**
- * Returns a new 4D integer vector with coordinates ([x], [y], [z], [w]).
+ * Returns a new 4D vector with coordinates ([x], [y], [z], [w]).
  *
  * @since v1.3.0
  */
 @Suppress("FunctionNaming")
-fun Vec4(x: Int, y: Int, z: Int, w: Int): Vec4<Int> = Vec4I(x, y, z, w)
-
-/**
- * Returns a new 4D long integer vector with coordinates ([x], [y], [z], [w]).
- *
- * @since v1.3.0
- */
-@Suppress("FunctionNaming")
-fun Vec4(x: Long, y: Long, z: Long, w: Long): Vec4<Long> = Vec4L(x, y, z, w)
-
-/**
- * Returns a new 4D float vector with coordinates ([x], [y], [z], [w]).
- */
-@Suppress("FunctionNaming")
-fun Vec4(x: Float, y: Float, z: Float, w: Float): Vec4<Float> = Vec4F(x, y, z, w)
-
-/**
- * Returns a new 4D double-precision float vector with coordinates ([x], [y], [z], [w]).
- *
- * @since v1.3.0
- */
-@Suppress("FunctionNaming")
-fun Vec4(x: Double, y: Double, z: Double, w: Double): Vec4<Double> = Vec4D(x, y, z, w)
+inline fun <reified T> Vec4(x: T, y: T, z: T, w: T): Vec4<T> where T : Number, T : Comparable<T> =
+    Vec4(x = x, y = y, z = z, w = w, type = T::class)
 
 /**
  * Returns an array of coordinates of this vector.

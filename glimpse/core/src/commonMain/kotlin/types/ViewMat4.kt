@@ -16,19 +16,37 @@
 
 package graphics.glimpse.types
 
+import kotlin.reflect.KClass
+
 /**
  * Creates a view matrix defined by an [eye] position, a [target] point, and an [upVector].
  */
-fun lookAt(eye: Vec3<Float>, target: Vec3<Float>, upVector: Vec3<Float>): Mat4<Float> {
+inline fun <reified T> lookAt(
+    eye: Vec3<T>,
+    target: Vec3<T>,
+    upVector: Vec3<T>
+): Mat4<T> where T : Number, T : Comparable<T> =
+    lookAt(eye, target, upVector, T::class)
+
+/**
+ * Creates a view matrix defined by an [eye] position, a [target] point, and an [upVector].
+ */
+fun <T> lookAt(
+    eye: Vec3<T>,
+    target: Vec3<T>,
+    upVector: Vec3<T>,
+    type: KClass<T>
+): Mat4<T> where T : Number, T : Comparable<T> {
     val forward = (target - eye).normalize()
     val right = (forward cross upVector).normalize()
     val up = right cross forward
     return Mat4(
-        listOf(
-            right.x, up.x, -forward.x, 0f,
-            right.y, up.y, -forward.y, 0f,
-            right.z, up.z, -forward.z, 0f,
-            0f, 0f, 0f, 1f
-        )
-    ) * translation(-eye)
+        elements = listOf(
+            right.x, up.x, -forward.x, zero(type),
+            right.y, up.y, -forward.y, zero(type),
+            right.z, up.z, -forward.z, zero(type),
+            zero(type), zero(type), zero(type), one(type)
+        ),
+        type = type
+    ) * translation(vector = -eye)
 }

@@ -32,7 +32,7 @@ class Space(
      * Space height.
      */
     var height: Float = 0f
-) : BaseHudElement(Vec2.nullVector) {
+) : BaseHudElement(Vec2.nullVector()) {
 
     /**
      * Bounding box of this space.

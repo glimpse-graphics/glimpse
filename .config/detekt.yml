@@ -3,7 +3,7 @@ complexity:
   CyclomaticComplexMethod:
     ignoreSimpleWhenEntries: true
   LongParameterList:
-    functionThreshold: 7
+    functionThreshold: 10
     ignoreDefaultParameters: true
   TooManyFunctions:
     thresholdInFiles: 30

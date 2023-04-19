@@ -14,9 +14,26 @@
  * limitations under the License.
  */
 
-package graphics.glimpse
+package graphics.glimpse.lenses
 
-/**
- * Archimedes' constant (π).
- */
-internal const val PI = 3.1415927f
+import graphics.glimpse.assertions.assertEqualsWithDelta
+import graphics.glimpse.types.Mat4
+import kotlin.test.Test
+
+class OrthographicLensFTest {
+
+    @Test
+    fun `GIVEN a OrthographicLens, WHEN projectionMatrix, THEN return correct matrix`() {
+        val left = -1f
+        val right = 1f
+        val bottom = -1f
+        val top = 1f
+        val near = 1f
+        val far = -1f
+        val lens = OrthographicLens(left, right, bottom, top, near, far)
+
+        val result = lens.projectionMatrix
+
+        assertEqualsWithDelta(Mat4.identity(), result)
+    }
+}

@@ -25,6 +25,8 @@
 - **BREAKING CHANGE:** Method `Vec.toFloatArray()` replaced with a set of extension functions `VecN<Float>.toFloatArray()`
 - **BREAKING CHANGE:** Add parameter type `T : Number` to `Mat` and all inheriting types
 - **BREAKING CHANGE:** Method `Mat.toFloatArray()` replaced with a set of extension functions `BaseMat<Float, M, V>.toFloatArray()`
+- **BREAKING CHANGE:** Add parameter type `T : Number` to `Camera` and its implementations
+- **BREAKING CHANGE:** Add parameter type `T : Number` to `Lens` and its implementations
 - Upgrade Gradle Wrapper to `8.1`
 - Dependencies:
   - Upgrade Kotlin to `1.8.20`

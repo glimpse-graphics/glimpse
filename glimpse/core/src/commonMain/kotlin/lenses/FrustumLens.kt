@@ -18,6 +18,8 @@ package graphics.glimpse.lenses
 
 import graphics.glimpse.types.Mat4
 import graphics.glimpse.types.frustum
+import graphics.glimpse.types.unaryMinus
+import kotlin.reflect.KClass
 
 /**
  * A lens for a perspective projection defined by a given frustum.
@@ -25,17 +27,35 @@ import graphics.glimpse.types.frustum
  * The frustum is defined by its [near] and [far] depth clipping planes, and its [left], [right],
  * [bottom] and [top] clipping planes (specified at the near depth).
  */
-data class FrustumLens(
-    val left: Float,
-    val right: Float = -left,
-    val bottom: Float,
-    val top: Float = -bottom,
-    val near: Float,
-    val far: Float
-) : Lens {
+data class FrustumLens<T>(
+    val left: T,
+    val right: T = -left,
+    val bottom: T,
+    val top: T = -bottom,
+    val near: T,
+    val far: T,
+    val type: KClass<T>
+) : Lens<T> where T : Number, T : Comparable<T> {
 
     /**
      * Projection matrix defined by the lens.
      */
-    override val projectionMatrix: Mat4<Float> = frustum(left, right, bottom, top, near, far)
+    override val projectionMatrix: Mat4<T> = frustum(left, right, bottom, top, near, far, this.type)
 }
+
+/**
+ * Returns a new lens for a perspective projection defined by a given frustum.
+ *
+ * The frustum is defined by its [near] and [far] depth clipping planes, and its [left], [right],
+ * [bottom] and [top] clipping planes (specified at the near depth).
+ */
+@Suppress("FunctionNaming")
+inline fun <reified T> FrustumLens(
+    left: T,
+    right: T = -left,
+    bottom: T,
+    top: T = -bottom,
+    near: T,
+    far: T
+): FrustumLens<T> where T : Number, T : Comparable<T> =
+    FrustumLens(left, right, bottom, top, near, far, T::class)

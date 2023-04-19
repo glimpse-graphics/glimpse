@@ -42,7 +42,7 @@ class Quad(
      *
      * The position is measured towards the [origin].
      */
-    position: Vec2<Float> = Vec2.nullVector,
+    position: Vec2<Float> = Vec2.nullVector(),
 
     /**
      * Origin point of this quad.
@@ -67,7 +67,7 @@ class Quad(
      *
      * The pivot point for this rotation is the [origin].
      */
-    var rotation: Angle<Float> = Angle.nullAngle
+    var rotation: Angle<Float> = Angle.nullAngle()
 
     /**
      * Output model matrix for this quad.

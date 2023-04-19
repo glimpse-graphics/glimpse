@@ -103,9 +103,9 @@ class Vec3ITest {
         val vector = Vec3(x = 10, y = 20, z = 30)
         val number = 10
 
-        assertFailsWith<UnsupportedOperationException> {
-            vector / number
-        }
+        val result = vector / number
+
+        assertEquals(Vec3(x = 1, y = 2, z = 3), result)
     }
 
     @Test

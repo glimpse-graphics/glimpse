@@ -19,7 +19,7 @@ package graphics.glimpse.types
 /**
  * A range of values of type [Angle].
  */
-data class AngleRange<T : Number>(
+data class AngleRange<T>(
     override val start: Angle<T>,
     override val endInclusive: Angle<T>
-) : ClosedRange<Angle<T>>
+) : ClosedRange<Angle<T>> where T : Number, T : Comparable<T>

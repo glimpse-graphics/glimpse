@@ -22,27 +22,27 @@ import graphics.glimpse.types.Mat4
 import graphics.glimpse.types.Vec3
 import kotlin.test.Test
 
-class RelativeTargetCameraTest {
+class RelativeTargetCameraDTest {
 
     @Test
     fun `GIVEN a RelativeTargetCamera, WHEN eye, THEN return correct eye position`() {
-        val target = Vec3.nullVector
-        val distance = 1.0f
-        val longitude = Angle.fromDeg(deg = 45f)
-        val latitude = Angle.fromDeg(deg = 45f)
+        val target = Vec3.nullVector<Double>()
+        val distance = 1.0
+        val longitude = Angle.fromDeg(deg = 45.0)
+        val latitude = Angle.fromDeg(deg = 45.0)
         val camera = RelativeTargetCamera(target, distance, longitude, latitude)
 
         val result = camera.eye
 
-        assertEqualsWithDelta(Vec3(x = 0.5f, y = 0.5f, z = 0.7071067812f), result)
+        assertEqualsWithDelta(Vec3(x = 0.5, y = 0.5, z = 0.7071067811865475), result)
     }
 
     @Test
     fun `GIVEN a RelativeTargetCamera, WHEN viewMatrix, THEN return correct matrix`() {
-        val target = Vec3.nullVector
-        val distance = 1.0f
-        val longitude = Angle.fromDeg(deg = 45f)
-        val latitude = Angle.fromDeg(deg = 45f)
+        val target = Vec3.nullVector<Double>()
+        val distance = 1.0
+        val longitude = Angle.fromDeg(deg = 45.0)
+        val latitude = Angle.fromDeg(deg = 45.0)
         val camera = RelativeTargetCamera(target, distance, longitude, latitude)
 
         val result = camera.viewMatrix
@@ -50,10 +50,10 @@ class RelativeTargetCameraTest {
         assertEqualsWithDelta(
             Mat4(
                 listOf(
-                    -0.7071067812f, -0.5f, 0.5f, 0f,
-                    0.7071067812f, -0.5f, 0.5f, 0f,
-                    0f, 0.7071067812f, 0.7071067812f, 0f,
-                    0f, 0f, -1f, 1f
+                    -0.7071067811865475, -0.5, 0.5, 0.0,
+                    0.7071067811865475, -0.5, 0.5, 0.0,
+                    0.0, 0.7071067811865475, 0.7071067811865475, 0.0,
+                    0.0, 0.0, -1.0, 1.0
                 )
             ),
             result
