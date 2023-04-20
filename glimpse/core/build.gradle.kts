@@ -49,7 +49,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-junit"))
                 implementation("ch.qos.logback:logback-core:1.4.6")
-                implementation("ch.qos.logback:logback-classic:1.4.6")
+                implementation("ch.qos.logback:logback-classic:1.4.7")
             }
         }
     }

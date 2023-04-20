@@ -26,7 +26,7 @@ dependencies {
     implementation("org.jogamp.gluegen:gluegen-rt-main:2.4.0")
     implementation("org.slf4j:slf4j-api:2.0.7")
     implementation("ch.qos.logback:logback-core:1.4.6")
-    implementation("ch.qos.logback:logback-classic:1.4.6")
+    implementation("ch.qos.logback:logback-classic:1.4.7")
 }
 
 application {
