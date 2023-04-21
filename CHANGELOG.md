@@ -3,10 +3,6 @@
 ## [Unreleased]
 ### Added
 - `Double` buffer data wrapper: `DoubleBufferData`
-- Vectors containing `Int` numbers
-- Vectors containing `Long` numbers
-- Vectors containing `Double` numbers
-- Matrices containing `Double` numbers
 - Extension functions `VecN<Int>.toIntArray()`
 - Extension functions `VecN<Long>.toLongArray()`
 - Extension functions `VecN<Double>.toDoubleArray()`
@@ -18,6 +14,8 @@
 - Methods: `Vec2.magnitude()`, `Vec3.magnitude()`, `Vec2.normalize()`, `Vec3.normalize()`
 - Extension functions: `Color.toVec3()`, `Color.toVec4()`, `Int.toVec3()`, `Int.toVec4()`
 - Extension functions: `Vec3.toColor()`, `Vec4.toColor()`, `Vec3.toColorInt()`, `vec4.toColorInt()`, `Vec3.toComposeColor()`, `Vec4.toComposeColor()`
+- Glimpse geometry library with basic geometric shapes
+- Glimpse testing library with delta assertions
 
 ### Changed
 - **BREAKING CHANGE:** Add parameter type `T : Number` to `Angle` and `AngleRange`

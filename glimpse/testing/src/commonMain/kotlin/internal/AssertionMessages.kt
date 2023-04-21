@@ -14,13 +14,8 @@
  * limitations under the License.
  */
 
-package graphics.glimpse.assertions
+package graphics.glimpse.testing.internal
 
-/**
- * Delta for inaccurate assertions.
- */
-enum class Delta(val floatValue: Float, val doubleValue: Double) {
-    ROUGH(floatValue = 0.01f, doubleValue = 0.001),
-    MEDIUM(floatValue = 0.0001f, doubleValue = 0.000001),
-    FINE(floatValue = 0.000001f, doubleValue = 0.000000001),
-}
+internal fun messagePrefix(message: String?) =
+    if (message == null) ""
+    else "$message. "

@@ -16,7 +16,7 @@
 
 package graphics.glimpse.types
 
-import graphics.glimpse.assertions.assertEqualsWithDelta
+import graphics.glimpse.testing.assertEqualsWithDelta
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse

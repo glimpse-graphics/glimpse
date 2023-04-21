@@ -52,7 +52,6 @@ kotlin {
         val desktopTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
-                implementation("io.mockk:mockk:1.13.5")
             }
         }
     }

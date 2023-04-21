@@ -16,7 +16,7 @@
 
 package graphics.glimpse.lenses
 
-import graphics.glimpse.assertions.assertEqualsWithDelta
+import graphics.glimpse.testing.assertEqualsWithDelta
 import graphics.glimpse.types.Mat4
 import kotlin.test.Test
 

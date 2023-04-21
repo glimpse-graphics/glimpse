@@ -16,7 +16,7 @@
 
 package graphics.glimpse.cameras
 
-import graphics.glimpse.assertions.assertEqualsWithDelta
+import graphics.glimpse.testing.assertEqualsWithDelta
 import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Mat4
 import graphics.glimpse.types.Vec3
