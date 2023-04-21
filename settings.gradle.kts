@@ -27,10 +27,12 @@ pluginManagement {
 rootProject.name = "glimpse-graphics"
 
 include(":glimpse:core")
+include(":glimpse:geom")
 include(":glimpse:hud")
 include(":glimpse:obj")
 include(":glimpse:offscreen")
 include(":glimpse:processor-ksp")
+include(":glimpse:testing")
 include(":glimpse:ui")
 include(":glimpse:ui-compose")
 

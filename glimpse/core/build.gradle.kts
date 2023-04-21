@@ -24,6 +24,7 @@ kotlin {
         val commonMain by getting
         val commonTest by getting {
             dependencies {
+                implementation(project(":glimpse:testing"))
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
             }
