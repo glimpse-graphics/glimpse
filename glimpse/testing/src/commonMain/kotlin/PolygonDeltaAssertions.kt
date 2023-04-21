@@ -22,6 +22,8 @@ import graphics.glimpse.testing.internal.messagePrefix
 /**
  * Asserts that the [actual] value is equal to the [expected] value plus/minus [delta],
  * with an optional [message].
+ *
+ * @since v1.3.0
  */
 @JvmName("assertFloatPolygonEqualsWithDelta")
 fun assertEqualsWithDelta(
@@ -42,6 +44,8 @@ fun assertEqualsWithDelta(
 /**
  * Asserts that the [actual] value is equal to the [expected] value plus/minus [delta],
  * with an optional [message].
+ *
+ * @since v1.3.0
  */
 @JvmName("assertDoublePolygonEqualsWithDelta")
 fun assertEqualsWithDelta(

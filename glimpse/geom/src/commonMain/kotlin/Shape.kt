@@ -22,6 +22,8 @@ import kotlin.reflect.KClass
 
 /**
  * 2D shape.
+ *
+ * @since v1.3.0
  */
 sealed interface Shape<T> where T : Number, T : Comparable<T> {
 

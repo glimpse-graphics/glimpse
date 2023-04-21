@@ -27,6 +27,8 @@ import kotlin.reflect.KClass
 
 /**
  * 2D rectangle.
+ *
+ * @since v1.3.0
  */
 data class Rectangle<T>(
 

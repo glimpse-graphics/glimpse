@@ -25,6 +25,8 @@ import kotlin.test.assertEquals
 /**
  * Asserts that the [actual] vector is equal to the [expected] vector plus/minus [delta]
  * (compared per coordinate), with an optional [message].
+ *
+ * @since v1.3.0
  */
 @JvmName("assertFloatVec2EqualsWithDelta")
 fun assertEqualsWithDelta(
@@ -51,6 +53,8 @@ fun assertEqualsWithDelta(
 /**
  * Asserts that the [actual] vector is equal to the [expected] vector plus/minus [delta]
  * (compared per coordinate), with an optional [message].
+ *
+ * @since v1.3.0
  */
 @JvmName("assertDoubleVec2EqualsWithDelta")
 fun assertEqualsWithDelta(
@@ -77,6 +81,8 @@ fun assertEqualsWithDelta(
 /**
  * Asserts that the [actual] vector is equal to the [expected] vector plus/minus [delta]
  * (compared per coordinate), with an optional [message].
+ *
+ * @since v1.3.0
  */
 @JvmName("assertFloatVec2ListEqualsWithDelta")
 fun assertEqualsWithDelta(
@@ -104,6 +110,8 @@ fun assertEqualsWithDelta(
 /**
  * Asserts that the [actual] vector is equal to the [expected] vector plus/minus [delta]
  * (compared per coordinate), with an optional [message].
+ *
+ * @since v1.3.0
  */
 @JvmName("assertDoubleVec2ListEqualsWithDelta")
 fun assertEqualsWithDelta(
@@ -131,6 +139,8 @@ fun assertEqualsWithDelta(
 /**
  * Asserts that the [actual] vector is equal to the [expected] vector plus/minus [delta]
  * (compared per coordinate), with an optional [message].
+ *
+ * @since v1.3.0
  */
 @JvmName("assertFloatVec3EqualsWithDelta")
 fun assertEqualsWithDelta(
@@ -163,6 +173,8 @@ fun assertEqualsWithDelta(
 /**
  * Asserts that the [actual] vector is equal to the [expected] vector plus/minus [delta]
  * (compared per coordinate), with an optional [message].
+ *
+ * @since v1.3.0
  */
 @JvmName("assertDoubleVec3EqualsWithDelta")
 fun assertEqualsWithDelta(
@@ -195,6 +207,8 @@ fun assertEqualsWithDelta(
 /**
  * Asserts that the [actual] vector is equal to the [expected] vector plus/minus [delta]
  * (compared per coordinate), with an optional [message].
+ *
+ * @since v1.3.0
  */
 @JvmName("assertFloatVec3ListEqualsWithDelta")
 fun assertEqualsWithDelta(
@@ -222,6 +236,8 @@ fun assertEqualsWithDelta(
 /**
  * Asserts that the [actual] vector is equal to the [expected] vector plus/minus [delta]
  * (compared per coordinate), with an optional [message].
+ *
+ * @since v1.3.0
  */
 @JvmName("assertDoubleVec3ListEqualsWithDelta")
 fun assertEqualsWithDelta(
@@ -249,6 +265,8 @@ fun assertEqualsWithDelta(
 /**
  * Asserts that the [actual] vector is equal to the [expected] vector plus/minus [delta]
  * (compared per coordinate), with an optional [message].
+ *
+ * @since v1.3.0
  */
 @JvmName("assertFloatVec4EqualsWithDelta")
 fun assertEqualsWithDelta(
@@ -287,6 +305,8 @@ fun assertEqualsWithDelta(
 /**
  * Asserts that the [actual] vector is equal to the [expected] vector plus/minus [delta]
  * (compared per coordinate), with an optional [message].
+ *
+ * @since v1.3.0
  */
 @JvmName("assertDoubleVec4EqualsWithDelta")
 fun assertEqualsWithDelta(
@@ -325,6 +345,8 @@ fun assertEqualsWithDelta(
 /**
  * Asserts that the [actual] vector is equal to the [expected] vector plus/minus [delta]
  * (compared per coordinate), with an optional [message].
+ *
+ * @since v1.3.0
  */
 @JvmName("assertFloatVec4ListEqualsWithDelta")
 fun assertEqualsWithDelta(
@@ -352,6 +374,8 @@ fun assertEqualsWithDelta(
 /**
  * Asserts that the [actual] vector is equal to the [expected] vector plus/minus [delta]
  * (compared per coordinate), with an optional [message].
+ *
+ * @since v1.3.0
  */
 @JvmName("assertDoubleVec4ListEqualsWithDelta")
 fun assertEqualsWithDelta(

@@ -20,11 +20,15 @@ import kotlin.reflect.KClass
 
 /**
  * Returns value of zero for type [T].
+ *
+ * @since v1.3.0
  */
 inline fun <reified T : Number> zero(): T = zero(T::class)
 
 /**
  * Returns value of zero for given [type].
+ *
+ * @since v1.3.0
  */
 fun <T : Number> zero(type: KClass<T>): T =
     when (type) {
@@ -39,11 +43,15 @@ fun <T : Number> zero(type: KClass<T>): T =
 
 /**
  * Returns value of one for type [T].
+ *
+ * @since v1.3.0
  */
 inline fun <reified T : Number> one(): T = one(T::class)
 
 /**
  * Returns value of one for given [type].
+ *
+ * @since v1.3.0
  */
 fun <T : Number> one(type: KClass<T>): T =
     when (type) {
@@ -58,11 +66,15 @@ fun <T : Number> one(type: KClass<T>): T =
 
 /**
  * Returns this number.
+ *
+ * @since v1.3.0
  */
 operator fun <T : Number> T.unaryPlus(): T = this
 
 /**
  * Returns a number opposite to this number.
+ *
+ * @since v1.3.0
  */
 operator fun <T : Number> T.unaryMinus(): T =
     when (this) {
@@ -77,6 +89,8 @@ operator fun <T : Number> T.unaryMinus(): T =
 
 /**
  * Returns sum of this number and the [other] number.
+ *
+ * @since v1.3.0
  */
 operator fun <T : Number> T.plus(other: Number): T =
     when (this) {
@@ -91,6 +105,8 @@ operator fun <T : Number> T.plus(other: Number): T =
 
 /**
  * Returns difference of this number and the [other] number.
+ *
+ * @since v1.3.0
  */
 operator fun <T : Number> T.minus(other: Number): T =
     when (this) {
@@ -105,6 +121,8 @@ operator fun <T : Number> T.minus(other: Number): T =
 
 /**
  * Returns product of this number and the [other] number.
+ *
+ * @since v1.3.0
  */
 operator fun <T : Number> T.times(other: Number): T =
     when (this) {
@@ -119,6 +137,8 @@ operator fun <T : Number> T.times(other: Number): T =
 
 /**
  * Returns quotient of this number and the [other] number.
+ *
+ * @since v1.3.0
  */
 operator fun <T : Number> T.div(other: Number): T =
     when (this) {
@@ -133,6 +153,8 @@ operator fun <T : Number> T.div(other: Number): T =
 
 /**
  * Returns remainder of dividing this number by the [other] number.
+ *
+ * @since v1.3.0
  */
 operator fun <T : Number> T.rem(other: Number): T =
     when (this) {
@@ -147,6 +169,8 @@ operator fun <T : Number> T.rem(other: Number): T =
 
 /**
  * Returns square root of number [x].
+ *
+ * @since v1.3.0
  */
 fun <T : Number> sqrt(x: T): T =
     when (x) {
@@ -157,6 +181,8 @@ fun <T : Number> sqrt(x: T): T =
 
 /**
  * Returns tangent of number [x].
+ *
+ * @since v1.3.0
  */
 fun <T : Number> atan(x: T): T =
     when (x) {
@@ -167,6 +193,8 @@ fun <T : Number> atan(x: T): T =
 
 /**
  * Returns tangent of number ([y]/[x]).
+ *
+ * @since v1.3.0
  */
 fun <T : Number> atan2(y: T, x: T): T =
     when (x) {
@@ -177,11 +205,15 @@ fun <T : Number> atan2(y: T, x: T): T =
 
 /**
  * Returns sum of the numbers in this list.
+ *
+ * @since v1.3.0
  */
 inline fun <reified T : Number> List<T>.sum(): T = sum(T::class)
 
 /**
  * Returns sum of the numbers in this list.
+ *
+ * @since v1.3.0
  */
 fun <T : Number> List<T>.sum(type: KClass<T>): T {
     var sum: T = zero(type)
@@ -193,12 +225,16 @@ fun <T : Number> List<T>.sum(type: KClass<T>): T {
 
 /**
  * Returns lesser of the given values [a] and [b].
+ *
+ * @since v1.3.0
  */
 fun <T> min(a: T, b: T): T where T : Number, T : Comparable<T> =
     if (a <= b) a else b
 
 /**
  * Returns larger of the given values [a] and [b].
+ *
+ * @since v1.3.0
  */
 fun <T> max(a: T, b: T): T where T : Number, T : Comparable<T> =
     if (a >= b) a else b
