@@ -28,6 +28,8 @@ import kotlin.reflect.KClass
 
 /**
  * 2D line section with given [start] and [end] points.
+ *
+ * @since v1.3.0
  */
 data class Section2<T>(
 

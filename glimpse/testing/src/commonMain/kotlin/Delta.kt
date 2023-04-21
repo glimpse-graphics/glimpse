@@ -18,6 +18,8 @@ package graphics.glimpse.testing
 
 /**
  * Delta for inaccurate assertions.
+ *
+ * @since v1.3.0
  */
 enum class Delta(val floatValue: Float, val doubleValue: Double) {
     ROUGH(floatValue = 0.01f, doubleValue = 0.001),
