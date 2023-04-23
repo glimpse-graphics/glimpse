@@ -188,8 +188,8 @@ data class Rectangle<T>(
 inline fun <reified T> Rectangle(
     left: T,
     bottom: T,
-    top: T,
-    right: T
+    right: T,
+    top: T
 ): Rectangle<T> where T : Number, T : Comparable<T> =
     Rectangle(
         left = left,
