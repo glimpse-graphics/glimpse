@@ -103,6 +103,16 @@ class AngleDTest {
     }
 
     @Test
+    fun `GIVEN two large Angles, WHEN rem, THEN return remainder from dividing the angles`() {
+        val angle1 = Angle.fromDeg(deg = 540.0)
+        val angle2 = Angle.fullAngle<Double>()
+
+        val result = angle1 % angle2
+
+        assertEqualsWithDelta(Angle.straightAngle(), result)
+    }
+
+    @Test
     fun `GIVEN an Angle, WHEN coerceIn, THEN return angle within range`() {
         val angle1 = Angle.fromDeg(deg = 75.0)
         val angle2 = Angle.fromDeg(deg = 105.0)
