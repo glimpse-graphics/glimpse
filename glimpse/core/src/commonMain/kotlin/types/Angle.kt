@@ -229,7 +229,7 @@ class Angle<T> private constructor(
          * @since v1.3.0
          */
         inline fun <reified T> fullAngle(): Angle<T> where T : Number, T : Comparable<T> =
-            straightAngle(T::class)
+            fullAngle(T::class)
 
         /**
          * Returns angle measure of 360 degrees.

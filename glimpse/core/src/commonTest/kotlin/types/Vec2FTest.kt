@@ -129,6 +129,42 @@ class Vec2FTest {
     }
 
     @Test
+    fun `GIVEN X unit vector, WHEN atan, THEN return null angle`() {
+        val vector = Vec2.unitX<Float>()
+
+        val result = vector.atan()
+
+        assertEqualsWithDelta(Angle.nullAngle(), result)
+    }
+
+    @Test
+    fun `GIVEN Y unit vector, WHEN atan, THEN return right angle`() {
+        val vector = Vec2.unitY<Float>()
+
+        val result = vector.atan()
+
+        assertEqualsWithDelta(Angle.rightAngle(), result)
+    }
+
+    @Test
+    fun `GIVEN negative X unit vector, WHEN atan, THEN return straight angle`() {
+        val vector = -Vec2.unitX<Float>()
+
+        val result = vector.atan()
+
+        assertEqualsWithDelta(-Angle.straightAngle<Float>(), result)
+    }
+
+    @Test
+    fun `GIVEN negative Y unit vector, WHEN atan, THEN return negative right angle`() {
+        val vector = -Vec2.unitY<Float>()
+
+        val result = vector.atan()
+
+        assertEqualsWithDelta(-Angle.rightAngle<Float>(), result)
+    }
+
+    @Test
     fun `GIVEN a vector, WHEN magnitude, THEN return vector's magnitude`() {
         val vector = Vec2(x = 3f, y = 4f)
 
