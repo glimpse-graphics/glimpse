@@ -309,7 +309,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     /**
      * Creates a buffer of double-precision floating point values and fills it with data.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     actual fun glBufferData(type: BufferType, data: DoubleBufferData, usage: BufferUsage) {
         gles.glBufferData(
@@ -802,7 +802,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     /**
      * Sets [value] of 2D vector uniform variable at a given [location] for current program.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     @JvmName("glUniform2i")
     actual fun glUniform(location: Int, value: Vec2<Int>) {
@@ -820,7 +820,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     /**
      * Sets [value] of 3D vector uniform variable at a given [location] for current program.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     @JvmName("glUniform3i")
     actual fun glUniform(location: Int, value: Vec3<Int>) {
@@ -838,7 +838,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     /**
      * Sets [value] of 4D vector uniform variable at a given [location] for current program.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     @JvmName("glUniform4i")
     actual fun glUniform(location: Int, value: Vec4<Int>) {
@@ -858,7 +858,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
      *
      * A boolean value is converted to an integer value of `GL_TRUE` or `GL_FALSE`.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     actual fun glUniform(location: Int, vararg values: Boolean) {
         gles.glUniform1iv(location, values.size, values.map { value -> value.toInt() }.toIntArray(), 0)
@@ -881,7 +881,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     /**
      * Sets [values] of 2D vector array uniform variable at a given [location] for current program.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     @JvmName("glUniform2iv")
     actual fun glUniform(location: Int, vararg values: Vec2<Int>) {
@@ -899,7 +899,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     /**
      * Sets [values] of 3D vector array uniform variable at a given [location] for current program.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     @JvmName("glUniform3iv")
     actual fun glUniform(location: Int, vararg values: Vec3<Int>) {
@@ -917,7 +917,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     /**
      * Sets [values] of 4D vector array uniform variable at a given [location] for current program.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     @JvmName("glUniform4iv")
     actual fun glUniform(location: Int, vararg values: Vec4<Int>) {
@@ -980,7 +980,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     /**
      * Sets integer [buffer] uniform variable at a given [location] for current program.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     actual fun glUniform(location: Int, buffer: IntUniformBuffer) {
         val elementSize = buffer.elementType.size * Int.SIZE_BYTES
@@ -1003,7 +1003,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     /**
      * Sets floating point [buffer] uniform variable at a given [location] for current program.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     actual fun glUniform(location: Int, buffer: FloatUniformBuffer) {
         val elementSize = buffer.elementType.size * Float.SIZE_BYTES

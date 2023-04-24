@@ -27,7 +27,7 @@ import graphics.glimpse.types.toFloatArray
  * Asserts that the [actual] matrix is equal to the [expected] matrix plus/minus [delta]
  * (compared per element), with an optional [message].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("assertFloatMat2EqualsWithDelta")
 fun assertEqualsWithDelta(
@@ -49,7 +49,7 @@ fun assertEqualsWithDelta(
  * Asserts that the [actual] matrix is equal to the [expected] matrix plus/minus [delta]
  * (compared per element), with an optional [message].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("assertDoubleMat2EqualsWithDelta")
 fun assertEqualsWithDelta(
@@ -71,7 +71,7 @@ fun assertEqualsWithDelta(
  * Asserts that the [actual] matrix is equal to the [expected] matrix plus/minus [delta]
  * (compared per element), with an optional [message].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("assertFloatMat3EqualsWithDelta")
 fun assertEqualsWithDelta(
@@ -93,7 +93,7 @@ fun assertEqualsWithDelta(
  * Asserts that the [actual] matrix is equal to the [expected] matrix plus/minus [delta]
  * (compared per element), with an optional [message].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("assertDoubleMat3EqualsWithDelta")
 fun assertEqualsWithDelta(
@@ -115,7 +115,7 @@ fun assertEqualsWithDelta(
  * Asserts that the [actual] matrix is equal to the [expected] matrix plus/minus [delta]
  * (compared per element), with an optional [message].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("assertFloatMat4EqualsWithDelta")
 fun assertEqualsWithDelta(
@@ -137,7 +137,7 @@ fun assertEqualsWithDelta(
  * Asserts that the [actual] matrix is equal to the [expected] matrix plus/minus [delta]
  * (compared per element), with an optional [message].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("assertDoubleMat4EqualsWithDelta")
 fun assertEqualsWithDelta(

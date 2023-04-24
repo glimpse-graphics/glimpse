@@ -84,7 +84,7 @@ abstract class BaseProgramExecutor<T>(
      *
      * A boolean uniform is converted to an integer value of `GL_TRUE` or `GL_FALSE`.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     protected fun glUniform(gl: GlimpseAdapter, name: String, value: BooleanArray) {
         @Suppress("SpreadOperator")
@@ -129,7 +129,7 @@ abstract class BaseProgramExecutor<T>(
      * Sets [value] of 2D vector uniform variable with a given [name] for the [program]
      * contained in the executor.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     @JvmName("glUniform2i")
     protected fun glUniform(gl: GlimpseAdapter, name: String, value: Vec2<Int>) {
@@ -140,7 +140,7 @@ abstract class BaseProgramExecutor<T>(
      * Sets [values] of 2D vector array uniform variable with a given [name] for the [program]
      * contained in the executor.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     @JvmName("glUniform2iv")
     protected fun glUniform(gl: GlimpseAdapter, name: String, values: Array<Vec2<Int>>) {
@@ -171,7 +171,7 @@ abstract class BaseProgramExecutor<T>(
      * Sets [value] of 3D vector uniform variable with a given [name] for the [program]
      * contained in the executor.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     @JvmName("glUniform3i")
     protected fun glUniform(gl: GlimpseAdapter, name: String, value: Vec3<Int>) {
@@ -182,7 +182,7 @@ abstract class BaseProgramExecutor<T>(
      * Sets [values] of 3D vector array uniform variable with a given [name] for the [program]
      * contained in the executor.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     @JvmName("glUniform3iv")
     protected fun glUniform(gl: GlimpseAdapter, name: String, values: Array<Vec3<Int>>) {
@@ -213,7 +213,7 @@ abstract class BaseProgramExecutor<T>(
      * Sets [value] of 4D vector uniform variable with a given [name] for the [program]
      * contained in the executor.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     @JvmName("glUniform4i")
     protected fun glUniform(gl: GlimpseAdapter, name: String, value: Vec4<Int>) {
@@ -224,7 +224,7 @@ abstract class BaseProgramExecutor<T>(
      * Sets [values] of 4D vector array uniform variable with a given [name] for the [program]
      * contained in the executor.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     @JvmName("glUniform4iv")
     protected fun glUniform(gl: GlimpseAdapter, name: String, values: Array<Vec4<Int>>) {

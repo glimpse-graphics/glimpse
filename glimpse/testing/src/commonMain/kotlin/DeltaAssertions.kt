@@ -25,7 +25,7 @@ import kotlin.test.assertTrue
  * Asserts that the [actual] value is equal to the [expected] value plus/minus [delta],
  * with an optional [message].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("assertFloatEqualsWithDelta")
 fun assertEqualsWithDelta(
@@ -45,7 +45,7 @@ fun assertEqualsWithDelta(
  * Asserts that the [actual] value is equal to the [expected] value plus/minus [delta],
  * with an optional [message].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("assertDoubleEqualsWithDelta")
 fun assertEqualsWithDelta(
@@ -65,7 +65,7 @@ fun assertEqualsWithDelta(
  * Asserts that the [actual] values are equal to the [expected] values plus/minus [delta],
  * with an optional [message].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("assertFloatListEqualsWithDelta")
 fun assertEqualsWithDelta(
@@ -94,7 +94,7 @@ fun assertEqualsWithDelta(
  * Asserts that the [actual] values are equal to the [expected] values plus/minus [delta],
  * with an optional [message].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("assertDoubleListEqualsWithDelta")
 fun assertEqualsWithDelta(

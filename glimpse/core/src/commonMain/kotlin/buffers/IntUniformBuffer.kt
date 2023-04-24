@@ -26,7 +26,7 @@ import graphics.glimpse.types.Vec4
  * Buffers can be more efficient than arrays of numbers, vectors or matrices,
  * in particular when operating on large amounts of constant data.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 data class IntUniformBuffer(
     val data: IntBufferData,
@@ -36,7 +36,7 @@ data class IntUniformBuffer(
 /**
  * Returns a new uniform buffer containing all elements of this iterable.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("ofIntegers")
 fun Iterable<Int>.toUniformBuffer(): IntUniformBuffer =
@@ -45,7 +45,7 @@ fun Iterable<Int>.toUniformBuffer(): IntUniformBuffer =
 /**
  * Returns a new uniform buffer containing all elements of this array.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("ofIntegers")
 fun IntArray.toUniformBuffer(): IntUniformBuffer =
@@ -57,7 +57,7 @@ fun IntArray.toUniformBuffer(): IntUniformBuffer =
 /**
  * Returns a new uniform buffer containing all elements of this iterable.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("ofPairs")
 fun Iterable<Pair<Int, Int>>.toUniformBuffer(): IntUniformBuffer =
@@ -69,7 +69,7 @@ fun Iterable<Pair<Int, Int>>.toUniformBuffer(): IntUniformBuffer =
 /**
  * Returns a new uniform buffer containing all elements of this iterable.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("ofVec2")
 fun Iterable<Vec2<Int>>.toUniformBuffer(): IntUniformBuffer =
@@ -81,7 +81,7 @@ fun Iterable<Vec2<Int>>.toUniformBuffer(): IntUniformBuffer =
 /**
  * Returns a new uniform buffer containing all elements of this iterable.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("ofTriples")
 fun Iterable<Triple<Int, Int, Int>>.toUniformBuffer(): IntUniformBuffer =
@@ -93,7 +93,7 @@ fun Iterable<Triple<Int, Int, Int>>.toUniformBuffer(): IntUniformBuffer =
 /**
  * Returns a new uniform buffer containing all elements of this iterable.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("ofVec3")
 fun Iterable<Vec3<Int>>.toUniformBuffer(): IntUniformBuffer =
@@ -105,7 +105,7 @@ fun Iterable<Vec3<Int>>.toUniformBuffer(): IntUniformBuffer =
 /**
  * Returns a new uniform buffer containing all elements of this iterable.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("ofVec4")
 fun Iterable<Vec4<Int>>.toUniformBuffer(): IntUniformBuffer =

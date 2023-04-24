@@ -38,7 +38,7 @@ data class Vec2<T>(
     /**
      * Type of vector coordinates.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     val type: KClass<T>
 ) : Vec<T> where T : Number, T : Comparable<T> {
@@ -101,7 +101,7 @@ data class Vec2<T>(
      *
      * Cross product of two 2D vectors is always a 3D vector in the direction of Z axis.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     infix fun cross(other: Vec2<T>): Vec3<T> =
         Vec3(
@@ -122,7 +122,7 @@ data class Vec2<T>(
     /**
      * Returns the magnitude of this vector.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun magnitude(): T =
         sqrt(x = this.x * this.x + this.y * this.y)
@@ -130,7 +130,7 @@ data class Vec2<T>(
     /**
      * Returns a unit vector in the direction of this vector.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun normalize(): Vec2<T> =
         this / this.magnitude()
@@ -153,7 +153,7 @@ data class Vec2<T>(
      *
      * Floating point values will be rounded.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun toIntVector(): Vec2<Int> =
         Vec2(x = this.x.toInt(), y = this.y.toInt(), type = Int::class)
@@ -163,7 +163,7 @@ data class Vec2<T>(
      *
      * Floating point values will be rounded.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun toLongVector(): Vec2<Long> =
         Vec2(x = this.x.toLong(), y = this.y.toLong(), type = Long::class)
@@ -171,7 +171,7 @@ data class Vec2<T>(
     /**
      * Returns a 2D float vector equal to this vector.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun toFloatVector(): Vec2<Float> =
         Vec2(x = this.x.toFloat(), y = this.y.toFloat(), type = Float::class)
@@ -179,7 +179,7 @@ data class Vec2<T>(
     /**
      * Returns a 2D double-precision float vector equal to this vector.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun toDoubleVector(): Vec2<Double> =
         Vec2(x = this.x.toDouble(), y = this.y.toDouble(), type = Double::class)
@@ -229,7 +229,7 @@ data class Vec2<T>(
         /**
          * Returns a null vector.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         inline fun <reified T> nullVector(): Vec2<T> where T : Number, T : Comparable<T> =
             nullVector(T::class)
@@ -237,7 +237,7 @@ data class Vec2<T>(
         /**
          * Returns a null vector with coordinates of given [type].
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun <T> nullVector(type: KClass<T>): Vec2<T> where T : Number, T : Comparable<T> =
             Vec2(x = zero(type), y = zero(type), type = type)
@@ -245,7 +245,7 @@ data class Vec2<T>(
         /**
          * Returns a standard unit vector in the direction of X axis.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         inline fun <reified T> unitX(): Vec2<T> where T : Number, T : Comparable<T> =
             unitX(T::class)
@@ -254,7 +254,7 @@ data class Vec2<T>(
          * Returns a standard unit vector in the direction of X axis
          * with coordinates of given [type].
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun <T> unitX(type: KClass<T>): Vec2<T> where T : Number, T : Comparable<T> =
             Vec2(x = one(type), y = zero(type), type = type)
@@ -262,7 +262,7 @@ data class Vec2<T>(
         /**
          * Returns a standard unit vector in the direction of Y axis.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         inline fun <reified T> unitY(): Vec2<T> where T : Number, T : Comparable<T> =
             unitY(T::class)
@@ -271,7 +271,7 @@ data class Vec2<T>(
          * Returns a standard unit vector in the direction of Y axis
          * with coordinates of given [type].
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun <T> unitY(type: KClass<T>): Vec2<T> where T : Number, T : Comparable<T> =
             Vec2(x = zero(type), y = one(type), type = type)
@@ -282,7 +282,7 @@ data class Vec2<T>(
          * If the size of the list of coordinates is different from 2,
          * [IllegalArgumentException] is thrown.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         internal fun <T> fromList(list: List<T>, type: KClass<T>): Vec2<T> where T : Number, T : Comparable<T> {
             require(list.size == SIZE)
@@ -296,7 +296,7 @@ data class Vec2<T>(
          * If the size of the list of coordinates is different from 2,
          * [IllegalArgumentException] is thrown.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         @JvmName("fromIntList")
         fun fromList(list: List<Int>): Vec2<Int> {
@@ -311,7 +311,7 @@ data class Vec2<T>(
          * If the size of the list of coordinates is different from 2,
          * [IllegalArgumentException] is thrown.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         @JvmName("fromLongList")
         fun fromList(list: List<Long>): Vec2<Long> {
@@ -339,7 +339,7 @@ data class Vec2<T>(
          * If the size of the list of coordinates is different from 2,
          * [IllegalArgumentException] is thrown.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         @JvmName("fromDoubleList")
         fun fromList(list: List<Double>): Vec2<Double> {
@@ -352,7 +352,7 @@ data class Vec2<T>(
          * Returns a 2D vector defined by its polar coordinates of given [type]:
          * radial [distance] and [angle].
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun <T> fromPolarCoordinates(
             distance: T,
@@ -380,7 +380,7 @@ data class Vec2<T>(
         /**
          * Returns a 2D vector defined by its polar coordinates: radial [distance] and [angle].
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun fromPolarCoordinates(
             distance: Double,
@@ -395,7 +395,7 @@ data class Vec2<T>(
 /**
  * Returns a new 2D vector with coordinates ([x], [y]).
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @Suppress("FunctionNaming")
 inline fun <reified T> Vec2(x: T, y: T): Vec2<T> where T : Number, T : Comparable<T> =
@@ -404,14 +404,14 @@ inline fun <reified T> Vec2(x: T, y: T): Vec2<T> where T : Number, T : Comparabl
 /**
  * Returns an array of coordinates of this vector.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 fun Vec2<Int>.toIntArray(): IntArray = intArrayOf(x, y)
 
 /**
  * Returns an array of coordinates of this vector.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 fun Vec2<Long>.toLongArray(): LongArray = longArrayOf(x, y)
 
@@ -423,6 +423,6 @@ fun Vec2<Float>.toFloatArray(): FloatArray = floatArrayOf(x, y)
 /**
  * Returns an array of coordinates of this vector.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 fun Vec2<Double>.toDoubleArray(): DoubleArray = doubleArrayOf(x, y)

@@ -28,7 +28,7 @@ abstract class BaseMat<T, M : Mat<T, M, V>, V : Vec<T>>(
     /**
      * Type of matrix elements.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     abstract val type: KClass<T>
 

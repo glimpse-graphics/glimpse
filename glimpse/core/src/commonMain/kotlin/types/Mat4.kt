@@ -31,7 +31,7 @@ data class Mat4<T>(
     /**
      * Type of matrix elements.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     override val type: KClass<T>
 
@@ -84,7 +84,7 @@ data class Mat4<T>(
     /**
      * Returns a 4×4 float matrix equal to this matrix.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun toFloatMatrix(): Mat4<Float> =
         Mat4(elements = this.elements.map { it.toFloat() }, type = Float::class)
@@ -92,7 +92,7 @@ data class Mat4<T>(
     /**
      * Returns a 4×4 double-precision float matrix equal to this matrix.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun toDoubleMatrix(): Mat4<Double> =
         Mat4(elements = this.elements.map { it.toDouble() }, type = Double::class)
@@ -136,7 +136,7 @@ data class Mat4<T>(
         /**
          * Returns a 4×4 identity matrix.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         inline fun <reified T> identity(): Mat4<T> where T : Number, T : Comparable<T> =
             identity(T::class)
@@ -144,7 +144,7 @@ data class Mat4<T>(
         /**
          * Returns a 4×4 identity matrix with elements of given [type].
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun <T> identity(type: KClass<T>): Mat4<T> where T : Number, T : Comparable<T> {
             val zero = zero(type)
@@ -165,7 +165,7 @@ data class Mat4<T>(
 /**
  * Returns a new 4×4 matrix from given [elements].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @Suppress("FunctionNaming")
 inline fun <reified T> Mat4(elements: List<T>): Mat4<T> where T : Number, T : Comparable<T> =
