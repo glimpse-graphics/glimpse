@@ -48,7 +48,7 @@ data class Vec4<T>(
     /**
      * Type of vector coordinates.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     val type: KClass<T>
 ) : Vec<T> where T : Number, T : Comparable<T> {
@@ -90,7 +90,7 @@ data class Vec4<T>(
      *
      * Floating point values will be rounded.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun toIntVector(): Vec4<Int> =
         Vec4(
@@ -106,7 +106,7 @@ data class Vec4<T>(
      *
      * Floating point values will be rounded.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun toLongVector(): Vec4<Long> =
         Vec4(
@@ -120,7 +120,7 @@ data class Vec4<T>(
     /**
      * Returns a 4D float vector equal to this vector.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun toFloatVector(): Vec4<Float> =
         Vec4(
@@ -134,7 +134,7 @@ data class Vec4<T>(
     /**
      * Returns a 4D double-precision float vector equal to this vector.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun toDoubleVector(): Vec4<Double> =
         Vec4(
@@ -160,7 +160,7 @@ data class Vec4<T>(
          * If the size of the list of coordinates is different from 4, [IllegalArgumentException]
          * is thrown.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun <T> fromList(list: List<T>, type: KClass<T>): Vec4<T> where T : Number, T : Comparable<T> {
             require(list.size == SIZE)
@@ -174,7 +174,7 @@ data class Vec4<T>(
          * If the size of the list of coordinates is different from 4, [IllegalArgumentException]
          * is thrown.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         @JvmName("fromIntList")
         fun fromList(list: List<Int>): Vec4<Int> {
@@ -189,7 +189,7 @@ data class Vec4<T>(
          * If the size of the list of coordinates is different from 4, [IllegalArgumentException]
          * is thrown.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         @JvmName("fromLongList")
         fun fromList(list: List<Long>): Vec4<Long> {
@@ -217,7 +217,7 @@ data class Vec4<T>(
          * If the size of the list of coordinates is different from 4, [IllegalArgumentException]
          * is thrown.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         @JvmName("fromDoubleList")
         fun fromList(list: List<Double>): Vec4<Double> {
@@ -231,7 +231,7 @@ data class Vec4<T>(
 /**
  * Returns a new 4D vector with coordinates ([x], [y], [z], [w]).
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @Suppress("FunctionNaming")
 inline fun <reified T> Vec4(x: T, y: T, z: T, w: T): Vec4<T> where T : Number, T : Comparable<T> =
@@ -255,6 +255,6 @@ fun Vec4<Float>.toFloatArray(): FloatArray = floatArrayOf(x, y, z, w)
 /**
  * Returns an array of coordinates of this vector.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 fun Vec4<Double>.toDoubleArray(): DoubleArray = doubleArrayOf(x, y, z, w)

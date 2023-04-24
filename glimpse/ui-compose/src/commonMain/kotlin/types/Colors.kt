@@ -55,7 +55,7 @@ fun Vec4(color: Color): Vec4<Float> {
 /**
  * Returns a [Vec3] representation of this [Color].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 fun Color.toVec3(): Vec3<Float> =
     Vec3(x = this.red, y = this.green, z = this.blue)
@@ -63,7 +63,7 @@ fun Color.toVec3(): Vec3<Float> =
 /**
  * Returns a [Vec4] representation of this [Color].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 fun Color.toVec4(): Vec4<Float> =
     Vec4(x = this.red, y = this.green, z = this.blue, w = this.alpha)
@@ -71,7 +71,7 @@ fun Color.toVec4(): Vec4<Float> =
 /**
  * Returns a Compose [Color] representation of this [Vec3].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 fun Vec3<Float>.toComposeColor(): Color =
     Color(red = this.r, green = this.g, blue = this.b)
@@ -79,7 +79,7 @@ fun Vec3<Float>.toComposeColor(): Color =
 /**
  * Returns a Compose [Color] representation of this [Vec4].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 fun Vec4<Float>.toComposeColor(): Color =
     Color(red = this.r, green = this.g, blue = this.b, alpha = this.a)

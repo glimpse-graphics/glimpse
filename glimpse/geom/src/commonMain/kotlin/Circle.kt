@@ -30,7 +30,7 @@ import kotlin.reflect.KClass
 /**
  * 2D circle with given [center] point and [radius].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 data class Circle<T>(
 

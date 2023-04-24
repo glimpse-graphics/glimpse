@@ -43,7 +43,7 @@ data class Vec3<T>(
     /**
      * Type of vector coordinates.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     val type: KClass<T>
 ) : Vec<T> where T : Number, T : Comparable<T> {
@@ -117,7 +117,7 @@ data class Vec3<T>(
     /**
      * Returns the magnitude of this vector.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun magnitude(): T =
         sqrt(x = this.x * this.x + this.y * this.y + this.z * this.z)
@@ -125,7 +125,7 @@ data class Vec3<T>(
     /**
      * Returns a unit vector in the direction of this vector.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun normalize(): Vec3<T> =
         this / this.magnitude()
@@ -148,7 +148,7 @@ data class Vec3<T>(
      *
      * Floating point values will be rounded.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun toIntVector(): Vec3<Int> =
         Vec3(x = this.x.toInt(), y = this.y.toInt(), z = this.z.toInt(), type = Int::class)
@@ -158,7 +158,7 @@ data class Vec3<T>(
      *
      * Floating point values will be rounded.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun toLongVector(): Vec3<Long> =
         Vec3(x = this.x.toLong(), y = this.y.toLong(), z = this.z.toLong(), type = Long::class)
@@ -166,7 +166,7 @@ data class Vec3<T>(
     /**
      * Returns a 3D float vector equal to this vector.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun toFloatVector(): Vec3<Float> =
         Vec3(x = this.x.toFloat(), y = this.y.toFloat(), z = this.z.toFloat(), type = Float::class)
@@ -174,7 +174,7 @@ data class Vec3<T>(
     /**
      * Returns a 3D double-precision float vector equal to this vector.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun toDoubleVector(): Vec3<Double> =
         Vec3(x = this.x.toDouble(), y = this.y.toDouble(), z = this.z.toDouble(), type = Double::class)
@@ -227,7 +227,7 @@ data class Vec3<T>(
         /**
          * Returns a null vector.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         inline fun <reified T> nullVector(): Vec3<T> where T : Number, T : Comparable<T> =
             nullVector(T::class)
@@ -235,7 +235,7 @@ data class Vec3<T>(
         /**
          * Returns a null vector with coordinates of given [type].
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun <T> nullVector(type: KClass<T>): Vec3<T> where T : Number, T : Comparable<T> =
             Vec3(x = zero(type), y = zero(type), z = zero(type), type = type)
@@ -243,7 +243,7 @@ data class Vec3<T>(
         /**
          * Returns a standard unit vector in the direction of X axis.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         inline fun <reified T> unitX(): Vec3<T> where T : Number, T : Comparable<T> =
             unitX(T::class)
@@ -252,7 +252,7 @@ data class Vec3<T>(
          * Returns a standard unit vector in the direction of X axis
          * with coordinates of given [type].
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun <T> unitX(type: KClass<T>): Vec3<T> where T : Number, T : Comparable<T> =
             Vec3(x = one(type), y = zero(type), z = zero(type), type = type)
@@ -260,7 +260,7 @@ data class Vec3<T>(
         /**
          * Returns a standard unit vector in the direction of Y axis.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         inline fun <reified T> unitY(): Vec3<T> where T : Number, T : Comparable<T> =
             unitY(T::class)
@@ -269,7 +269,7 @@ data class Vec3<T>(
          * Returns a standard unit vector in the direction of Y axis
          * with coordinates of given [type].
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun <T> unitY(type: KClass<T>): Vec3<T> where T : Number, T : Comparable<T> =
             Vec3(x = zero(type), y = one(type), z = zero(type), type = type)
@@ -277,7 +277,7 @@ data class Vec3<T>(
         /**
          * Returns a standard unit vector in the direction of Z axis.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         inline fun <reified T> unitZ(): Vec3<T> where T : Number, T : Comparable<T> =
             unitZ(T::class)
@@ -286,7 +286,7 @@ data class Vec3<T>(
          * Returns a standard unit vector in the direction of Z axis
          * with coordinates of given [type].
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun <T> unitZ(type: KClass<T>): Vec3<T> where T : Number, T : Comparable<T> =
             Vec3(x = zero(type), y = zero(type), z = one(type), type = type)
@@ -297,7 +297,7 @@ data class Vec3<T>(
          * If the size of the list of coordinates is different from 3, [IllegalArgumentException]
          * is thrown.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun <T> fromList(list: List<T>, type: KClass<T>): Vec3<T> where T : Number, T : Comparable<T> {
             require(list.size == SIZE)
@@ -311,7 +311,7 @@ data class Vec3<T>(
          * If the size of the list of coordinates is different from 3, [IllegalArgumentException]
          * is thrown.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         @JvmName("fromIntList")
         fun fromList(list: List<Int>): Vec3<Int> {
@@ -326,7 +326,7 @@ data class Vec3<T>(
          * If the size of the list of coordinates is different from 3, [IllegalArgumentException]
          * is thrown.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         @JvmName("fromLongList")
         fun fromList(list: List<Long>): Vec3<Long> {
@@ -354,7 +354,7 @@ data class Vec3<T>(
          * If the size of the list of coordinates is different from 3, [IllegalArgumentException]
          * is thrown.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         @JvmName("fromDoubleList")
         fun fromList(list: List<Double>): Vec3<Double> {
@@ -397,7 +397,7 @@ data class Vec3<T>(
          * Returns a 3D vector defined by its spherical coordinates: radial [distance], [longitude]
          * and [latitude].
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun fromSphericalCoordinates(
             distance: Double,
@@ -414,7 +414,7 @@ data class Vec3<T>(
 /**
  * Returns a new 3D vector with coordinates ([x], [y], [z]).
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @Suppress("FunctionNaming")
 inline fun <reified T> Vec3(x: T, y: T, z: T): Vec3<T> where T : Number, T : Comparable<T> =
@@ -438,6 +438,6 @@ fun Vec3<Float>.toFloatArray(): FloatArray = floatArrayOf(x, y, z)
 /**
  * Returns an array of coordinates of this vector.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 fun Vec3<Double>.toDoubleArray(): DoubleArray = doubleArrayOf(x, y, z)

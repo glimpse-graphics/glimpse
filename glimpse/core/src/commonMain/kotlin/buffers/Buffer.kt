@@ -52,7 +52,7 @@ interface Buffer : GlimpseDisposable {
         /**
          * Creates new buffers of vertex attributes, defined by given [buffersData].
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun createArrayBuffers(vararg buffersData: DoubleBufferData): List<Buffer>
 

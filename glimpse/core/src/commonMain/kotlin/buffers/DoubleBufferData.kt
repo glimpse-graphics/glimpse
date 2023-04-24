@@ -19,7 +19,7 @@ package graphics.glimpse.buffers
 /**
  * Data to be stored in a buffer of floating point numbers.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 expect class DoubleBufferData {
 

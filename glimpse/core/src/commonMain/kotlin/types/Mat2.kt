@@ -31,7 +31,7 @@ data class Mat2<T>(
     /**
      * Type of matrix elements.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     override val type: KClass<T>
 
@@ -70,7 +70,7 @@ data class Mat2<T>(
     /**
      * Returns a 2×2 float matrix equal to this matrix.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun toFloatMatrix(): Mat2<Float> =
         Mat2(elements = this.elements.map { it.toFloat() }, type = Float::class)
@@ -78,7 +78,7 @@ data class Mat2<T>(
     /**
      * Returns a 2×2 double-precision float matrix equal to this matrix.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun toDoubleMatrix(): Mat2<Double> =
         Mat2(elements = this.elements.map { it.toDouble() }, type = Double::class)
@@ -98,7 +98,7 @@ data class Mat2<T>(
         /**
          * Returns a 2×2 identity matrix.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         inline fun <reified T> identity(): Mat2<T> where T : Number, T : Comparable<T> =
             identity(T::class)
@@ -106,7 +106,7 @@ data class Mat2<T>(
         /**
          * Returns a 2×2 identity matrix with elements of given [type].
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun <T> identity(type: KClass<T>): Mat2<T> where T : Number, T : Comparable<T> {
             val zero = zero(type)
@@ -119,7 +119,7 @@ data class Mat2<T>(
 /**
  * Returns a new 2×2 matrix from given [elements].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @Suppress("FunctionNaming")
 inline fun <reified T> Mat2(elements: List<T>): Mat2<T> where T : Number, T : Comparable<T> =

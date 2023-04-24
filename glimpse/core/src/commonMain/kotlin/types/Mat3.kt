@@ -31,7 +31,7 @@ data class Mat3<T>(
     /**
      * Type of matrix elements.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     override val type: KClass<T>
 
@@ -84,7 +84,7 @@ data class Mat3<T>(
     /**
      * Returns a 3×3 float matrix equal to this matrix.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun toFloatMatrix(): Mat3<Float> =
         Mat3(elements = this.elements.map { it.toFloat() }, type = Float::class)
@@ -92,7 +92,7 @@ data class Mat3<T>(
     /**
      * Returns a 3×3 double-precision float matrix equal to this matrix.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun toDoubleMatrix(): Mat3<Double> =
         Mat3(elements = this.elements.map { it.toDouble() }, type = Double::class)
@@ -123,7 +123,7 @@ data class Mat3<T>(
         /**
          * Returns a 3×3 identity matrix.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         inline fun <reified T> identity(): Mat3<T> where T : Number, T : Comparable<T> =
             identity(T::class)
@@ -131,7 +131,7 @@ data class Mat3<T>(
         /**
          * Returns a 3×3 identity matrix with elements of given [type].
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun <T> identity(type: KClass<T>): Mat3<T> where T : Number, T : Comparable<T> {
             val zero = zero(type)
@@ -147,7 +147,7 @@ data class Mat3<T>(
 /**
  * Returns a new 3×3 matrix from given [elements].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @Suppress("FunctionNaming")
 inline fun <reified T> Mat3(elements: List<T>): Mat3<T> where T : Number, T : Comparable<T> =

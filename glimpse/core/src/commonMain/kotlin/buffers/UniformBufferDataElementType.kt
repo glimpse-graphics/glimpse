@@ -19,7 +19,7 @@ package graphics.glimpse.buffers
 /**
  * Type of uniform buffer data element.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 enum class UniformBufferDataElementType(val size: Int) {
 

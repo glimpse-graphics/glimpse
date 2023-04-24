@@ -170,7 +170,7 @@ class Angle<T> private constructor(
         /**
          * Returns angle measure of 0 degrees.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         inline fun <reified T> nullAngle(): Angle<T> where T : Number, T : Comparable<T> =
             nullAngle(T::class)
@@ -178,7 +178,7 @@ class Angle<T> private constructor(
         /**
          * Returns angle measure of 0 degrees.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun <T> nullAngle(type: KClass<T>): Angle<T> where T : Number, T : Comparable<T> =
             Angle(deg = zero(type = type), rad = zero(type = type))
@@ -186,7 +186,7 @@ class Angle<T> private constructor(
         /**
          * Returns angle measure of 90 degrees.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         inline fun <reified T> rightAngle(): Angle<T> where T : Number, T : Comparable<T> =
             rightAngle(T::class)
@@ -194,7 +194,7 @@ class Angle<T> private constructor(
         /**
          * Returns angle measure of 90 degrees.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun <T> rightAngle(type: KClass<T>): Angle<T> where T : Number, T : Comparable<T> =
             when (type) {
@@ -206,7 +206,7 @@ class Angle<T> private constructor(
         /**
          * Returns angle measure of 180 degrees.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         inline fun <reified T> straightAngle(): Angle<T> where T : Number, T : Comparable<T> =
             straightAngle(T::class)
@@ -214,7 +214,7 @@ class Angle<T> private constructor(
         /**
          * Returns angle measure of 180 degrees.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun <T> straightAngle(type: KClass<T>): Angle<T> where T : Number, T : Comparable<T> =
             when (type) {
@@ -226,7 +226,7 @@ class Angle<T> private constructor(
         /**
          * Returns angle measure of 360 degrees.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         inline fun <reified T> fullAngle(): Angle<T> where T : Number, T : Comparable<T> =
             fullAngle(T::class)
@@ -234,7 +234,7 @@ class Angle<T> private constructor(
         /**
          * Returns angle measure of 360 degrees.
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun <T> fullAngle(type: KClass<T>): Angle<T> where T : Number, T : Comparable<T> =
             when (type) {
@@ -246,7 +246,7 @@ class Angle<T> private constructor(
         /**
          * Creates a new angle measure from the given measure in [degrees][deg].
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun fromDeg(deg: Int): Angle<Float> =
             fromDeg(deg.toFloat())
@@ -260,7 +260,7 @@ class Angle<T> private constructor(
         /**
          * Creates a new angle measure from the given measure in [degrees][deg].
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun fromDeg(deg: Long): Angle<Double> =
             fromDeg(deg.toDouble())
@@ -268,7 +268,7 @@ class Angle<T> private constructor(
         /**
          * Creates a new angle measure from the given measure in [degrees][deg].
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun fromDeg(deg: Double): Angle<Double> =
             Angle(deg = deg, rad = (deg * PI / STRAIGHT_ANGLE_DEG))
@@ -282,7 +282,7 @@ class Angle<T> private constructor(
         /**
          * Creates a new angle measure from the given measure in [radians][rad].
          *
-         * @since v1.3.0
+         * @since v2.0.0
          */
         fun fromRad(rad: Double): Angle<Double> =
             Angle(deg = (rad * STRAIGHT_ANGLE_DEG / PI), rad = rad)

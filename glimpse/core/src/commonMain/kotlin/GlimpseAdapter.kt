@@ -169,7 +169,7 @@ expect class GlimpseAdapter {
     /**
      * Creates a buffer of double-precision floating point values and fills it with data.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun glBufferData(type: BufferType, data: DoubleBufferData, usage: BufferUsage)
 
@@ -457,7 +457,7 @@ expect class GlimpseAdapter {
     /**
      * Sets [value] of 2D vector uniform variable at a given [location] for current program.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun glUniform(location: Int, value: Vec2<Int>)
 
@@ -469,7 +469,7 @@ expect class GlimpseAdapter {
     /**
      * Sets [value] of 3D vector uniform variable at a given [location] for current program.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun glUniform(location: Int, value: Vec3<Int>)
 
@@ -481,7 +481,7 @@ expect class GlimpseAdapter {
     /**
      * Sets [value] of 4D vector uniform variable at a given [location] for current program.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun glUniform(location: Int, value: Vec4<Int>)
 
@@ -495,7 +495,7 @@ expect class GlimpseAdapter {
      *
      * A boolean value is converted to an integer value of `GL_TRUE` or `GL_FALSE`.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun glUniform(location: Int, vararg values: Boolean)
 
@@ -512,7 +512,7 @@ expect class GlimpseAdapter {
     /**
      * Sets [values] of 2D vector array uniform variable at a given [location] for current program.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun glUniform(location: Int, vararg values: Vec2<Int>)
 
@@ -524,7 +524,7 @@ expect class GlimpseAdapter {
     /**
      * Sets [values] of 3D vector array uniform variable at a given [location] for current program.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun glUniform(location: Int, vararg values: Vec3<Int>)
 
@@ -536,7 +536,7 @@ expect class GlimpseAdapter {
     /**
      * Sets [values] of 4D vector array uniform variable at a given [location] for current program.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun glUniform(location: Int, vararg values: Vec4<Int>)
 
@@ -569,14 +569,14 @@ expect class GlimpseAdapter {
     /**
      * Sets integer [buffer] uniform variable at a given [location] for current program.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun glUniform(location: Int, buffer: IntUniformBuffer)
 
     /**
      * Sets floating point [buffer] uniform variable at a given [location] for current program.
      *
-     * @since v1.3.0
+     * @since v2.0.0
      */
     fun glUniform(location: Int, buffer: FloatUniformBuffer)
 

@@ -30,7 +30,7 @@ import kotlin.reflect.KClass
 /**
  * 2D polygon with given [vertices].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 data class Polygon<T>(
 

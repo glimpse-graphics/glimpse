@@ -29,7 +29,7 @@ import graphics.glimpse.types.Vec4
  * Buffers can be more efficient than arrays of numbers, vectors or matrices,
  * in particular when operating on large amounts of constant data.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 data class FloatUniformBuffer(
     val data: FloatBufferData,
@@ -39,7 +39,7 @@ data class FloatUniformBuffer(
 /**
  * Returns a new uniform buffer containing all elements of this iterable.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("ofFloats")
 fun Iterable<Float>.toUniformBuffer(): FloatUniformBuffer =
@@ -48,7 +48,7 @@ fun Iterable<Float>.toUniformBuffer(): FloatUniformBuffer =
 /**
  * Returns a new uniform buffer containing all elements of this array.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("ofFloats")
 fun FloatArray.toUniformBuffer(): FloatUniformBuffer =
@@ -60,7 +60,7 @@ fun FloatArray.toUniformBuffer(): FloatUniformBuffer =
 /**
  * Returns a new uniform buffer containing all elements of this iterable.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("ofPairs")
 fun Iterable<Pair<Float, Float>>.toUniformBuffer(): FloatUniformBuffer =
@@ -72,7 +72,7 @@ fun Iterable<Pair<Float, Float>>.toUniformBuffer(): FloatUniformBuffer =
 /**
  * Returns a new uniform buffer containing all elements of this iterable.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("ofVec2")
 fun Iterable<Vec2<Float>>.toUniformBuffer(): FloatUniformBuffer =
@@ -84,7 +84,7 @@ fun Iterable<Vec2<Float>>.toUniformBuffer(): FloatUniformBuffer =
 /**
  * Returns a new uniform buffer containing all elements of this iterable.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("ofTriples")
 fun Iterable<Triple<Float, Float, Float>>.toUniformBuffer(): FloatUniformBuffer =
@@ -96,7 +96,7 @@ fun Iterable<Triple<Float, Float, Float>>.toUniformBuffer(): FloatUniformBuffer 
 /**
  * Returns a new uniform buffer containing all elements of this iterable.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("ofVec3")
 fun Iterable<Vec3<Float>>.toUniformBuffer(): FloatUniformBuffer =
@@ -108,7 +108,7 @@ fun Iterable<Vec3<Float>>.toUniformBuffer(): FloatUniformBuffer =
 /**
  * Returns a new uniform buffer containing all elements of this iterable.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("ofVec4")
 fun Iterable<Vec4<Float>>.toUniformBuffer(): FloatUniformBuffer =
@@ -120,7 +120,7 @@ fun Iterable<Vec4<Float>>.toUniformBuffer(): FloatUniformBuffer =
 /**
  * Returns a new uniform buffer containing all elements of this iterable.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("ofMat2")
 fun Iterable<Mat2<Float>>.toUniformBuffer(): FloatUniformBuffer =
@@ -132,7 +132,7 @@ fun Iterable<Mat2<Float>>.toUniformBuffer(): FloatUniformBuffer =
 /**
  * Returns a new uniform buffer containing all elements of this iterable.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("ofMat3")
 fun Iterable<Mat3<Float>>.toUniformBuffer(): FloatUniformBuffer =
@@ -144,7 +144,7 @@ fun Iterable<Mat3<Float>>.toUniformBuffer(): FloatUniformBuffer =
 /**
  * Returns a new uniform buffer containing all elements of this iterable.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @JvmName("ofMat4")
 fun Iterable<Mat4<Float>>.toUniformBuffer(): FloatUniformBuffer =

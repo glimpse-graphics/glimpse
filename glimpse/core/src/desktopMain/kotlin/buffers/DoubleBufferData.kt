@@ -24,7 +24,7 @@ import kotlin.math.min
 /**
  * Data to be stored in a buffer of double-precision floating point numbers.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 actual class DoubleBufferData(
     internal val nioBuffer: DoubleBuffer

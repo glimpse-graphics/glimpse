@@ -58,7 +58,7 @@ fun Vec4(@ColorInt color: Int): Vec4<Float> = Vec4(
 /**
  * Returns a [Vec3] representation of this color int.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 fun @receiver:ColorInt Int.toVec3(): Vec3<Float> =
     Vec3(
@@ -70,7 +70,7 @@ fun @receiver:ColorInt Int.toVec3(): Vec3<Float> =
 /**
  * Returns a [Vec4] representation of this color int.
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 fun @receiver:ColorInt Int.toVec4(): Vec4<Float> =
     Vec4(
@@ -83,7 +83,7 @@ fun @receiver:ColorInt Int.toVec4(): Vec4<Float> =
 /**
  * Returns a color int representation of this [Vec3].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @ColorInt
 fun Vec3<Float>.toColorInt(): Int =
@@ -96,7 +96,7 @@ fun Vec3<Float>.toColorInt(): Int =
 /**
  * Returns a color int representation of this [Vec4].
  *
- * @since v1.3.0
+ * @since v2.0.0
  */
 @ColorInt
 fun Vec4<Float>.toColorInt(): Int =
