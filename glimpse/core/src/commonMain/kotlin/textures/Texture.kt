@@ -19,6 +19,8 @@ package graphics.glimpse.textures
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.GlimpseDisposable
 import graphics.glimpse.framebuffers.Framebuffer
+import graphics.glimpse.types.Vec3
+import graphics.glimpse.types.Vec4
 
 /**
  * A texture.
@@ -113,5 +115,21 @@ interface Texture : GlimpseDisposable {
          */
         fun createEmpty(gl: GlimpseAdapter, width: Int, height: Int, presets: TexturePresets): Texture =
             EmptyTextureFactory(gl).create(width, height, presets)
+
+        /**
+         * Creates a one-pixel texture of the given RGB [color], and with the given [presets].
+         *
+         * @since v2.0.0
+         */
+        fun createFromColor(gl: GlimpseAdapter, color: Vec3<*>, presets: TexturePresets): Texture =
+            ColorTextureFactory(gl).create(color, presets)
+
+        /**
+         * Creates a one-pixel texture of the given RGBA [color], and with the given [presets].
+         *
+         * @since v2.0.0
+         */
+        fun createFromColor(gl: GlimpseAdapter, color: Vec4<*>, presets: TexturePresets): Texture =
+            ColorTextureFactory(gl).create(color, presets)
     }
 }
