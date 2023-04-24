@@ -18,6 +18,7 @@ package graphics.glimpse
 
 import android.opengl.EGL14
 import android.opengl.GLES20
+import android.opengl.GLES30
 import android.os.Build
 import graphics.glimpse.buffers.BufferType
 import graphics.glimpse.buffers.BufferUsage
@@ -508,8 +509,8 @@ actual class GlimpseAdapter {
         TextureInternalFormat.DEPTH_COMPONENT -> GLES20.GL_DEPTH_COMPONENT
         TextureInternalFormat.RGB -> GLES20.GL_RGB
         TextureInternalFormat.RGBA -> GLES20.GL_RGBA
-        TextureInternalFormat.RGB16F -> GL_RGB16F
-        TextureInternalFormat.RGBA16F -> GL_RGBA16F
+        TextureInternalFormat.RGB16F -> GLES30.GL_RGB16F
+        TextureInternalFormat.RGBA16F -> GLES30.GL_RGBA16F
     }
 
     private fun TexturePixelFormat.toInt(): Int = when (this) {
@@ -1108,8 +1109,6 @@ actual class GlimpseAdapter {
     }
 
     companion object {
-        private const val GL_VERTEX_PROGRAM_POINT_SIZE = 34370
-        private const val GL_RGB16F = 34843
-        private const val GL_RGBA16F = 34842
+        private const val GL_VERTEX_PROGRAM_POINT_SIZE = 0x8642
     }
 }
