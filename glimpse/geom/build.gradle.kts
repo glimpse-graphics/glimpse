@@ -57,6 +57,6 @@ kotlin {
 android {
     namespace = "graphics.glimpse.geom"
     defaultConfig {
-        minSdk = 14
+        minSdk = 21
     }
 }

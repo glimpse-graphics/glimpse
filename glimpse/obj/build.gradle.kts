@@ -59,6 +59,6 @@ kotlin {
 android {
     namespace = "graphics.glimpse.meshes.obj"
     defaultConfig {
-        minSdk = 14
+        minSdk = 21
     }
 }
