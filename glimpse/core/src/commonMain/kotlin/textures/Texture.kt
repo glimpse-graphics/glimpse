@@ -111,7 +111,7 @@ interface Texture : GlimpseDisposable {
          *
          * @since v1.1.0
          */
-        fun createEmpty(gl: GlimpseAdapter, width: Int, height: Int, presets: EmptyTexturePresets): Texture =
+        fun createEmpty(gl: GlimpseAdapter, width: Int, height: Int, presets: TexturePresets): Texture =
             EmptyTextureFactory(gl).create(width, height, presets)
     }
 }

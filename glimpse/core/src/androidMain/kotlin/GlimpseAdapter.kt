@@ -496,7 +496,11 @@ actual class GlimpseAdapter {
         pixelData: ByteArray?
     ) {
         val pixelDataBuffer: ByteBuffer? = pixelData?.let { array ->
-            ByteBuffer.allocateDirect(array.size).apply { put(array) }
+            ByteBuffer.allocateDirect(array.size)
+                .apply {
+                    put(array)
+                    rewind()
+                }
         }
         GLES20.glTexImage2D(
             GLES20.GL_TEXTURE_2D, 0, internalFormat.toInt(),
@@ -507,16 +511,24 @@ actual class GlimpseAdapter {
 
     private fun TextureInternalFormat.toInt(): Int = when (this) {
         TextureInternalFormat.DEPTH_COMPONENT -> GLES20.GL_DEPTH_COMPONENT
+        TextureInternalFormat.DEPTH_STENCIL -> GLES30.GL_DEPTH_STENCIL
+        TextureInternalFormat.RED -> GLES30.GL_RED
+        TextureInternalFormat.RG -> GLES30.GL_RG
         TextureInternalFormat.RGB -> GLES20.GL_RGB
         TextureInternalFormat.RGBA -> GLES20.GL_RGBA
         TextureInternalFormat.RGB16F -> GLES30.GL_RGB16F
         TextureInternalFormat.RGBA16F -> GLES30.GL_RGBA16F
+        TextureInternalFormat.RGB32F -> GLES30.GL_RGB32F
+        TextureInternalFormat.RGBA32F -> GLES30.GL_RGBA32F
     }
 
     private fun TexturePixelFormat.toInt(): Int = when (this) {
+        TexturePixelFormat.DEPTH_COMPONENT -> GLES20.GL_DEPTH_COMPONENT
+        TexturePixelFormat.DEPTH_STENCIL -> GLES30.GL_DEPTH_STENCIL
+        TexturePixelFormat.RED -> GLES30.GL_RED
+        TexturePixelFormat.RG -> GLES30.GL_RG
         TexturePixelFormat.RGB -> GLES20.GL_RGB
         TexturePixelFormat.RGBA -> GLES20.GL_RGBA
-        TexturePixelFormat.DEPTH_COMPONENT -> GLES20.GL_DEPTH_COMPONENT
     }
 
     private fun TexturePixelType.toInt(): Int = when (this) {
@@ -526,6 +538,7 @@ actual class GlimpseAdapter {
         TexturePixelType.SHORT -> GLES20.GL_SHORT
         TexturePixelType.UNSIGNED_INT -> GLES20.GL_UNSIGNED_INT
         TexturePixelType.INT -> GLES20.GL_INT
+        TexturePixelType.HALF_FLOAT -> GLES30.GL_HALF_FLOAT
         TexturePixelType.FLOAT -> GLES20.GL_FLOAT
     }
 

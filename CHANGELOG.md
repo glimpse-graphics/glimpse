@@ -25,6 +25,7 @@
 - **BREAKING CHANGE:** Method `Mat.toFloatArray()` replaced with a set of extension functions `BaseMat<Float, M, V>.toFloatArray()`
 - **BREAKING CHANGE:** Add parameter type `T : Number` to `Camera` and its implementations
 - **BREAKING CHANGE:** Add parameter type `T : Number` to `Lens` and its implementations
+- **BREAKING CHANGE:** Rename `EmptyTexturePresets` to `TexturePresets`
 - Minimum Android API level 21
 - Upgrade to OpenGL ES 3.1
 - Upgrade Gradle Wrapper to `8.1`

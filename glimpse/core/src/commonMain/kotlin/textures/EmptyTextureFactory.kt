@@ -24,7 +24,7 @@ internal class EmptyTextureFactory(private val gl: GlimpseAdapter) {
 
     private val logger: GlimpseLogger = GlimpseLogger.create(this)
 
-    fun create(width: Int, height: Int, presets: EmptyTexturePresets): Texture {
+    fun create(width: Int, height: Int, presets: TexturePresets): Texture {
         logger.debug(message = "Generating empty texture with presets: $presets")
 
         val handles = IntArray(size = 1)
