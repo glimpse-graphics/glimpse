@@ -121,7 +121,7 @@ open class GlimpseSurfaceView(
 
     companion object {
 
-        private const val GLES_VERSION = 2
+        private const val GLES_VERSION = 3
 
         private const val COLOR_CHANNEL_BITS = 8
         private const val DEPTH_BITS = 16

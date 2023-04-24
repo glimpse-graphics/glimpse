@@ -60,6 +60,6 @@ kotlin {
 android {
     namespace = "graphics.glimpse.offscreen"
     defaultConfig {
-        minSdk = 19
+        minSdk = 21
     }
 }

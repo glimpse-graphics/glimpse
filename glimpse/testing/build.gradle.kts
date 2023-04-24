@@ -63,6 +63,6 @@ kotlin {
 android {
     namespace = "graphics.glimpse.testing"
     defaultConfig {
-        minSdk = 14
+        minSdk = 21
     }
 }

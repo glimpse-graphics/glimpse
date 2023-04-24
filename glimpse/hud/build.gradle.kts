@@ -56,6 +56,6 @@ kotlin {
 android {
     namespace = "graphics.glimpse.hud"
     defaultConfig {
-        minSdk = 14
+        minSdk = 21
     }
 }

@@ -87,7 +87,7 @@ android {
         java.srcDir(File("$buildDir/generated/ksp/androidRelease/kotlin"))
     }
     defaultConfig {
-        minSdk = 19
+        minSdk = 21
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

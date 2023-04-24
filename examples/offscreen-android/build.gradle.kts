@@ -30,7 +30,7 @@ android {
     namespace = "graphics.glimpse.examples.offscreen.android"
     defaultConfig {
         applicationId = "graphics.glimpse.examples.offscreen.android"
-        minSdk = 19
+        minSdk = 21
         targetSdk = 33
         versionCode = 1
         versionName = project.version.toString()
