@@ -34,8 +34,8 @@ import graphics.glimpse.logging.GlimpseLogger
 import graphics.glimpse.meshes.Mesh
 import graphics.glimpse.shaders.Program
 import graphics.glimpse.shaders.ProgramExecutor
-import graphics.glimpse.textures.EmptyTexturePresets
 import graphics.glimpse.textures.Texture
+import graphics.glimpse.textures.TexturePresets
 import graphics.glimpse.textures.TextureWrap
 import graphics.glimpse.types.Angle
 import graphics.glimpse.types.Vec2
@@ -114,11 +114,11 @@ class TriangleCallback(
         Framebuffer.Builder.getInstance(gl)
             .attachTexture(
                 FramebufferAttachmentType.COLOR,
-                Texture.createEmpty(gl, width, height, EmptyTexturePresets.rgba)
+                Texture.createEmpty(gl, width, height, TexturePresets.rgba)
             )
             .attachTexture(
                 FramebufferAttachmentType.DEPTH,
-                Texture.createEmpty(gl, width, height, EmptyTexturePresets.depthComponent)
+                Texture.createEmpty(gl, width, height, TexturePresets.depthComponent)
             )
             .build()
     } catch (exception: IllegalStateException) {

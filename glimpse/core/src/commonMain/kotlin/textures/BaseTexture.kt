@@ -16,52 +16,24 @@
 
 package graphics.glimpse.textures
 
-/**
- * Texture pixel data type.
- *
- * @since v1.1.0
- */
-enum class TexturePixelType {
+import graphics.glimpse.GlimpseAdapter
+import java.util.concurrent.atomic.AtomicBoolean
 
-    /**
-     * Unsigned byte.
-     */
-    UNSIGNED_BYTE,
+internal abstract class BaseTexture : Texture {
 
-    /**
-     * Signed byte.
-     */
-    BYTE,
+    protected abstract val type: TextureType
 
-    /**
-     * Unsigned short.
-     */
-    UNSIGNED_SHORT,
+    private val disposed = AtomicBoolean(false)
+    override val isDisposed: Boolean get() = disposed.get()
 
-    /**
-     * Signed short.
-     */
-    SHORT,
+    override fun useAtIndex(gl: GlimpseAdapter, textureIndex: Int) {
+        gl.glActiveTexture(textureIndex)
+        gl.glBindTexture(type, handle)
+    }
 
-    /**
-     * Unsigned integer.
-     */
-    UNSIGNED_INT,
-
-    /**
-     * Signed integer.
-     */
-    INT,
-
-    /**
-     * Half-precision (16-bit) floating point number.
-     *
-     * @since v2.0.0
-     */
-    HALF_FLOAT,
-
-    /**
-     * Floating point number.
-     */
-    FLOAT
+    override fun dispose(gl: GlimpseAdapter) {
+        check(disposed.compareAndSet(false, true)) { "Texture is already disposed" }
+        val handles = intArrayOf(handle)
+        gl.glDeleteTextures(handles)
+    }
 }

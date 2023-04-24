@@ -14,6 +14,10 @@
 - Methods: `Vec2.magnitude()`, `Vec3.magnitude()`, `Vec2.normalize()`, `Vec3.normalize()`
 - Extension functions: `Color.toVec3()`, `Color.toVec4()`, `Int.toVec3()`, `Int.toVec4()`
 - Extension functions: `Vec3.toColor()`, `Vec4.toColor()`, `Vec3.toColorInt()`, `vec4.toColorInt()`, `Vec3.toComposeColor()`, `Vec4.toComposeColor()`
+- Generating 1x1 texture from `Vec3` or `Vec4`
+- Texture pixel type: `HALF_FLOAT`
+- Texture pixel formats: `DEPTH_STENCIL`, `RED` and `RG`
+- Texture internal formats: `RGB32F` and `RGBA32F`
 - Glimpse geometry library with basic geometric shapes
 - Glimpse testing library with delta assertions
 
@@ -25,6 +29,7 @@
 - **BREAKING CHANGE:** Method `Mat.toFloatArray()` replaced with a set of extension functions `BaseMat<Float, M, V>.toFloatArray()`
 - **BREAKING CHANGE:** Add parameter type `T : Number` to `Camera` and its implementations
 - **BREAKING CHANGE:** Add parameter type `T : Number` to `Lens` and its implementations
+- **BREAKING CHANGE:** Rename `EmptyTexturePresets` to `TexturePresets`
 - Minimum Android API level 21
 - Upgrade to OpenGL ES 3.1
 - Upgrade Gradle Wrapper to `8.1`

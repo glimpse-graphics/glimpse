@@ -29,6 +29,27 @@ enum class TexturePixelFormat {
     DEPTH_COMPONENT,
 
     /**
+     * Depth and stencil pairs.
+     *
+     * @since v2.0.0
+     */
+    DEPTH_STENCIL,
+
+    /**
+     * Only red component.
+     *
+     * @since v2.0.0
+     */
+    RED,
+
+    /**
+     * Red/green pair color.
+     *
+     * @since v2.0.0
+     */
+    RG,
+
+    /**
      * RGB color.
      */
     RGB,

@@ -29,6 +29,27 @@ enum class TextureInternalFormat {
     DEPTH_COMPONENT,
 
     /**
+     * Depth and stencil pairs.
+     *
+     * @since v2.0.0
+     */
+    DEPTH_STENCIL,
+
+    /**
+     * Only red component.
+     *
+     * @since v2.0.0
+     */
+    RED,
+
+    /**
+     * Red/green pair color.
+     *
+     * @since v2.0.0
+     */
+    RG,
+
+    /**
      * RGB color.
      */
     RGB,
@@ -46,5 +67,19 @@ enum class TextureInternalFormat {
     /**
      * RGBA color (16-bit float per channel).
      */
-    RGBA16F
+    RGBA16F,
+
+    /**
+     * RGB color (32-bit float per channel).
+     *
+     * @since v2.0.0
+     */
+    RGB32F,
+
+    /**
+     * RGBA color (32-bit float per channel).
+     *
+     * @since v2.0.0
+     */
+    RGBA32F
 }

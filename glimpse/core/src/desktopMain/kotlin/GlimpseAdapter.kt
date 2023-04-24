@@ -488,7 +488,11 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
         pixelData: ByteArray?
     ) {
         val pixelDataBuffer: ByteBuffer? = pixelData?.let { array ->
-            ByteBuffer.allocateDirect(array.size).apply { put(array) }
+            ByteBuffer.allocateDirect(array.size)
+                .apply {
+                    put(array)
+                    rewind()
+                }
         }
         gles.glTexImage2D(
             GL2ES2.GL_TEXTURE_2D, 0, internalFormat.toInt(),
@@ -499,16 +503,24 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
 
     private fun TextureInternalFormat.toInt(): Int = when (this) {
         TextureInternalFormat.DEPTH_COMPONENT -> GL2ES2.GL_DEPTH_COMPONENT
+        TextureInternalFormat.DEPTH_STENCIL -> GL2ES2.GL_DEPTH_STENCIL
+        TextureInternalFormat.RED -> GL2ES2.GL_RED
+        TextureInternalFormat.RG -> GL2ES2.GL_RG
         TextureInternalFormat.RGB -> GL2ES2.GL_RGB
         TextureInternalFormat.RGBA -> GL2ES2.GL_RGBA
         TextureInternalFormat.RGB16F -> GL2ES2.GL_RGB16F
         TextureInternalFormat.RGBA16F -> GL2ES2.GL_RGBA16F
+        TextureInternalFormat.RGB32F -> GL2ES2.GL_RGB32F
+        TextureInternalFormat.RGBA32F -> GL2ES2.GL_RGBA32F
     }
 
     private fun TexturePixelFormat.toInt(): Int = when (this) {
+        TexturePixelFormat.DEPTH_COMPONENT -> GL2ES2.GL_DEPTH_COMPONENT
+        TexturePixelFormat.DEPTH_STENCIL -> GL2ES2.GL_DEPTH_STENCIL
+        TexturePixelFormat.RED -> GL2ES2.GL_RED
+        TexturePixelFormat.RG -> GL2ES2.GL_RG
         TexturePixelFormat.RGB -> GL2ES2.GL_RGB
         TexturePixelFormat.RGBA -> GL2ES2.GL_RGBA
-        TexturePixelFormat.DEPTH_COMPONENT -> GL2ES2.GL_DEPTH_COMPONENT
     }
 
     private fun TexturePixelType.toInt(): Int = when (this) {
@@ -518,6 +530,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
         TexturePixelType.SHORT -> GL2ES2.GL_SHORT
         TexturePixelType.UNSIGNED_INT -> GL2ES2.GL_UNSIGNED_INT
         TexturePixelType.INT -> GL2ES2.GL_INT
+        TexturePixelType.HALF_FLOAT -> GL2ES2.GL_HALF_FLOAT
         TexturePixelType.FLOAT -> GL2ES2.GL_FLOAT
     }
 
