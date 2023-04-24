@@ -18,7 +18,6 @@ package graphics.glimpse.textures
 
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.logging.GlimpseLogger
-import java.util.concurrent.atomic.AtomicBoolean
 
 internal class TextureBuilderImpl(private val gl: GlimpseAdapter) : Texture.Builder {
 
@@ -120,21 +119,6 @@ internal class TextureBuilderImpl(private val gl: GlimpseAdapter) : Texture.Buil
         override val handle: Int,
         override val width: Int,
         override val height: Int,
-        private val type: TextureType
-    ) : Texture {
-
-        private val disposed = AtomicBoolean(false)
-        override val isDisposed: Boolean get() = disposed.get()
-
-        override fun useAtIndex(gl: GlimpseAdapter, textureIndex: Int) {
-            gl.glActiveTexture(textureIndex)
-            gl.glBindTexture(type, handle)
-        }
-
-        override fun dispose(gl: GlimpseAdapter) {
-            check(disposed.compareAndSet(false, true)) { "Texture is already disposed" }
-            val handles = intArrayOf(handle)
-            gl.glDeleteTextures(handles)
-        }
-    }
+        override val type: TextureType
+    ) : BaseTexture()
 }
