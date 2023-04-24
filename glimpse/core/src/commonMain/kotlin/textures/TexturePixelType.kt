@@ -55,6 +55,8 @@ enum class TexturePixelType {
 
     /**
      * Half-precision (16-bit) floating point number.
+     *
+     * @since v2.0.0
      */
     HALF_FLOAT,
 

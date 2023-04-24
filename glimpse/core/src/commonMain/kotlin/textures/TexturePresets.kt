@@ -40,6 +40,8 @@ data class TexturePresets(
 
         /**
          * Texture with depth and stencil components.
+         *
+         * @since v2.0.0
          */
         val depthStencil = TexturePresets(
             internalFormat = TextureInternalFormat.DEPTH_STENCIL,
@@ -49,6 +51,8 @@ data class TexturePresets(
 
         /**
          * Texture with red component.
+         *
+         * @since v2.0.0
          */
         val red = TexturePresets(
             internalFormat = TextureInternalFormat.RED,
@@ -58,6 +62,8 @@ data class TexturePresets(
 
         /**
          * Texture with red/green pairs.
+         *
+         * @since v2.0.0
          */
         val rg = TexturePresets(
             internalFormat = TextureInternalFormat.RG,
@@ -103,6 +109,8 @@ data class TexturePresets(
 
         /**
          * Texture with RGB image with 32-bit floating point values.
+         *
+         * @since v2.0.0
          */
         val float32RGB = TexturePresets(
             internalFormat = TextureInternalFormat.RGB32F,
@@ -112,6 +120,8 @@ data class TexturePresets(
 
         /**
          * Texture with RGBA image with 32-bit floating point values.
+         *
+         * @since v2.0.0
          */
         val float32RGBA = TexturePresets(
             internalFormat = TextureInternalFormat.RGBA32F,
