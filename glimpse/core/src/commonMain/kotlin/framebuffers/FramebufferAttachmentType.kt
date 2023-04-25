@@ -16,25 +16,52 @@
 
 package graphics.glimpse.framebuffers
 
+import graphics.glimpse.GlimpseAdapter
+
 /**
  * Framebuffer attachment type.
  *
  * @since v1.1.0
  */
-enum class FramebufferAttachmentType {
-
-    /**
-     * Color attachment.
-     */
-    COLOR,
+sealed class FramebufferAttachmentType {
 
     /**
      * Depth attachment.
      */
-    DEPTH,
+    object Depth : FramebufferAttachmentType()
 
     /**
      * Stencil attachment.
      */
-    STENCIL
+    object Stencil : FramebufferAttachmentType()
+
+    /**
+     * Color attachment.
+     *
+     * The minimum [index] is 0.
+     *
+     * The maximum index is equal to the value returned by
+     * [glGetMaxColorAttachments][GlimpseAdapter.glGetMaxColorAttachments] minus one.
+     */
+    data class Color(
+
+        /**
+         * Index of this color attachment.
+         */
+        val index: Int
+
+    ) : FramebufferAttachmentType() {
+
+        init {
+            require(index >= 0) { "The minimum color attachment index value is 0" }
+        }
+
+        companion object {
+
+            /**
+             * Returns color attachment with the given [index].
+             */
+            operator fun get(index: Int): Color = Color(index)
+        }
+    }
 }

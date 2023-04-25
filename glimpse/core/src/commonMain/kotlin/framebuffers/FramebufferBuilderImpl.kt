@@ -26,16 +26,28 @@ internal class FramebufferBuilderImpl(private val gl: GlimpseAdapter) : Framebuf
 
     private val logger: GlimpseLogger = GlimpseLogger.create(this)
 
+    private val maxColorAttachments = gl.glGetMaxColorAttachments()
+
     private val renderbuffers = mutableMapOf<FramebufferAttachmentType, Renderbuffer>()
     private val textures = mutableMapOf<FramebufferAttachmentType, Texture>()
 
     override fun attachRenderbuffer(type: FramebufferAttachmentType, renderbuffer: Renderbuffer): Framebuffer.Builder {
+        validateType(type)
         textures.remove(type)
         renderbuffers[type] = renderbuffer
         return this
     }
 
+    private fun validateType(type: FramebufferAttachmentType) {
+        if (type is FramebufferAttachmentType.Color) {
+            require(type.index < maxColorAttachments) {
+                "Color attachment ${type.index}, but only $maxColorAttachments color attachments supported"
+            }
+        }
+    }
+
     override fun attachTexture(type: FramebufferAttachmentType, texture: Texture): Framebuffer.Builder {
+        validateType(type)
         renderbuffers.remove(type)
         textures[type] = texture
         return this
@@ -94,6 +106,17 @@ internal class FramebufferBuilderImpl(private val gl: GlimpseAdapter) : Framebuf
 
         private val disposed = AtomicBoolean(false)
         override val isDisposed: Boolean get() = disposed.get()
+
+        override fun use(gl: GlimpseAdapter) {
+            val colorBuffers = (renderbuffers.keys + textures.keys).asSequence()
+                .filterIsInstance<FramebufferAttachmentType.Color>()
+                .sortedBy { colorBuffer -> colorBuffer.index }
+                .toList()
+                .toTypedArray()
+
+            gl.glBindFramebuffer(handle)
+            gl.glDrawBuffers(*colorBuffers)
+        }
 
         override fun dispose(gl: GlimpseAdapter) {
             check(disposed.compareAndSet(false, true)) { "Framebuffer is already disposed" }

@@ -64,5 +64,10 @@ expect class AppResources {
     /**
      * Returns source of a blur effect shader of a given [type].
      */
-    fun getBlurShaderSource(type: ShaderType): String
+    fun getBlurXShaderSource(type: ShaderType): String
+
+    /**
+     * Returns source of a blur effect shader of a given [type].
+     */
+    fun getBlurYShaderSource(type: ShaderType): String
 }

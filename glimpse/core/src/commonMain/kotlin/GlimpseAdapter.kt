@@ -196,6 +196,13 @@ expect class GlimpseAdapter {
     fun glBindFramebuffer(framebufferHandle: Int)
 
     /**
+     * Returns maximum number of color attachments of a framebuffer.
+     *
+     * @since v2.0.0
+     */
+    fun glGetMaxColorAttachments(): Int
+
+    /**
      * Attaches renderbuffer to a framebuffer.
      *
      * @since v1.1.0
@@ -219,6 +226,13 @@ expect class GlimpseAdapter {
      * @since v1.1.0
      */
     fun glCheckFramebufferStatus(): FramebufferStatus
+
+    /**
+     * Specifies the list of [colorBuffers] to be drawn into.
+     *
+     * @since v2.0.0
+     */
+    fun glDrawBuffers(vararg colorBuffers: FramebufferAttachmentType.Color)
 
     /**
      * Deletes framebuffers represented by given [framebufferHandles].

@@ -18,6 +18,7 @@ package graphics.glimpse.textures
 
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.GlimpseDisposable
+import graphics.glimpse.WithHandle
 import graphics.glimpse.framebuffers.Framebuffer
 import graphics.glimpse.types.Vec3
 import graphics.glimpse.types.Vec4
@@ -25,12 +26,12 @@ import graphics.glimpse.types.Vec4
 /**
  * A texture.
  */
-interface Texture : GlimpseDisposable {
+interface Texture : GlimpseDisposable, WithHandle {
 
     /**
      * Texture handle.
      */
-    val handle: Int
+    override val handle: Int
 
     /**
      * Width of this texture.

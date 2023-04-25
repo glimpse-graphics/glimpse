@@ -349,6 +349,14 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     }
 
     /**
+     * Returns maximum number of color attachments of a framebuffer.
+     *
+     * @since v2.0.0
+     */
+    actual fun glGetMaxColorAttachments(): Int =
+        glGetInteger(GL2ES2.GL_MAX_COLOR_ATTACHMENTS)
+
+    /**
      * Attaches renderbuffer to a framebuffer.
      *
      * @since v1.1.0
@@ -363,9 +371,9 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
     }
 
     private fun FramebufferAttachmentType.toInt(): Int = when (this) {
-        FramebufferAttachmentType.COLOR -> GL2ES2.GL_COLOR_ATTACHMENT0
-        FramebufferAttachmentType.DEPTH -> GL2ES2.GL_DEPTH_ATTACHMENT
-        FramebufferAttachmentType.STENCIL -> GL2ES2.GL_STENCIL_ATTACHMENT
+        FramebufferAttachmentType.Depth -> GL2ES2.GL_DEPTH_ATTACHMENT
+        FramebufferAttachmentType.Stencil -> GL2ES2.GL_STENCIL_ATTACHMENT
+        is FramebufferAttachmentType.Color -> GL2ES2.GL_COLOR_ATTACHMENT0 + this.index
     }
 
     /**
@@ -402,6 +410,15 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
         GL2ES2.GL_FRAMEBUFFER_UNSUPPORTED -> FramebufferStatus.UNSUPPORTED
         GL2ES2.GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE -> FramebufferStatus.INCOMPLETE_MULTISAMPLE
         else -> FramebufferStatus.UNKNOWN_STATUS
+    }
+
+    /**
+     * Specifies the list of [colorBuffers] to be drawn into.
+     *
+     * @since v2.0.0
+     */
+    actual fun glDrawBuffers(vararg colorBuffers: FramebufferAttachmentType.Color) {
+        gles.glDrawBuffers(colorBuffers.size, colorBuffers.map { it.toInt() }.toIntArray(), 0)
     }
 
     /**

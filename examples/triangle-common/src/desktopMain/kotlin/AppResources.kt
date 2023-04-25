@@ -93,12 +93,22 @@ actual class AppResources {
     /**
      * Returns source of a blur effect shader of a given [type].
      */
-    actual fun getBlurShaderSource(type: ShaderType): String =
-        javaClass.getResourceAsStream(getBlurShaderResourceName(type))
+    actual fun getBlurXShaderSource(type: ShaderType): String =
+        javaClass.getResourceAsStream(getBlurXShaderResourceName(type))
             .use { it.bufferedReader().readText() }
 
-    private fun getBlurShaderResourceName(type: ShaderType): String =
-        "/blur_${type.name.lowercase(Locale.ENGLISH)}.glsl"
+    private fun getBlurXShaderResourceName(type: ShaderType): String =
+        "/blur_x_${type.name.lowercase(Locale.ENGLISH)}.glsl"
+
+    /**
+     * Returns source of a blur effect shader of a given [type].
+     */
+    actual fun getBlurYShaderSource(type: ShaderType): String =
+        javaClass.getResourceAsStream(getBlurYShaderResourceName(type))
+            .use { it.bufferedReader().readText() }
+
+    private fun getBlurYShaderResourceName(type: ShaderType): String =
+        "/blur_y_${type.name.lowercase(Locale.ENGLISH)}.glsl"
 
     companion object {
         private const val MESH_FILE_NAME = "/triangle.obj"
