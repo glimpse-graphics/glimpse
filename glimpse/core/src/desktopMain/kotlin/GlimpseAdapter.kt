@@ -48,7 +48,7 @@ import java.nio.ByteBuffer
 /**
  * Glimpse OpenGL adapter for the given [GL ES 2.0][gles].
  */
-@Suppress("TooManyFunctions")
+@Suppress("TooManyFunctions", "LargeClass")
 actual class GlimpseAdapter(internal val gles: GL2ES2) {
 
     private val logger: GlimpseLogger = GlimpseLogger.create(this)
