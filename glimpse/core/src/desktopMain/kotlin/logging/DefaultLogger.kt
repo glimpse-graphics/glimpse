@@ -27,55 +27,67 @@ internal actual class DefaultLogger(private val logger: Logger) : GlimpseLogger 
      * Logs a given [message] at a debug level.
      */
     override fun debug(message: String) {
-        logger.debug(message)
+        for (line in message.lines()) {
+            logger.debug(line)
+        }
     }
 
     /**
      * Logs a given [message] at a info level.
      */
     override fun info(message: String) {
-        logger.info(message)
+        for (line in message.lines()) {
+            logger.info(line)
+        }
     }
 
     /**
      * Logs a given [message] at a warning level.
      */
     override fun warn(message: String) {
-        logger.warn(message)
+        for (line in message.lines()) {
+            logger.warn(line)
+        }
     }
 
     /**
      * Logs a given [message] at an error level.
      */
     override fun error(message: String) {
-        logger.error(message)
+        for (line in message.lines()) {
+            logger.error(line)
+        }
     }
 
     /**
      * Logs a given [message] with a given [exception] at a debug level.
      */
     override fun debug(message: String, exception: Throwable) {
-        logger.debug(message, exception)
+        debug(message)
+        logger.debug(exception.message, exception)
     }
 
     /**
      * Logs a given [message] with a given [exception] at a info level.
      */
     override fun info(message: String, exception: Throwable) {
-        logger.info(message, exception)
+        info(message)
+        logger.info(exception.message, exception)
     }
 
     /**
      * Logs a given [message] with a given [exception] at a warning level.
      */
     override fun warn(message: String, exception: Throwable) {
-        logger.warn(message, exception)
+        warn(message)
+        logger.warn(exception.message, exception)
     }
 
     /**
      * Logs a given [message] with a given [exception] at an error level.
      */
     override fun error(message: String, exception: Throwable) {
-        logger.error(message, exception)
+        error(message)
+        logger.error(exception.message, exception)
     }
 }

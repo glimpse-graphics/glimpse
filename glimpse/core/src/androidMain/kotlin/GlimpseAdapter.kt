@@ -218,18 +218,12 @@ actual class GlimpseAdapter {
     /**
      * Sets given [vSync] mode.
      *
-     * For API < 17, always returns false.
-     *
      * @return `true` if the operation was successful.
      *
      * @since v1.2.0
      */
     actual fun glVSync(vSync: VSync): Boolean =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            EGL14.eglSwapInterval(EGL14.eglGetDisplay(EGL14.EGL_DEFAULT_DISPLAY), vSync.toInt())
-        } else {
-            false
-        }
+        EGL14.eglSwapInterval(EGL14.eglGetDisplay(EGL14.EGL_DEFAULT_DISPLAY), vSync.toInt())
 
     private fun VSync.toInt(): Int = when (this) {
         VSync.OFF -> 0
@@ -358,6 +352,14 @@ actual class GlimpseAdapter {
     }
 
     /**
+     * Returns maximum number of color attachments of a framebuffer.
+     *
+     * @since v2.0.0
+     */
+    actual fun glGetMaxColorAttachments(): Int =
+        glGetInteger(GLES30.GL_MAX_COLOR_ATTACHMENTS)
+
+    /**
      * Attaches renderbuffer to a framebuffer.
      *
      * @since v1.1.0
@@ -372,9 +374,9 @@ actual class GlimpseAdapter {
     }
 
     private fun FramebufferAttachmentType.toInt(): Int = when (this) {
-        FramebufferAttachmentType.COLOR -> GLES20.GL_COLOR_ATTACHMENT0
-        FramebufferAttachmentType.DEPTH -> GLES20.GL_DEPTH_ATTACHMENT
-        FramebufferAttachmentType.STENCIL -> GLES20.GL_STENCIL_ATTACHMENT
+        FramebufferAttachmentType.Depth -> GLES20.GL_DEPTH_ATTACHMENT
+        FramebufferAttachmentType.Stencil -> GLES20.GL_STENCIL_ATTACHMENT
+        is FramebufferAttachmentType.Color -> GLES20.GL_COLOR_ATTACHMENT0 + this.index
     }
 
     /**
@@ -410,6 +412,15 @@ actual class GlimpseAdapter {
         GLES20.GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT -> FramebufferStatus.INCOMPLETE_MISSING_ATTACHMENT
         GLES20.GL_FRAMEBUFFER_UNSUPPORTED -> FramebufferStatus.UNSUPPORTED
         else -> FramebufferStatus.UNKNOWN_STATUS
+    }
+
+    /**
+     * Specifies the list of [colorBuffers] to be drawn into.
+     *
+     * @since v2.0.0
+     */
+    actual fun glDrawBuffers(vararg colorBuffers: FramebufferAttachmentType.Color) {
+        GLES30.glDrawBuffers(colorBuffers.size, colorBuffers.map { it.toInt() }.toIntArray(), 0)
     }
 
     /**

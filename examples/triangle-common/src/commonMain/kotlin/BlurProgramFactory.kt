@@ -29,15 +29,35 @@ class BlurProgramFactory(private val resources: AppResources) {
     /**
      * Creates a blur effect program.
      */
-    fun createProgram(gl: GlimpseAdapter): Program {
+    fun createBlurXProgram(gl: GlimpseAdapter): Program {
         val shaderFactory = Shader.Factory.newInstance(gl)
         val vertexShader = shaderFactory.createShader(
             type = ShaderType.VERTEX_SHADER,
-            source = resources.getBlurShaderSource(ShaderType.VERTEX_SHADER)
+            source = resources.getBlurXShaderSource(ShaderType.VERTEX_SHADER)
         )
         val fragmentShader = shaderFactory.createShader(
             type = ShaderType.FRAGMENT_SHADER,
-            source = resources.getBlurShaderSource(ShaderType.FRAGMENT_SHADER)
+            source = resources.getBlurXShaderSource(ShaderType.FRAGMENT_SHADER)
+        )
+
+        return Program.Builder.newInstance(gl)
+            .withVertexShader(vertexShader)
+            .withFragmentShader(fragmentShader)
+            .build()
+    }
+
+    /**
+     * Creates a blur effect program.
+     */
+    fun createBlurYProgram(gl: GlimpseAdapter): Program {
+        val shaderFactory = Shader.Factory.newInstance(gl)
+        val vertexShader = shaderFactory.createShader(
+            type = ShaderType.VERTEX_SHADER,
+            source = resources.getBlurYShaderSource(ShaderType.VERTEX_SHADER)
+        )
+        val fragmentShader = shaderFactory.createShader(
+            type = ShaderType.FRAGMENT_SHADER,
+            source = resources.getBlurYShaderSource(ShaderType.FRAGMENT_SHADER)
         )
 
         return Program.Builder.newInstance(gl)

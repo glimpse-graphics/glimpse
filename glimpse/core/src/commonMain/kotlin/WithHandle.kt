@@ -14,20 +14,15 @@
  * limitations under the License.
  */
 
-package graphics.glimpse.framebuffers
-
-import graphics.glimpse.GlimpseAdapter
+package graphics.glimpse
 
 /**
- * Runs [block] of instructions with given [framebuffer] bound.
- *
- * @since v1.1.0
+ * A common interface for objects with integer handles.
  */
-inline fun GlimpseAdapter.withFramebuffer(
-    framebuffer: Framebuffer,
-    crossinline block: GlimpseAdapter.() -> Unit
-) {
-    framebuffer.use(gl = this)
-    block()
-    glBindFramebuffer(framebufferHandle = 0)
+interface WithHandle {
+
+    /**
+     * Handle of this object.
+     */
+    val handle: Int
 }

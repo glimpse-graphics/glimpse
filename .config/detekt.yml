@@ -16,6 +16,9 @@ naming:
     ignoreAnnotated: [ Composable ]
   InvalidPackageDeclaration:
     active: false
+performance:
+  SpreadOperator:
+    active: false
 style:
   DestructuringDeclarationWithTooManyEntries:
     maxDestructuringEntries: 4

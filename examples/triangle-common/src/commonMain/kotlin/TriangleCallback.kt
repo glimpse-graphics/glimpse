@@ -59,10 +59,13 @@ class TriangleCallback(
     private lateinit var programExecutor: ProgramExecutor<TriangleShader>
 
     private lateinit var blurMesh: Mesh
-    private lateinit var blurProgram: Program
-    private lateinit var blurProgramExecutor: ProgramExecutor<BlurShader>
+    private lateinit var blurXProgram: Program
+    private lateinit var blurXProgramExecutor: ProgramExecutor<BlurXShader>
+    private lateinit var blurYProgram: Program
+    private lateinit var blurYProgramExecutor: ProgramExecutor<BlurYShader>
 
-    private var imageFramebuffer: Framebuffer? = null
+    private var triangleFramebuffer: Framebuffer? = null
+    private var blurXFramebuffer: Framebuffer? = null
 
     private var size = Vec2(x = 1f, y = 1f)
 
@@ -102,23 +105,40 @@ class TriangleCallback(
         programExecutor = program.createTriangleShaderProgramExecutor()
 
         blurMesh = Mesh.Factory.newInstance(gl).createMesh(resources.getBlurMeshData())
-        blurProgram = BlurProgramFactory(resources).createProgram(gl)
-        blurProgramExecutor = blurProgram.createBlurShaderProgramExecutor()
+        blurXProgram = BlurProgramFactory(resources).createBlurXProgram(gl)
+        blurXProgramExecutor = blurXProgram.createBlurXShaderProgramExecutor()
+        blurYProgram = BlurProgramFactory(resources).createBlurYProgram(gl)
+        blurYProgramExecutor = blurYProgram.createBlurYShaderProgramExecutor()
 
-        imageFramebuffer = createImageFramebuffer(gl)
+        triangleFramebuffer = createTriangleFramebuffer(gl)
+        blurXFramebuffer = createBlurXFramebuffer(gl)
     }
 
-    private fun createImageFramebuffer(gl: GlimpseAdapter): Framebuffer? = try {
+    private fun createTriangleFramebuffer(gl: GlimpseAdapter): Framebuffer? = try {
         val width = size.x.toInt()
         val height = size.y.toInt()
         Framebuffer.Builder.getInstance(gl)
             .attachTexture(
-                FramebufferAttachmentType.COLOR,
+                FramebufferAttachmentType.Color[0],
                 Texture.createEmpty(gl, width, height, TexturePresets.rgba)
             )
             .attachTexture(
-                FramebufferAttachmentType.DEPTH,
-                Texture.createEmpty(gl, width, height, TexturePresets.depthComponent)
+                FramebufferAttachmentType.Color[1],
+                Texture.createEmpty(gl, width, height, TexturePresets.rgba)
+            )
+            .build()
+    } catch (exception: IllegalStateException) {
+        logger.error(message = "Error creating framebuffer", exception = exception)
+        null
+    }
+
+    private fun createBlurXFramebuffer(gl: GlimpseAdapter): Framebuffer? = try {
+        val width = size.x.toInt()
+        val height = size.y.toInt()
+        Framebuffer.Builder.getInstance(gl)
+            .attachTexture(
+                FramebufferAttachmentType.Color[0],
+                Texture.createEmpty(gl, width, height, TexturePresets.rgba)
             )
             .build()
     } catch (exception: IllegalStateException) {
@@ -137,20 +157,34 @@ class TriangleCallback(
 
         size = Vec2(x = width.toFloat(), y = height.toFloat())
 
-        imageFramebuffer?.dispose(gl)
-        imageFramebuffer = createImageFramebuffer(gl)
+        triangleFramebuffer?.dispose(gl)
+        triangleFramebuffer = createTriangleFramebuffer(gl)
+        blurXFramebuffer?.dispose(gl)
+        blurXFramebuffer = createBlurXFramebuffer(gl)
     }
 
     /**
      * Renders the triangle.
      */
     override fun onRender(gl: GlimpseAdapter) {
-        if (!::programExecutor.isInitialized || !::blurProgramExecutor.isInitialized) return
+        if (
+            !::programExecutor.isInitialized ||
+            !::blurXProgramExecutor.isInitialized ||
+            !::blurYProgramExecutor.isInitialized
+        ) {
+            return
+        }
 
-        val framebuffer = imageFramebuffer
-        if (framebuffer != null) {
-            gl.withFramebuffer(framebuffer) { renderTriangle(this) }
-            applyBlur(gl, framebuffer)
+        val imageFramebuffer = triangleFramebuffer
+        val blurFramebuffer = blurXFramebuffer
+        if (imageFramebuffer != null && blurFramebuffer != null) {
+            gl.withFramebuffer(imageFramebuffer) {
+                renderTriangle(this)
+            }
+            gl.withFramebuffer(blurFramebuffer) {
+                applyBlurX(gl, imageFramebuffer)
+            }
+            applyBlurY(gl, imageFramebuffer, blurFramebuffer)
         } else {
             renderTriangle(gl)
         }
@@ -178,19 +212,34 @@ class TriangleCallback(
     private fun calculateRotationAngle() =
         Angle.fromDeg(((getSystemTimeInMillis() / ROTATION_SPEED_FACTOR) % FULL_ANGLE_DEG).toFloat())
 
-    private fun applyBlur(gl: GlimpseAdapter, framebuffer: Framebuffer) {
+    private fun applyBlurX(gl: GlimpseAdapter, triangleFramebuffer: Framebuffer) {
         gl.glClear(ClearableBufferType.COLOR_BUFFER, ClearableBufferType.DEPTH_BUFFER)
 
-        blurProgram.use(gl)
+        blurXProgram.use(gl)
 
-        val blurParams = BlurShader(
+        val blurXParams = BlurXShader(
             screenSize = size,
-            image = requireNotNull(framebuffer.textures[FramebufferAttachmentType.COLOR]),
-            depth = requireNotNull(framebuffer.textures[FramebufferAttachmentType.DEPTH])
+            image = requireNotNull(triangleFramebuffer.textures[FramebufferAttachmentType.Color[0]]),
+            position = requireNotNull(triangleFramebuffer.textures[FramebufferAttachmentType.Color[1]])
         )
 
-        blurProgramExecutor.applyParams(gl, blurParams)
-        blurProgramExecutor.drawMesh(gl, blurMesh)
+        blurXProgramExecutor.applyParams(gl, blurXParams)
+        blurXProgramExecutor.drawMesh(gl, blurMesh)
+    }
+
+    private fun applyBlurY(gl: GlimpseAdapter, triangleFramebuffer: Framebuffer, blurXFramebuffer: Framebuffer) {
+        gl.glClear(ClearableBufferType.COLOR_BUFFER, ClearableBufferType.DEPTH_BUFFER)
+
+        blurYProgram.use(gl)
+
+        val blurYParams = BlurYShader(
+            screenSize = size,
+            image = requireNotNull(blurXFramebuffer.textures[FramebufferAttachmentType.Color[0]]),
+            position = requireNotNull(triangleFramebuffer.textures[FramebufferAttachmentType.Color[1]])
+        )
+
+        blurYProgramExecutor.applyParams(gl, blurYParams)
+        blurYProgramExecutor.drawMesh(gl, blurMesh)
     }
 
     /**
@@ -200,12 +249,14 @@ class TriangleCallback(
         logger.debug(message = "onDestroy")
 
         try {
-            imageFramebuffer?.dispose(gl)
+            triangleFramebuffer?.dispose(gl)
             if (::mesh.isInitialized) mesh.dispose(gl)
             if (::programExecutor.isInitialized) programExecutor.dispose(gl)
             else if (::program.isInitialized) program.dispose(gl)
-            if (::blurProgramExecutor.isInitialized) blurProgramExecutor.dispose(gl)
-            else if (::blurProgram.isInitialized) blurProgram.dispose(gl)
+            if (::blurXProgramExecutor.isInitialized) blurXProgramExecutor.dispose(gl)
+            else if (::blurXProgram.isInitialized) blurXProgram.dispose(gl)
+            if (::blurYProgramExecutor.isInitialized) blurYProgramExecutor.dispose(gl)
+            else if (::blurYProgram.isInitialized) blurYProgram.dispose(gl)
         } catch (expected: Exception) {
             logger.error(message = "Error disposing Glimpse", exception = expected)
         }

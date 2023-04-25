@@ -30,7 +30,7 @@ import graphics.glimpse.types.Vec2
         Attribute(name = "aTexCoords", role = AttributeRole.TEX_COORDS, vectorSize = 2),
     ]
 )
-data class BlurShader(
+data class BlurYShader(
 
     @Uniform(name = "uScreenSize")
     val screenSize: Vec2<Float>,
@@ -38,6 +38,6 @@ data class BlurShader(
     @Sampler2D(name = "uImage")
     val image: Texture,
 
-    @Sampler2D(name = "uDepth")
-    val depth: Texture,
+    @Sampler2D(name = "uPosition")
+    val position: Texture,
 )

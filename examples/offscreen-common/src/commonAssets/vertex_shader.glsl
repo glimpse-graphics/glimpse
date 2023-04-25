@@ -1,4 +1,4 @@
-#version 100
+#version 310 es
 
 precision mediump float;
 
@@ -7,14 +7,14 @@ uniform mat4 uViewMatrix;
 uniform mat4 uModelMatrix;
 uniform mat3 uNormalMatrix;
 
-attribute vec3 aPos;
-attribute vec2 aTexCoords;
-attribute vec3 aNormal;
-attribute vec3 aTangent;
+in vec3 aPos;
+in vec2 aTexCoords;
+in vec3 aNormal;
+in vec3 aTangent;
 
-varying vec3 vCameraPosTan;
-varying vec3 vPosTan;
-varying vec2 vTexCoords;
+out vec3 vCameraPosTan;
+out vec3 vPosTan;
+out vec2 vTexCoords;
 
 void main() {
     vec4 position = vec4(aPos, 1.0);

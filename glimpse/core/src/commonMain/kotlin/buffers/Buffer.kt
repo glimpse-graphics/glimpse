@@ -18,11 +18,12 @@ package graphics.glimpse.buffers
 
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.GlimpseDisposable
+import graphics.glimpse.WithHandle
 
 /**
  * A wrapper for a vertex data buffer.
  */
-interface Buffer : GlimpseDisposable {
+interface Buffer : GlimpseDisposable, WithHandle {
 
     /**
      * Type of the buffer.
@@ -32,7 +33,7 @@ interface Buffer : GlimpseDisposable {
     /**
      * Buffer handle.
      */
-    val handle: Int
+    override val handle: Int
 
     /**
      * Tells the given [OpenGL adapter][gl] to use this buffer.

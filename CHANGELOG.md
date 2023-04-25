@@ -30,6 +30,7 @@
 - **BREAKING CHANGE:** Add parameter type `T : Number` to `Camera` and its implementations
 - **BREAKING CHANGE:** Add parameter type `T : Number` to `Lens` and its implementations
 - **BREAKING CHANGE:** Rename `EmptyTexturePresets` to `TexturePresets`
+- **BREAKING CHANGE:** Support for multiple color framebuffer attachments
 - Minimum Android API level 21
 - Upgrade to OpenGL ES 3.1
 - Upgrade Gradle Wrapper to `8.1`

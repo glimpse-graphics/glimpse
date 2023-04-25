@@ -18,16 +18,17 @@ package graphics.glimpse.shaders
 
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.GlimpseDisposable
+import graphics.glimpse.WithHandle
 
 /**
  * A shader.
  */
-interface Shader : GlimpseDisposable {
+interface Shader : GlimpseDisposable, WithHandle {
 
     /**
      * Shader handle.
      */
-    val handle: Int
+    override val handle: Int
 
     /**
      * A factory for shaders.

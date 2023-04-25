@@ -18,16 +18,17 @@ package graphics.glimpse.shaders
 
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.GlimpseDisposable
+import graphics.glimpse.WithHandle
 
 /**
  * A program.
  */
-interface Program : GlimpseDisposable {
+interface Program : GlimpseDisposable, WithHandle {
 
     /**
      * Program handle.
      */
-    val handle: Int
+    override val handle: Int
 
     /**
      * Tells the given [OpenGL adapter][gl] to use this program.

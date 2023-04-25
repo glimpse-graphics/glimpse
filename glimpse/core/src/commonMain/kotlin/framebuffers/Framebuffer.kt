@@ -18,6 +18,7 @@ package graphics.glimpse.framebuffers
 
 import graphics.glimpse.GlimpseAdapter
 import graphics.glimpse.GlimpseDisposable
+import graphics.glimpse.WithHandle
 import graphics.glimpse.textures.Texture
 
 /**
@@ -25,12 +26,12 @@ import graphics.glimpse.textures.Texture
  *
  * @since v1.1.0
  */
-interface Framebuffer : GlimpseDisposable {
+interface Framebuffer : GlimpseDisposable, WithHandle {
 
     /**
      * Framebuffer handle.
      */
-    val handle: Int
+    override val handle: Int
 
     /**
      * Renderbuffers attached to this framebuffer.
@@ -41,6 +42,12 @@ interface Framebuffer : GlimpseDisposable {
      * Textures attached to this framebuffer.
      */
     val textures: Map<FramebufferAttachmentType, Texture>
+
+    /**
+     * Tells the given [OpenGL adapter][gl] to use this framebuffer and draw
+     * into its color attachments.
+     */
+    fun use(gl: GlimpseAdapter)
 
     /**
      * An interface for a framebuffer builder.

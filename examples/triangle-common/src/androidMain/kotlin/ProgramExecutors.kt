@@ -26,7 +26,13 @@ actual fun Program.createTriangleShaderProgramExecutor(): ProgramExecutor<Triang
     TriangleShaderProgramExecutor(program = this)
 
 /**
- * Creates a program executor for [BlurShader].
+ * Creates a program executor for [BlurXShader].
  */
-actual fun Program.createBlurShaderProgramExecutor(): ProgramExecutor<BlurShader> =
-    BlurShaderProgramExecutor(program = this)
+actual fun Program.createBlurXShaderProgramExecutor(): ProgramExecutor<BlurXShader> =
+    BlurXShaderProgramExecutor(program = this)
+
+/**
+ * Creates a program executor for [BlurYShader].
+ */
+actual fun Program.createBlurYShaderProgramExecutor(): ProgramExecutor<BlurYShader> =
+    BlurYShaderProgramExecutor(program = this)
