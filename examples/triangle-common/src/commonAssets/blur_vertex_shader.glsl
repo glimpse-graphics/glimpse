@@ -1,11 +1,11 @@
-#version 100
+#version 310 es
 
 precision mediump float;
 
-attribute vec3 aPos;
-attribute vec2 aTexCoords;
+in vec3 aPos;
+in vec2 aTexCoords;
 
-varying vec2 vTexCoords;
+out vec2 vTexCoords;
 
 void main() {
     vTexCoords = aTexCoords;
