@@ -46,13 +46,14 @@ internal data class PolygonFace(
         val segments = (positions + positions.first()).zipWithNext { a, b -> b - a }
         val angleVectors = (listOf(segments.last()) + segments).zipWithNext { a, b -> a cross b }
         val normal = angleVectors.reduce(Vec3<Float>::plus).normalize()
-        val axisY = if (normal != Vec3.unitY<Float>()) Vec3.unitY<Float>() else Vec3.unitZ()
+        val axisY = if ((normal cross Vec3.unitY<Float>()).magnitude() != 0f) Vec3.unitY<Float>() else Vec3.unitZ()
         val tangent = axisY cross normal
         val bitangent = normal cross tangent
         val tbn = Mat3(elements = tangent.toList() + bitangent.toList() + normal.toList()).transpose()
 
-        return triangulate2D(vertices = positions.map { (tbn * it).toVec2() })
-            .map { triple -> createTriangle(triple) }
+        val vertices = positions.map { (tbn * it).toVec2() }
+
+        return triangulate2D(vertices = vertices).map { triple -> createTriangle(triple) }
     }
 
     private fun createTriangle(indices: Triple<Int, Int, Int>): Triangle =
