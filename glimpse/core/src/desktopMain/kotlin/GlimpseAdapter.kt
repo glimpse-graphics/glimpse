@@ -972,7 +972,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
             location,
             values.size,
             transpose,
-            values.flatMap { it.elements }.toFloatArray(),
+            values.flatMap { it.toList() }.toFloatArray(),
             0
         )
     }
@@ -987,7 +987,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
             location,
             values.size,
             transpose,
-            values.flatMap { it.elements }.toFloatArray(),
+            values.flatMap { it.toList() }.toFloatArray(),
             0
         )
     }
@@ -1002,7 +1002,7 @@ actual class GlimpseAdapter(internal val gles: GL2ES2) {
             location,
             values.size,
             transpose,
-            values.flatMap { it.elements }.toFloatArray(),
+            values.flatMap { it.toList() }.toFloatArray(),
             0
         )
     }

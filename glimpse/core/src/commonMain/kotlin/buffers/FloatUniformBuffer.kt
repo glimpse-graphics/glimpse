@@ -125,7 +125,7 @@ fun Iterable<Vec4<Float>>.toUniformBuffer(): FloatUniformBuffer =
 @JvmName("ofMat2")
 fun Iterable<Mat2<Float>>.toUniformBuffer(): FloatUniformBuffer =
     FloatUniformBuffer(
-        data = this.flatMap { matrix -> matrix.elements }.toFloatBufferData(),
+        data = this.flatMap { matrix -> matrix.toList() }.toFloatBufferData(),
         elementType = UniformBufferDataElementType.MAT2
     )
 
@@ -137,7 +137,7 @@ fun Iterable<Mat2<Float>>.toUniformBuffer(): FloatUniformBuffer =
 @JvmName("ofMat3")
 fun Iterable<Mat3<Float>>.toUniformBuffer(): FloatUniformBuffer =
     FloatUniformBuffer(
-        data = this.flatMap { matrix -> matrix.elements }.toFloatBufferData(),
+        data = this.flatMap { matrix -> matrix.toList() }.toFloatBufferData(),
         elementType = UniformBufferDataElementType.MAT3
     )
 
@@ -149,6 +149,6 @@ fun Iterable<Mat3<Float>>.toUniformBuffer(): FloatUniformBuffer =
 @JvmName("ofMat4")
 fun Iterable<Mat4<Float>>.toUniformBuffer(): FloatUniformBuffer =
     FloatUniformBuffer(
-        data = this.flatMap { matrix -> matrix.elements }.toFloatBufferData(),
+        data = this.flatMap { matrix -> matrix.toList() }.toFloatBufferData(),
         elementType = UniformBufferDataElementType.MAT4
     )

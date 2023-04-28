@@ -35,7 +35,7 @@ abstract class BaseMat<T, M : Mat<T, M, V>, V : Vec<T>>(
     /**
      * Implement this property to provide elements of the matrix.
      */
-    internal abstract val elements: List<T>
+    protected abstract val elements: List<T>
 
     /**
      * Indices of a row or a column of the matrix.
@@ -123,6 +123,13 @@ abstract class BaseMat<T, M : Mat<T, M, V>, V : Vec<T>>(
     override fun inverse(): M = adj() * (one(this.type) / det())
 
     /**
+     * Returns a list of elements of this matrix.
+     *
+     * @since v2.0.0
+     */
+    override fun toList(): List<T> = elements
+
+    /**
      * Returns a string representation of this matrix.
      */
     override fun toString(): String =
@@ -139,9 +146,9 @@ abstract class BaseMat<T, M : Mat<T, M, V>, V : Vec<T>>(
 /**
  * Returns an array of elements of this matrix.
  */
-fun <M : Mat<Float, M, V>, V : Vec<Float>> BaseMat<Float, M, V>.toFloatArray() = elements.toFloatArray()
+fun <M : Mat<Float, M, V>, V : Vec<Float>> BaseMat<Float, M, V>.toFloatArray() = toList().toFloatArray()
 
 /**
  * Returns an array of elements of this matrix.
  */
-fun <M : Mat<Double, M, V>, V : Vec<Double>> BaseMat<Double, M, V>.toDoubleArray() = elements.toDoubleArray()
+fun <M : Mat<Double, M, V>, V : Vec<Double>> BaseMat<Double, M, V>.toDoubleArray() = toList().toDoubleArray()

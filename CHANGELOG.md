@@ -6,6 +6,7 @@
 - Extension functions `VecN<Int>.toIntArray()`
 - Extension functions `VecN<Long>.toLongArray()`
 - Extension functions `VecN<Double>.toDoubleArray()`
+- Method `Mat.toList()`, returning elements of the matrix
 - Extension function `BaseMat<Double, M, V>.toDoubleArray()`
 - Add support for `Int` vectors to `@Uniform` annotation
 - Buffers for uniform data: `IntUniformBuffer`, `FloatUniformBuffer`
@@ -27,6 +28,7 @@
 - **BREAKING CHANGE:** Method `Vec.toFloatArray()` replaced with a set of extension functions `VecN<Float>.toFloatArray()`
 - **BREAKING CHANGE:** Add parameter type `T : Number` to `Mat` and all inheriting types
 - **BREAKING CHANGE:** Method `Mat.toFloatArray()` replaced with a set of extension functions `BaseMat<Float, M, V>.toFloatArray()`
+- **BREAKING CHANGE:** Property `BaseMat.elements` is now protected (use `Mat.toList()` instead)
 - **BREAKING CHANGE:** Add parameter type `T : Number` to `Camera` and its implementations
 - **BREAKING CHANGE:** Add parameter type `T : Number` to `Lens` and its implementations
 - **BREAKING CHANGE:** Rename `EmptyTexturePresets` to `TexturePresets`
