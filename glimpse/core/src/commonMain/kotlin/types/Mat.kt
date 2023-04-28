@@ -60,4 +60,11 @@ interface Mat<T, M : Mat<T, M, V>, V : Vec<T>> where T : Number, T : Comparable<
      * Returns an inverse of this matrix.
      */
     fun inverse(): M
+
+    /**
+     * Returns a list of elements of this matrix.
+     *
+     * @since v2.0.0
+     */
+    fun toList(): List<T>
 }
