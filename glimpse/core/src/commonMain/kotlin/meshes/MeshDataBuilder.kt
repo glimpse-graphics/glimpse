@@ -74,24 +74,18 @@ class MeshDataBuilder {
 
     /**
      * Adds another face to the mesh.
+     *
+     * The face is triangulated using ear clipping method.
+     * For triangulation purposes, the polygon is projected on the average plane of its angles.
      */
     fun addFace(indices: List<FaceVertex>): MeshDataBuilder {
-        val p1 = indices.first()
-        indices.drop(n = 1).windowed(size  = 2) { (p2, p3) ->
-            triangles.add(
-                Triangle(
-                    position1 = positions[p1.positionIndex],
-                    position2 = positions[p2.positionIndex],
-                    position3 = positions[p3.positionIndex],
-                    texCoord1 = texCoords[p1.texCoordIndex],
-                    texCoord2 = texCoords[p2.texCoordIndex],
-                    texCoord3 = texCoords[p3.texCoordIndex],
-                    normal1 = normals[p1.normalIndex],
-                    normal2 = normals[p2.normalIndex],
-                    normal3 = normals[p3.normalIndex]
-                )
-            )
-        }
+        PolygonFace(
+            positions = indices.map { faceVertex -> positions[faceVertex.positionIndex] },
+            texCoords = indices.map { faceVertex -> texCoords[faceVertex.texCoordIndex] },
+            normals = indices.map { faceVertex -> normals[faceVertex.normalIndex] }
+        )
+            .triangulate()
+            .forEach { triangle -> triangles.add(triangle) }
         return this
     }
 
@@ -145,51 +139,4 @@ class MeshDataBuilder {
         val normalIndex: Int
     )
 
-    private data class Triangle(
-        val position1: Vec3<Float>,
-        val position2: Vec3<Float>,
-        val position3: Vec3<Float>,
-        val texCoord1: Vec2<Float>,
-        val texCoord2: Vec2<Float>,
-        val texCoord3: Vec2<Float>,
-        val normal1: Vec3<Float>,
-        val normal2: Vec3<Float>,
-        val normal3: Vec3<Float>
-    ) {
-
-        val tangent: Vec3<Float>
-        val bitangent: Vec3<Float>
-
-        val positions: List<Vec3<Float>>
-            get() = listOf(position1, position2, position3)
-
-        val textureCoordinates: List<Vec2<Float>>
-            get() = listOf(texCoord1, texCoord2, texCoord3)
-
-        val normals: List<Vec3<Float>>
-            get() = listOf(normal1, normal2, normal3)
-
-        val tangents: List<Vec3<Float>>
-            get() = listOf(tangent, tangent, tangent)
-
-        val bitangents: List<Vec3<Float>>
-            get() = listOf(bitangent, bitangent, bitangent)
-
-        init {
-            val edge1 = position2 - position1
-            val edge2 = position3 - position1
-
-            val deltaUV1 = texCoord2 - texCoord1
-            val deltaUV2 = texCoord3 - texCoord1
-
-            val factor = 1f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y)
-
-            tangent = (edge1 * deltaUV2.y - edge2 * deltaUV1.y) * factor
-            bitangent = (edge2 * deltaUV1.x - edge1 * deltaUV2.x) * factor
-        }
-    }
-
-    companion object {
-        private const val TRIANGLE_VERTICES = 3
-    }
 }
