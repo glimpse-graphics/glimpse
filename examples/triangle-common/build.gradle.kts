@@ -17,7 +17,7 @@
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
-    id("com.google.devtools.ksp") version "1.8.20-1.0.11"
+    id("com.google.devtools.ksp") version "1.8.21-1.0.11"
     id("org.jetbrains.compose")
     id("graphics.glimpse.internal.detekt")
 }
