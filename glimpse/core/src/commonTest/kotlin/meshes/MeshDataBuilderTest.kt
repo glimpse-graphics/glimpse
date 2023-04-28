@@ -57,4 +57,71 @@ class MeshDataBuilderTest {
             result
         )
     }
+
+    @Test
+    @Suppress("LongMethod")
+    fun `GIVEN MeshDataBuilder, WHEN build concave polygon array mesh data, THEN return mesh data with triangles`() {
+        val result = MeshDataBuilder()
+            .addVertex(Vec3(x = 0f, y = 0f, z = 0f))
+            .addVertex(Vec3(x = 0f, y = 1f, z = 1f))
+            .addVertex(Vec3(x = 0f, y = 2f, z = 0f))
+            .addVertex(Vec3(x = 0f, y = 3f, z = 2f))
+            .addVertex(Vec3(x = 0f, y = 2f, z = 1f))
+            .addVertex(Vec3(x = 0f, y = 1f, z = 2f))
+            .addTextureCoordinates(Vec2(x = 0f, y = 0f))
+            .addTextureCoordinates(Vec2(x = 1f, y = 1f))
+            .addTextureCoordinates(Vec2(x = 2f, y = 0f))
+            .addTextureCoordinates(Vec2(x = 3f, y = 2f))
+            .addTextureCoordinates(Vec2(x = 2f, y = 1f))
+            .addTextureCoordinates(Vec2(x = 1f, y = 2f))
+            .addNormal(Vec3(x = 1f, y = 0f, z = 0f))
+            .addFace(
+                listOf(
+                    MeshDataBuilder.FaceVertex(positionIndex = 0, texCoordIndex = 0, normalIndex = 0),
+                    MeshDataBuilder.FaceVertex(positionIndex = 1, texCoordIndex = 1, normalIndex = 0),
+                    MeshDataBuilder.FaceVertex(positionIndex = 2, texCoordIndex = 2, normalIndex = 0),
+                    MeshDataBuilder.FaceVertex(positionIndex = 3, texCoordIndex = 3, normalIndex = 0),
+                    MeshDataBuilder.FaceVertex(positionIndex = 4, texCoordIndex = 4, normalIndex = 0),
+                    MeshDataBuilder.FaceVertex(positionIndex = 5, texCoordIndex = 5, normalIndex = 0)
+                )
+            )
+            .buildArrayMeshData()
+
+        assertEquals(
+            ArrayMeshData(
+                vertexCount = 12,
+                positionsData = floatBufferDataOf(
+                    0f, 1f, 2f, 0f, 0f, 0f, 0f, 1f, 1f,
+                    0f, 1f, 2f, 0f, 1f, 1f, 0f, 2f, 0f,
+                    0f, 2f, 0f, 0f, 3f, 2f, 0f, 2f, 1f,
+                    0f, 2f, 0f, 0f, 2f, 1f, 0f, 1f, 2f
+                ),
+                texCoordsData = floatBufferDataOf(
+                    1f, 2f, 0f, 0f, 1f, 1f,
+                    1f, 2f, 1f, 1f, 2f, 0f,
+                    2f, 0f, 3f, 2f, 2f, 1f,
+                    2f, 0f, 2f, 1f, 1f, 2f
+                ),
+                normalsData = floatBufferDataOf(
+                    1f, 0f, 0f, 1f, 0f, 0f, 1f, 0f, 0f,
+                    1f, 0f, 0f, 1f, 0f, 0f, 1f, 0f, 0f,
+                    1f, 0f, 0f, 1f, 0f, 0f, 1f, 0f, 0f,
+                    1f, 0f, 0f, 1f, 0f, 0f, 1f, 0f, 0f
+                ),
+                tangentsData = floatBufferDataOf(
+                    0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f, 0f,
+                    0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f, 0f,
+                    0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f, 0f,
+                    0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f, 0f
+                ),
+                bitangentsData = floatBufferDataOf(
+                    0f, 0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f,
+                    0f, 0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f,
+                    0f, 0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f,
+                    0f, 0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f
+                )
+            ),
+            result
+        )
+    }
 }
