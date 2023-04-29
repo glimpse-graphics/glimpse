@@ -46,6 +46,7 @@ jobs:
 
   changelog:
     name: Update Changelog
+    if: ${{ !github.event.release.prerelease }}
     needs: release
     runs-on: ubuntu-latest
     steps:
