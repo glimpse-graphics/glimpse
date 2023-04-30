@@ -45,7 +45,8 @@ internal data class PolygonFace(
 
         val segments = (positions + positions.first()).zipWithNext { a, b -> b - a }
         val angleVectors = (listOf(segments.last()) + segments).zipWithNext { a, b -> a cross b }
-        val normal = angleVectors.reduce(Vec3<Float>::plus).normalize()
+        val polygonVector = angleVectors.reduce(Vec3<Float>::plus)
+        val normal = if (polygonVector.magnitude() > 0f) polygonVector.normalize() else Vec3.unitZ()
         val axisY = if ((normal cross Vec3.unitY<Float>()).magnitude() != 0f) Vec3.unitY<Float>() else Vec3.unitZ()
         val tangent = axisY cross normal
         val bitangent = normal cross tangent
@@ -84,7 +85,7 @@ internal data class PolygonFace(
                 (listOf(indices.last()) + indices + indices.first()).asSequence()
                     .windowed(size = TRIANGLE_VERTICES)
                     .filter { (prev, curr, next) ->
-                        ((vertices[curr] - vertices[prev]) cross (vertices[next] - vertices[curr])).z > 0f
+                        ((vertices[curr] - vertices[prev]) cross (vertices[next] - vertices[curr])).z >= 0f
                     }
                     .filter { triangleIndices ->
                         val triangleVertices = triangleIndices.map { vertices[it] }
@@ -93,7 +94,7 @@ internal data class PolygonFace(
                     }
                     .map { (prev, curr, next) -> Triple(prev, curr, next) }
                     .firstOrNull()
-                    ?: throw NoSuchElementException("No ear was found")
+                    ?: indices.let { (a, b, c) -> Triple(a, b, c) }
             }
 
         tailrec fun triangulate(indices: List<Int>, list: List<Triple<Int, Int, Int>>): List<Triple<Int, Int, Int>> {
