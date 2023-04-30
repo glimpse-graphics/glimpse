@@ -258,4 +258,71 @@ class MeshDataBuilderTest {
             result
         )
     }
+
+    @Test
+    @Suppress("LongMethod")
+    fun `GIVEN MeshDataBuilder, WHEN build straight polygon array mesh data, THEN return mesh data with triangles`() {
+        val result = MeshDataBuilder()
+            .addVertex(Vec3(x = 0.10f, y = -0.55f, z = 0.00f))
+            .addVertex(Vec3(x = 0.10f, y = 0.55f, z = 0.00f))
+            .addVertex(Vec3(x = 0.13f, y = 0.57f, z = 0.05f))
+            .addVertex(Vec3(x = 0.13f, y = 0.20f, z = 0.05f))
+            .addVertex(Vec3(x = 0.13f, y = -0.20f, z = 0.05f))
+            .addVertex(Vec3(x = 0.13f, y = -0.57f, z = 0.05f))
+            .addTextureCoordinates(Vec2(x = 0f, y = 0f))
+            .addTextureCoordinates(Vec2(x = 0f, y = 0f))
+            .addTextureCoordinates(Vec2(x = 0f, y = 0f))
+            .addTextureCoordinates(Vec2(x = 0f, y = 0f))
+            .addTextureCoordinates(Vec2(x = 0f, y = 0f))
+            .addTextureCoordinates(Vec2(x = 0f, y = 0f))
+            .addNormal(Vec3(x = 1f, y = 0f, z = -1f))
+            .addFace(
+                listOf(
+                    MeshDataBuilder.FaceVertex(positionIndex = 0, texCoordIndex = 0, normalIndex = 0),
+                    MeshDataBuilder.FaceVertex(positionIndex = 1, texCoordIndex = 1, normalIndex = 0),
+                    MeshDataBuilder.FaceVertex(positionIndex = 2, texCoordIndex = 2, normalIndex = 0),
+                    MeshDataBuilder.FaceVertex(positionIndex = 3, texCoordIndex = 3, normalIndex = 0),
+                    MeshDataBuilder.FaceVertex(positionIndex = 4, texCoordIndex = 4, normalIndex = 0),
+                    MeshDataBuilder.FaceVertex(positionIndex = 5, texCoordIndex = 5, normalIndex = 0)
+                )
+            )
+            .buildArrayMeshData()
+
+        assertEquals(
+            ArrayMeshData(
+                vertexCount = 12,
+                positionsData = floatBufferDataOf(
+                    0.13f, -0.57f, 0.05f, 0.10f, -0.55f, 0.00f, 0.10f, 0.55f, 0.00f,
+                    0.13f, -0.57f, 0.05f, 0.10f, 0.55f, 0.00f, 0.13f, 0.57f, 0.05f,
+                    0.13f, -0.20f, 0.05f, 0.13f, -0.57f, 0.05f, 0.13f, 0.57f, 0.05f,
+                    0.13f, 0.57f, 0.05f, 0.13f, 0.20f, 0.05f, 0.13f, -0.20f, 0.05f
+                ),
+                texCoordsData = floatBufferDataOf(
+                    0f, 0f, 0f, 0f, 0f, 0f,
+                    0f, 0f, 0f, 0f, 0f, 0f,
+                    0f, 0f, 0f, 0f, 0f, 0f,
+                    0f, 0f, 0f, 0f, 0f, 0f
+                ),
+                normalsData = floatBufferDataOf(
+                    1f, 0f, -1f, 1f, 0f, -1f, 1f, 0f, -1f,
+                    1f, 0f, -1f, 1f, 0f, -1f, 1f, 0f, -1f,
+                    1f, 0f, -1f, 1f, 0f, -1f, 1f, 0f, -1f,
+                    1f, 0f, -1f, 1f, 0f, -1f, 1f, 0f, -1f
+                ),
+                tangentsData = floatBufferDataOf(
+                    Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN,
+                    Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN,
+                    Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN,
+                    Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN
+                ),
+                bitangentsData = floatBufferDataOf(
+                    Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN,
+                    Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN,
+                    Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN,
+                    Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN, Float.NaN
+                )
+            ),
+            result
+        )
+    }
 }
