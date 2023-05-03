@@ -20,7 +20,6 @@ import graphics.glimpse.types.Vec3
 import graphics.glimpse.types.Vec4
 import graphics.glimpse.types.div
 import graphics.glimpse.types.minus
-import graphics.glimpse.types.one
 import kotlin.reflect.KClass
 
 /**
@@ -83,7 +82,7 @@ data class BSplineCurve4<T>(
         }
 
         if (knotIndex < minKnotIndex || knotIndex > maxKnotIndex) {
-            return Vec3.nullVector(this.type).toVec4(w = one(this.type))
+            return Vec3.nullVector(this.type).toRationalForm()
         }
 
         val points = this.controlPoints
@@ -106,9 +105,7 @@ data class BSplineCurve4<T>(
                     p1 = a.toVec3() * w1,
                     p2 = b.toVec3() * w2,
                     parameterValue = numerator / denominator
-                ).toVec4(
-                    w = one(this.type)
-                )
+                ).toRationalForm()
             },
             parameterValue = parameterValue,
             knotIndex = knotIndex,

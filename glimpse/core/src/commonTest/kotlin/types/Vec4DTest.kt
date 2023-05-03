@@ -68,12 +68,21 @@ class Vec4DTest {
     }
 
     @Test
-    fun `GIVEN a vector, WHEN toVec4, THEN return the a 3D vector`() {
+    fun `GIVEN a vector, WHEN toVec3, THEN return the a 3D vector`() {
         val vector = Vec4(x = 7.0, y = 13.0, z = 29.0, w = 31.0)
 
         val result = vector.toVec3()
 
         assertEquals(Vec3(x = 7.0, y = 13.0, z = 29.0), result)
+    }
+
+    @Test
+    fun `GIVEN a vector, WHEN toNonRationalForm, THEN return the a 3D vector divided by w`() {
+        val vector = Vec4(x = 7.0, y = 13.0, z = 29.0, w = 0.5)
+
+        val result = vector.toNonRationalForm()
+
+        assertEquals(Vec3(x = 14.0, y = 26.0, z = 58.0), result)
     }
 
     @Test

@@ -144,6 +144,12 @@ data class Vec3<T>(
         Vec4(x = this.x, y = this.y, z = this.z, w = w, type = this.type)
 
     /**
+     * Returns a 4D vector which is a rational form of this 3D vector.
+     */
+    fun toRationalForm(): Vec4<T> =
+        toVec4(w = one(this.type))
+
+    /**
      * Returns a 3D integer vector equal to this vector.
      *
      * Floating point values will be rounded.

@@ -18,7 +18,6 @@ package graphics.glimpse.geom
 
 import graphics.glimpse.types.Vec4
 import graphics.glimpse.types.div
-import graphics.glimpse.types.one
 import kotlin.reflect.KClass
 
 /**
@@ -64,8 +63,7 @@ data class BezierCurve4<T>(
                 val weightDenominator = linearInterpolation(a.w, b.w, parameterValue)
                 val w1 = a.w / weightDenominator
                 val w2 = b.w / weightDenominator
-                linearInterpolation(p1 = a.toVec3() * w1, p2 = b.toVec3() * w2, parameterValue)
-                    .toVec4(w = one(this.type))
+                linearInterpolation(p1 = a.toVec3() * w1, p2 = b.toVec3() * w2, parameterValue).toRationalForm()
             },
             parameterValue = parameterValue
         )
