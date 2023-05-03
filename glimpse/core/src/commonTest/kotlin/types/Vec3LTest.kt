@@ -174,6 +174,15 @@ class Vec3LTest {
     }
 
     @Test
+    fun `GIVEN a vector, WHEN toRationalForm, THEN return the a 4D vector with w equal to 1`() {
+        val vector = Vec3(x = 7L, y = 13L, z = 29L)
+
+        val result = vector.toRationalForm()
+
+        assertEquals(Vec4(x = 7L, y = 13L, z = 29L, w = 1L), result)
+    }
+
+    @Test
     fun `GIVEN a vector, WHEN toList, THEN return vector's coordinates as list`() {
         val vector = Vec3(x = 10L, y = 20L, z = 30L)
 

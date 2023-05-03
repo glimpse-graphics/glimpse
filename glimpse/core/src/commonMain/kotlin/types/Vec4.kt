@@ -86,6 +86,12 @@ data class Vec4<T>(
         Vec3(x = this.x, y = this.y, z = this.z, type = this.type)
 
     /**
+     * Returns a 3D vector equivalent to this rational form.
+     */
+    fun toNonRationalForm(): Vec3<T> =
+        Vec3(x = this.x / this.w, y = this.y / this.w, z = this.z / this.w, type = this.type)
+
+    /**
      * Returns a 4D integer vector equal to this vector.
      *
      * Floating point values will be rounded.

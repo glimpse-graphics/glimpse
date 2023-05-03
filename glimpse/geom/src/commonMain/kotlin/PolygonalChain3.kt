@@ -36,7 +36,14 @@ data class PolygonalChain3<T>(
      */
     val type: KClass<T>
 
-) where T : Number, T : Comparable<T>
+) where T : Number, T : Comparable<T> {
+
+    /**
+     * Returns the same 3D polygonal chain, but in rational form.
+     */
+    fun toRationalForm(): PolygonalChain4<T> =
+        PolygonalChain4(vertices = this.vertices.map { it.toRationalForm() }, type = this.type)
+}
 
 /**
  * Returns a new [PolygonalChain3] with given [vertices].
