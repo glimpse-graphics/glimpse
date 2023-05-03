@@ -19,7 +19,7 @@
 - Texture pixel type: `HALF_FLOAT`
 - Texture pixel formats: `DEPTH_STENCIL`, `RED` and `RG`
 - Texture internal formats: `RGB32F` and `RGBA32F`
-- Glimpse geometry library with basic geometric shapes
+- Glimpse geometry library with basic geometric shapes and curves
 - Glimpse testing library with delta assertions
 
 ### Changed
