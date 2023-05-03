@@ -25,6 +25,23 @@ import kotlin.test.assertEquals
 class BSplineCurve3DTest {
 
     @Test
+    fun `GIVEN a curve builder, WHEN build, THEN return a new curve`() {
+        val result = Curve3.Builder.getInstance<Double>()
+            .ofType(CurveType.B_SPLINE)
+            .withControlPoints(Vec3(x = 1.0, y = 2.0, z = 3.0), Vec3(x = 3.0, y = 4.0, z = 5.0))
+            .withKnots(0.0, 0.0, 1.0, 1.0)
+            .build()
+
+        assertEquals(
+            BSplineCurve3(
+                controlPoints = listOf(Vec3(x = 1.0, y = 2.0, z = 3.0), Vec3(x = 3.0, y = 4.0, z = 5.0)),
+                knots = listOf(0.0, 0.0, 1.0, 1.0)
+            ),
+            result
+        )
+    }
+
+    @Test
     fun `GIVEN a linear B-spline curve, WHEN get, THEN return linear interpolation of points P0 and P1`() {
         val curve = BSplineCurve3(
             controlPoints = listOf(Vec3(x = 1.0, y = 2.0, z = 3.0), Vec3(x = 3.0, y = 4.0, z = 5.0)),

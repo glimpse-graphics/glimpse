@@ -52,4 +52,55 @@ interface Curve3<T> where T : Number, T : Comparable<T> {
      * Returns projection of this curve on XY plane.
      */
     fun toCurve2(): Curve2<T>
+
+    /**
+     * Builder of curves in 3D space.
+     */
+    interface Builder<T> where T : Number, T : Comparable<T> {
+
+        /**
+         * Sets type of the curve.
+         */
+        fun ofType(curveType: CurveType): Builder<T>
+
+        /**
+         * Sets control points defining the curve.
+         */
+        fun withControlPoints(controlPoints: List<Vec3<T>>): Builder<T>
+
+        /**
+         * Sets control points defining the curve.
+         */
+        fun withControlPoints(vararg controlPoints: Vec3<T>): Builder<T>
+
+        /**
+         * Sets knots of the curve.
+         */
+        fun withKnots(knots: List<T>): Builder<T>
+
+        /**
+         * Sets knots of the curve.
+         */
+        fun withKnots(vararg knots: T): Builder<T>
+
+        /**
+         * Returns a new curve with provided configuration.
+         */
+        fun build(): Curve3<T>
+
+        companion object {
+
+            /**
+             * Gets a new instance of a 3D curve builder.
+             */
+            inline fun <reified T> getInstance(): Builder<T> where T : Number, T : Comparable<T> =
+                getInstance(T::class)
+
+            /**
+             * Gets a new instance of a 3D curve builder.
+             */
+            fun <T> getInstance(type: KClass<T>): Builder<T> where T : Number, T : Comparable<T> =
+                Curve3BuilderImpl(type)
+        }
+    }
 }
