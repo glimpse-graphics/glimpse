@@ -16,10 +16,6 @@
 
 package graphics.glimpse.geom.interpolation
 
-import graphics.glimpse.types.minus
-import graphics.glimpse.types.one
-import graphics.glimpse.types.plus
-import graphics.glimpse.types.times
 import kotlin.reflect.KClass
 
 /**
@@ -45,7 +41,7 @@ data class UniformLinearMultiInterpolator<T> (
      * Returns value interpolated between [a] and [b], at given [parameterValue].
      */
     override fun interpolate(a: T, b: T, parameterValue: T): T =
-        a * (one(this.type) - parameterValue) + b * parameterValue
+        linearInterpolation(a, b, parameterValue, type)
 }
 
 /**
