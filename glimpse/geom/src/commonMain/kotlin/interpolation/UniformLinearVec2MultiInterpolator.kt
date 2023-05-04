@@ -17,8 +17,6 @@
 package graphics.glimpse.geom.interpolation
 
 import graphics.glimpse.types.Vec2
-import graphics.glimpse.types.minus
-import graphics.glimpse.types.one
 import kotlin.reflect.KClass
 
 /**
@@ -44,7 +42,7 @@ data class UniformLinearVec2MultiInterpolator<T> (
      * Returns vector interpolated between [a] and [b], at given [parameterValue].
      */
     override fun interpolate(a: Vec2<T>, b: Vec2<T>, parameterValue: T): Vec2<T> =
-        a * (one(this.type) - parameterValue) + b * parameterValue
+        linearInterpolation(a, b, parameterValue, type)
 }
 
 /**
