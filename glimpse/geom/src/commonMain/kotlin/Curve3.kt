@@ -32,6 +32,11 @@ interface Curve3<T> where T : Number, T : Comparable<T> {
     val degree: Int
 
     /**
+     * Control points defining this curve.
+     */
+    val controlPoints: List<Vec3<T>>
+
+    /**
      * Type of coordinates in this curve.
      */
     val type: KClass<T>

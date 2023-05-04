@@ -32,7 +32,7 @@ data class BSplineCurve4<T>(
     /**
      * Control points of this curve.
      */
-    val controlPoints: List<Vec4<T>>,
+    override val controlPoints: List<Vec4<T>>,
 
     /**
      * Knots of this curve.

@@ -30,7 +30,7 @@ data class BezierCurve4<T>(
     /**
      * Control points defining this curve.
      */
-    val controlPoints: List<Vec4<T>>,
+    override val controlPoints: List<Vec4<T>>,
 
     /**
      * Type of coordinates in this curve.
