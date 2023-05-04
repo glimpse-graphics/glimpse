@@ -29,7 +29,7 @@ data class BezierCurve2<T>(
     /**
      * Control points defining this curve.
      */
-    val controlPoints: List<Vec2<T>>,
+    override val controlPoints: List<Vec2<T>>,
 
     /**
      * Type of coordinates in this curve.

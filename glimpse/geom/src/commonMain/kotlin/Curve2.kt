@@ -32,6 +32,11 @@ interface Curve2<T> where T : Number, T : Comparable<T> {
     val degree: Int
 
     /**
+     * Control points defining this curve.
+     */
+    val controlPoints: List<Vec2<T>>
+
+    /**
      * Type of coordinates in this curve.
      */
     val type: KClass<T>
@@ -52,4 +57,55 @@ interface Curve2<T> where T : Number, T : Comparable<T> {
      * Returns this curve, but defined in 3D space.
      */
     fun toCurve3(): Curve3<T>
+
+    /**
+     * Builder of curves in 2D space.
+     */
+    interface Builder<T> where T : Number, T : Comparable<T> {
+
+        /**
+         * Sets type of the curve.
+         */
+        fun ofType(curveType: CurveType): Builder<T>
+
+        /**
+         * Sets control points defining the curve.
+         */
+        fun withControlPoints(controlPoints: List<Vec2<T>>): Builder<T>
+
+        /**
+         * Sets control points defining the curve.
+         */
+        fun withControlPoints(vararg controlPoints: Vec2<T>): Builder<T>
+
+        /**
+         * Sets knots of the curve.
+         */
+        fun withKnots(knots: List<T>): Builder<T>
+
+        /**
+         * Sets knots of the curve.
+         */
+        fun withKnots(vararg knots: T): Builder<T>
+
+        /**
+         * Returns a new curve with provided configuration.
+         */
+        fun build(): Curve2<T>
+
+        companion object {
+
+            /**
+             * Gets a new instance of a 2D curve builder.
+             */
+            inline fun <reified T> getInstance(): Builder<T> where T : Number, T : Comparable<T> =
+                getInstance(T::class)
+
+            /**
+             * Gets a new instance of a 2D curve builder.
+             */
+            fun <T> getInstance(type: KClass<T>): Builder<T> where T : Number, T : Comparable<T> =
+                Curve2BuilderImpl(type)
+        }
+    }
 }

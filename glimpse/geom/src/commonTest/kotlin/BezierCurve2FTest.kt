@@ -19,8 +19,19 @@ package graphics.glimpse.geom
 import graphics.glimpse.testing.assertEqualsWithDelta
 import graphics.glimpse.types.Vec2
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class BezierCurve2FTest {
+
+    @Test
+    fun `GIVEN a curve builder, WHEN build, THEN return a new curve`() {
+        val result = Curve2.Builder.getInstance<Float>()
+            .ofType(CurveType.BEZIER)
+            .withControlPoints(Vec2(x = 1.0f, y = 2.0f), Vec2(x = 3.0f, y = 4.0f))
+            .build()
+
+        assertEquals(BezierCurve2(Vec2(x = 1.0f, y = 2.0f), Vec2(x = 3.0f, y = 4.0f)), result)
+    }
 
     @Test
     fun `GIVEN a Bezier curve of degree 0, WHEN get, THEN return point P0`() {

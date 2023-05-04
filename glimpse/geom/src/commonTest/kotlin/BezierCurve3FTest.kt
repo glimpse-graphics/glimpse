@@ -25,6 +25,16 @@ import kotlin.test.assertEquals
 class BezierCurve3FTest {
 
     @Test
+    fun `GIVEN a curve builder, WHEN build, THEN return a new curve`() {
+        val result = Curve3.Builder.getInstance<Float>()
+            .ofType(CurveType.BEZIER)
+            .withControlPoints(Vec3(x = 1.0f, y = 2.0f, z = 3.0f), Vec3(x = 3.0f, y = 4.0f, z = 5.0f))
+            .build()
+
+        assertEquals(BezierCurve3(Vec3(x = 1.0f, y = 2.0f, z = 3.0f), Vec3(x = 3.0f, y = 4.0f, z = 5.0f)), result)
+    }
+
+    @Test
     fun `GIVEN a Bezier curve of degree 0, WHEN get, THEN return point P0`() {
         val curve = BezierCurve3(Vec3(x = 1.0f, y = 2.0f, z = 3.0f))
         val parameterValue = 0.38472f
