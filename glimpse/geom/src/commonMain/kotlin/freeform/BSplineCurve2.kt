@@ -75,7 +75,11 @@ data class BSplineCurve2<T>(
         val minKnotIndex = degree
         val maxKnotIndex = knots.size - (degree + 1)
 
-        val knotIndex = knots.zipWithNext().indexOfFirst { (a, b) -> a <= parameterValue && parameterValue < b }
+        val knotIndex = if (parameterValue == knots[maxKnotIndex + 1]) {
+            maxKnotIndex
+        } else {
+            knots.zipWithNext().indexOfFirst { (a, b) -> a <= parameterValue && parameterValue < b }
+        }
 
         if (knotIndex < minKnotIndex || knotIndex > maxKnotIndex) {
             return Vec2.nullVector(this.type)
