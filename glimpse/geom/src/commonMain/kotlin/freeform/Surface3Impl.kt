@@ -17,7 +17,6 @@
 package graphics.glimpse.geom.freeform
 
 import graphics.glimpse.geom.interpolation.UniformLinearVec2MultiInterpolator
-import graphics.glimpse.geom.interpolation.UniformLinearVec3MultiInterpolator
 import graphics.glimpse.meshes.ArrayMeshData
 import graphics.glimpse.meshes.MeshDataBuilder
 import graphics.glimpse.types.Vec2
@@ -56,14 +55,15 @@ internal data class Surface3Impl<T>(
             }
     }
 
-    private val scaffoldingNormals: List<UniformLinearVec3MultiInterpolator<T>> by lazy {
+    private val scaffoldingNormalCurves: List<Curve3<T>> by lazy {
         controlVertices
             .chunked(size = degree.u + 1)
             .map { vertices ->
-                UniformLinearVec3MultiInterpolator(
-                    values = vertices.map { vertex -> vertex.normal },
-                    type = this.type
-                )
+                Curve3.Builder.getInstance(this.type)
+                    .ofType(freeformType)
+                    .withControlPoints(vertices.map { it.normal })
+                    .withKnots(knotsU)
+                    .build()
             }
     }
 
@@ -86,10 +86,11 @@ internal data class Surface3Impl<T>(
                 values = scaffoldingTextureCoordinates.map { it[u] },
                 type = this.type
             )
-            val normalsU = UniformLinearVec3MultiInterpolator(
-                values = scaffoldingNormals.map { it[u] },
-                type = this.type
-            )
+            val normalsU = Curve3.Builder.getInstance(this.type)
+                .ofType(freeformType)
+                .withControlPoints(scaffoldingNormalCurves.map { it[u] })
+                .withKnots(knotsV)
+                .build()
 
             for (v in parameterValuesV) {
                 builder.addVertex(curveU[v].toFloatVector())
