@@ -17,7 +17,6 @@
 package graphics.glimpse.geom.freeform
 
 import graphics.glimpse.geom.interpolation.linearInterpolation
-import graphics.glimpse.types.Vec3
 import graphics.glimpse.types.Vec4
 import graphics.glimpse.types.div
 import graphics.glimpse.types.minus
@@ -76,15 +75,9 @@ data class BSplineCurve4<T>(
         val minKnotIndex = degree
         val maxKnotIndex = knots.size - (degree + 1)
 
-        val knotIndex = if (parameterValue == knots[maxKnotIndex + 1]) {
-            maxKnotIndex
-        } else {
-            knots.zipWithNext().indexOfFirst { (a, b) -> a <= parameterValue && parameterValue < b }
-        }
-
-        if (knotIndex < minKnotIndex || knotIndex > maxKnotIndex) {
-            return Vec3.nullVector(this.type).toRationalForm()
-        }
+        val knotIndex = knots.zipWithNext()
+            .indexOfFirst { (a, b) -> a <= parameterValue && parameterValue < b }
+            .coerceIn(minKnotIndex, maxKnotIndex)
 
         val points = this.controlPoints
             .drop(n = knotIndex - degree)
