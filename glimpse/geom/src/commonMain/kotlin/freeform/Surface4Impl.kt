@@ -124,10 +124,10 @@ internal data class Surface4Impl<T>(
         for (u in 1 until uSize) {
             for (v in 1 until vSize) {
                 val indices = listOf(
-                    uSize * (v - 1) + u - 1,
                     uSize * (v - 1) + u,
-                    uSize * v + u,
+                    uSize * (v - 1) + u - 1,
                     uSize * v + u - 1,
+                    uSize * v + u
                 )
                 builder.addFace(
                     indices = indices.map { index ->
