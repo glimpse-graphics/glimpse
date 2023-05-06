@@ -73,6 +73,14 @@ internal data class Surface3Impl<T>(
             }
     }
 
+    init {
+        val expectedControlVerticesSize = gridSize.u * gridSize.v
+        val actualControlVerticesSize = controlVertices.size
+        require(expectedControlVerticesSize == actualControlVerticesSize) {
+            "Invalid number of control points. Expected $expectedControlVerticesSize, got $actualControlVerticesSize"
+        }
+    }
+
     override fun get(parametersValues: Vec2<T>): Vec3<T> =
         getCurve(parametersValues.u)[parametersValues.v]
 
@@ -111,10 +119,10 @@ internal data class Surface3Impl<T>(
         for (u in 1 until uSize) {
             for (v in 1 until vSize) {
                 val indices = listOf(
-                    uSize * (v - 1) + u,
-                    uSize * (v - 1) + u - 1,
-                    uSize * v + u - 1,
-                    uSize * v + u
+                    vSize * (u - 1) + v,
+                    vSize * (u - 1) + v - 1,
+                    vSize * u + v - 1,
+                    vSize * u + v
                 )
                 builder.addFace(
                     indices = indices.map { index ->
