@@ -33,13 +33,14 @@ internal data class Surface4Impl<T>(
     override val type: KClass<T>
 ) : Surface4<T> where T : Number, T : Comparable<T> {
 
+    override val gridSize: Vec2<Int>
+        get() = when (freeformType) {
+            FreeformType.BEZIER -> Vec2(x = degree.u + 1, y = degree.v + 1)
+            FreeformType.B_SPLINE -> Vec2(x = knotsU.size - degree.u - 1, y = knotsV.size - degree.v - 1)
+        }
+
     private val chunkedControlVertices: List<List<ControlVertex4<T>>> =
-        controlVertices.chunked(
-            size = when (freeformType) {
-                FreeformType.BEZIER -> degree.u + 1
-                FreeformType.B_SPLINE -> knotsU.size - degree.u - 1
-            }
-        )
+        controlVertices.chunked(size = gridSize.u)
 
     private val scaffoldingCurves: List<Curve4<T>> by lazy {
         chunkedControlVertices

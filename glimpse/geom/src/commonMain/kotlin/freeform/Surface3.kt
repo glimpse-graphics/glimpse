@@ -34,6 +34,11 @@ interface Surface3<T> where T : Number, T : Comparable<T> {
     val degree: Vec2<Int>
 
     /**
+     * Size of the control points grid of this surface.
+     */
+    val gridSize: Vec2<Int>
+
+    /**
      * Control vertices of this surface.
      */
     val controlVertices: List<ControlVertex3<T>>
