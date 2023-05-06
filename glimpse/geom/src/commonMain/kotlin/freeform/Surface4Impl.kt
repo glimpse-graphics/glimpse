@@ -33,9 +33,16 @@ internal data class Surface4Impl<T>(
     override val type: KClass<T>
 ) : Surface4<T> where T : Number, T : Comparable<T> {
 
+    private val chunkedControlVertices: List<List<ControlVertex4<T>>> =
+        controlVertices.chunked(
+            size = when (freeformType) {
+                FreeformType.BEZIER -> degree.u + 1
+                FreeformType.B_SPLINE -> knotsU.size - degree.u - 1
+            }
+        )
+
     private val scaffoldingCurves: List<Curve4<T>> by lazy {
-        controlVertices
-            .chunked(size = degree.u + 1)
+        chunkedControlVertices
             .map { vertices ->
                 Curve4.Builder.getInstance(this.type)
                     .ofType(freeformType)
@@ -46,8 +53,7 @@ internal data class Surface4Impl<T>(
     }
 
     private val scaffoldingWeights: List<UniformLinearMultiInterpolator<T>> by lazy {
-        controlVertices
-            .chunked(size = degree.u + 1)
+        chunkedControlVertices
             .map { vertices ->
                 UniformLinearMultiInterpolator(
                     values = vertices.map { vertex ->
@@ -59,8 +65,7 @@ internal data class Surface4Impl<T>(
     }
 
     private val scaffoldingTextureCoordinates: List<UniformLinearVec2MultiInterpolator<T>> by lazy {
-        controlVertices
-            .chunked(size = degree.u + 1)
+        chunkedControlVertices
             .map { vertices ->
                 UniformLinearVec2MultiInterpolator(
                     values = vertices.map { vertex -> vertex.textureCoordinates },
@@ -70,8 +75,7 @@ internal data class Surface4Impl<T>(
     }
 
     private val scaffoldingNormalCurves: List<Curve3<T>> by lazy {
-        controlVertices
-            .chunked(size = degree.u + 1)
+        chunkedControlVertices
             .map { vertices ->
                 Curve3.Builder.getInstance(this.type)
                     .ofType(freeformType)
