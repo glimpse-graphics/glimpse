@@ -32,9 +32,16 @@ internal data class Surface3Impl<T>(
     override val type: KClass<T>
 ) : Surface3<T> where T : Number, T : Comparable<T> {
 
+    private val chunkedControlVertices: List<List<ControlVertex3<T>>> =
+        controlVertices.chunked(
+            size = when (freeformType) {
+                FreeformType.BEZIER -> degree.u + 1
+                FreeformType.B_SPLINE -> knotsU.size - degree.u - 1
+            }
+        )
+
     private val scaffoldingCurves: List<Curve3<T>> by lazy {
-        controlVertices
-            .chunked(size = degree.u + 1)
+        chunkedControlVertices
             .map { vertices ->
                 Curve3.Builder.getInstance(this.type)
                     .ofType(freeformType)
@@ -45,8 +52,7 @@ internal data class Surface3Impl<T>(
     }
 
     private val scaffoldingTextureCoordinates: List<UniformLinearVec2MultiInterpolator<T>> by lazy {
-        controlVertices
-            .chunked(size = degree.u + 1)
+        chunkedControlVertices
             .map { vertices ->
                 UniformLinearVec2MultiInterpolator(
                     values = vertices.map { vertex -> vertex.textureCoordinates },
@@ -56,8 +62,7 @@ internal data class Surface3Impl<T>(
     }
 
     private val scaffoldingNormalCurves: List<Curve3<T>> by lazy {
-        controlVertices
-            .chunked(size = degree.u + 1)
+        chunkedControlVertices
             .map { vertices ->
                 Curve3.Builder.getInstance(this.type)
                     .ofType(freeformType)
@@ -105,10 +110,10 @@ internal data class Surface3Impl<T>(
         for (u in 1 until uSize) {
             for (v in 1 until vSize) {
                 val indices = listOf(
-                    uSize * (v - 1) + u - 1,
                     uSize * (v - 1) + u,
-                    uSize * v + u,
+                    uSize * (v - 1) + u - 1,
                     uSize * v + u - 1,
+                    uSize * v + u
                 )
                 builder.addFace(
                     indices = indices.map { index ->
