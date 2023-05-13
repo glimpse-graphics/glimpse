@@ -16,7 +16,6 @@
 
 package graphics.glimpse.geom.freeform
 
-import graphics.glimpse.meshes.ArrayMeshData
 import graphics.glimpse.types.Vec2
 import graphics.glimpse.types.Vec3
 import kotlin.reflect.KClass
@@ -26,17 +25,7 @@ import kotlin.reflect.KClass
  *
  * @since v2.0.0
  */
-interface Surface3<T> where T : Number, T : Comparable<T> {
-
-    /**
-     * Degree of this surface.
-     */
-    val degree: Vec2<Int>
-
-    /**
-     * Size of the control points grid of this surface.
-     */
-    val gridSize: Vec2<Int>
+interface Surface3<T> : Surface<T> where T : Number, T : Comparable<T> {
 
     /**
      * Control vertices of this surface.
@@ -44,22 +33,9 @@ interface Surface3<T> where T : Number, T : Comparable<T> {
     val controlVertices: List<ControlVertex3<T>>
 
     /**
-     * Type of coordinates in this surface.
-     */
-    val type: KClass<T>
-
-    /**
      * Returns point on this surface at given [parametersValues].
      */
     operator fun get(parametersValues: Vec2<T>): Vec3<T>
-
-    /**
-     * Returns array mesh data for this surface.
-     *
-     * Vertices in the mesh data will be calculated at given parameter values
-     * in the directions [U][parameterValuesU] and [V][parameterValuesV].
-     */
-    fun toMeshData(parameterValuesU: List<T>, parameterValuesV: List<T>): ArrayMeshData
 
     /**
      * Builder of surfaces in 3D space.

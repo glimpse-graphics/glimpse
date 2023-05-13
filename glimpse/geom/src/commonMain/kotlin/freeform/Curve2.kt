@@ -17,6 +17,7 @@
 package graphics.glimpse.geom.freeform
 
 import graphics.glimpse.geom.PolygonalChain2
+import graphics.glimpse.geom.interpolation.Interpolator
 import graphics.glimpse.types.Vec2
 import kotlin.reflect.KClass
 
@@ -53,6 +54,11 @@ interface Curve2<T> where T : Number, T : Comparable<T> {
      * Vertices of the new polygonal chain will be calculated at given [parameterValues].
      */
     fun toPolygonalChain(parameterValues: Sequence<T>): PolygonalChain2<T>
+
+    /**
+     * Returns an interpolator using points on this curve as values.
+     */
+    fun toInterpolator(): Interpolator<T, Vec2<T>>
 
     /**
      * Returns this curve, but defined in 3D space.

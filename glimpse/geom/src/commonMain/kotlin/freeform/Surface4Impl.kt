@@ -16,28 +16,23 @@
 
 package graphics.glimpse.geom.freeform
 
+import graphics.glimpse.geom.interpolation.Interpolator
 import graphics.glimpse.geom.interpolation.UniformLinearMultiInterpolator
 import graphics.glimpse.geom.interpolation.UniformLinearVec2MultiInterpolator
-import graphics.glimpse.meshes.ArrayMeshData
-import graphics.glimpse.meshes.MeshDataBuilder
+import graphics.glimpse.geom.interpolation.map
 import graphics.glimpse.types.Vec2
+import graphics.glimpse.types.Vec3
 import graphics.glimpse.types.Vec4
 import kotlin.reflect.KClass
 
-internal data class Surface4Impl<T>(
-    private val freeformType: FreeformType,
-    override val degree: Vec2<Int>,
+internal class Surface4Impl<T>(
+    freeformType: FreeformType,
+    degree: Vec2<Int>,
     override val controlVertices: List<ControlVertex4<T>>,
-    private val knotsU: List<T>,
-    private val knotsV: List<T>,
-    override val type: KClass<T>
-) : Surface4<T> where T : Number, T : Comparable<T> {
-
-    override val gridSize: Vec2<Int>
-        get() = when (freeformType) {
-            FreeformType.BEZIER -> Vec2(x = degree.u + 1, y = degree.v + 1)
-            FreeformType.B_SPLINE -> Vec2(x = knotsU.size - degree.u - 1, y = knotsV.size - degree.v - 1)
-        }
+    knotsU: List<T>,
+    knotsV: List<T>,
+    type: KClass<T>
+) : BaseSurface<T>(freeformType, degree, knotsU, knotsV, type), Surface4<T> where T : Number, T : Comparable<T> {
 
     private val chunkedControlVertices: List<List<ControlVertex4<T>>> =
         controlVertices.chunked(size = gridSize.u)
@@ -65,26 +60,7 @@ internal data class Surface4Impl<T>(
             }
     }
 
-    private val scaffoldingTextureCoordinates: List<UniformLinearVec2MultiInterpolator<T>> by lazy {
-        chunkedControlVertices
-            .map { vertices ->
-                UniformLinearVec2MultiInterpolator(
-                    values = vertices.map { vertex -> vertex.textureCoordinates },
-                    type = this.type
-                )
-            }
-    }
-
-    private val scaffoldingNormalCurves: List<Curve3<T>> by lazy {
-        chunkedControlVertices
-            .map { vertices ->
-                Curve3.Builder.getInstance(this.type)
-                    .ofType(freeformType)
-                    .withControlPoints(vertices.map { it.normal })
-                    .withKnots(knotsU)
-                    .build()
-            }
-    }
+    override val helper: SurfaceHelper<T> by lazy { Surface4Helper() }
 
     init {
         val expectedControlVerticesSize = gridSize.u * gridSize.v
@@ -97,7 +73,7 @@ internal data class Surface4Impl<T>(
     override fun get(parametersValues: Vec2<T>): Vec4<T> =
         getCurve(parametersValues.u)[parametersValues.v]
 
-    private fun getCurve(parameterValueU: T): Curve4<T> =
+    internal fun getCurve(parameterValueU: T): Curve4<T> =
         Curve4.Builder.getInstance(this.type)
             .ofType(freeformType)
             .withControlPoints(
@@ -109,47 +85,47 @@ internal data class Surface4Impl<T>(
             .withKnots(knotsV)
             .build()
 
-    override fun toMeshData(parameterValuesU: List<T>, parameterValuesV: List<T>): ArrayMeshData {
-        val builder = MeshDataBuilder()
+    override fun createTriangulation(parameterValuesU: List<T>, parameterValuesV: List<T>): SurfaceTriangulation<T> =
+        GridSurfaceTriangulation(surface = this, parameterValuesU, parameterValuesV)
 
-        for (u in parameterValuesU) {
-            val curveU = getCurve(u)
-            val textureCoordinatesU = UniformLinearVec2MultiInterpolator(
-                values = scaffoldingTextureCoordinates.map { it[u] },
-                type = this.type
+    private inner class Surface4Helper : SurfaceHelper<T> {
+
+        private val scaffoldingTextureCoordinates: List<Interpolator<T, Vec2<T>>> by lazy {
+            chunkedControlVertices
+                .map { vertices ->
+                    UniformLinearVec2MultiInterpolator(
+                        values = vertices.map { vertex -> vertex.textureCoordinates },
+                        type = type
+                    )
+                }
+        }
+
+        private val scaffoldingNormalCurves: List<Curve3<T>> by lazy {
+            chunkedControlVertices
+                .map { vertices ->
+                    Curve3.Builder.getInstance(type)
+                        .ofType(freeformType)
+                        .withControlPoints(vertices.map { it.normal })
+                        .withKnots(knotsU)
+                        .build()
+                }
+        }
+
+        override fun getPositions(parameterValueU: T): Interpolator<T, Vec3<T>> =
+            getCurve(parameterValueU).toInterpolator().map { it.toNonRationalForm() }
+
+        override fun getTextureCoordinates(parameterValueU: T): Interpolator<T, Vec2<T>> =
+            UniformLinearVec2MultiInterpolator(
+                values = scaffoldingTextureCoordinates.map { it[parameterValueU] },
+                type = type
             )
-            val normalsU = Curve3.Builder.getInstance(this.type)
+
+        override fun getNormals(parameterValueU: T): Interpolator<T, Vec3<T>> =
+            Curve3.Builder.getInstance(type)
                 .ofType(freeformType)
-                .withControlPoints(scaffoldingNormalCurves.map { it[u] })
+                .withControlPoints(scaffoldingNormalCurves.map { it[parameterValueU] })
                 .withKnots(knotsV)
                 .build()
-
-            for (v in parameterValuesV) {
-                builder.addVertex(curveU[v].toFloatVector().toNonRationalForm())
-                builder.addTextureCoordinates(textureCoordinatesU[v].toFloatVector())
-                builder.addNormal(normalsU[v].toFloatVector())
-            }
-        }
-
-        val uSize = parameterValuesU.size
-        val vSize = parameterValuesV.size
-
-        for (u in 1 until uSize) {
-            for (v in 1 until vSize) {
-                val indices = listOf(
-                    vSize * (u - 1) + v,
-                    vSize * (u - 1) + v - 1,
-                    vSize * u + v - 1,
-                    vSize * u + v
-                )
-                builder.addFace(
-                    indices = indices.map { index ->
-                        MeshDataBuilder.FaceVertex(index, index, index)
-                    }
-                )
-            }
-        }
-
-        return builder.buildArrayMeshData()
+                .toInterpolator()
     }
 }

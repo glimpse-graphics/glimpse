@@ -17,6 +17,9 @@
 package graphics.glimpse.geom.freeform
 
 import graphics.glimpse.geom.PolygonalChain2
+import graphics.glimpse.geom.interpolation.Curve2Interpolator
+import graphics.glimpse.geom.interpolation.Interpolator
+import graphics.glimpse.types.Vec2
 
 /**
  * Base implementation of curve in 2D space.
@@ -35,4 +38,10 @@ abstract class BaseCurve2<T> : Curve2<T> where T : Number, T : Comparable<T> {
             vertices = parameterValues.map { this[it] }.toList(),
             type = this.type
         )
+
+    /**
+     * Returns an interpolator using points on this curve as values.
+     */
+    override fun toInterpolator(): Interpolator<T, Vec2<T>> =
+        Curve2Interpolator(curve = this)
 }
