@@ -17,6 +17,9 @@
 package graphics.glimpse.geom.freeform
 
 import graphics.glimpse.geom.PolygonalChain3
+import graphics.glimpse.geom.interpolation.Curve3Interpolator
+import graphics.glimpse.geom.interpolation.Interpolator
+import graphics.glimpse.types.Vec3
 
 /**
  * Base implementation of curve in 3D space.
@@ -35,4 +38,10 @@ abstract class BaseCurve3<T> : Curve3<T> where T : Number, T : Comparable<T> {
             vertices = parameterValues.map { this[it] }.toList(),
             type = this.type
         )
+
+    /**
+     * Returns an interpolator using points on this curve as values.
+     */
+    override fun toInterpolator(): Interpolator<T, Vec3<T>> =
+        Curve3Interpolator(curve = this)
 }
